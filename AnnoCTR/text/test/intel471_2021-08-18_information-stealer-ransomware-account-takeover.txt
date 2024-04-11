@@ -1,0 +1,46 @@
+Here’s how information stealers pose a threat beyond ransomware
+Aug 18, 2021
+Ransomware is a top threat that security teams should be tailoring their systems to defend against.
+But in order to do so, they may need to look further than the ransomware itself.
+And by widening that scope, these teams may protect their enterprise beyond the damage that ransomware can cause.
+The activity that Intel 471 analysts observe on the cybercrime underground has changed a bit with the rise of ransomware.
+Malware that has been used for traditional fraud schemes — particularly information stealers — has also been co-opted into the cycle of ransomware campaigns.
+While serving a reliable method for criminals to obtain credentials tied to financial accounts, they are now using information stealers to also go after corporate remote network login credentials, like virtual private networks (VPNs) or remote desktop software.
+A key thing to understand with regard to information stealers is that they all don’t operate in the same way.
+This malware class falls along a spectrum: there are some tried-and-true information stealers that have been in use for years, and some growing in popularity that have only been released in the past few weeks.
+Some versions may be solely dedicated to prying credentials away from your workforce, while others may give attackers modules that allow them to fine-tune their attack and possibly introduce longer-term attacks, like ransomware.
+Of the info stealers that Intel 471 tracks, about half are modular in nature.
+Those that have modular capabilities also give attackers a chance to do the following:
+* Intercept data entered into forms in the browser and send them to a malware control server (data exfiltration)
+* Install other software for malicious use, such as Cobalt Strike (for lateral movement)
+* Perform distributed denial of service (DDoS) attacks against different resources, such as a domain or IP address (website downtime)
+* Launch a "stealth" TeamViewer module that allows remote access to an infected machine (specific targeting)
+* Drop cryptominers that work to mine cryptocurrency such as Monero (steal computing resources)
+Taking the concept a bit further, criminals have also worked information stealers into bigger malware platforms.
+Despite efforts to [dismantle Trickbot’s entire infrastructure](https://intel471.com/blog/trickbot-update-november-2020-bazar-loader-microsoft) in October 2020, We’ve seen updated plug-ins that enable the infamous modular malware platform to handle web injections that look to siphon credentials.
+The configuration has been issued to every Trickbot version still in use.
+Additionally, we’ve seen criminals use [malicious document builder EtterSilent](https://intel471.com/blog/ettersilent-maldoc-builder-macro-trickbot-qbot) to spread Trickbot, giving them yet another way to steal enterprise credentials.
+Some ransomware crews have looked to own their own “brand” of information stealers in an attempt to build custom tools that can assist them with a number of different things, including ways to evade anti-malware products.
+In October 2020, a known account on a well-known cybercrime forum linked to the REvil ransomware gang placed a bid for the source code to the KPOT info stealer.
+While Intel 471 cannot definitively say that the code was awarded to the account, it was the only bid placed and the auction was closed shortly thereafter.
+Even with the uptick in ransomware-related activity, Intel 471 is still observing criminals trying to use information stealers to gain access to people’s bank accounts.
+With mobile banking becoming increasingly prevalent, especially in the form of online-only banking, attackers have developed malware specifically targeting this form of financial services.
+We’ve observed actors advertising web injects that target a host of different banks, including those that specialize in online-only banking.
+Focusing strictly on the Android operating system, one actor claimed to have over web injections for 400 different banks.
+Other actors could purchase “packs” of injects for $25, or purchase the entire library for $3,000.
+Just as criminals behind information stealers continue to update their wares, law enforcement continues to arrest those trying to use this malware.
+While law enforcement does what it can, it often does not move at the speed of technology.
+Those behind information stealers can cause your organization a world of pain before contact with police can be made.
+So here’s what your security team can do to defend itself against this type of malware:
+* **Identity and access management**: When it comes to information stealers, criminals are by-and-large looking for credentials.
+The best way to defend against credential abuse is through the use of multi-factor authentication.
+Whether it is a hardware token, a mobile application, or some hybrid of the two, adding another level of verification to your organization’s credentials can save you time, money and agony.
+* **Behavioral firewalls:** Even the best MFA plan isn’t going to help if your employees come across a malicious attachment in a phishing email or a socially-engineered message on social media.
+Look into SPF/DKIM/DMARC for your email services and link shims to protect your workforce from spoofed domains.
+* **Inventory management:** Have an inventory of what network equipment, devices and software are being used on your systems.
+If you are suddenly seeing logins from Apple devices, and you know that you are solely running Windows machines, it should send up a flag that something is amiss.
+* **Organizational buy-in:** To those not in the cybersecurity trenches, opting for convenience over security is going to be the default mindset.
+It is upon you, your security team, and other leaders to find a way to institute a program that clicks with your workforce, while also allowing them to get their job done as efficiently as possible.
+While security teams may be laser-focused on preventing a ransomware attack causing a total lockdown of their IT systems, putting other forms of malware on the back burner could leave your enterprise with a serious security problem.
+Information stealers provide a way for hackers of all skill-levels to steal materials that could cause irreparable damage to your organization.
+Be it a relative novice or a veteran crew, account takeovers still present a solid revenue stream for anyone who wants to engage in illegal activities, as well as being the key enabler of ransomware attacks.

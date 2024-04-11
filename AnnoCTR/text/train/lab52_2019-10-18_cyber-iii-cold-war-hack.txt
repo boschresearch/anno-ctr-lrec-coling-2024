@@ -1,0 +1,72 @@
+(Cyber) III Cold War: Hack the vote?
+October 18, 2019
+As you now, the DHS (Department of Homeland Security) along with the ODNI (Office of the Director of National Intelligence) [formally accused](https://www.odni.gov/index.php/newsroom/press-releases/215-press-releases-2016/1423-joint-dhs-odni-election-security-statement) Russia of meddling in the past US presidential elections with techniques from the burning information warfare and various cyberattacks.
+Let’s take a (somewhat delayed) look at this.
+![This image has an empty alt attribute; its file name is imagen1post.png]
+(https://www.securityartwork.es/wp-content/uploads/2016/10/imagen1post.png)
+It is not the first time that USA launches accusations of this caliber, it did so when it accused China of stealing trade secrets in 2014.
+An accusation of this kind could involve, officially or unofficially, attacks on Russian IT infrastructures that posed a headache for Putin and his allies.
+[According to statements in the NYT](http://www.nytimes.com/2016/10/09/us/politics/what-options-does-the-us-have-after-accusing-russia-of-hacks.html?_r=1)  taking this type of action would involve too much risk with elections less than a month away; cyberattacks by a power like Russia against the US electronic voting system could wreak havoc.
+It should also be noted that the electoral system is still not considered a critical infrastructure of the nation, although it may increase their criticality shortly.
+As we told you in the first issue of this saga [(in spanish)](https://www.securityartwork.es/2015/10/20/cyber-guerra-fria-i-ataque-a-tv5monde/), Russia, like other States, has (always supposedly) conducted PSYOP (Psychological Operations) to misinform, to create confusion or discord for the sake of their own benefit, and that includes operations in cyberspace.
+Historically, Russia is an expert in the use of information for personal gain (just study propaganda operations of Spetsnaz).
+Events, among others, like the parliamentary elections in Ukraine in 2007, the Ukraine-Russia gas dispute in 2005, [the power outage](https://www.securityartwork.es/2016/02/23/the-blackout-revisited/) the Ukraine experienced earlier this year or the Russian-Chechen conflict manifest the (obvious and known) Russian interest in its geographical area of influence, actions allegedly attributed to **APT28** which we discussed in the second issue of this saga [(in spanish)](https://www.securityartwork.es/2016/07/19/cyber-guerra-fria-ii-grupo-sofacy/).
+Returning to the other side of the pond … recently in Illinois there was an intrusion into the electoral electronic system which involved **the theft of 200,000 voters’ registers**.
+The same happened in Arizona, but it seems that despite having suffered a similar intrusion they failed to filter information.
+The White House Press Secretary, Josh Earnest, [explained](https://www.whitehouse.gov/the-press-office/2016/08/30/press-briefing-press-secretary-josh-earnest-8302016)  that the attack was under investigation, though back then they did not dare ensure which government or criminal group could be behind the attack.
+![](https://www.securityartwork.es/wp-content/uploads/2016/10/imagen2post.png)
+The (dis) information is power
+------------------------------
+The ‘Russian presence’ has been hanging around for months around the American electoral environment.
+This summer, Wikileaks published about 20,000 emails stolen from officers of the Democratic National Committee, [many of them embarrassing]
+(http://theduran.com/julian-assange-says-1700-emails-hillary-clintons-collection-proves-sold-weapons-isis-syria/).
+This leak cost the resignation of the president of the Democratic Party, damaged (and continues to…) the reputation of Clinton’s entourage, and caused them to be accused (between racks) of the attack on the Russian intelligence, as published in
+‘[The Washington Post]
+(https://www.washingtonpost.com/politics/hacked-emails-cast-doubt-on-hopes-for-party-unity-at-democratic-convention/2016/07/24/a446c260-51a9-11e6-b7de-dfe509430c39_story.html?hpid=hp_hp-top-table-main_campaign-132pm%3Ahomepage%2Fstory)‘ and
+‘[The New York Times]
+(http://www.nytimes.com/2016/07/25/us/politics/donald-trump-russia-emails.html?%20hp&action=click&pgtype=Homepage&clickSource=story-heading&module=first-column-region&region=top-news&WT.nav=top-news&_r=0)’.
+Groups like APT28 (already mentioned) and APT29 were identified as possible culprits.
+As PSYOP was a perfect play; at the right time, and measuring well the tempos, all the dirty rags of the party begin to be exfiltrated, a new scandal added to the ” Hillary’s emails ” case, when it was uncovered that she used a private mail server to handle, supposedly, confidential information during her time as Secretary of State.
+![](https://www.securityartwork.es/wp-content/uploads/2016/10/imagen3post-740x346.png)
+As my friend Miguel (who you can read about in [this recommended blog)](http://www.areopago21.org/) tells me, “*You must remember that throughout history, Russia and the USSR before that, has a long history of “[active measures](https://en.wikipedia.org/wiki/Active_measures)” to manipulate, ranging from propagandistic actions, the falsification of official documents to more [extreme domestic violence](https://www.amazon.es/Mitrokhin-Archive-Europe-Penguin-History/dp/0140284877)*“.
+We’ve already talked of [The Agency](http://www.nytimes.com/2015/06/07/magazine/the-agency.html?_r=0)  in another article in this series, Russian troll factory, supposedly serving the Kremlin.
+To add more ‘juice’ to the matter, [Michael T. Flynn](https://en.wikipedia.org/wiki/Michael_T._Flynn), former director of the DIA (Defense Intelligence Agency) and criticized for his affinity and good relations with Russia, is one of Trump’s advisors and his name even came up to occupy the vicepresidency.
+The return of the KGB.
+The increase of espionage capabilities.
+--------------------------------------------------------------
+According to some Russian [unofficial sources](http://kommersant.ru/doc/3093174), Russia is planning to  create a super-security agency called **Ministry of State Security** (MGB, МГБ), a name used in the past to define the Soviet intelligence agency of the Stalin era between 1946 and 1953.
+Its main functions were to be the ‘secret police’, espionage and counterespionage and promoting a policy of surveillance and monitoring to maintain control and prevent disloyalty.
+Although this information has not been confirmed by official sources, several experts on Russian security services and a former KGB colonel -Gennady Gudkov- said it would be very likely indeed that Putin carried out this reform in the intelligence services with the aim, among others, that the management of security agencies be more effective, and help eradicate corruption within agencies.
+This new ministry would be trained on the FSB, could also understand the FSO and the SVR, resembling, according to Kommersant and other experts with the KGB, in which Putin in fact managed to acquire the rank of lieutenant colonel.
+Let us recall that the KGB was split into separate institutions during the collapse of the Soviet Union in 1991.
+According to the researcher, [Andrei Soldatov](http://echo.msk.ru/programs/albac/41311/), some of the military operations in cyberspace attributed to Russia were coordinated by the FSB by which a ‘new KGB’ in these times, could mean the return to the old cold war in a new more technological environment and of which we know Russia has a strong technical control.
+But as I said, **this is all speculation**.
+We must keep in mind that United Russia, the party of Vladimir Putin, obtained 343 of the 450 seats that make up the Duma, increasing its parliamentary representation to 105 seats, thus becoming a constitutional majority.
+But the question before us is … Could Russia (or any other State / Group) alter the outcome of the elections by taking advantage of cyberattacks.
+Is Putin trying to meddle in the US presidential elections.
+Is there a conspiracy of the Kremlin to help Trump in the race for the White House.
+Let’s just stay with the first question or we will fry our brains…
+Could the outcome of the elections be altered by taking advantage of cyberattacks.
+----------------------------------------------------------------------------------
+[Rapid7 Community](https://community.rapid7.com/community/infosec/blog/2016/09/19/hacking-the-election-what-to-expect) points out that in many states the online vote has no encryption, they have doubts about the security of the voting machines, and agree that while technology makes our life easier, it also introduces some risks, but that, in this case they would be quite controlled and altering the outcome of the elections would be very unlikely.
+In [Krypt3ia](https://krypt3ia.wordpress.com/2016/10/11/scenarios-on-outcomes-from-russian-information-operations-on-the-us-2016-election/)  they pose some possible attack scenarios –sure that our readers who have a very twisted mind, would come up with one or more- and the potential damages they would make if they were successful are the following:
+1.**Manipulation of the voting machine.** 
+Let us remember that the voters commonly do it through an Electoral System of Optical Scanning or voting machines.
+Physical access to them is needed to manipulate them.
+It seems unlikely to manipulate them according to official sources, but not impossible.
+This situation has been highly discussed over the past few years.
+2.**Manipulation of voter lists.** 
+A scenario based on the latest developments.
+Hacking the database of voters in key states could cause chaos on Election Day. One could, for example, manipulate the voting intention polls, disable voters on the voting day claiming they have requested a postal vote … etc.
+In the year 2000, [some sources](http://elpais.com/diario/2004/10/29/internacional/1099000816_850215.html)  claimed fraud in Florida by manipulating certain parameters in the lists of voters – it was requested that criminals be deleted from them (as they cannot vote) and, it is argued, more than 90,000 people were eventually eliminated who did have the right to vote.
+(In line with this, I leave you the documentary [Hacking Democracy](https://es.wikipedia.org/wiki/Hacking_Democracy) documenting some research of US citizens on anomalies / irregularities with the electronic voting system they detected during the presidential election to the USA in 2000 and 2004, especially in the County of Volusia (Florida)).
+The US-CERT is aware of the risks involved with databases of voter registration, and even offers a [number of tips](https://www.us-cert.gov/ncas/tips/ST16-001)  for prevention.
+3.**Disruption of the electronic process.** 
+Imagine malware in electoral machines that could block them.
+We would have to stop using them and other means would be used such as ballots, other machines, thus considerably lengthening the process and entering into a state of contingency (…we have already done this in Spain without anyone hacking us :).
+Let us remember that in the Ukraine, three days before the elections, the main servers of the Central Electoral Commission [were compromised](https://sputniknews.com/voiceofrussia/news/2014_05_23/CyberBerkut-announces-destruction-of-electronic-system-of-Ukraines-Central-Election-Commission-5809/)  and the Security Service of the Ukraine [also discovered](http://www.pravda.com.ua/news/2014/05/23/7026217/)  a virus installed on the servers, which would have destroyed the election results.
+In any of the three scenarios, **confidence in the electronic system would be partially or totally degraded and the entire electoral system would be in doubt**.
+In fact, it is not necessary for these cyberattacks to be successful, but to make enough ‘noise’ to sow doubt in the system and that in itself is a significant damage in this information war in which we are immersed.
+Finally, I must state that Russia considers all these accusations as ‘anti-Russian hysteria’, and you, what do you think.
+¿Information warfare by Clinton. Trump . Or is it really Putin.
+We only know that we know nothing.

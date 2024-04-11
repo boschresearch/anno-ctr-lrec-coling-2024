@@ -1,0 +1,85 @@
+Magecart Attacks in 2021
+May 11, 2021
+Skimmer groups are growing rapidly and targeting various e-commerce platforms using a variety of ways to remain undetected.
+The Zscaler ThreatLabZ research team has been tracking these skimmer groups and monitoring the techniques they're using.
+The latest techniques include compromising vulnerable versions of e-commerce platforms, hosting skimmer scripts on CDNs and cloud services, and using newly registered domains (NRDs) lexically close to any legitimate web service or specific e-commerce store to host malicious skimmer scripts.
+In this blog, we will provide an overview of the recent trends we are seeing in JavaScript skimmer attacks.
+Skimming is a technique by which cybercriminals steal credit card information from e-commerce sites and other internet payment portals.
+Threat actors exploit software vulnerabilities to gain access to a website's source code.
+Once they have access, they inject malicious JavaScript that allows them to exfiltrate data.
+Magecart is an umbrella term used to describe these types of campaigns, which have been occurring at least since 2015.
+ThreatLabZ has observed a surge of these attacks in recent months:
+![Hits on compromised sites over 90 days](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/1.PNG)
+Figure 1: Hits on compromised sites over 90 days
+Historically, the Magento platform has been the most highly targeted in skimmer attacks.
+This trend continues with significant spikes in other e-commerce platforms as well.
+![Different e-commerce platforms targeted during the past two months.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/chart.png)
+Figure 2: Different e-commerce platforms targeted during the past two months.
+**Newly registered domains (NRDs) in skimmer attacks**
+The use of NRDs in skimmer attacks for hosting malicious scripts exfiltrating skimmed data provides an advantage to attackers since each NRD's lack of reputation makes it easy to evade reputation-based engines.
+In most attacks, newly registered domains are typosquatting for legitimate web services, such as Google ads, CDNs, Jquery, Magento, etc., as typosquatting increases the chance of remaining undetected in legitimate traffic.
+Recently, threat actors have most frequently utilized domains lexically close to Google and Google services, followed by domains lexically close to Jquery/ JavaScript and web analytics.
+![Trend for newly registered domains lexically close to legitimate services.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/3.PNG)
+Figure 3: Trend for newly registered domains lexically close to legitimate services.
+**URL categorization of targeted websites**
+Websites in the shopping category are the most common targets for skimmer attacks, but other URL categories have also fallen victim to these attacks, as shown in the following chart:
+![URL categories of impacted sites](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/4.PNG)
+Figure 4: URL categories of impacted sites
+**Abusing legitimate communication and analytics services in skimmer attacks**
+Starting last year, we've seen skimmer groups abusing legitimate communication and analytics services, such as Telegram and Google analytics, for data exfiltration.
+Some of these skimmer techniques can be defeated by configuring Content Security Policy (CSP).
+CSP is an added layer of web security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks.
+These attacks are used for everything from data theft to site defacement to distribution of malware.
+By configuring CSP, web admins can specify domains that should be considered valid sources for scripts—though such specifications can often be bypassed by attackers abusing the Google Analytics API, which is used legitimately by a large number of websites.
+ThreatLabZ observed a significant spike during February and March 2021 in such attacks, where legitimate communication and analytics services are abused, but they have trailed off in recent weeks.
+![Hits of skimmer groups abusing legitimate services over 90 days.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/5.PNG)
+Figure 5: Hits of skimmer groups abusing legitimate services over 90 days.
+**Recent skimmer activity**
+Recent skimmer attacks have heavily leveraged NRDs for malicious script injection and data exfiltration, as well as the use of compromised third-party scripts or CDNs.
+Below are two examples of recent skimmer attacks using NRDs and CDNs to serve content to specific websites.
+**Case 1:** In one of the skimmer attacks, we observed two NRDs involved—one for injecting malicious skimmer code and the other for data exfiltration.
+These domains are lexically similar to the keywords *jquery* and *CDN* to help attacks remain undetected in legitimate traffic.
+Skimmer Domain: jquery-ui[.]net
+Creation Date:  2021-04-18
+IP: 34.125.186[.]248
+Data Exfiltration Domain: cdn-cgi[.]net
+Creation Date: 2021-04-11
+IP: 34.125.186[.]248
+![Obfuscated skimmer script.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/6.PNG)
+Figure 6: Obfuscated skimmer script.
+The skimmer script has a Base64-encoded fake payment page and skimmed data is sent to the attacker-controlled domain.
+![Data exfiltration domain and base64 encoded fake payment page.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/7.PNG)
+Figure 7: Data exfiltration domain and Base64-encoded fake payment page.
+Currently, both of these NRDs are resolving to the same IP 34.125.186[.]248, which hosts multiple (possible) skimmer domains lexically close to legitimate services.
+![Multiple possible skimmer domains resolving to the same IP address.
+(Source: RiskIQ)](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/8.PNG)
+Figure 8: Multiple possible skimmer domains resolving to the same IP address.
+*(Source: RiskIQ)*
+In the recent past, these domains resolved to the following IP addresses, each of which hosted newly registered domains lexically close to legitimate domains and possibly connected to the skimmer attacks.
+![Suspicious IP addresses related to these domains (Source: RiskIQ)](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/9.PNG)
+Figure 9: Suspicious IP addresses related to these domains.
+(*Source: RiskIQ*)
+During our analysis of the above-mentioned IP addresses and domains, we observed that domain ajaxtracker[.]com was resolving to IP address 34.125.186[.]248 from April 26, 2021, to April 29, 2021, and during this time it was connected to the Raccoon Stealer.
+**Case 2**: We observed another recent chain of Magecart infections on a few German shopping websites.
+The malicious JavaScript that was being used can be seen below.
+![Malicious skimmer script.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/10.PNG)
+Figure 10: Malicious skimmer script.
+Once the malicious JavaScript is loaded it calls a function named "Default\_Send()" as shown in the image below.
+![Function to grab all the inputs provided by the victim user](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/11.PNG)
+Figure 11: Function to grab all the inputs provided by the victim.
+The Default\_send function is responsible for collecting the URL of the infected page and grabbing all the inputs provided by the victim who is shopping on the compromised website.
+![Function to send victim’s card details to attacker.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/12.PNG)
+Figure 12: Function to send victim’s card details to attacker.
+Once the script has collected the data, it will call the SendData function, which has the target URL to which the collected data will be uploaded.
+The URL is stored in Base64-encoded format in the SendData function, as displayed below.
+![Base64 encoded data exfiltration domain.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/JSskimmer-2021/13.PNG)
+Figure 13: Base64 encoded data exfiltration domain.
+If we decode the Base64 URL, we find that the data was being exfiltrated to the malicious domain google-sanek[.]com.
+By doing a DNS lookup for the domain, we saw that the domain resolves to the IP 82.148.31[.]214, which helps us identify other domains hosted on the same IP involved with Magecart activity.
+A few of the domains we observed over the last 30 days include bing-analytics[.]com, google-sanek[.]com, google-worlds[.]com, google-worlds[.]com, and ssl-authorization[.]com.
+The attacker serves JavaScript using legitimate-looking domains in an attempt to make the traffic look benign.
+**Conclusion**
+Skimmer groups continue to infect e-commerce sites in large numbers and improve techniques to remain undetected.
+The use of newly registered domains lexically close to legitimate domains or services helps attackers evade reputation-based engines, as their domains are too new to have a low rating.
+It is always recommended for buyers to use only known and legitimate e-commerce stores.
+Zscaler ThreatLabZ actively tracks malicious campaigns and protects customers from skimming and other types of data-stealing attacks.

@@ -1,0 +1,179 @@
+Update on JavaScript Skimmer Enhancements
+May 22, 2020
+Card skimmer groups continue to find different ways to compromise e-commerce websites while trying to remain undetected for long periods of time.
+To remain undetected, they attempt to hide skimmer code and traffic in trusted scripts, such as third-party scripts, content delivery networks (CDNs), and more.
+In the past, we have seen multiple [e-commerce](/blogs/research/magecart-campaign-remains-active) websites become compromised as bad actors used Amazon CloudFront, a popular CDN, to host skimmer codes.
+And cybercriminals are still at it, taking advantage of the fact that, due to COVID-19, people have been shopping heavily on e-commerce websites.
+![Hits of compromised websites in the last two months](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/march19-.PNG)
+*Figure 1: Hits on compromised websites in the past two months.*
+The Zscaler ThreatLabZ team has been tracking point-of-sale skimming activity for several months and the majority of these are related to the [Magecart](/blogs/research/magecart-hits-again-leveraging-compromised-sites-and-newly-registered-domains) group targeting the Magento platform.
+But we are also seeing an increase in attacks on other e-commerce platforms as well.
+![Different e-commerce platforms targeted during the past two months.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/chart.PNG)
+*Figure 2: The most-targeted e-commerce platforms during the past two months.*
+### **Skimmer toolkit hosted on BigCommerce**
+Recently, the ThreatLabZ team encountered a skimmer script with multiple variants, targeting different e-commerce platforms, such as Magento, BigCommerce, and others.
+A few variants of this skimmer are hosted on popular CDNs and on compromised Amazon S3 buckets.
+CDNs play an important role in the quick transfer of internet content, such as HTML pages, JavaScript files, videos, and images, by storing cached versions of content and reducing the distance between the client and the web servers.
+Nowadays, CDNs serve the majority of the publicly available web content and its popularity is increasing, especially among cybercriminals.
+Usually compromised CDNs affect a large number of e-commerce websites as they are connected and can access publicly available web content.
+But this is not always the case as some websites use CDNs that are only serving content for their owner.
+The Zscaler ThreatLabZ team recently observed one similar case where the [BigCommerce](https://www.bigcommerce.com/) CDN was being used for one specific website's own content and was injected with a skimming script.
+![Showing diff between flexslider hosted on BigCommerce CDN vs Legitimate flexslider](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/flexslider_v2.6.3_diff.PNG)
+*Figure 3: Compromised FlexSlider code hosted on the BigCommerce CDN vs.legitimate FlexSlider code.*
+This skimmer code uses hex-encoded terms to obfuscate malicious content in the hope of avoiding detection.
+We have identified *flexslider.min.js,* which is a jQuery slider toolkit, getting injected with malicious javascript.
+![Malicious skimmer code hosted on BigCommerce CDN.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/bigcommerce%20page%20deobfuscation.png)
+*Figure 4: Malicious skimmer code hosted on the BigCommerce CDN.*
+![ Gate URL](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/big3.png)
+*Figure 5: The Gate URL in the skimmer code.*
+The script taps into the entered information and encodes it with Base64, which is then sent to the Command and Control (C&C) server as a GET request.
+![C2 Communication](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/bigc2.png)
+*Figure 6: The C&C communication.*
+The C&C communication pattern is similar to what we have seen for the Magecart skimmer.
+Figure 7 shows the stolen (fake) information.
+![Decoded Information (with fake credentials)](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/bigcommerce%20c2.PNG)
+*Figure 7: The decoded stolen information (with fake credentials).*
+At the time of this writing, the Gate URL was resolving to 77.220.213[.]233, which is also hosting another Gate cxizi[.]net
+**77.220.213[.]233**
+| Gate URL: cwxi[.]net/post/gif.phpDomain: cwxi[.]netCreation Date: 2019-12-10 | Gate URL: cdn.cxizi[.]net/ph/index.php Domain: cxizi[.]netCreation Date: 2019-07-10 |
+###
+### **Magecart enhancements**
+Another variant of this skimmer script targets the Magento platform.
+The ThreatLabz team had analyzed a similar script in previous [posts](/blogs/research/magecart-activity-and-campaign-enhancements).
+1.**Use of fake iframe payment fields specific to payment platforms**
+We have noticed a few enhancements to this.
+The skimmer script is specific to the payment platform, such as Braintree and Stripe.
+Most e-commerce businesses outsource the payment process to the PCI DSS-compliant third-party [hosted fields](https://www.braintreepayments.com/blog/your-checkout-our-iframes/), which are a coordinated set of iframes that collect payment details.
+Previously, we have observed how skimmer groups compromise the legitimate payment scripts and load the client script from attacker-controlled domains.
+Instead of injecting an HTML form directly into the compromised websites, iframe is used to inject the fake payment text fields over the legitimate text fields.
+The legitimate payment fields are hidden once the iframe with fake payment text fields are injected.
+Both the legitimate and the fake payment fields are loaded in the form of an iframe, which makes it difficult to detect.
+As seen earlier, the stolen payment details are also stored on the victim’s browser as cookies to avoid duplicate details being sent to the C&C.
+![Skimmer toolkit targeting Braintree payment platform by injecting iframe.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/mage4.png)
+*Figure 8: The skimmer toolkit targeting the Braintree payment platform by injecting iframe.*
+![Fake credit card number text field injected as iframe over the legitimate field.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/mage1.PNG)
+*Figure 9: A fake credit card number text field injected as iframe over the legitimate field.*
+![Skimmer toolkit targeting Stripe payment platform by injecting iframe.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/mage5.png)
+*Figure 10: The skimmer toolkit targeting the Stripe payment platform by injecting iframe.*
+There is no change in the way the stolen information is sent back to the server as seen in Figure 11.
+![C2 Communication](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/mage%20C2.PNG)
+*Figure 11: The C&C communication.*
+![Decoded Information (with fake credentials)](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/mage%20c2%20comm%20deob.PNG)
+*Figure 12: The decoded Information (with fake credentials).*
+2.**Use of** **Cascading Style Sheets to inject skimmer code**
+Cascading Style Sheets (CSS) describes how HTML elements are to be displayed on screen and external stylesheets are stored in CSS files.
+Another enhancement that the ThreatLabz team observed is a new injection technique in which the CSS file with skimmer code is loaded as JavaScript using Ajax on the Checkout page.
+![Check if current page is the checkout page.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/n1.png)
+*Figure 13: The system check to see if the current page is the "checkout" page.*
+![Same malicious script in obfuscated form.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/n7.PNG)
+*Figure 14: The same malicious JavaScript in obfuscated form.*
+The above malicious javascript is injected on the e-commerce website and checks to see if the current page is a "checkout" page.
+Based on that, the CSS file *css.css* is injected as script.
+![Skimmer code in CSS file with Base64 encoded C2 URL.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/n2.png)
+*Figure 15: The skimmer code in the CSS file with the Base64-encoded C&C URL.*
+![Payment details are collected from all the input fields on the checkout page.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/n4.PNG)
+*Figure 16: Payment details are collected from all the input fields on the checkout page.*
+![Collected payment details are sent to the attacker control domain in Base64 encoding.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/magecart_20/n5.PNG)
+*Figure 17: Collected payment details are sent to the C&C domain in Base64 encoding.*
+### **Conclusion**
+Online shopping activity is on the rise due to numerous factors.
+So site administrators should keep their content management system and plugins updated and use secure CDN for delivering the site content.
+When you as a buyer visit any e-commerce website, make sure to only use sites that are known and legitimate.
+The Zscaler [ThreatLabZ](/threatlabz/threat-map-dashboard) team actively tracks such malicious campaigns and protects customers from skimming and other types of attacks related to data theft.
+### **Indicator of Compromise**
+tags-analitic[.]icu/analytics[.]js
+felers[.]club/analytics[.]js
+targetad[.]icu/analytics[.]js
+tags-bootstrap[.]icu/analytics[.]js
+tags-app[.]icu/analytics[.]js
+tagapp[.]icu/analytics[.]js
+ssecurapi[.]club/analytics[.]js
+secrityipa[.]club/analytics[.]js
+cdnjustuno[.]icu/analytics[.]js
+analitic[.]club/analytics[.]js
+tags-analitic[.]icu/css[.]css
+felers[.]club/css[.]css
+targetad[.]icu/css[.]css
+tags-bootstrap[.]icu/css[.]css
+tags-app[.]icu/css[.]css
+tagapp[.]icu/css[.]css
+ssecurapi[.]club/css[.]css
+secrityipa[.]club/css[.]css
+cdnjustuno[.]icu/css[.]css
+analitic[.]club/css[.]css
+sucurl[.]net/c/s[.]js
+sucurl[.]net/cdn/au[.]js
+sucurl[.]net/cdn/jquery[.]js
+sucurl[.]net/j/pcta[.]js
+sucurl[.]net/js/32732238[.]js
+sucurl[.]net/s/con[.]js
+sucurl[.]net/s/play[.]js
+sucurl[.]net/s/spear[.]js
+sucurl[.]net/s/valid[.]js
+sucuritester[.]com/boss/the[.]js
+sucuritester[.]com/jquery/jquery[.]js
+sucuritester[.]com/uk/sucuri[.]js
+linkedtop[.]com/ebit[.]js
+linkedtop[.]com/js[.]js
+comanio[.]github[.]io/22/jord[.]js
+magento-security[.]org/js/pc-security[.]js
+magesource[.]su/mage[.]js
+marketplace-magento[.]com/js/authorizenet-getway[.]js
+marketplace-magento[.]com/js/bo-security[.]js
+marketplace-magento[.]com/js/eway-getway[.]js
+marketplace-magento[.]com/js/sxml-getway[.]js
+cdn[.]qraved[.]co/catalog/view/javascript/jquery-file-upload/js/jquery[.]iframe-transport[.]js
+cdn[.]qraved[.]co/catalog/view/javascript/jquery/jquery[.]jcarousel[.]js
+cdn[.]qraved[.]co/catalog/view/javascript/widgets/jquery[.]dotdotdot[.]js
+cdn[.]soundpublishing[.]com/green/js/cloud-zoom[.]1[.]0[.]2[.]min[.]js
+cdn[.]soundpublishing[.]com/green/js/jquery[.]fancybox-1[.]3[.]4[.]pack[.]js
+assets-js[.]com/app/assets/js/public/analytics[.]js
+ahf[.]co[.]uk/skin/frontend/base/default/js/finance[.]js
+dedelicate[.]com/js/varien/menu[.]js
+googe-js-config[.]com/js/m[.]js
+gooogletagsmanager[.]com/analytics[.]js
+jquerylib[.]at/jquery-1[.]7[.]min[.]js
+jquerylib[.]at/yourid-loader[.]min[.]js
+jquerystatic[.]net/5e396b4f5e071ee[.]js
+jquerystatic[.]net/5e7fa6489b31a[.]js
+jquerylib[.]at/yourid-loader[.]min[.]js
+jquery-js[.]com
+jquery-us[.]com/scwarriorshop/jquery[.]js
+jquerycdn[.]at/jquery[.]ba-hashchange[.]min[.]js
+jquerycdn[.]at/jquery[.]bah-hashchange[.]min[.]js
+jquerycdn[.]at/jquery[.]storageapi[.]min[.]js
+jquerycdn[.]at/jquery[.]validate[.]min[.]js
+jquerycdn[.]at/shipping-rates-validation[.]js
+cyberrock[.]com[.]br/js/lib/ccard[.]js
+cyberrock[.]com[.]br/skin/frontend/base/default/onestepcheckout/js/validation[.]js
+cycloneletterwinners[.]org/global\_inc/js/jquery[.]data[.]js
+s3-ap-southeast-1[.]amazonaws[.]com/nrgedge-static/pdf/web/viewer[.]js
+s3-eu-west-1[.]amazonaws[.]com/klaritycdn/britz/depots/handlebars[.]min[.]js
+s3-us-west-2[.]amazonaws[.]com/driverbuddyproduction/public/sites/fleetwaze/themes/fleetwaze/javascripts/isotope[.]pkgd[.]min[.]js
+s3-us-west-2[.]amazonaws[.]com/vrp-img/assets/core/20160618154959/wp-includes/js/jquery/jquery[.]js
+s3-us-west-2[.]amazonaws[.]com/vrp-img/assets/plugins/geodirectory/20160621163729/geodirectory-assets/js/chosen[.]jquery[.]min[.]js
+s3-us-west-2[.]amazonaws[.]com/vrp-img/assets/plugins/geodirectory/20160621163729/geodirectory-assets/js/jquery[.]flexslider[.]min[.]js
+s3-us-west-2[.]amazonaws[.]com/vrp-img/assets/plugins/geodirectory/20160621163729/geodirectory-assets/js/on\_document\_load[.]js
+s3-us-west-2[.]amazonaws[.]com/vrp-img/assets/plugins/geodirectory/20160621163729/geodirectory-functions/map-functions/js/map[.]min[.]js
+s3[.]amazonaws[.]com/affiliate[.]actionnetwork[.]files/user\_christian/bctgm\_swfobject[.]js
+s3[.]amazonaws[.]com/contentcapsule[.]com/assets/js/iframe-resizer/js/iframeresizer[.]contentwindow[.]min[.]js
+s3[.]amazonaws[.]com/dkfmengine/projectmakeithappen/themes/12/4\_minimal/assets/js/bootstrap[.]min[.]js
+s3[.]amazonaws[.]com/elasticbeanstalk-us-east-1-381487032992/resources/js/jquery[.]easing[.]min[.]js
+s3[.]amazonaws[.]com/elasticbeanstalk-us-east-1-381487032992/resources/js/jquery[.]stellar[.]min[.]js
+s3[.]amazonaws[.]com/elasticbeanstalk-us-east-1-381487032992/resources/js/jquery[.]validate[.]min[.]js
+s3[.]amazonaws[.]com/elasticbeanstalk-us-east-1-381487032992/resources/js/scrolling-nav[.]js
+s3[.]amazonaws[.]com/everydaydpm/app[.]min[.]js
+s3[.]amazonaws[.]com/fdn[.]sayitright[.]com/themes/51310605b88bf52b7e000003/embed/sir[.]embed[.]min[.]js
+s3[.]amazonaws[.]com/safetylibrary/resources/vendor/screenfull/screenfull[.]js
+s3[.]amazonaws[.]com/safetylibrary/resources/vendor/switchery/switchery[.]min[.]js
+s3[.]amazonaws[.]com/t4d-pub-res/viber/js/desk\_portal[.]js
+s3[.]amazonaws[.]com/t4d-pub-res/viber/js/foundation[.]js
+s3[.]amazonaws[.]com/timothy-blake/warwick+su/curiositea/slick[.]min[.]js
+s3[.]amazonaws[.]com/wp[.]site/wp-content/uploads/sunsetroomvrtour/sunset%20room%20vrdata/lib/kolor/kolortools[.]min[.]js
+s3[.]ap-south-1[.]amazonaws[.]com/kisan-oauth-common/static/js/mdb[.]min[.]js
+s3[.]ap-south-1[.]amazonaws[.]com/triedge/assets/javascript/angular-ui-bootstrap-modal[.]js
+04h11-assets[.]s3[.]amazonaws[.]com/enfantsoleil/assets/application-2749c927d35840c7029cb76b500f40290b11e791e308c705bd8c0d13cd1426bf[.]js
+1mp8ms2wyy5i3rqkyt2rrmh2-wpengine[.]netdna-ssl[.]com/wp-content/themes/thomsens-garden/includes/jquery[.]cookie[.]js
+1t8b9hnzn9kozmrk1jwyk11i-wpengine[.]netdna-ssl[.]com/wp-includes/js/jquery/ui/datepicker[.]min[.]js
+3tzn49xkui340zbygcwudh19-wpengine[.]netdna-ssl[.]com/wp-content/themes/divi/js/custom[.]min[.]js
+52[.]2[.]52[.]218/842123-1583674263[.]js

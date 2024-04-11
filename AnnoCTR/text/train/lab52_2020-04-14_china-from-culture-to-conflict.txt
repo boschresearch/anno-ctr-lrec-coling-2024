@@ -1,0 +1,47 @@
+China: From culture to conflict in the cyberspace
+April 14, 2020
+Since in 2013 the US cybersecurity consultancy Mandiant published its famous report about APT1, showing its links with different agencies presumably associated with the Chinese government, the news about its actions in cyberspace has been significantly increased.
+Among others, we find APT15, APT27 or Winnti Group (APT41); the US DoJ’s allegations of cyber espionage towards five Chinese military members associated with the APT1 group; the links that the FBI has established between Zhu Hua and Zhang Shilong and APT10; or the alleged link of PLA unit 61398 (People’s Liberations Army) with APT1.
+With the permission of Russia and its popular operation against the DNC, China has become the main actor in cyberspace, developing an uncountable number of operations against all kind of sectors as: IT, military or naval industries and different governmental organizations.
+Sometimes using more sophisticated malware, and sometimes less, but more and more with its own seal linked to its extensive tradition.
+According to traditional ancient texts, Chinese civilization dates back more than 4,000 years with the first Xia dynasty.
+Due to the continuity and strength of its political and social structure, the protection of its historical and cultural legacy and the practically null western influence until the 19th century, the Chinese Empire is considered the oldest empire that exists.
+The historical endurance of the Chinese empire has not been based solely on military victories, but on its peculiar way of understanding resistance to foreign invasion.
+As an example, the Qing Dynasty, the last Chinese dynasty that ruled between 1644 and 1912, was founded by the Aisin-Gioro clan of Manchuria (the Manchus are currently an ethnic minority) and not by the Chinese population as it could be though.
+Similarly, the Yuan dynasty (1279-1368) was founded by Mongol invaders, heirs to the legacy of Genghis Khan.
+Despite this, the language, customs and tradition remained unchanged thanks to the Chinese bureaucratic elites, who offered their services to the invaders with the excuse of the difficulty that would supposed to control a country with such dimensions, and making the only condition to maintain their methods and language.
+Because of this, the second-generation of invaders would assimilate the culture, coming to be seen as outsiders by their home territories, and finally, ending up defending China’s national interests.
+![](https://lab52.io/blog/wp-content/uploads/2020/04/mountain-3022908_1920-1024x682.jpg)
+The resistance and adaptability typical of the Chinese character towards the invader is still present, and we have witnessed the transformation of a society that in 1984 was fundamentally agricultural (40% of its GDP), and that just 35 years later dominates the technological world scenario with to the United States as well, leading the deployment of 5G by the hand of Huawei.
+Such achievement has occurred not only in terms of competitiveness, but also by making its technology an intrinsic part of its legacy and by putting technological development at the service of the national interest.
+As the comparison mentioned by the former head of the Canadian Intelligence and Security Service for Asia-Pacific, Michel Juneau-Katsua, if Western intelligence had to steal a beach, he would go at night and wait for nobody to see him to steal it.
+On the other hand, if Chinese intelligence had to do it, it would send a thousand tourists and on the way back they would shake their towels, day by day.
+Hiding in broad daylight is a concept associated with Eastern culture, because, even leaving aside large corporations such as Xiaomi or Huawei and the obvious possibility of controlling “their” devices, they have managed to install software of all kind on any computer on the planet.
+It is not uncommon to find binaries with Mandarin language resources or drivers signed by Chinese companies, which could potentially facilitate a campaign directed against any organization.
+We also have the issue of electronic devices, the global massive sale which has allowed the worldwide deployment of a potentially vulnerable network of video surveillance cameras, loudspeakers or smartbands.
+Meanwhile, it competes with Google and Amazon for the control of the information at home.
+However, China is not interested in entering the Thucydides trap through a direct confrontation against the United States, but will use, as it has done in the past, the multipolar geopolitical scenario to achieve its purposes.
+*If you use the enemy to defeat the enemy, you will be powerful wherever you go.*
+About to end the Korean War, Mao managed to gain a foothold on the international scene through a strategy very much in the line with the classic strategist Sun Tzu.
+In a world in which two great superpowers, the United States and the Soviet Union, fought for world hegemony, he managed to see them as equals.
+It faced the United States in the Taiwan Strait conflict and, almost at the same time, ideologically and geopolitically dissociated itself from the communist bloc.
+This position was based on the fact that none of the powers would allow the launching of nuclear weapons on Mandarin territory, and the maintenance of a public position that claimed to have no fear of such weapons.
+As Mao himself stated, “China has 600 million inhabitants in an area of ​​9.6 million square kilometers.
+The United States cannot annihilate China with a simple pile of atomic bombs.
+“ Exercising an active position, Mao ended up being part of the international balance with an independent voice, exerting psychological pressure on both sides through the conflicts in the Taiwan Strait and his intervention in the Vietnam War.
+The current world offers very good opportunities for these puppeteer performances, as the attribution of a hostile act in cyberspace is truly complex, as evidenced by the false flag operation reported by Kaspersky on OlympicDestroyer.
+During the 2018 South Korea Winter Olympics, the OlympicDestroyer malware paralyzed IT systems, caused outages, and brought down the organization’s websites.
+What is relevant about these actions is that, as detailed in the report, the tactics, techniques and procedures (TTP) were those commonly used by the Lazarous group, associated with North Korea.
+However, everything indicated that intentional errors had been made in order to facilitate the detection of such TTPs, stirring the international stage with a campaign with mediatic overtones.
+This makes more sense if we take into account that in February 2018 North Korea was surrounded by sanctions derived from its nuclear plan, specifically resolutions 2371, 2375 and 2397 adopted in 2017, which fundamentally damaged its relationship with China.
+Looking to the future, everything indicates that China will continue to bet on conflict resolution through operations in cyberspace, limiting its military interventions to what is strictly necessary or for propaganda purposes.
+The conflict in cyberspace allows, to a certain extent, to abandon Clausewitz’s theses and the understanding of confrontation as battles that begin and end, and where the enemies are defined and tangible units.
+The new era embraces Suntzunian theses, promoting flexibility in battle or the use of time as a weapon, concepts that are rather foreign to Western tradition.
+While tradition in the West has fostered heroism and the coup in the decisive moment, Chinese ideals are based on patience, subtle harm and the accumulation of advantages in a gradual way, concepts that matches perfectly in a conflict in Internet.
+Thus, China is comfortable with the new approach to the multinational conflict, a world whose rules play in favor of concealment, indefiniteness and confusion.
+Actually, its rules.
+References
+<https://www.fireeye.com/blog/threat-research/2013/02/mandiant-exposes-apt1-chinas-cyber-espionage-units.html>
+<https://www.elmundo.es/internacional/2015/11/25/5654c172268e3eaa7e8b460f.html>
+On China –Henry Kissinger Principles of War for Cyberspace – Steven E. Cahanin
+<https://www.kaspersky.com/about/press-releases/2018_the-olympic-false-flag>

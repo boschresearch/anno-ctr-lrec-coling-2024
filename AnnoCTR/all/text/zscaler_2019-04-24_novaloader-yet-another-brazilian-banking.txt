@@ -1,0 +1,154 @@
+NovaLoader, yet another Brazilian banking malware family
+April 24, 2019
+As part of our daily threat tracking activity, ThreatLabZ researchers recently came across an interesting Brazilian banking malware campaign.
+The malware, NovaLoader, was written in Delphi and made extensive use of Visual Basic Script (VBS) scripting language.
+Although the final payload was not entirely new and has been discussed by other security researchers, we found that the multi-stage payload delivery was unique.
+**Delivery method**
+-------------------
+In earlier documented campaigns, the delivery methods for this malware included spam, social engineering, and fake sites for popular software such as Java.
+The malware operators use a variety of available options to ensure malware delivery and try to avoid detection by security products.
+They often do so by abusing popular legitimate services like Dropbox, GitHub,  Pastebin, AWS, GitLab, and others, as well as URL shorteners and dynamic DNS services such as No-IP and DynDNS.
+NovaLoader is known to use AutoIt, PowerShell, and batch scripts in the infection chain, but this is the first time we have seen it use VBS. 
+In this campaign, it is also using encrypted scripts instead of simply obfuscated ones.
+![Activity Flowchart](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/nova_loader/1%20Blank%20Flowchart.png)
+*Fig.1: NovaLoader Infection flow*
+**Main Dropper**
+----------------
+MD5: 4ef89349a52f9fcf9a139736e236217e
+The main dropper is very simple; its only purpose is to decrypt the embedded VB script and run the decrypted script.
+![Stage 1 VB script decryption loop](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/nova_loader/2%20loadnova%20main%20file%20vbs%20decryption%20loop.png)
+*Fig. 2: Stage 1 VB script decryption loop*
+**Stage 1 Script**
+------------------
+Embedded script before and after decryption:
+![VB script before and after decryption](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/nova_loader/3%20before%20and%20after%20decryption.png)
+*Fig. 3: VB script before and after decryption*
+This VBS file will decrypt a URL (*dwosgraumellsa[.]club/cabaco2.txt*) to download another encrypted script and run that after decryption.
+![Download request for next stage encrypted payload](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/nova_loader/4%20MainDownloader%20EncryptedScript.png)D
+*Fig. 4: Download request for the next stage, an encrypted payload*
+**Stage 2 Script**
+------------------
+Downloaded VB script looks like the following after decryption:
+![VBS after decryption](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/nova_loader/5%20Main%20VBS%20Deobfuscated.png)
+*Fig. 5: VBS after decryption*
+The VB script will send a GET request to “http://54.95.36[.]242/contaw.php” , possibly to let the command-and-control (C&C) server know that it is running on the system.
+After that it will try to detect presence of virtual environment using Windows Management Instrumentation (WMI) queries, as shown below.
+![VM detection code](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/nova_loader/6%20VBS%20VM%20Detect.png)
+*Fig. 6: VM detection code*
+NovaLoader will drop and copy following executable files into the directory *C:\\Users\\Public\\:*
+*C:\\Windows\\(system32|SysWOW64)\\rundll32.exe*
+*C:\\Windows\\(system32|SysWOW64)\\Magnification.dll*
+![CnC notification request](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/nova_loader/7%20GET%20Beacon.png)
+*Fig. 7: C&C notification request*
+After that it will download a following files from [32atendimentodwosgraumell[.]club](#)
+[32atendimentodwosgraumell[.]club/mi5a.php](#) decrypted and saved at *C:\Users\Public\{random}4.zip*
+[32atendimentodwosgraumell[.]club/mi5a1.zip](#) saved at *C:\Users\Public\{random}1.zip*
+[32atendimentodwosgraumell[.]club/mi5asq.zip](#) saved at *C:\Users\Public\{random}sq.zip*
+Then it will send multiple GET requests to “54.95.36.242/contaw{1-7}[.]php”
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/downloads/blog-image-8-1554878384.png)
+*Fig. 8: Multiple C&C requests*
+GET /contaw.php
+GET /contaw2.php?w={redacted}BIT-PC\_Microsoft%20Windows%207%20Professional%20\_True
+GET /contaw3.php?w={redacted}BIT-PC
+GET /contaw4.php?w={redacted}BIT-PC
+GET /contaw5.php?w={redacted}BIT-PC
+GET /contaw6.php?w={redacted}BIT-PC\_2/1/2019%205:05:06%20PM
+GET /contaw7.php?w={redacted}BIT-PC\_2/1/2019%205:05:06%20PM\_CD=414KbCD1=9160Kb\_
+It will also drop several files into the *C:\Users\Public\* directory:
+| **Dropped files** | **MD5** | **Comment** |
+| DST.exe | 51138BEEA3E2C21EC44D0932C71762A8 | copied rundll32.exe |
+| I | 3DC26D510907EAAC8FDC853D5F378A83 | encypted file containing various values like version, extension etc.
+|
+| I\_ | A34F1D7ED718934185EC96984E232784 | encrypted configuration file |
+| KC | 89473D02FEB24CE5BDE8F7A559631351 | similar to file named "I" |
+| mwg.dll | F3F571288CDE445881102E385BF3471F | copied magnification.dll |
+| PFPQUN.DST | 8C03B522ACB4DDC7F07AB391E79F1601 | support dll to decrypt main payload |
+| PFPQUN1.DST | F3D4520313D05C66CEBA8BDA748C0EA9 | encrypted main payload |
+| winx86.dll | 87F9E5A6318AC1EC5EE05AA94A919D7A | Sqlite dll |
+*Fig. 9: Files dropped by script*
+And, finally, it will execute the decrypted DLL exported function using the copied *rundll32.exe* file.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/downloads/blog-image-9-1554878384.png)
+*Fig. 10: Executing the stage-3 payload*
+The stage-3 payload is a DLL file that acts as a loader for the final payload.
+It is run via *rundll32.exe* and its purpose is to decrypt and load the final payload.
+**Final payload**
+-----------------
+The final payload is written in Delphi.
+It has multiple capabilities including stealing victim's credentials for several Brazilian banks.
+It monitors the browser window’s title for bank names and if a targeted tab is found, the malware can take control of the system and block the victim from the real bank's page to do its nefarious activities by communicating to its C&C.
+Its activity is quite similar to the well-known [Overlay RAT](https://www.google.com/search?q=overlay+rat).
+Some of the interesting commands used by the malware include:
+| **Command String** | **Description** |
+| <|SocketMain|> | To stabilize socket connection |
+| <|Info|> | Sends infected OS details |
+| <|PING|> | Checking status of the connection |
+| <|Close|> | Close all connections |
+| <|REQUESTKEYBOARD|> | Sends keystrokes to the active application window |
+| <|MousePos|> | Set mouse position |
+| <|MouseLD|> | Set mouse left button down |
+| <|MouseLU|> | Set mouse left button up |
+| <|MouseRD|> | Set mouse right button up |
+| <|MouseRU|> | Set mouse right button down |
+| <|Desktop|> | Share compromised system desktop |
+| <|gets|> | Check gets in C&C response to check if data is correct reply with <|okok|> |
+*Fig. 11: NovaLoader C&C commands*
+There were many interesting strings related to the Brazilian banks found in malware:
+| **Strings in malware** | **Corresponding bank site** |
+| caixa | [http://www.caixa.gov.br](http://www.caixa.gov.br/) |
+| bancodobrasil | h[ttps://www.bancobrasil.com.br](https://www.bancobrasil.com.br) |
+| bbcombr | <https://www.bb.com.br/> |
+| bradesco | <https://banco.bradesco/> |
+| santander | <https://www.santander.com.br/> |
+| bancodaamazonia | <https://www.bancoamazonia.com.br/> |
+| brbbanknet | <https://brbbanknet.brb.com.br/netbanking/> |
+| banese | <https://www.banese.com.br/> |
+| banestes | <https://www.banestes.com.br/> |
+| bancodoestadodopar | <https://www.banpara.b.br/> |
+| bancobs2 | <https://www.bs2.com/> |
+| citibankbrasil | [https://www.citibank.com.br](https://www.citibank.com.br/) |
+| bancofibraonline | <https://www.bancofibra.com.br/> |
+| agibank | <https://www.agibank.com.br/> |
+| bancoguanabara | http://www.bancoguanabara.com.br/ |
+| ccbbrasil | [http://www.br.ccb.com](http://www.br.ccb.com/) |
+| bancoindusval | <https://www.bip.b.br/ir> |
+| internetbankingbancointer | <https://internetbanking.bancointer.com.br/> |
+| modalbanking | <https://modalbanking.modal.com.br/> |
+| bancopan | <https://www.bancopan.com.br/> |
+| pineonline | <https://www.pine.com/> |
+*Fig. 12: Some of the targeted bank strings found in the malware*
+**Conclusion**
+--------------
+The Brazilian actors are among the top contributors of global cybercrime and they are always coming up with new ways to infect their targets using spam, social engineering, and phishing.
+In this campaign, we have observed them targeting Brazilian financial institutions using malware written in Delphi.
+The Zscaler ThreatLabZ team is actively tracking and reviewing all malicious payloads to ensure that our customers are protected.
+**IOCs**
+--------
+**Md5**
+60e5f9fe1b778b4dc928f9d4067b470b
+4ef89349a52f9fcf9a139736e236217e
+100ff8b5eeed3fba85a1f64db319ff40
+99471d4f03fb5ac5a409a79100cd9349
+cb2ef5d8a227442d0156de82de526b30
+a16273279d6fe8fa12f37c57345d42f7
+ac4152492e9a2c4ed1ff359ee7e990d1
+fdace867e070df4bf3bdb1ed0dbdb51c
+4d5d1dfb84ef69f7c47c68e730ec1fb7
+6bf65db5511b06749711235566a6b438
+c5a573d622750973d90af054a09ab8dd
+ef5f2fd7b0262a5aecc32e879890fb40
+35803b81efc043691094534662e1351c
+34340c9045d665b800fcdb8c265eebec
+a71e09796fb9f8527afdfdd29c727787
+5a9f779b9cb2b091c9c1eff32b1f9754
+a7117788259030538601e8020035867e
+cb9f95cec3debc96ddc1773f6c681d8c
+a7722ea1ca64fcd7b7ae2d7c86f13013
+**URLs**
+185[.]141[.]195[.]5/prt1.txt
+185[.]141[.]195[.]81/prt3.txt
+185[.]141[.]195[.]74/prt1.txt
+dwosgraumellsa[.]club/cabaco2.txt
+wn5zweb[.]online/works1.txt
+23[.]94[.]243[.]101/vdb1.txt
+167[.]114[.]31[.]95/gdo1.txt
+167[.]114[.]31[.]93/gdo1.txt

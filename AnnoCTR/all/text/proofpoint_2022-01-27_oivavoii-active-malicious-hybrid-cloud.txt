@@ -1,0 +1,56 @@
+OiVaVoii – An Active Malicious Hybrid Cloud Threats Campaign
+January 27, 2022
+### **Key Findings**
+**Campaign highlights:**
+* Beginning January 18, 2022, Proofpoint researchers observed a new malicious hybrid cloud campaign named OiVaVoii.
+* This campaign uses hijacked Office 365 tenants and a sophisticated combination of cleverly-crafted lures, malicious OAuth apps and targeted phishing threats.
+**Potential Impact:** We have seen account takeovers (through malicious OAuth apps stealing OAuth tokens and through credential theft).
+There are other potential risks after account takeovers, chiefly: persistent DLP risks, continued phishing, lateral movement, brand abuse and malware proliferation.
+**People impact:** Successfully taken over many C-level executives’ accounts, including CEOs, general managers, former board members and presidents.
+**Advised remediation actions:**
+* Microsoft has blocked many of the apps.
+* However, while original publishers’ accounts remain compromised, the campaign stays alive - new apps can be created and authorized.
+(Microsoft response times and solutions not sufficient for blocking all attempts).
+* Currently, active malicious apps will be detected and can be revoked/deleted through Proofpoint CASB.
+### **Attack Chain of OiVaVoii Campaign**
+By analyzing monitored email traffic and cloud users’ activities, Proofpoint researchers have so far uncovered five malicious OAuth applications attributed to the campaign (nicknamed “*OiVaVoii*” by analysts due to its associated domain).
+Below are examples of malicious apps created by a “verified” organization ("Yuma Counseling Services") and by a non-verified organization as part of the same campaign.
+At least three of these condemned third-party apps were created by two different “verified publishers,” meaning the app’s owner was likely a compromised admin user-account within a legitimate Office tenant.
+Out of the remaining two apps, at least one was created by a non-verified organization, which could imply leveraging a (third) hijacked cloud environment or using a dedicated malicious Office tenant.
+Once these apps were created, authorization requests were then sent, via email, to numerous targeted users, including high-level executives.
+The seemingly benign identity of the publishing organization was a substantial advantage, causing multiple unsuspecting victims to authorize these applications.
+This enables the attackers to generate OAuth tokens on the compromised user’s behalf and complete the account takeover.
+This modus-operandi is similar to the one previously covered in our [recent blog](/us/blog/email-and-cloud-threats/how-attackers-use-compromised-accounts-create-and-distribute-malicious "How Attackers Use Compromised Accounts to Create and Distribute Malicious OAuth Apps").
+### **Highlights from this campaign**
+* **Reply URL manipulation:**attackers use the Reply URL to redirect back to the consent screen autonomously.
+This means that clicking “Cancel” simply reloads the same page, keeping the user in a loop.
+* **Microsoft logo:**Some apps impersonate Microsoft software, using icon impersonation.
+* **MITM:** apps potentially use MITM proxy attacks.
+This means that credential theft could take place as part of the attack flow, greatly increasing the risk of a complete account takeover and prolonged persistency.
+* **C-level executives targeted:**a high percentage of targeted and compromised C-level executives was seen.
+Amongst detected affected titleholders are CEOs, presidents, board members, VPs and other high-profile users.
+* **Application scopes:** all detected apps requested similar permissions, pertaining mainly to mailbox access (read and write), allowing them to send internal and external malicious email messages, steal valuable information, and create mailbox rules (applied for data leakage and persistency purposes).
+### **Detected malicious applications**
+| **App name** | **App id** | **Published Type** | **Creation Date** | **Status** |
+| *Upgrade* | 01d33e0a-83c1-4e5c-98be-096bc270eabf | Verified | 16/11/21 | Blocked |
+| *Upgrade* | f9b75e84-5235-48d3-b745-37c99c056b64 | Verified | 23/1/22 | Blocked |
+| *Document* | c517e6b9-a1d5-4f7e-8081-dfb2142c056a | Verified | 26/1/22 | Blocked |
+| *Shared* | b2710450-6cec-4e4f-989f-c16f3041620a | Unverified | 27/1/22| Available |
+| *UserInfo* | 32fc064d-d4ea-43f9-ae7f-e90da936053f | Unknown | 27/1/22 | Blocked |
+Associated Reply URLs:
+* hxxps://queues[.]me/callback
+* hxxps://voii[.]at/callback
+* hxxps://viox[.]dev/callback
+### **Screenshots of malicious third party OAuth apps used in this campaign**
+![MSFT](/sites/default/files/inline-images/Screen%20Shot%202022-01-27%20at%204.33.19%20PM.png)
+![MSFT](/sites/default/files/inline-images/Screen%20Shot%202022-01-27%20at%204.33.39%20PM.png)
+![MSFT](/sites/default/files/inline-images/Screen%20Shot%202022-01-27%20at%204.34.02%20PM.png)
+![MSFT](/sites/default/files/inline-images/Screen%20Shot%202022-01-27%20at%204.34.32%20PM.png)
+### **Protecting against this campaign**
+It is important to note that although Microsoft eventually blocked further authorizations, existing instances of these apps still pose a threat to impacted organizations until they’re revoked or deleted.
+As we monitor the threat, we expect to see new apps being created and proliferated.
+Therefore, we advise taking immediate prevention measures, such as limiting app authorization by users’ and using layered defense solutions for early detection and remediation.
+In case of confirmed impact, we advise immediate revocation and deletion of malicious apps, along with suspicious mailbox rules, hosted files, and messages.
+This ongoing campaign was automatically surfaced to [Proofpoint CASB](/us/products/cloud-security/cloud-app-security-broker "Cloud App Security Broker"), 
+[Proofpoint Targeted Attack Protection](/us/products/advanced-threat-protection/targeted-attack-protection "Targeted Attack Protection") and 
+[Proofpoint Emerging Threats Intelligence](/us/products/advanced-threat-protection/et-intelligence "ET Intelligence") customers thanks to the integrated visibility across cloud and email threats enriched by internal threat intelligence.

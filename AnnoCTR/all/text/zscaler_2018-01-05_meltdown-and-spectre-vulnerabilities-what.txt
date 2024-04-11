@@ -1,0 +1,80 @@
+Meltdown and Spectre vulnerabilities: What you need to know
+January 05, 2018
+![Meltdown & Spectre](/cdn-cgi/image/format=auto/sites/default/files/images/zscaler-blog-meltdown-spectre-image%20%281%29.png)
+Two major security vulnerabilities in processors, dubbed Meltdown and Spectre, were disclosed earlier this week by Google's Project Zero team.
+With the ability to allow attackers to gain unauthorized access to sensitive information in memory, Meltdown and Spectre represent a new class of microarchitectural attacks that use processor chip performance optimization features to exploit built-in security mechanisms.
+**Meltdown** exploits the out-of-order execution feature of modern processors, allowing user-level programs to access kernel memory using processor caches as covert side channels.
+This is specific to the way out-of-order execution is implemented in the processors.
+This vulnerability has been assigned **CVE-2017-5754**.
+**Spectre** exploits the speculative execution feature that is present in almost all processors in existence today.
+Two variants of Spectre are known and seem to depend on what is used to influence erroneous speculative execution.
+The first variant triggers speculative execution by performing a bounds check bypass and has been assigned **CVE-2017-5753**.
+The second variant uses branch target injection for the same effect and has been assigned **CVE-2017-5715**.
+**What is vulnerable?**
+Meltdown has the potential to affect every Intel processor that supports out-of-order execution; essentially **all Intel processors since 1995**.
+At the moment it is unclear if AMD and ARM processors are affected by Meltdown.
+Meltdown exploits the shared kernel-space mapping in the user-space virtual memory.
+Mitigating this vulnerability involves a technique known as Kernel Page Table Isolation (KPTI), which improves the isolation between kernel-space and user-space memory.
+Spectre, on the other hand, affects almost every system in existence: **desktops, laptops, cloud servers, tablets, and smartphones**.
+Spectre has been exploited successfully on Intel, AMD, ARM, System Z, and Power 9 processors, among others.
+There is no single fix for this vulnerability, as it is at an architectural level, and mitigation requires fixes at each application level.
+Exploitation through JavaScript is also possible.
+**Meltdown vulnerability impact:**
+* Read arbitrary kernel memory from user space applications
+* Fully virtualized machines are not affected (guest user space application cannot read host user/kernel space memory)
+* Hypervisor escape is possible in paravirtualized environment (Xen, Docker, etc.
+* Sensitive information disclosure and privilege escalation attacks, as the dumped memory may contain password hashes, private keys, etc.
+**Spectre vulnerability impact:**
+* Theoretically allows random access to the entire memory-space
+* Works across Virtual Machines
+* Practical PoC for user-space to user-space attacks exist at the moment
+* Harder to exploit than Meltdown
+* Leaking user-space module addresses and thus bypassing ASLR for further attacks is possible (remote code execution)
+**What may be impacted?**
+PCs, laptops, servers, virtualization software, cloud servers, and so on, are all impacted if they are running the vulnerable processor.
+**Meltdown:**All modern Intel x86 processors are vulnerable.
+Exploitation is theoretically possible on AMD and ARM, but not yet practically achieved.
+**Spectre:**Intel, ARM, AMD, System Z, and Power 9 processors.
+**Is the Zscaler cloud infrastructure vulnerable?**
+Zscaler runs large parts of its cloud software on dedicated bare metal and does not share processors or memory with anyone else.
+This safeguards Zscaler infrastructure from attacks that can originate from foreign applications that may try to escape the virtual environment and access our memory regions.
+The attack can only be executed locally with an attacker running malicious code on the same hardware.
+Since our execution environment is **highly guarded and closed**, attackers cannot gain access to launch malicious code.
+Nonetheless, our cloud operations team is actively working on applying necessary patches after carefully evaluating their impact on performance and stability.
+Zscaler customers running virtualized private components on their infrastructure should immediately update their hosts so as to prevent VM escape, in which another guest on the same host may browse memory regions used by other virtualized components.
+Only software updates to the hosts can protect the guests from these exploits, as a guest OS update will not suffice to protect against another compromised guest.
+It is the customer’s responsibility to apply updates relevant to their infrastructure.
+More details on how Zscaler secures the cloud infrastructure from these vulnerabilities can be found in the post [here](/blogs/corporate/meltdown-and-spectre-vulnerabilities-protecting-zscaler-cloud)
+The Zscaler official trust post on this issue can be found [here](https://trust.zscaler.net/blog/meltdown-and-spectre-vulnerabilities-initial-assessment).
+**Zscaler security coverage for exploitation**
+We have deployed advanced threat signatures to detect some of the known JavaScript-based exploit POCs.
+Advanced threat signatures: JS.Spectre.gen (browser exploit)
+We are actively working on deploying an assembly-level detection for the exploitation technique involved in both the Meltdown and Spectre attacks.
+There are no active ITW exploit attempts of Meltdown or Spectre that Zscaler ThreatLabZ is currently aware of, but we will continue to actively monitor and ensure coverage for our customers.
+Update - We have deployed assembly-level detection for the exploitation technique in Cloud Sandbox on January 12, 2018
+**Mitigation**
+Zscaler ThreatLabZ highly recommends applying both operating system and application-level patches to safeguard systems against these vulnerabilities.
+**OS-level patches currently available**
+FreeBSD patches being worked on: (<https://www.freebsd.org/news/newsflash.html#event20180104:01>)
+Apple Mitigations (<https://support.apple.com/en-us/HT208394>)
+Microsoft Advisory (<https://support.microsoft.com/en-us/help/4073119/protect-against-speculative-execution-side-channel-vulnerabilities-in>)
+*Note: A small number of anti-virus applications performing unsupported calls to Windows Kernel memory are causing Blue Screen of Death (BSOD) after the use of this patch, so if you didn't receive the latest Windows security update, you may need to update the AV application first.*
+**Browser patches**
+Chrome has suggested mitigation from Chrome 63 (released Dec 15) by enabling site-isolation feature.
+A comprehensive fix will be available in Chrome 64 (releasing Jan 23)
+Firefox has short term mitigations available from version 57 (released November)
+Microsoft Edge and IE updates are available along with the Windows patch
+**Virtualization application-level patches**
+VMware (<https://www.vmware.com/us/security/advisories/VMSA-2018-0002.html>)
+XEN (<https://xenbits.xen.org/xsa/advisory-254.html>)
+Citrix (<https://support.citrix.com/article/CTX231399>)
+**Recommendation for cloud apps**
+Amazon AWS (<https://aws.amazon.com/de/security/security-bulletins/AWS-2018-013/>)
+Microsoft Azure (<https://azure.microsoft.com/en-us/blog/securing-azure-customers-from-cpu-vulnerability/>)
+Google Cloud (<https://support.google.com/faqs/answer/7622138>)
+**Conclusion**
+For those of us in security, 2017 will be remembered for three major ransomware outbreaks and the Equifax data breach.
+And with such a significant security issue tagged within the first week of the year, 2018 promises to challenging for the security and tech industry.
+While we are not aware of any exploit attempts for these vulnerabilities in the wild, it is only a matter of time before we start seeing them.
+We urge everyone to apply the available security patches.
+Zscaler ThreatLabZ will continue to monitor and ensure coverage for any in-the-wild exploit attempts targeting these vulnerabilities.

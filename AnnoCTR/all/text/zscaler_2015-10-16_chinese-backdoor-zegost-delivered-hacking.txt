@@ -1,0 +1,102 @@
+Chinese Backdoor Zegost Delivered Via Hacking Team Exploit
+October 16, 2015
+### Introduction
+Zscaler ThreatLabZ has been closely monitoring the usage of Hacking Team's leaked exploits in the wild since July, 2015 and recently uncovered the [Emissary Panda APT attack](/blogs/research/chinese-cyber-espionage-apt-group-leveraging-recently-leaked-hacking-team-exploits-target-financial-services-firm) leveraging these exploits.
+In past two months, we've spotted multiple instances of Zegost Backdoor Trojan installation attempts leveraging Hacking Team's Adobe Flash exploit (CVE-2015-5119) payload.
+These attacks do not appear to be targeted, but the payload involved in the infection cycle has some resemblance to recent APT payloads from HttpBrowser & the PlugX RAT family.
+### Attack Chain
+The infection cycle starts with a legitimate Chinese real estate and shopping site *www[.]kongquechang[.]com*, which appears to have been compromised by the attackers and contains an injected script.
+The injected script will cause a series of redirects leading to Hacking Team's exploit payload as seen in Figure 1.
+The majority of users were led to the original compromised site following a Baidu search.
+|  |
+| Figure 1: Compromised Chinese real estate & shopping site |
+The site *www[.]kongquecheng[.]com* is still infected but the exploit server appears to be down at the time of writing this blog.
+Attackers are abusing the Chinese URL shortening service *t.cn* to redirect victims to the attack server and also Baidu's URL shortening service *dwz.cn* to deliver the Adobe Flash exploit payload as seen below:
+|  |
+|
+| Figure 2: Zegost Backdoor Attack Chain |
+|
+The Flash exploit payload (CVE-2015-5119) involved here is from the Hacking Team's leaked archive with updated shellcode.
+Upon successful exploitation, the embedded shellcode will trigger the download and execution of the Zegost executable from a predetermined location.
+|  |
+| Figure 3: Hacking Team's Adobe Flash Exploit |
+|  |
+| Figure 4: Embedded shellcode to download & install Zegost |
+### Zegost Payload Iterations
+During the course of our monitoring we observed the attackers switch the malware payload multiple times.
+**Payload Type #1 - APT RAT like Zegost Installer**
+**Filename:**
+svhost.exe
+**MD5:**
+E04F3C9C2F7BE694628AECCD23E8839D
+The Zegost payload was being delivered as part of an installer archive, which is similar in structure to the APT RAT PlugX and HttpBrowser as detailed [here](/blogs/research/chinese-cyber-espionage-apt-group-leveraging-recently-leaked-hacking-team-exploits-target-financial-services-firm).
+The downloaded installer was *svhost.exe*, which has following file structure:
+|  |
+| Figure 5: APT RAT like Zegost installer archive |
+The Zegost installer is responsible for dropping the above three files and running the legitimate Ping\_Master\_Pro utility *DATA.exe*.
+The legitimate binary contains the *data.dll* in the import table, ensuring that the DLL will be loaded before it runs.
+The *data.dll* that gets loaded in this case, will be a fake VirtualBox display driver DLL file present in the same directory and it will patch the entry point of the main executable (*DATA.exe*) file with a jump instruction to run the DLL’s code instead.
+This technique is also known as DLL Hijacking which ensures that the fake display driver DLL gets loaded by abusing the Windows DLL load order.
+The DLL’s code is responsible for decrypting and running the Zegost Backdoor payload from the *fafentuqiang.png* file in the same memory space of the benign executable.
+We observed a bug in the persistence module for this payload, which resulted in an incorrect path getting added to the registry entry created by the malware.
+The result was that upon system reboot the user's machine will no longer be infected with the Backdoor Trojan.
+**Payload Type #2 - Vanilla Zegost**
+**Filename:**
+svhost.exe
+**MD5:**
+8F3B2C449793BC1538328CCC9BDC9CCD
+62C705A0232EA6D4E3E3CE93F7506ACC
+A modified Zegost payload was being delivered in decrypted form abandoning the installer archive structure.
+This payload was recently compiled and purports to be a *XLLuaRuntime* Dynamic Link Library file as seen below:
+|  |
+| Figure 6: Recently compiled Zegost payload |
+|  |
+| Figure 7: Zegost payload file meta data |
+During our analysis we noticed that the persistence issue that existed in the previous iteration was resolved in this payload and the malware successfully remained active upon system reboot.
+### Zegost Infection Cycle
+* Zegost Trojan drops a copy of itself in the Windows system directory as *%SYSTEMDIR%\Autoexec.exe*
+* It creates the following registry key to ensure persistence upon system reboot:
+>
+> > *HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\ Nobug = %SYSTEMDIR%\Autoexec.exe*
+>
+>
+* We also saw an alternate code for achieving persistence by registering a new Windows Service:
+>
+> > *HKLM\SYSTEM\CurrentControlSet\Services\*
+>
+>
+>
+> > *ServiceName - DirectX dwx*
+>
+>
+>
+> > *DisplayName - DirectX Remover auy for Windows(R).*
+>
+>
+>
+> > *ImagePath - %SYSTEMDIR%\Autoexec.exe*
+>
+>
+* The Trojan reports the infected system information to a predetermined remote server at the following location:
+>
+> > *Domain - www[.]svshot[.]com*
+>
+>
+>
+> > *Server IP - 123.57.54[.]57*
+>
+>
+>
+> > *Server Port - 8999*
+>
+>
+* The Command & Control server domain used in this attack was recently registered and points to a dedicated server hosted on the shady Chinese autonomous system - AS37963 (CNNIC-ALIBABA-CN-NET-AP) as seen below:
+|  |
+| Figure 8: Command & Control server hosted in China |
+> The same server is also used for the initial Adobe Flash exploitation attempt.
+### Conclusion
+Hacking Team's exploit payloads remain a popular choice among cyber criminals for weaponizing their payloads.
+This is the first instance of the Zegost Backdoor Trojan being delivered using Hacking Team's exploit.
+The Zegost Backdoor payload iterations we observed in this attack chain indicates that the author is testing out new payloads.
+Zscaler’s ThreatLabZ has confirmed coverage for these exploits and for the Zegost variants, ensuring protection for organizations using Zscaler’s Internet security platform.
+Research by: Deepen Desai, Amandeep Kumar 

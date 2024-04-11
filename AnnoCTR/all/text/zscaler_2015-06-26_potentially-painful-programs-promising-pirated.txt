@@ -1,0 +1,84 @@
+Potentially Painful Programs Promising Pirated Products
+June 26, 2015
+A major source of PC compromise doesn't come from targeted APT campaigns or Exploit Kits, but user's clicking things that they simply shouldn't.
+A common practice for adware and spyware writers is hosting large numbers of seemingly legitimate files that users might trust from an unknown source.
+Users know trusted download locations for common packages like Flash Player or Skype, but when searching for pirated software or media, any link that promises results becomes a trusted source.
+ThreatLabZ has been monitoring a large campaign of two well known adware/spyware packages, namely OutBrowse and MultiPlug.
+ThreatLabZ has observed filenames purporting to be popular software applications, PC games, movies, TV series, car repair guides, etc.
+being used to trick users into downloading and running spyware packages.
+Below is a sample list of filenames from this month:
+* Colin McRae Rally 2.0 Full Version - FullRip   Download Low Spec PC Games   RataMap   Download Low End PC Games.exe
+* adobe acrobat 8 standard serial number generator.exe
+* dell bluetooth headset bh200 driver.exe
+* Wii dance revolution.exe
+* Besiege Free Download Game.exe
+* Tropico Reloaded   Free Download PC Game Full Version.exe
+* Minecraft 1.8 Crack Full Free Download.exe
+* Dragon Ball Complete Series Episode1.exe
+* Home.2015.720p.\_-DL.MaZiKa2daY.CoM.mkv.exe
+* visual studio 2012 crack torrent.exe
+* LEXUS LS 460 user guide provided through pdfretriever.com.exe
+Once installed, the user is shown unsolicited advertisements and experiences a substantial increase in browser tracking activity.
+We noticed the cyber-criminals involved in these campaigns heavily leverage .info TLD domains as seen in the table below:
+| **Domain** | **Adware Family** |
+| a.webboxwebs[.]info | MultiPlug Adware |
+| get1.0111design[.]info | Outbrowse Adware |
+| a.positionpublic[.]info | MultiPlug Adware |
+| a.parser-case-croc[.]info | MultiPlug Adware |
+| get.0136g[.]info | Outbrowse Adware |
+| a.linuxcallring-north[.]info | MultiPlug Adware |
+| a.northsinglemultiple[.]info | MultiPlug Adware |
+| get.0136h[.]info | Outbrowse Adware |
+| a.valuevilleville[.]info | MultiPlug Adware |
+| a.cooledon[.]info | MultiPlug Adware |
+| a.beeforcelevel[.]info | MultiPlug Adware |
+| a.stickercenter[.]info | MultiPlug Adware |
+| get.0136i[.]info | Outbrowse Adware |
+**OutBrowse**
+The OutBrowse family authors leverage popular TV shows, software applications and trending news to deliver custom payloads that monitor the user's browsing activity.
+Their business model is to direct users to a pay site that provide various services.
+|  |
+| Didn't I just download Tony Hawk Pro Skater2.Crack.CDKEY.exe.
+|
+The phone home communication for OutBrowse also provides excessive information to the advertisers.
+This data often includes the system's MAC address, IP address, different browser versions installed, and the machine GUID.
+|  |
+| Data Collection from the victim's system.
+|
+OutBrowse beacons to several domains to share machine details and send aggressive advertisements.
+We have been monitoring this activity to the following domains for several months:
+* srv.dmdataserver[.]com
+* static.revenyou[.]com
+* srv.desk-top-app[.]info
+|  |
+| Consistent traffic to known Outbrowse beacons |
+OutBrowse is normally found on the victim's machine by inspecting the user's *C:\Documents And Settings\user\Local Settings\Temp\* directory for any suspicious files.
+It's common for OutBrowse to also install other bundled software packages as well.
+Users should check their autostart programs and Browser Helper Object (BHO) entries for software that is suspicious.
+|  |
+| OutBrowse installed MiniGet as a BHO and Content Menu in Internet Explorer |
+**MultiPlug**
+MutliPlug is another adware package that is installed as part of this campaign.
+The purpose of this package is to provide a custom executable to the victim that leads to additional bundleware.
+After a successful MultiPlug infection, we noticed applications like LightningDownloader, SeekerFoobar, WeatherBug, and EasyAutoRefresh getting dropped on the victim machine.
+|  |
+| Silent Installers seen to download additional adware packages.
+|
+Once MultiPlug is installed, it starts downloading and installing additional packages in the background while displaying unsolicited advertisements.
+|  |
+| A common location-targeted advertisement seen from a package installed by MultiPlug |
+|  |
+| Highly aggressive advertisements attempting to lead the victim to buying software.
+|
+The best way to remediate this attack is to review all installed programs through Windows Control Panel and odds are good that MultiPlug installed at least multiple unwanted software packages.
+Once this is done, users should review their autostart job files in the C:\WINDOWS\Tasks\ directory for anomalous entries.
+Installed Browser Helper Objects should also be checked using applications like [HiJackThis](http://sourceforge.net/projects/hjt/) or X-rayPC.
+ThreatLabZ has been closely monitoring these campaigns for the past few months and the trend shows no sign of slowing down as seen in the time chart below:
+|  |
+| Several sites are phishing users with the promise of illegally obtained content |
+The bulk of these attacks are hosted in the United States.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/-f2lDi4N37Vw/VYxnS9-sMfI/AAAAAAAABJI/C0wJ6YCyvvU/s400/hosting_countries.png)](/sites/default/files/images/blogs/-f2lDi4N37Vw/VYxnS9-sMfI/AAAAAAAABJI/C0wJ6YCyvvU/s400/hosting_countries.png)
+**Conclusion**
+The moral of this story is to not trust seemingly legitimate content if you are attempting to obtain it illegally.
+Users show a distinct lapse in judgment when they believe the desired content is available for free.
+We recommend not attempting to pirate content and simply paying for the media desired.

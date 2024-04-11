@@ -1,0 +1,127 @@
+Ready-made COVID-19 Themed Phishing Templates Copy Government Websites Worldwide
+May 14, 2020
+Threat actors are continuing to try and take advantage of people worldwide as the pandemic continues—and most recently their efforts have included using fake websites, associated with COVID-19 financial assistance, to steal credentials.
+Over the last two months we observed a surge in the creation of COVID-19-themed credential phishing website templates that mimic the brands of numerous governments and trusted non-governmental organizations (NGOs) including the World Health Organization (WHO), Internal Revenue Service (IRS), Centers for Disease Control (CDC), the United Kingdom government, the government of Canada, and the government of France.
+Easily more than half of the 300+ COVID-19 phishing campaigns we’ve observed since January 2020 are focused on capturing user credentials.
+Below are recent template examples, which make it easy for threat actors to quickly create high-quality, malicious web domains to insert into their COVID-19 phishing campaigns.
+Many of these templates feature multiple pages, further adding to the quality of the deception.
+Credential phishing attackers often tailor their email lures with themes they believe will be the most effective and use general websites for actual credential harvesting.
+The recent move to create custom COVID-19 payment phishing templates indicates that buyers view them as effective enough to warrant custom tactics to harvest credentials.
+Below in figure 1 we’ve captured the sudden growth in COVID-19 phishing landing page deployments, starting in March 2020.
+In this chart, you can see a slow growth that significantly jumped at the beginning of March 2020 and then began to drop off in April 2020.
+The peak in March and subsequent drop off in April likely reflects a combination of saturation for COVID-19 payment theme phishing templates and a move towards other COVID-19 themes as many one-time payments were disbursed.
+![Image 1](/sites/default/files/inline-images/Image%201_5.14_0.JPG)
+*Figure 1: Rise of COVID-19 Themed Phishing Landing Pages (January - April 2020)*
+**Template Examples:**
+**World Health Organization**
+![Image 2](/sites/default/files/inline-images/Image%202_5.14.jpg)
+*Figure 2: Spoofed WHO-branded Credential Phishing Template via wastewatertreatment[.]co[.]nz*
+The above example is a template designed to copy the look and feel of the legitimate
+WHO site (<https://www.who.int/>).
+It copies the WHO logo and color scheme and is designed to be used as part of a credential phishing campaign.
+In this case, the malicious template is designed to obtain a visitor’s username and password, ostensibly so they can gain access to information about COVID-19 safety measures.
+This sample is particularly notable because it represents the first example of a COVID-19 specific credential phishing template that we saw on February 6, 2020.
+**United States Centers for Disease Control**
+![Image 3](/sites/default/files/inline-images/Image%203_5.14.jpg)
+*Figure 3: Spoofed CDC Branded Credential Phishing Template via cdc[.]gov[.]coronavirus[.]secure[.]server[.]shorttermrental[.]org*
+The above example is a credential phishing template that is designed to spoof the legitimate site of the United States Centers for Disease Control (CDC).
+This template asks the visitor for their email address and password so that they can receive a “Vaccine ID.
+In Figure 3 you can see that the modal box asking for credentials includes logos for Microsoft Outlook, Google Gmail, Microsoft Office 365, Yahoo!, and AOL, making this a broad web email credential phishing template repurposed for this theme.
+It’s notable that at the time of our research, this template has directly copied the coronavirus graphic that is present on the legitimate CDC website (<https://www.cdc.gov/>).
+For purposes of comparison we have included a screenshot of the CDC website with the graphic that the malicious template copied and the digital certificate highlighted to demonstrate its authenticity in Figure 4.
+![Image 4](/sites/default/files/inline-images/Image%204_5.14.jpg)
+*Figure 4 Legitimate CDC Website Showing Graphic*
+**Internal Revenue Service**
+![Image 5](/sites/default/files/inline-images/Image%205_5.14.jpg)
+*Figure 5 Spoofed IRS Landing Page for Financial Aid via cmattayers[.]com*
+The above example is part of a template found on a site with URL that included COVID-19 related keywords.
+This template offers the visitor a sum of money as “financial aid” as part of the overall COVID-19 relief program.
+To secure the financial aid the visitor has to click the “Continue” button which takes them to a subsequent page that asks for their personal information (Figure 6 below).
+![Image 6](/sites/default/files/inline-images/Image%206_5.14.jpg)
+*Figure 6 Spoofed IRS Payment Credential Phishing Page via cmattayers[.]com*
+These pages copy the look and feel of the legitimate IRS payment page as shown in Figure 7.
+![Image 7](/sites/default/files/inline-images/Image%207_5.14.jpg)
+*Figure 7 Legitimate IRS Payment Page*
+**Government of Canada/ Gouvernement du Canada**
+![Image 8](/sites/default/files/inline-images/Image%208_5.14.jpg)
+*Figure 8 Spoofed Canadian Government Language Selection Page via midiaplural[.com[.]br*
+The above example is part of a multi-layered template that spoofs the legitimate Canadian Government website (<https://www.canada.ca/>).
+One thing that is notable about this template is that it mirrors the user’s experience of the legitimate government website by presenting the visitor the same kind of English or French Language selection that the legitimate site offers.
+The malicious template continues the ruse by offering the credential phishing pages in either English (as shown in Figure 9) or French (as shown in Figure 10).
+![Image 9](/sites/default/files/inline-images/Image%209_5.14.jpg)
+*Figure 9 Fake Canada Revenue Agency COVID-19 Financial Support Page in English via subvention-pcu-ca[.]org*
+![Image 10](/sites/default/files/inline-images/Image%2010_5.14.jpg)
+*Figure 10 Fake Agence du revenu du Canada COVID-19 Financial Support Page in French via visionchb[.]com*
+This spoof is noteworthy because while it copies the behavior of the Canadian government website effectively, it does not match the look and feel of the current Canadian government website.
+The malicious template correctly copies the name of Canada’s revenue ministry in English and French, Canada Revenue Agency and Agence du revenu du Canada respectively.
+However, the layout, colors, and branding of the malicious template do not match that of the legitimate Canadian government website.
+This malicious template has been designed to gather names and [social insurance numbers]
+(https://www.canada.ca/en/employment-social-development/services/sin.html).
+The social insurance number is the rough Canadian equivalent to the American social security number, and a protected piece of personal information under Canadian privacy laws.
+**United Kingdom – Her Majesty’s Revenue and Customs (HMRC)**
+![Image 11](/sites/default/files/inline-images/Image%2011_5.14.jpg)
+*Figure 11 UK HMRC Phishing Page via mail[.]gov-uk-virusclaim[.]online*
+This malicious template is meant to make the visitor believe it is Her Majesty’s Revenue and Customs (HMRC) in the United Kingdom, the equivalent of the United States Internal Revenue Service (IRS).
+This page asks for the visitor’s name, date of birth, and full address, which is likely used for identity theft.
+This page is notable because it differs significantly from the legitimate
+HMRC site (<https://www.gov.uk/government/organisations/hm-revenue-customs>).
+The legitimate site does not have the look and feel this page presents, and features different HMRC branding.
+**United Kingdom Government – Westminster City Council**
+![Image 12](/sites/default/files/inline-images/Image%2012_5.14.jpg)
+*Figure 12 Gov UK Phishing Page via uk-covid-19-relieve[.]com*
+![Image 13](/sites/default/files/inline-images/Image%2013_5.14.jpg)
+*Figure 13  Gov UK Phishing Page via uk-covid-19-relieve[.]com*
+![Image 14](/sites/default/files/inline-images/Image%2014_5.14.jpg)
+*Figure 14 Gov UK Phishing Page via uk-covid-19-relieve[.]com*
+Above are malicious web templates that pretend to represent the City of Westminster City Council’s section of the United Kingdom government website.
+These pages promise COVID-19 relief funds and are specifically designed to gather personal information.
+These templates do correctly mirror the legitimate UK Government website structure, including listing “City Council Tax” as part of the “Housing and local services” section of the UK Government website (<https://www.gov.uk/browse/housing-local-services>).
+It also offers a postal code lookup feature similar to the legitimate website (<https://www.gov.uk/pay-council-tax>).
+That said, these malicious templates differ from the look and feel of the current legitimate website and feature grammatical inaccuracies, including an incorrect call to action “Enter Your Post Code to Apply for COVID-19 Relieve” and the “NHS COVID-19 Relieve system.
+In addition, the Council Tax for the City of Westminster payments are actually handled on the city’s separate website (<https://payments.westminster.gov.uk/counciltax/default.aspx>).
+**Gouvernement  Français**
+![Image 15](/sites/default/files/inline-images/Image%2015_5.14.jpg)
+Figure 15 French Government Payment Confirmation Phishing Page via covid19-info[.]net
+The above malicious template attempts to reproduce the look and feel of the official French government website (<https://www.gouvernement.fr/>).
+It accurately copies the current website logo in the upper left.
+Similar to other examples, this attempts to convince the visitor to enter personal information to receive financial assistance from the government in response to the COVID-19 situation.
+While the malicious template copies the blue of the official website logo for its page banner, the legitimate site does not use that color in its banner but instead uses a lighter shade of blue.
+**Conclusion**
+Overall, we’ve seen more than 300 different COVID-19 campaigns (since January 2020) across nearly every industry we track.
+The threat actors behind these campaigns have run the gamut from well-known, established threat actor groups to unknown individuals.
+And while these efforts are primarily in English, we’ve also seen campaigns in Japanese, Spanish, Italian, French, Portuguese, Turkish, and other languages.
+It's clear threat actors follow trends closely.
+We’ve seen throughout the COVID-19 situation how threat actors have followed the news and adapted their themes to match the unfolding public narrative.
+The movement by governments in particular to offer financial support has caught the attention of threat actors who have moved not only to target those funds directly but to use them as themes for their malware and credential phishing attacks.
+As the COVID-19 situation continues to unfold across the globe, we can expect these kinds of COVID-19 themed attacks to continue and threat actors to offer additional tools that can make those attacks easier to carry out.
+Below are some rules from the ET OPEN (free) ruleset relevant to the samples discussed above which detect and help to inform of COVID-19 related activity on the network.
+| ET HUNTING Observed Lets Encrypt Certificate - Possible COVID-19 Related M1 | 2029703 |
+| ET HUNTING Observed Lets Encrypt Certificate - Possible COVID-19 Related M2 | 2029704 |
+| ET HUNTING Possible COVID-19 Domain in SSL Certificate M1 | 2029705 |
+| ET HUNTING Possible COVID-19 Domain in SSL Certificate M2 | 2029706 |
+| ET HUNTING Suspicious Domain Request for Possible COVID-19 Domain M1 | 2029709 |
+| ET HUNTING Suspicious Domain Request for Possible COVID-19 Domain M2 | 2029710 |
+| ET HUNTING Suspicious GET Request with Possible COVID-19 Domain M1 | 2029711 |
+| ET HUNTING Suspicious GET Request with Possible COVID-19 Domain M2 | 2029712 |
+| ET HUNTING Suspicious GET Request with Possible COVID-19 URI M1 | 2029753 |
+| ET HUNTING Suspicious GET Request with Possible COVID-19 URI M2 | 2029754 |
+| ET HUNTING Suspicious POST Request with Possible COVID-19 Domain M1 | 2029713 |
+| ET HUNTING Suspicious POST Request with Possible COVID-19 Domain M2 | 2029714 |
+| ET HUNTING Suspicious POST Request with Possible COVID-19 URI M1 | 2029755 |
+| ET HUNTING Suspicious POST Request with Possible COVID-19 URI M2 | 2029756 |
+| ET HUNTING Suspicious TLS SNI Request for Possible COVID-19 Domain M1 | 2029707 |
+| ET HUNTING Suspicious TLS SNI Request for Possible COVID-19 Domain M2 | 2029708 |
+| ET PHISHING Canada Revenue Agency COVID-19 Assistance Eligibility Phishing Landing 2020-04-01 | 2029788 |
+| ET PHISHING Canada Revenue Agency COVID-19 Assistance Eligibility Phishing Landing 2020-04-01 | 2029789 |
+| ET PHISHING Fake World Health Organization COVID-19 Portal 2020-03-20 | 2029695 |
+| ET PHISHING GOV UK Possible COVID-19 Phish 2020-04-06 | 2029849 |
+| ET PHISHING GOV UK Possible COVID-19 Phish 2020-04-06 | 2029850 |
+| ET PHISHING Possible Successful COVID-19 Related Phish M1 | 2029757 |
+| ET PHISHING Possible Successful COVID-19 Related Phish M2 | 2029758 |
+| ET PHISHING Successful Canada Revenue Agency COVID-19 Assistance Eligibility (FR) Phish 2020-04-01 | 2029783 |
+| ET PHISHING Successful Canada Revenue Agency COVID-19 Assistance Eligibility Phish 2020-04-01 | 2029782 |
+| ET PHISHING Successful World Health Organization COVID-19 Phish 2020-03-23 | 2029700 |
+| ET PHISHING French Government COVID-19 Landing Page | 2030145 |
+| ET PHISHING NHS Gov UK COVID-19 Landing Page | 2030146 |
+| ET PHISHING IRS COVID-19 Landing Page | 2030147 |
+You can learn more about ways to protect against COVID-19 threats [here](https://www.proofpoint.com/us/threat-insight/post/practitioners-update-free-covid-19-related-ids-rules).

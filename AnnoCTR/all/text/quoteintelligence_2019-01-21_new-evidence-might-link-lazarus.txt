@@ -1,0 +1,106 @@
+New Evidence Might Link Lazarus Tool Found in Chile RedBanc Intrusion to Previous Attacks in Pakistan
+Jan 21, 2019
+Note: This article was initially written by the QuoINT Team as part of QuoScient GmbH. Since the foundation of QuoIntelligence in March 2020, this article was transferred to this website on 21 April 2020.
+**Executive Summary**
+=====================
+QuoINT has uncovered an attack against a Pakistani financial service provider’s employee that highly matched the Tactics, Techniques, and Procedures (TTPs) [reported](http://www.trendtic.cl/2019/01/exclusivo-asi-fue-el-intento-de-ciberataque-a-redbanc-en-diciembre/) in a recent intrusion at the Chilean interbank network Redbanc [linked by Flashpoint](https://www.flashpoint-intel.com/blog/disclosure-chilean-redbanc-intrusion-lazarus-ties/) to the prolific North Korea-linked Advanced Persistent Threat (APT) group Lazarus (also known as HIDDEN COBRA).
+Further, we uncovered new evidence that might link the November 2018 attacks against multiple Pakistani banks to Lazarus.
+More in detail, we discovered an attack that occurred on 31 October 2018, and highly likely led to the infection of the employee’s computer.
+However, we are not able to ascertain if the infection of the victim’s computer successfully led to the compromise of the company.
+Although the timeframe of the attack falls within a period where multiple sources reported cyberattacks against Pakistani financial institutions, at this point we cannot rule out that this attack was part of a different campaign.
+As we investigate further, we will disseminate Intelligence products to our partners and customers.
+**Introduction**
+----------------
+On 16 January 2019, we identified a sample on VirusTotal which is almost identical to the one reportedly used to attack the Chilean financial institution Redbanc in late December 2018.
+The sample, named ApplicationPDF.exe, was uploaded from Pakistan to VirusTotal on January 16 as a part of a ZIP archive, which also contained a generated PDF and the Windows DLL required for its execution.
+The PDF contains what is highly likely the personal information of the targeted victim.[1]
+Further OSINT analysis revealed the victim being an employee at a financial services provider in Pakistan and knowledgeable in financial systems and technologies including Point-of-Sales (POS) and Automated Teller Machine (ATMs).
+The targeted profile matches the one described by Chilean newspapers while detailing the attack against RedBanc.
+The timestamps obtained from analyzing the artifacts place this incident within a period where multiple Pakistani sources reported incidents against the local banking sector, such as the compromise of BankIslami that reportedly resulted in the loss of RS 2.6 million.
+Figure 1 highlights the timeline of malicious activity targeting both Pakistan and Chile.
+More specifically, the timeline highlights:
+* 21 total banks notifying their customers of multiple credit card dumps for sale on the dark web (26 and 31 October);
+* BankIslami reporting suspicious transactions resulting in RS 2.6 of losses (27 October);
+* The date an unknown user located in Chile uploaded the alleged malware sample used to target RedBanc (13 December); and
+* The date the highly likely compromised user in Pakistan submitted the malware sample used to target him (16 January).
+It is unknown, however, if this newly discovered activity is related to any of the publicly reported Pakistani incidents
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![](https://miro.medium.com/max/3146/1*vfN6xFPBVXy1gmzT00IksQ.png)
+Figure 1 — Timeline analysis
+Technical Analysis
+------------------
+According to the reported disclosure of the RedBanc intrusion, the lure begins with a job offer posted to a social media network (LinkedIn).
+After clicking to apply, attackers contact the person inquiring and an interview conversation occurs, in an attempt to validate the scheme and build trust.
+The interviewer eventually asks applicants to download and execute a tool (ApplicationPDF.exe) on their computer in order to generate their application form in PDF format.
+The execution of the tool kicks off the infection process.
+Our initial discovery consisted of a variant of the ApplicationPDF.exe binary reportedly used against the Chilean bank.
+The two variants are virtually the same, differing by the compilation timestamps as the figure below shows.
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![](https://miro.medium.com/max/1752/1*A-hUwSEgB_8Wd20CfhSPDA.png)
+Figure 2 — ApplicationPDF.exe variants
+Shortly after, we identified a compressed archive also uploaded to VirusTotal containing the exact same sample, along with two additional non-malicious files, one of which is interesting for our victimology efforts.[2]
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![](https://miro.medium.com/max/690/1*noZvzBWg_MdP5CAnhB8awg.png)
+**Figure 3** — QuoLab screenshot of the similarity in the kill-chain between tool variants used in Chile and Pakistan
+**AppplicationPDF.exe**
+**SHA-256:** 0e3552c8232e007f421f241ea4188ea941f4d34eab311a5c2341488749d892c7 (Variant #1)
+Similar to the dropper used in the Chilean RedBanc attack, this tool is a GUI program (Figure 4) faking an application form.
+Besides the compilation timestamp, the two variants are virtually the same.
+The evidence obtained suggests that the victim executed ApplicationPDF.exe: the compressed archive we found also included the PDF that was most likely generated by the victim.
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![](https://miro.medium.com/max/1004/1*HSRzH4citBTUhhmUSj3ZzA.png)
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![](https://miro.medium.com/max/1004/1*S-MPNRVxlXTZpZvhV8go6w.png)
+**Figure 4 —** *Dropper disguised as an application form*
+Once executed, the sample communicates the C2 URL (hxxps://ecombox[.]store/tbl\_add[.]php?action=agetpsb), and after connecting, it drops a script file (REG\_TIME.ps1) used to invoke the PowerShell process.
+**PowerRatankba variant** (REG\_TIME.ps1)
+**SHA-256:** a1f06d69bd6379e310b10a364d689f21499953fa1118ec699a25072779de5d9b
+The script arrives encrypted and will decrypt itself in memory to the following sample:
+**Decrypted\_PowerRatankba variant** (REG\_TIME.ps1)
+**SHA-256:** 9797ad321f2eb123c3531d007295b8d4a672a40afd8b1681974b5349bab55ba1
+PowerRatankba is a PowerShell based reconnaissance tool that conducts initial information gathering from the victim’s system and functions as a backdoor.
+In both Chile and Pakistan, the same variant is delivered, thus, accepts the same six commands, contains the same hardcoded C2 URL (hxxps://ecombox[.]store/tbl\_add.php) and commented out C2 (hxxps://bodyshoppechiropractic[.]com/tbl\_add.php).
+The backdoor functionality provided by the toolkit could enable the actor to deploy further stages of the attack if the victim’s system is deemed interesting.
+PowerRatankba is capable of the following functions:
+* Send data to the server
+* Delete agent
+* Modify and replace files (.ps1 and .VBS)
+* Download files
+* Kill agent (exit)
+* Delay execution
+* Encrypted panel commands (sdel | run)
+* No command executes a batch script
+In December 2017, researchers first discovered and documented [PowerRatankba](https://www.proofpoint.com/us/threat-insight/post/north-korea-bitten-bitcoin-bug-financially-motivated-campaigns-reveal-new).
+Reportedly, the malware is a successor to an earlier implant dubbed Ratankba, used within the Lazarus group’s financially focused attacks.
+We identified an [earlier version](https://www.hybrid-analysis.com/sample/db8163d054a35522d0dec35743cfd2c9872e0eb446467b573a79f84d61761471?environmentId=100) of [PowerRatankba](https://www.proofpoint.com/us/threat-insight/post/north-korea-bitten-bitcoin-bug-financially-motivated-campaigns-reveal-new) submitted to Hybrid Analysis in January 2018, and comparative analysis of the sample in both cases exhibits some aspects of evolution.
+Notably, it offers the same basic functionality, but differently named commands (e.g. killkill instead of kagent) and some optimization in a few places.
+Lazarus is known for continuously evolving its toolset and Tactics, Techniques and Procedures (TTPs).
+**itextsharp.dll**
+**SHA-256:** 2938200b7c0300c31aa458860b9f4f684f4f3f5893ab0f1d67c9d797168cad17
+The DLL file appears to be a legit implementation of the PDF generation library called iTextSharp.
+The application program requires this external library to generate the PDF mentioned initially by the threat actor.
+To note, this file is not required for the malicious functionality of the application program.
+**#ApplicantsName#.pdf**
+The PDF is the printed version of the application filled out by the user, containing the same fields.
+If an applicant fills out all the fields of the application and clicks finish in the last step, it will generate this exact file based on the supplied data.
+However, the PDF generation only works if the DLL is present in the same directory as the application program.
+Figure 5 shows a redacted version of the analyzed PDF.
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![](https://miro.medium.com/max/858/1*kzYCcSTkeYdB7eGiXDQnkg.png)
+Figure 5 — Redacted version of the PDF containing victim’s personal information
+**Victim**
+==========
+Acquiring the user generated PDF from completing the fake application made the victimology process more precise.
+Firstly, it is clear that the victim is interested in a position with Cards and Payment Systems and has experience with POS and ATM Acquiring, EMV Contact and Contactless and Mobile.
+Secondly, OSINT analysis revealed the identity of the targeted individual on social media and his current employment, directly or as a contractor, as an IT professional by an entity within the financial services industry.
+Considering the initial attack vector used in Chile also targeted an IT staff member at RedBanc, it is highly likely that the same threat actors would target the above described individual.
+**Conclusion**
+==============
+Lazarus is an APT threat actor group that has operated since at least 2009, and attributed to a variety attacks across multiple sectors including financials, and entertainment.
+While we have evidence to support that this latest activity occurred during the timeframe where multiple Pakistani banks were heavily targeted by cyber criminals, we still cannot confirm that all those attacks were committed by the same threat actor.
+[1] At this time, we cannot entirely rule out this artifact being part of a deception operation.
+[2] This blog post does not include any Personal Identifiable Information of the victim.
+However, we contacted the affected company in order to let them aware of the incident.
+[Learn more about our Threat Intelligence service](https://quointelligence.eu/#offering)
+* [Follow](https://twitter.com/QuoIntelligence "Follow on Twitter")[Follow](https://twitter.com/QuoIntelligence "Twitter")
+* [Follow](https://www.linkedin.com/company/quointelligence/ "Follow on LinkedIn")[Follow](https://www.linkedin.com/company/quointelligence/ "LinkedIn")

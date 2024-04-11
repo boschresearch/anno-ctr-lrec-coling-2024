@@ -1,0 +1,53 @@
+Bitcoin Miner Utilizing IRC Worm
+May 09, 2014
+Bitcoin miners have given a new reason for attackers to communicate en mass with infected users.
+IRC worms are not exactly the most hip way to communicate, but they remain effective at sending and receiving commands.
+I recently came across several samples which bit coin mining examples leveraging IRC.
+The malicious binary, once installed, queries for the network shares connected to the victim's PC, drops a file, and creates an autorun.inf file to infect anyone unfortunate enough to use that same network share.
+First, we see that the threat has many different variants at a single location
+|  |
+| A portion of the malicious content on this IP. |
+This IP's urlquery report is also picking up some shady content on this IP.
+Unfortunately, the Virustotal score at the time of analysis was 1/52.
+The first thing the threat does is install itself to any network shares on the victim's system.
+|  |
+| The file 'snkb0pt.exe' is installed in 'netshare:/snkb0pt/' |
+|  |
+| It also installs an autorun.inf file among files used to store content retrieved from victims.
+|
+Next, it installs itself as a service on the victim's PC to ensure that it can't easily be removed.
+Image File Execution Options are also created.
+This will ensure that the malware can install as the "debugger" for a frequently-run program (such as Explorer) and thereby inject itself into the execution sequence.
+Further explanation about this methodology seen [here](http://blogs.msdn.com/b/oldnewthing/archive/2005/12/19/505449.aspx).
+|  |
+| A service is created along with edits to Image File Execution Options.
+|
+|  |
+| Autorun additions are also created to establish itself at boot.
+|
+The malicious network share file is clearly calling shell32.dll in order to exploit other systems connected to this network share through a created autorun.inf file.
+|  |
+| That clsid is allows the executable to [launch differently](http://www.autohotkey.com/docs/misc/CLSID-List.htm) than in Explorer.
+|
+|  |
+| The export file stored in the network share stores information about what systems are infected.
+|
+There was not much IRC activity, but the framework exists to login to the attackers channel and receive commands for further action.
+|  |
+| Connection is established |
+|  |
+| First attempt |
+|  |
+| A connection remains open, beaconing for further contact.
+|
+I analyzed all available samples and compiled a list of phone home DNS requests made by all the variants.
+|  |
+| Of all samples collected, these dns requests were made.
+|
+Due to the high volume of variation in the samples, standard AV solutions only catch certain instances of the threat.
+[Sample 1](https://www.virustotal.com/#/file/4b6915bbea6964e78d6da88b7e488289ac6b78fe0af7b5d322286c16aa5bdb55/analysis/1398797499/)
+[Sample 2](https://www.virustotal.com/#/file/b47176fe9e53792423597ce18a6999caf2b46157d06e1227a485035b170c7c75/analysis/)
+In the second instance, we see that some vendors have flagged the malware as a bitcoin miner.
+A sandbox analysis of the second sample has strings related to a Bitcoin Mining application known as [xptminer](https://github.com/jh000/xptMiner).
+The implications are that this threat infects one user and anyone connecting to a malicious network share.
+Infected machines then begin communicating to a server which manages bitcoin mining operations.

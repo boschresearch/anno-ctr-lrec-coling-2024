@@ -1,0 +1,80 @@
+How the Demise of Third-Party Cookies Will Influence Data Security
+May 20, 2021
+The transition from third-party cookies and hyper-targeted ads to privacy-friendly models
+-----------------------------------------------------------------------------------------
+The internet is changing.
+For years, web publishers, social media, and apps have provided free content by running ads online.
+Third-party cookies were the leading technology powering the digital ad industry.
+They allow companies to track website visitors, collect user data, improve user experience, and serve more relevant ads to users.
+However, the rise of the cookie also led to adtech companies harvesting user’s data, including online behavior and personal information, from millions of sites without user consent.
+Advertisers realized that they could better profile individuals by gathering more user data and serve more targeted ads.
+The problem was that the more targeted the cookies were, the more invasive they became.
+Over the last few years, increased data harvesting, such as using third-party cookies, has attracted controversy.
+So much that it contributed to the development of consumer privacy regulations such as the GDPR in the EU and the CCPA in the US.
+Apple’s latest privacy feature, [App Tracking Transparency](https://developer.apple.com/documentation/apptrackingtransparency) will change the traditional use of cookies.
+Together with Google’s declaration that it will phase out third-party cookies by 2022, the two tech companies promise more privacy and data security to users.
+[![Infographic explaining the difference between first-party and third-party cookies](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![Infographic explaining the difference between first-party and third-party cookies](https://quointelligence.eu/wp-content/uploads/2021/05/Cookies_Types.jpg)](https://quointelligence.eu/wp-content/uploads/2021/05/Cookies_Types.jpg "Infographic explaining the difference between first-party and third-party cookies")
+The Third-Party Cookie: Sudden Cookie Death or Slow Phase-Out.
+--------------------------------------------------------------
+[![Screenshot of Apple App tracking Transparency feature](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![Screenshot of Apple App tracking Transparency feature](https://quointelligence.eu/wp-content/uploads/2021/05/MicrosoftTeams-image-2.jpg)](https://quointelligence.eu/wp-content/uploads/2021/05/MicrosoftTeams-image-2.jpg "Screenshot of Apple App tracking Transparency feature")
+On 26 April, Apple launched its new privacy feature called App Tracking Transparency.
+The feature, which comes with the iOS 14.5 update, promises to increase iPhone owners’ privacy online.
+The new App asks users whether they want to allow apps and websites to track their activity.
+If users decline, applications won’t be able to access the user ID known as Identifier for Advertisers (IDFA), which is needed to follow individuals.
+Consequently, apps won’t share user data with third parties for ad-targeting purposes.
+Further, the feature comes with a tracking menu where users can see which apps keep track of their data.
+Other companies are making similar efforts to put an end to the current model based on third-party cookies:
+[![Infographic on current third-party cookies alternatives for more user- and privacy friendly browsing ](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![Infographic on current third-party cookies alternatives for more user- and privacy friendly browsing ](https://quointelligence.eu/wp-content/uploads/2021/05/Copy-of-PRIVACY-FIENDLY-FEATURES_Cookies-Blog.png)](https://quointelligence.eu/wp-content/uploads/2021/05/Copy-of-PRIVACY-FIENDLY-FEATURES_Cookies-Blog.png "Infographic on current third-party cookies alternatives for more user- and privacy friendly browsing ")
+How Cookies Endanger Our Data Security And User Privacy
+-------------------------------------------------------
+In 2018, the [Cambridge Analytica scandal](https://www.youtube.com/watch?v=VDR8qGmyEQg) – the firm that accessed 50 million [Facebook users](https://quointelligence.eu/2021/04/facebook-data-leak-and-brand-protection/) through questionable means to reach voters – resulted in a public outcry.
+The aftermath of this event led to increased consumer awareness on how social media networks collect and sell data to other companies.
+That’s just one example of user data being obtained through shady practices and mismanaged in recent years.
+Most people are now aware that tech companies and social media networks threaten their privacy online.
+While such privacy risks – if unsecured – are widely known, cookies also pose risks to data security.
+They can contain complete user profiles that threat actors can use for malicious purposes.
+For instance, if an attacker hijacks a cookie, they could impersonate an individual to gain unauthorized access to information or services.
+A way to do that is by injecting Cross-site Scripting (XSS) payloads on a web application.
+Thereby, the malicious script can steal the user’s cookie and send it to the attacker.
+Certain malware installed in the victim’s device can also target cookies and transfer them to the attacker’s server, who can later use the data contained within to log in to the victim’s account for personal gain.
+However, security risks are not limited to websites visited by the user or malware downloaded.
+The data gathered by cookies travels across the internet. From there, ad and analytics services are buying and selling it while putting users’ data at risk of data breaches.
+Alternatives to Third-party Cookies Promise to Reduce Security Risks
+--------------------------------------------------------------------
+In line with Safari and Firefox, Apple’s model guarantees high transparency on how user data is used and protects user privacy.
+Nevertheless, apps like Facebook are lobbying against this new feature because social media platforms primarily rely on this model to survive.
+[Facebook has also stressed](https://www.wsj.com/articles/facebook-meets-apple-in-clash-of-the-tech-titanswe-need-to-inflict-pain-11613192406) that these changes will make it harder for small businesses to place targeted ads.
+Google’s model is a more gradual and collaborative approach to its privacy changes than what Apple is doing.
+Google is consulting with publishers and advertisers and looking for alternatives before phasing third-party cookies out.
+However, while Google’s FloCs increase user privacy by targeting groups of people instead of tracking individuals, it is still a form of profiling individuals by creating cohorts.
+These cohorts could be specific enough to contain very few users, similar to cookies.
+As such, it is unclear how Google’s new model enhances users’ privacy.
+Will These Changes Improve Privacy And Data Security Online.
+------------------------------------------------------------
+Enhanced privacy coming to web browsers and both iOs and Android systems is good news for cybersecurity and privacy online.
+As of 26 April, organizations using iPhones as business mobile phones can better protect their employees’ and business data.
+The new privacy feature lowers the risk of data breaches.
+Moving forward, iOs users can now choose whether they want to share their data with advertisers and data analytics companies.
+Additionally, Safari and Firefox are already blocking third-party cookies on their Chrome web browsers, allowing for better privacy and control of the business data that employees share online.
+However, [some websites still infringe on users’ privacy](https://www.bbc.com/news/technology-51106526) without giving users the possibility to consent, understand, or control third-party cookies, despite current GDPR regulation.
+These sites disregard GDPR and don’t allow users to access the content unless they accept cookies, even though this practice is currently illegal.
+As such, Apple and Google’s innovative approaches will help to strengthen user privacy and will likely shift the way ad tracking and privacy work online.
+Nevertheless, as alternatives to cookies are few and data is needed for advertising purposes, new tracking vectors, such as fingerprinting, could start developing.
+All these changes could also result in [attackers developing new ways](https://quointelligence.eu/2020/12/cyber-security-trends-in-2021/) to access personally identifiable data online.
+>
+> [Talk to our experts](https://quointelligence.eu/talk-to-an-expert/) today to learn how you can incerase your organization’s data security and awareness.
+>
+>
+>
+[Get in touch!](https://quointelligence.eu/talk-to-an-expert/)
+Join Our Newsletter.
+--------------------
+Subscribe to our newsletter to receive Weekly Intelligence Summaries, cyber news, and exciting updates.
+Only valid business emails will be approved.
+Please enable JavaScript in your browser to complete this form.
+Name *FirstLastBusiness Email *Checkboxes ** I have read and agree to the [Privacy Policy](https://quointelligence.eu/privacy-policy).
+GDPR Agreement ** I consent to having this website store my submitted information so they can respond to my inquiry.
+NameSubscribe

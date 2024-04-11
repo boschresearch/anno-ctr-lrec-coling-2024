@@ -1,0 +1,85 @@
+US Sanctions Against Russia Unlikely to Limit Russian Cyber Espionage
+Apr 28, 2021
+The US recently imposed punitive measures against Russia, including financial sanctions and diplomatic expulsions.
+The sanctions are in response to the [SolarWinds espionage campaign](https://www.fireeye.com/blog/threat-research/2020/12/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor.html) and Russia’s alleged interference in the 2020 US Presidential elections.
+The US sanctioned a total of 32 entities and individuals.
+It also set new restrictions on buying Russian sovereign debt and designated six Russian technology companies that support the Russian Intelligence Services’ cyber program.
+Moreover, the US will expel ten Russian diplomatic personnel from the US.
+The White House stated that it attributes the cyber espionage campaign that exploited SolarWinds to the Russian Foreign Intelligence Service (SVR) with high confidence.
+This campaign, conducted through Russian APT Group *APT29*, compromised approximately nine federal agencies and about 100 private-sector organizations.
+**In a hurry?** Check out the [infographic](#russian-cyber-espionage-infographic) for the most relevant information on the topic.
+Countering Russia’s Cyber Espionage Campaigns
+---------------------------------------------
+To counter Russia’s moves in cyberspace, the White House announced further steps to promote a framework for responsible state behavior in cyberspace.
+They also outlined a set of actions to improve US cyber defensive capabilities and resiliency.
+Poland and the Czech Republic also expelled Russian diplomats in solidarity with US sanctions.
+NATO, the UK, and the EU also joined in, publicly supporting the US. 
+In turn, Russia continued to deny its involvement in the cyber campaign and retaliated, sanctioning US officials and expelling US, Czech, and Polish diplomats.
+While the US previously sanctioned Russia, past sanctions mainly punished election interference and disinformation campaigns.
+The most notable example was the US sanctions on Russia for its interference in the 2016 US elections.
+They also sanctioned Russia for attacks against critical infrastructures, such as the [NotPetya cyberattack](https://techcrunch.com/2020/10/19/justice-department-russian-hackers-notpetya-ukraine/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAAFXn--JNuclTXDb9t4x95CjUylGBRD3UKgxstdiu_pgbDM4vc1N6oe_wSrLwGqSbmzwoyYf0Y7ZjYIYmSPY07Mc6odFQCMp9s78gvWrdQiEIWAWW-Lz3pL1Ct2nJeKLL5ljr8SiG_gIYtDHm90O0XyaixAYL4-9TPtIUOXx3VPkU) affecting Ukraine’s power grid back in 2015.
+The Wider Scale of Russian APT Groups  Demands more Serious Measures
+--------------------------------------------------------------------
+However, past US administrations largely refrained from retaliating for cyber espionage.
+Despite the efforts of governments and international organizations to create a code of conduct for acceptable behavior in cyberspace, espionage as such is not illegal.
+In addition, the US and other western nations [also participate in such activities](https://www.axios.com/american-cyber-warfare-solarwinds-d50815d6-2e03-4e3c-83ab-9d2f5e20d6f5.html).
+Why start sanctioning cyber espionage now.
+The difference in the case of SolarWinds could lie in the broad scope and scale of the cyber espionage campaign.
+It carried the potential for network degradation and had a significant impact on the private sector.
+Given this new precedent, sanctions on nations carrying out cyber espionage could become more frequent.
+However, the main issue is that sanctions on Russia have failed to deter the country in the past.
+Therefore, the newest sanctions might not deter Russia but likely exacerbate tensions between Russia and the US.
+[![Infographic on Russian Intelligence Services and Associated Russian APT Groups](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Screenshot 2020-12-23 at 19.19.11")
+![Infographic on Russian Intelligence Services and Associated Russian APT Groups](https://quointelligence.eu/wp-content/uploads/2021/04/Russian-sanctioned-companies.jpg "Screenshot 2020-12-23 at 19.19.11")](https://quointelligence.eu/wp-content/uploads/2021/04/Russian-sanctioned-companies.jpg "Infographic on Russian Intelligence Services and Associated Russian APT Groups")
+[Get in Touch](https://quointelligence.eu/talk-to-an-expert/)
+Russian-sponsored APT Groups and Targeted Sectors
+-------------------------------------------------
+As tensions are likely to manifest in cyberspace, QuoIntelligence provides an overview of the key Russian Advanced Persistent Threat (APTs) groups, including targeted sectors and Tactics, Techniques, and Procedures (TTPs).
+### The following APTs are reportedly connected to Russian intelligence services:
+### APT 29
+Active since at least 2008, this cyber espionage group is allegedly responsible for attacks on foreign governments and commercial organizations.
+Their targets were mainly in the US and in the UK, Netherlands, and Norway.
+The US administration alleges that APT29 is an associate of the Russian Foreign Intelligence Service (SVR) and responsible for the SolarWinds espionage campaign.
+### ReconHellcat
+Active since at least 2020, [QuoIntelligence had first classified ReconHellcat after discovering a new, targeted campaign](https://quointelligence.eu/2020/08/blackwater-malware-leveraging-beirut-tragedy-in-new-targeted-campaign/) in August that delivered the novel BlackWater malware.
+The attack used state-of-the-art techniques, such as [DNS over HTTPs (DoH)](https://quointelligence.eu/2021/02/dns-over-https-doh/), and targeted at least the defense and diplomatic government bodies in Armenia and Bulgaria.
+In January 2021, [we detected a new malware, which we dubbed BlackSoul](https://quointelligence.eu/2021/01/reconhellcat-uses-nist-theme-as-lure-to-deliver-new-blacksoul-malware/).
+It shared multiple similarities with ReconHellcat.
+Based on the advanced TTPs and the discovered targets, we classified the threat actor as an Advanced Persistent Threat (APT) group.
+In addition, ReconHellcat shares similarities with [APT28.](#apt28)
+### APT28
+Active since at least 2007, APT28 primarily targets government, military, and security organizations globally.
+Researchers have linked APT28 activity to Russia’s General Staff Main Intelligence Directorate (GRU) and 85th Main Special Service Center (GTsSS).
+In August 2020, we detected an ongoing APT28 campaign, which revealed correlations with a ReconHell/BlackWater attack.
+[APT28 delivered the Zebrocy malware](https://quointelligence.eu/2020/09/apt28-zebrocy-malware-campaign-nato-theme/) in the campaign and used an upcoming NATO training as a lure.
+The campaign targeted NATO members and at least one government body in Azerbaijan.
+### Turla
+Active since at least 2004, Turla targets government, military, technology, and energy sectors.
+Turla has also targeted foreign embassies as well as commercial organizations to conduct espionage campaigns.
+### Additionally, we collected Russian APT groups without proven connections to Russian Intelligence services below:
+### Xenotime
+Since at least 2014, this APT has targeted critical infrastructure in the Middle East, Europe, and North America.
+The group has used TRITON malware to manipulate industrial safety systems.
+### Gamaredon
+Active since at least 2013, this APT has mainly targeted the Ukrainian government and agencies.
+### Berserk Bear
+This APT has been active since at least 2011.
+Berserk Bear has targeted organizations in the US and Germany’s energy, utilities, and telecommunications sectors.
+### Sandworm Team
+Since at least 2009, the group has targeted the critical infrastructure, government, and IT sector in the EU, the US, and Ukraine.
+Latest TTPS used by Russian-sponsored APTs
+------------------------------------------
+The US government [released an advisory on the latest TTPs](https://www.nsa.gov/News-Features/Feature-Stories/Article-View/Article/2573391/russian-foreign-intelligence-service-exploiting-five-publicly-known-vulnerabili/%22%20/l%20%22pop5008885) leveraged by actors associated with the SVR.
+While each APT resorts to different TTPs, they share similarities, such as being highly stealthy and achieving persistence in the targeted networks.
+In the recent advisory, the US government warned of exploitation activity of publicly known vulnerabilities, including in Fortinet and Pulse Secure VPNs.
+How Organizations and Entities can tackle Cyber Espionage Effectively
+---------------------------------------------------------------------
+QuoIntelligence monitors the threat landscape and geopolitical developments for both organizations and public entities.
+We leverage the latest AI technology to detect potential espionage motivation early on and forecast likely future outcomes.
+To track threat actor developments worldwide, we continuously update our knowledge base and threat actor catalogs.
+Therefore, our clients stay ahead of their operations at any moment.
+The catalog entries include descriptions of past and current activities, the groups’ motivations and intentions, and up-to-date information on their TTPs, which are mapped to the MITRE ATT&CK Framework to enable automatic detection and tagging efforts, and more.
+[Get in Touch](https://quointelligence.eu/talk-to-an-expert/)
+[![Blogpost on Cyber Espionage as Security Trend in 2021](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)![Blogpost on Cyber Espionage as Security Trend in 2021](https://quointelligence.eu/wp-content/uploads/2021/02/Copy-of-COVID-Blog-3-300x157.png)](https://quointelligence.eu/2020/12/cyber-security-trends-in-2021/)
+Curious about the topic.
+[**Read our complete analysis** on the increasing threat of cyber espionage campaigns!](https://quointelligence.eu/2020/12/cyber-security-trends-in-2021/)

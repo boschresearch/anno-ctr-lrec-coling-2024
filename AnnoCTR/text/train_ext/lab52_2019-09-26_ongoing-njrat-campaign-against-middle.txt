@@ -1,0 +1,76 @@
+Ongoing Njrat campaign against Middle East
+September 26, 2019
+During the last months, Lab52 has been monitoring an infection campaign that is using different kinds of threats.
+One of these threats is Vengeance Justice Worm, also known as Vjw0rm, which is developed in Javascript.
+This is a type of malware capable of acting as a RAT or spreading through removable devices, thus doing worm functions, among others.
+[1] Its second main threat is Hallaj Pro RAT, a modified version of the well-known NJRat Trojan, which consists of a remote control tool known since 2013, and developed in .NET, and which has been seen on multiple occasions related to campaigns carried out against the Middle East.
+The starting point of our investigation is the appearance of the command and control domain “lalik.linkpc[.]net” in two samples found that corresponded to a Vjw0rm and a modified NJRat.
+Through the information collected from our sources of information, a large number of IP addresses linked to this domain have been observed.
+By investigating the public information of the IP address **91.109.190[.]4** to which the domain is currently resolving, the following information was extracted:
+| **Domain resolved** | **First resolution** | **Last resolution** |
+| **lalik.linkpc.net** | **2018-04-10 12:14:42** | **2019-09-11 13:56:08** |
+| **lamorem.ddns.net** | **2019-05-05 10:56:28** | **2019-09-07 11:41:55** |
+| **rafikehachi.ddns.net** | **2019-06-27 00:00:00** | **2019-06-27 00:00:00** |
+| **shams9.ddns.net** | **2019-05-28 06:17:05** | **2019-06-02 09:01:50** |
+| **microsoft-ipv6.duckdns.org**  | **2019-01-01 08:52:12** | **2019-05-28 07:51:23** |
+| **googlyoutuob.ddns.net** | **2019-05-17 00:00:00** | **2019-05-17 00:00:00** |
+| **zdexx.hopto.org** | **2019-05-11 00:00:00** | **2019-05-11 00:00:00** |
+| **mantruck95.ddns.net** | **2019-03-30 00:00:00** | **2019-05-10 18:04:02** |
+The table above shows a subset of the most recent domains associated with IP **91.109.190[.]4**, which attract attention because they all are dynamic domains.
+In addition, some of them with names clearly used to try to deceive victims and go unnoticed as “microsoft-ipv6.duckdns[.]org” or “googlyoutuob.ddns[.]net”.
+This fact especially catches our attention, so we decided to review these domains and the relationship with the IP addresses with which they have had a relationship in recent months.
+During the investigation, the IP address **91.109.190[.]4** is used as a link.
+This analysis reveals some noteworthy elements:
+![](https://lab52.io/blog/wp-content/uploads/2019/09/image1-1-1024x779.png)
+In the graph above, a remarkable relationship can be identified among all these domains, malware samples and IP addresses.
+Undoubtedly, the infrastructure used has great similarities for each of the identified clusters.
+After analyzing several of the related malware samples, it has been observed that most of them are different versions of NJRat.
+A pattern can also be observed in the geographical distribution of the IP addresses to which each of the domains has resolved in recent months Can be seen how for each domain, there is a set of addresses located in the same country in the Middle East.
+In addition, all these sets of addresses in each country share several IPs in France that act as a link between the different domains.
+After analyzing them, it was observed that most of them belong to the service provider “IELO-LIAZO DEPLOIEMENT FIBRE”.
+**ANALYSIS** **OF SAMPLES**
+Some interesting information has been obtained from the analysis of the samples of modified NJRat that were related to the domains and IP addresses previously investigated.
+Several layers of packaging and obfuscation were identified in most of the samples analyzed.
+The capabilities presented by the analyzed samples are wide, allowing to act as a keylogger, execute native commands, take screenshots or use the camera, among many other options.
+The string “tekide” and “Hallaj Pro RAT [Fixed]” were found in the process memory of many of the samples.
+A quick search of the string “tekide” on the internet, shows in different sources, information about the user “Mr. Tekide” relating this Nick with a malware author who is credited with ties to the Iranian government, and who has repeatedly been linked to the use of NJRat. [2][3]
+The 2016 report in which CitizenLabs [2] identified the appearance of this same username in several PDBs of the analyzed samples.
+On that occasion, the samples were dedicated to well-known opponents of the Iranian regime.
+On this occasion we identified the following PDBs:
+C:\Users\**fouad**\Desktop\1.pdb
+(2f79d0e4225a89c91687f126e0a83d0d4e6089fceb4507fff35da92fe8f69eb9)
+C:\Users\**fouad**\AppData\Local\Temporary
+Projects\Windows\obj\x86\Release\Windows.pdb
+(f874d130689ddb025f13a52ebd70b06a949c7968d4ce16d9480a0328e2819b70)
+The first one is in a packed .NET executable, which, after its execution, deciphers more logic of the threat, which contains the second string.
+In this second phase, a resource embedded in the executable itself is decrypted and loaded directly into memory, consisting of the final payload, NJRat.
+**Technical analysis**
+As mentioned above, this are some examples of the several layers of obfuscation and encryption that many samples have, to make it difficult for the analyst to analyze them.
+![](https://lab52.io/blog/wp-content/uploads/2019/09/image3-1-1024x336.png)
+![](https://lab52.io/blog/wp-content/uploads/2019/09/image4-1.png)
+![](https://lab52.io/blog/wp-content/uploads/2019/09/image2-1.png)
+In addition, NJRat’s capabilities are extensive and well known.
+Most samples contain two types, one called “kl”, which acts as a keylogger, and another called “OK”, which contains the other functionalities such as RAT capabilities.
+In the following fragment, can be seen the code of the function used by the “ACT” command which appears only in some samples to exfiltrate the title of the window on which the user is working.
+![](https://lab52.io/blog/wp-content/uploads/2019/09/image5-1.png)
+One of the most relevant methods in the OK type is **Ind ()**.
+This function contains all the logic of the RAT in terms of interaction with the operators.
+All supported commands, and therefore their capabilities, are interpreted here and then the necessary logic is called in each case.
+The code of this method is very extensive, but in the following image, there is a fragment of the code related to the RAT logic oriented to the download and execute of extra binarys on the victim’s machine, thus acting as a “Dropper” of new threats or tools.
+![](https://lab52.io/blog/wp-content/uploads/2019/09/image6-1.png)
+A notable feature of this threat is the ability to mark the process as critical.
+A process marked as critical forces the machine to restart if it is finished [4].
+It is understood that this would be a method used to force a restart in situations that operators consider appropriate.
+The **pr(int)** method implements calls to the Microsoft NtSetInformationProcess API to mark the critical process flag.
+This method is called with an integer as an argument, the values it admits are 0 and 1, indicating noncritical or critical, respectively.
+![](https://lab52.io/blog/wp-content/uploads/2019/09/image7-1.png)
+![](https://lab52.io/blog/wp-content/uploads/2019/09/image8.png)
+Both the analysis of the infrastructure, as well as the different capabilities of the threat and its packaging, show a knowledge drawn from the reuse of the same TTPs for a long time.
+In addition have been observed that some of the functionalities of the commands seem to have varied among them.
+Therefore it can be said that this campaign has been active for a long time, and that it is in constant evolution.
+**Links**
+[1]<https://cofense.com/vjw0rm-malware-heres-watch/>
+[2]<https://citizenlab.ca/2016/08/group5-syria/>
+[3]<https://cybershafarat.com/2019/06/11/mr-tekide/>
+[3]<https://devblogs.microsoft.com/oldnewthing/20180216-00/?p=98035>
+[4]<https://www.fortinet.com/blog/threat-research/bladabindi-remains-a-constant-threat-by-using-dynamic-dns-services.html>

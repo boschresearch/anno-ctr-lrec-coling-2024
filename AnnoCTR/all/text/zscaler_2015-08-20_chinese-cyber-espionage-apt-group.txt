@@ -1,0 +1,27 @@
+Chinese Cyber Espionage APT Group ‘Emissary Panda’ Activity Update
+August 20, 2015
+### Introduction
+Last week we shared research on the [Chinese cyber espionage APT group ‘Emissary Panda’](/blogs/research/chinese-cyber-espionage-apt-group-leveraging-recently-leaked-hacking-team-exploits-target-financial-services-firm) and how the group is for the first time leveraging Hacking Team’s leaked exploits to target a multinational financial services firm.
+Upon further analysis we have identified multiple other industry verticals that were also targeted by this group in the last month.
+The ‘Emissary Panda’ APT group has been known to target the government and technology sectors with the intent to monitor and steal intellectual property data.
+There were multiple global clients targeted in the last month that belong to following industry verticals:
+* Financial Services
+* Energy
+* Pharmaceutical
+### Attack Chain
+As noted before, this was the first instance of the ‘Emissary Panda’ group weaponizing malware payloads using the 0-day exploits found in the leaked Hacking Team archives.
+We were able to confirm usage of Adobe Flash exploits CVE-2015-5119 and CVE-2015-5123 in these attacks.
+In the attack against a Pharmaceutical firm, we observed the use of a compromised Government site to redirect the victim to a server hosting the Hacking Team’s 0-day Flash exploit.
+This technique is known as Strategic Web Compromise (SWC) or a Watering Hole attack, wherein a legitimate trusted website known to be visited by the target group is compromised in order to redirect them to the attacker controlled server.
+The attacker controlled server will serve and execute browser based exploits to install a RAT on the target machine.
+|  |
+| APT Attack chain targeting a multinational Pharmaceutical company |
+In this attack, we were able to prevent the download and installation of the RAT payload.
+In another instance, spearphishing e-mail was used to target an organization in energy sector that resulted in installation of HttpBrowser RAT.
+The attacks against these organizations were largely unsuccessful as the Zscaler security platform blocked either the exploitation attempt or the Command & Control communication attempt.
+|  |
+| Emissary Panda APT attacks seen in last month |
+We are still investigating some of these attack chains and will share additional details when they become available.
+### Conclusion
+It is alarming to see an uptick in the activity from this group targeting multiple verticals with organizations located in United States, Europe, Middle East, and Asia.
+In order to protect themselves, it is extremely important for organizations to have SSL security inspection enabled as well as a Sandbox environment to detonate and block the 0-day exploits involved in such targeted attacks.

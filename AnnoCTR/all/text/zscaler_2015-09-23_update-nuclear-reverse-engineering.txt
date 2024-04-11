@@ -1,0 +1,60 @@
+An Update On Nuclear (Reverse) Engineering
+September 23, 2015
+### Introduction
+Although Angler continues to be the leading exploit kit, Nuclear is a significant threat to web surfers and seems to have been very active lately.
+ThreatLabZ recently encountered a Nuclear campaign originating from a variety of compromised sites.
+These compromises continue the trend of WordPress sites serving malcode, and in this case included the web-presence of a UK-based healthcare organization.
+|  |
+| Example of recent Nuclear landing page to exploit cycle |
+The execution flow of this campaign is typical: an infected site includes an embedded iframe that loads the exploit kit landing page.
+The landing page checks the browser family and version and tests the available Flash version before choosing one of several exploit payloads.
+From here, multiple possible payloads may be downloaded, particularly Fareit Infostealer Trojan and Troldesh Ransomware Trojan.
+### Nuclear Landing
+As covered [recently](https://blog.sucuri.net/2015/09/wordpress-malware-active-visitortracker-campaign.html), WordPress continues to be one of the most effective traffic sources for exploit kits.
+However, the majority of traffic we have seen does not feature the *visitorTracker* component, but merely includes a hidden iframe in the footer of the WordPress page.
+|  |
+| The malicious iframe is preceded by a large number of blank lines |
+The iframe loads the landing page, which features obfuscated JavaScript and random-looking text blocks.
+It turns out that some of the random looking text blocks are actually obfuscated components that the JavaScript eventually deobfuscates and executes.
+|  |
+| Lines 7 and 9 are overlaid with the script invocations that decode the HTML blocks |
+### Nuclear Exploit Payloads
+The landing pages we evaluated led to two possible Flash exploits as well as one Internet Explorer exploit.
+Specifically, we saw CVE-2015-5122 and CVE-2015-5560 exploits for Flash, and a highly obfuscated CVE-2014-6332 exploit for IE.
+|  |
+| The first Flash payload stage checks Flash Player version and prepares the appropriate exploit |
+As [noted by Kafeine](http://malware.dontneedcoffee.com/2015/08/cve-2015-flash-player-up-to-1800209-and.html), Nuclear has integrated the same Diffie-Hellman Angler first pioneered, only now it is implemented in Flash to protect the CVE-2015-5560 payload.
+This campaign also features an XTEA function with modified constants.
+|  |
+| A Diffie-Hellman key exchange implementation is used to protect the new Flash payload |
+Besides making reverse engineers lives harder, the authors have also decided to include some friendly shoutouts to those analyzing their code.
+In the case of the featured Flash payloads, the string "fuckAV" is used as a special constant.
+|  |
+| This function returns an XOR key when "fuckAV" is supplied as a parameter |
+### Nuclear Fallout
+Once the browser is exploited, Nuclear first drops a Fareit payload.
+Fareit is an infostealer, and as can be seen in the strings below, is looking to steal user credentials for multiple applications and websites as well as BitCoin wallet information.
+|  |
+| A sample of the files and paths Fareit checks for user credentials |
+While stealing users information, Fareit attempts to hide its command and control communication by sending its check-in request in the midst of a batch of HTTP requests to innocuous looking websites.
+|  |
+| After checking connectivity on MSN.com, multiple POSTs are performed |
+In addition to the Fareit payload, a Troldesh ransomware payload was also seen.
+Troldesh is yet another in the line of ransomware families that encrypt user files and attempt to extract a ransom payments in exchange for decryption keys.
+This campaign is using the email addresses files100005(at)gmail.com and files100006(at)gmail.com and the Tor address a4yhexpmth2ldj3v.onion.
+|  |
+| Troldesh bundles a Tor proxy to protect its communication |
+Although they might prefer to infect the machines of non-analysts, the Troldesh author does take the opportunity to greet their reverse engineer friends.
+This message is less aggressive than the greeting in the Nuclear flash payload.
+|  |
+| Thanks, but I don't drink coffee.
+|
+### Conclusion
+While Nuclear may not be the exploit kit that regularly debuts the latest advances, the authors certainly make an effort to keep up with new exploits and new obfuscation techniques.
+ThreatLabZ will continue to monitor Nuclear (and Fareit and Troldesh) for any new developments or greetings.
+### Appendix:
+#### Indicators:
+* [Recent landing page IP addresses](http://pastebin.com/pL5fXJtq)
+* [Recent landing page hostnames](http://pastebin.com/sdcssebu)
+* [Recent compromised sites and redirectors](http://pastebin.com/0Jjq4ZT4)
+ 

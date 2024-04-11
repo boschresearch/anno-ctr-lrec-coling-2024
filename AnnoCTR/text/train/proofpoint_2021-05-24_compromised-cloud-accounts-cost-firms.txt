@@ -1,0 +1,37 @@
+Compromised Cloud Accounts Cost Firms $6.2 Million Annually, New Ponemon Study Finds
+May 24, 2021
+For some, the cloud may still be a nebulous concept, but the significant financial loss due to compromised cloud accounts is easy for anyone to understand.
+According to new research from Ponemon Institute, companies lose $6.2 million annually from these often-preventable security incidents—or about 3.5% of their total revenues, on average.
+Productivity also takes a hit from cloud account compromises, which contributes to the erosion of a company’s bottom line.
+The Ponemon Institute study finds that organizations experience an average of 138 hours of application downtime per year because of this security issue.
+Consider the impact on IT teams as well.
+The average six-person IT team spends nearly 1,200 hours monthly and over 14,000 hours annually dealing with on average 64 cloud account compromises.
+And things are getting worse: 50% of respondents to the study said the volume or frequency of cloud account compromises has increased over the past 12 months.
+More than half (53%) had the same take on the severity of these events experienced in the past year.
+These are just a few findings from the Ponemon Institute study, which are featured in a new report, [“The Cost of Cloud Compromise and Shadow IT."](https://www.proofpoint.com/us/resources/analyst-reports/cost-of-cloud-compromise-and-shadow-it)
+Researchers with Ponemon Institute surveyed 662 IT and IT security practitioners in the United States for the Proofpoint-sponsored study.
+Most of the respondents said they work at organizations with a global headcount of more than 1,000 employees.
+### **End-user negligence a root cause for data loss and business disruption**
+More than two-thirds (67%) of organizations have experienced a cloud account compromise that exposed sensitive data, according to the recent study.
+Respondents cited the theft or loss of sensitive data and business disruption as the top two consequences of those compromises, and many pointed to end-user negligence as being the root cause for those consequences.
+Seventy-eight percent of respondents said users in their organization have accidently exposed sensitive data through carelessness, lack of awareness or account compromise.
+The survey revealed that 30% of compromises on average expose sensitive data.
+So, what are businesses doing to protect confidential or sensitive information and handle user access and identity management in the cloud environment.
+Here’s a look at some of the most commonly used measures, based on Ponemon Institute’s research:
+* 59% of respondents said their organization uses [encryption](https://www.proofpoint.com/us/products/information-protection/email-encryption), tokenization or other cryptographic tools to protect data in the cloud
+* 56% of businesses use a [Cloud Access Security Broker (CASB)](/us/products/cloud-security/cloud-app-security-broker "Cloud App Security Broker")
+* 45% of organizations separate identity management interfaces for the cloud and on-premises environment
+* 39% of respondents said their companies use a unified identity management interface for both the cloud and on-premises environment
+The study also found that supporting multiple identity federation standards including SAML (73%), applying strong authentication prior to accessing data and applications in the cloud (70%), and adaptive access controls to protect users most at risk (61%) are essential in securing access to cloud resources.
+### **Shadow IT a major driver of cloud security risk**
+Cloud use has been expanding rapidly in recent years—and especially during the pandemic—with organizations across industries adopting cloud models to provide anywhere, anytime access to distributed teams and accelerate digital transformation.
+Increased efficiency and reduced costs are the top reasons businesses are turning to cloud services, according to Ponemon Institute’s research.
+Unfortunately, as organizations widen their embrace of the cloud, many are implementing new cloud applications and services without getting approval from IT first.
+Seventy-five percent of respondents to the Ponemon Institute study acknowledged that this practice creates a serious security risk.
+And 70% of respondents pointed to the use of cloud-based collaboration or messaging tools for sharing sensitive or confidential files as another significant source of risk.
+Another contributing factor to weak cloud security for many organizations is the lack of clearly defined roles and accountability for safeguarding confidential or other sensitive information in the cloud.
+Less than half (44%) of businesses have done this work, Ponemon Institute’s research finds.
+Also, only 39% of respondents said their organization is vigilant in conducting pre-deployment assessments of cloud apps.
+### **Learn more about the costs of cloud compromise**
+For more findings and analysis from the new Ponemon Institute study, download our free report, [“The Cost of Cloud Compromise and Shadow IT."](https://www.proofpoint.com/us/resources/analyst-reports/cost-of-cloud-compromise-and-shadow-it)
+You’ll also get insights into multicloud and software-as-a-service (SaaS) deployment trends and related security challenges.

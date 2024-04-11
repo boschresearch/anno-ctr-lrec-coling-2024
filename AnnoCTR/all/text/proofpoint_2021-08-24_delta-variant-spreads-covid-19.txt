@@ -1,0 +1,117 @@
+As Delta Variant Spreads, COVID-19 Themes Make Resurgence In Email Threats 
+August 24, 2021
+### Key Findings:
+* Proofpoint researchers observed an increase in COVID-19 related threats since late June 2021.
+* Threat actors are taking advantage of the increased interest and infection spread related to the Delta variant.
+* Proofpoint researchers observed high-volume COVID-19 related campaigns from malware including RustyBuer, Formbook, and Ave Maria.
+### Overview
+Multiple distinct types of high-volume threats have pivoted back to using COVID-19 social engineering themes as the global concern about the Delta variant continues to rise.
+The newly observed campaigns related to the identified malware follow a lull in COVID-19-themed threat campaigns through the Spring and early Summer of 2021.
+### Campaign Details
+Proofpoint has tracked ongoing threats leveraging COVID-19 and related coronavirus themes since the beginning of the pandemic.
+TA542, known to distribute Emotet, first began using COVID-19 in email threats in January 2020.
+Although the virus has remained an ongoing theme, Proofpoint researchers observed a significant increase in the number of messages leveraging COVID-19 themes in recent months.
+Since late June 2021, Proofpoint has observed high volume COVID-19 themed campaigns distributing RustyBuer, Formbook, and Ave Maria malware, in addition to multiple corporate phishing attempts to steal Microsoft and O365 credentials.
+Proofpoint researchers also identified an increase in [business email compromise](https://www.proofpoint.com/us/blog/threat-insight/bec-taxonomy-proofpoint-framework)  threats leveraging COVID-19 themes in this timeframe.
+The increase in COVID-19 themes in Proofpoint data aligns with public interest in the highly contagious [COVID-19 Delta variant](https://www.yalemedicine.org/news/5-things-to-know-delta-variant-covid).
+According to global Google Trend data, worldwide searches for “Delta variant” first peaked the last week in June 2021 and have continued through August 2021 so far.
+![Delta](/sites/default/files/inline-images/Figure%201_1.png)
+*Figure 1. Google Trend data for searches related to “Delta variant.”*
+The increase in COVID-19 related threats is global.
+Proofpoint observed tens of thousands of messages intended for recipients in various industries worldwide.
+Open-source data also supports a greater threat actor adoption of COVID-19 themes recently.
+South Korea, for example, [recently raised](http://tbs.seoul.kr/eFm/newsView.do?typ_800=N&idx_800=3445116&seq_800=20437693)  its cyber threat warning level in response to an increase of threats related to its COVID-19 relief programs.
+Throughout the pandemic, threat actors have leveraged the fear and uncertainty felt by communities everywhere and the COVID-19 virus became a popular lure for social engineering activities.
+As vaccines became available, threat actors began using themes related to vaccination status.
+Threat actors often [paired COVID-19 themes](https://www.proofpoint.com/us/blog/security-briefs/threat-actors-pair-tax-themed-lures-covid-19-healthcare-themes) with messages purporting to be pandemic financial relief or healthcare information.
+This trend continues as the Delta variant [spreads](https://www.reuters.com/business/healthcare-pharmaceuticals/global-covid-19-cases-surpass-200-mln-delta-variant-spreads-2021-08-04/), and companies [require](https://www.nytimes.com/2021/08/03/business/vaccine-mandate-employees-microsoft.html) vaccinations before employees can return to work.
+### Credential Theft
+Proofpoint researchers have observed multiple high-volume COVID-19 related credential theft campaigns, including a Microsoft credential theft campaign targeting thousands of organizations globally.
+The messages purported to be vaccination self-compliance reports sent by the target entities’ human resources divisions.
+The emails contained the following characteristics, for example:  
+From: "HR@[organizationname.tld]" <various senders> 
+Subject: Covid-19 Vaccination Self Compliance Report.
+The messages contained a URL which likely leads to a fake Microsoft authentication page designed to harvest user credentials.
+![O365](/sites/default/files/inline-images/Figure%202_2.png)
+*Figure 2. Self-compliance COVID-19 vaccine lure.*
+Recently, many major American companies began requiring employees to be vaccinated before returning to the office.
+As vaccine requirements become more widely adopted by employers, it is likely this type of lure theme will be used by threat actors.
+### Employment Status
+Proofpoint researchers observed a new high-volume Formbook campaign sent to hundreds of organizations masquerading as a human resource professional.
+The emails contain a zipped file (e.g. Scan.Salary.zip) and tell the recipients that their jobs are being eliminated due to the financial impact of COVID-19.
+![Email](/sites/default/files/inline-images/Screen%20Shot%202021-08-24%20at%2010.32.55%20AM.png)
+*Figure 3. Email allegedly from an organization’s human resources division.*
+The emails are generic but customized to the intended organization.
+To further entice the recipient to open the malicious file, the email states a “2 months salary receipt” is attached.
+The emails contain a malicious .ZIP attachment, that when extracted and executed leads to the installation of Formbook malware.
+This campaign consisted of over 7,000 emails intended for a broad spectrum of organizations.
+### Ave Maria
+Proofpoint researchers identified new Ave Maria malware campaigns largely targeting energy and industrial organizations.
+Ave Maria is a remote access trojan, written in C++, that is capable of process and file system manipulation, command shell access, webcam control, keylogging, password theft, and remote desktop access.
+The first observed series of emails purported to be health advisories related to COVID-19 and purported to contain “preventative measures” relating to the target company’s policies.
+Over a thousand emails targeted dozens of customers, with more than 90% of the intended targets in the energy vertical.
+Subsequent related campaigns used themes unrelated to COVID-19.
+The virus-related messages purported to be, for example:  
+From: HEALTH CARES <admin@ledfarm[.]store>  
+Subject: COVID-19 PREVENTIVE MEASURES  
+Attachments: covid-19\_preventive measures.xlsx  
+The body of the emails also contained emails unique to the target entity, for example healthcare@[targetcompany].com.
+The contents of the emails claimed there was new COVID-19 preventative measures included in the attachment.
+Furthermore, the emails contained COVID-19 cases, deaths, and vaccine doses administered.
+![COVID-19](/sites/default/files/inline-images/Figure%204_0.png)  
+*Figure 4. Email purporting to be related to COVID-19 measures.*
+The following week, Proofpoint observed additional Ave Maria campaigns distributing COVID-19 themed messages, for example: 
+From: customercareservicesY 
+Subject: COVID-19 SELF SERVICE CERTIFICATE/PREVENTIVE MEASURES 
+All the observed Ave Maria COVID-19 themed messages contained an Excel attachment that exploits various Equation Editor vulnerabilities.
+The malware’s command and control infrastructure utilized Dynamic DNS and communication over port 5200.
+### RustyBuer
+Currently, one of the most active COVID-19 related threats is RustyBuer, a new Rust-based Buer Loader strain [first identified](https://www.proofpoint.com/us/blog/threat-insight/new-variant-buer-loader-written-rust) by Proofpoint researchers in April 2021.
+[Buer](https://malpedia.caad.fkie.fraunhofer.de/details/win.buer) is a downloader  that is used as a foothold in compromised networks & an ‘Initial Access Broker’ to distribute other secondary payloads [including ransomware](https://www.cert.ssi.gouv.fr/uploads/CERTFR-2021-CTI-006.pdf).
+The recent campaigns leveraging the pandemic themes include senders purporting to be related to healthcare with subjects referencing vaccine mandates, equitable healthcare opportunities, and current infection rates.
+Historically, threat actors leveraging Buer and RustyBuer generally did not use COVID-19 themes; the virus theme was previously observed once associated with this malware in November 2020.
+In recently observed campaigns, the message purport to be from senders including:  
+info@covidhospitalgeer[.]com 
+info@covidadministration[.]com 
+The emails contain subjects like: 
+COVID-19 infections at higher than Covid and rubbed his restaurants and COVID-19 vaccinations for its mask mandate for the ongoing disaster which The observed messages contain password protected zipped Microsoft Excel attachments with macros which, if enabled, will download and execute RustyBuer.
+The messages do not mimic any official correspondence, and often do not make grammatical sense and appear to contain fragments from news reports.
+However, the language and graphics used suggest an urgency to the recipient and may entice them to click on the attachment.
+![COVID-19](/sites/default/files/inline-images/Figure%205.png)
+*Figure 5. COVID-19 themed lure distributing RustyBuer.*
+### Conclusion
+If the severity of the Delta variant increases in proportion to COVID-19 infections, we expect an increase in media coverage worldwide.
+Based on past behavior, media attention increases the likelihood that actors will shift back to a broader adoption of COVID-19 as social engineering material and localize that material to their perspective regions.
+It is possible more threat actors will begin to use the virus as a lure in future campaigns while infection rates and interest in the virus and protective measures remains high.
+The following indicators of compromise represent a sample of recent COVID-19 threats.
+| **Indicator** | **Description** |
+| http://sweetdreambymoon[.]stars[.]bz/a2/p3.exe   | Ave Maria / Warzone Payload URL   |
+| a2ba3e1a002cd3c7d5be4ff05d6001692a1a516096159ac77b78f0ddd9c3060e   | Payload SHA256   |
+| warzonlogs[.]duckdns[.]org   | Ave Maria / Warzone C2   |
+| admin@ledfarm[.]store   | Ave Maria Sender Email   |
+| contact@wmbtole-com[.]uno   | Ave Maria Sender Email   |
+| contact@yumaletab-net[.]uno   | Ave Maria Sender Email   |
+|  info@taxpunishdep[.]com  | RustyBuer Sender Email  |
+| info@loveshipper[.]com  | RustyBuer Sender Email  |
+| https://luareraopy[.]com/api/v3/dacryorrhea/cardholders/nympholepsies 
+  | RustyBuer Document Payload  |
+| cerionetya[.]com  | RustyBuer C2  |
+| 88689636f4b2287701b63f42c12e7e2387bf4c3ecc45eeb8a61ea707126bad9b 
+  | RustyBuer Hash (Sample)  |
+| info@deliverydhlexpress[.]com  | RustyBuer Sender Email  |
+| info@deliveryeatstreet[.]com  | RustyBuer Sender Email  |
+| https://seryanjek[.]com/api/v3/disambiguate/nonequivalent/ditrigonal  | RustyBuer Document Payload  |
+| e3a11be133a98c05ab7aa90f7ca8037cfdad66b0159b5522a85dab5d54f6eb71  | RustyBuer Hash (Sample)  |
+| info@covidhospitalgeer[.]com  | RustyBuer Sender Email  |
+| info@covidadministration[.]com  | RustyBuer Sender Email  |
+| info@covidbooksinfo[.]com  | RustyBuer Sender Email  |
+| info@discountfreeals[.]com  | RustyBuer Sender Email  |
+| lebatyo[.]com  | RustyBuer C2  |
+| https://hejoysa[.]com/ssl/v1/getkey  | RustyBuer Excel Payload  |
+| eurolord.duckdns[.]org  | Ave Maria C2  |
+| 6b4a4244409dc7dd0e538b98fbb886b51d626202bdc8501af5c9c4e84daecd82  | Ave Maria Hash (Sample)  |
+| http://sassyladywrites[.]com/a1/b7[.]exe  | Ave Maria Payload URL  |
+| https://00f74ba44bd85135df3aa07960343eeeec89e0088b-apidata[.]googleusercontent[.]com/download/storage/v1/b/dhngw6p6rwrwnuv6vnuse.appspot.com/o/index.html  | Microsoft Credential Theft Phishing Landing Page  |
+| https://storage[.]cloud[.]google[.]com/dhngw6p6rwrwnuv6vnuse.appspot.com/index.html#username@organizationname.tld  | Microsoft Credential Theft Phishing URL  |
+| 24cf6db04d0882f124750e4b7025455d11b02f23ad088a334e449a82d672e64a  | Formbook Hash (Scan.Salary.zip)  |
+| www.aozhengaodi[.]com/bkbk/  | Formbook C2  |

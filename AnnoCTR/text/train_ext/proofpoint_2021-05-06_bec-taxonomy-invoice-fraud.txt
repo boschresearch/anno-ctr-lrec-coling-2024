@@ -1,0 +1,53 @@
+BEC Taxonomy: Invoice Fraud
+May 06, 2021
+### Last Time in the BEC Taxonomy Series…
+Proofpoint researchers in the [first](/us/blog/threat-insight/bec-taxonomy-proofpoint-framework "BEC Taxonomy: A Proofpoint Framework") of the [Business Email Compromise](/us/threat-reference/business-email-compromise "Business Email Compromise (BEC)") (BEC) taxonomy series introduced our framework for how to approach this increasingly costly threat.
+In the blog we detailed three tiers (Figure 1)—Identity, Deception, and Theme—for classifying email fraud in an effort to make it manageable for companies and researchers to label and understand the email threats facing them.
+In this post, we will dive further into the Theme tier, specifically focusing on invoicing fraud and show how the Email Fraud Taxonomy works in action.
+![BEC taxonomy](/sites/default/files/inline-images/MicrosoftTeams-image%20%2810%29_5.png)
+*Figure 1. Email Fraud Taxonomy Framework*
+### What is Invoice Fraud.
+Invoicing fraud at its core is an attempt to deceive a company or individual into paying for products or services they did not purchase or redirect payment of a legitimate invoice to an account the threat actor controls.
+Common words in the subject lines of fraudulent invoice emails are payment-oriented and the invoices used may appear professional with company seals and the like.
+The email messages may list out specific amounts and have urgent language such as, "this invoice is 90 days past due and must be paid immediately.
+The threat actor may also use intimidation through the use of legal jargon when laying out repercussions of an untimely response.
+While a fraudulent invoice can appear to be sent from anyone—a fellow employee or an unknown individual, the most successful appear to leverage supplier relationships, which include any person or business that provides services or products to another.
+Attacks leveraging supplier relationships can end up costing companies anywhere from tens of thousands of dollars to multiple millions, making it a worthwhile example to illustrate the Email Fraud Taxonomy Framework.
+### Supplier Invoice Fraud and the Email Fraud Taxonomy Framework
+Supplier invoice fraud schemes can occur via two Deception means (per the Proofpoint Email Fraud Taxonomy Framework in Figure 1 above): impersonation and compromise.
+Supplier impersonation occurs when a threat actor utilizes common spoofing techniques to masquerade as a legitimate supplier.
+Often these fraudulent emails are sent from free webmail domains, or unrelated compromised accounts the threat actor controls.
+These types of attacks may even look like the threat actor compromised an account, but really, they just used impersonation reconnaissance to get their hands on an invoice, as demonstrated in Figure 2.
+![](data:image;base64_removed,) 
+*Figure 2. Anatomy of a supplier invoice fraud attack via multiple layers of impersonation*
+Supplier compromise, on the other hand, occurs when a malicious actor has gained unauthorized access to an email account at a supplier likely through a prior successful phishing campaign or purchased stolen credentials.
+In some of the more elaborate supplier compromise scenarios, the threat actor may even hijack an existing email thread of a compromised account.
+The threat actor then uses this access to observe, mimic, and utilize historical conversations to craft believable messages with supporting documents.
+Since the threat actor’s messages end up as part of an email thread that is already in progress, the victim is much more likely to believe in their legitimacy, and the threat actor has a greater chance of success.
+In fact, attacks such as these can be some of the most convincing a user will ever face.
+Often, a threat actor will use both impersonation and compromise in a successful invoice campaign.
+These attacks can be targeted but are more often opportunistically operationalized based on the information attackers learn from compromising supply chains.
+When this occurs, the Taxonomy Framework enables dual categorization to show the nuances of more complicated attacks, as illustrated in Figure 3.
+![BEC taxonomy](/sites/default/files/inline-images/MicrosoftTeams-image%20%2811%29.png)
+*Figure 3. Supplier invoice fraud example with both impersonation and compromise deception tactics*
+### Real World Example
+In one of Proofpoint’s more recently observed supplier invoice fraud attacks, a threat actor attempted to steal over $100,000 in payment.
+The attacker began by impersonating a wine seller to convince the buying company to change the banking information for payment.
+In one of the initial emails, the threat actor utilized an already established email thread—also known as thread hijacking, which can provide valuable insights and aid in bolstering the victim’s confidence that the email is genuine.
+In the email, the attacker attempted to convince the paying company that the banking information for payment needed to be changed, and that all communication should be done via email (Figure 4).
+![Graphical user interface, text, application
+Description automatically generated](data:image;base64_removed,) 
+*Figure 4*
+After failing to get the response they were looking for, the threat actor continued to amplify their language, urging action (Figure 5).
+The threat actor included a detailed invoice document with the supplier’s seal and stamp to lend credibility to the scheme as well (Figure 6).
+![Graphical user interface, text Description automatically generated](data:image;base64_removed,) 
+*Figure 5*
+![A picture containing table Description automatically generated](data:image;base64_removed,) 
+*Figure 6.
+Invoice PDF.
+*Some of the demonstrated internal knowledge by the attacker in this situation led Proofpoint analysts to suspect that there was a compromise outside of Proofpoint’s visibility.
+The attacker, we assess, leveraged this compromise and then used impersonation techniques, specifically display name spoofing and reply-to manipulation, as shown in the mapping of this particular attack in Figure 7.
+![BEC taxonomy](/sites/default/files/inline-images/MicrosoftTeams-image%20%2812%29.png)
+*Figure 7. Real world example of supplier invoice fraud*
+### Keep Reading…
+In our next BEC blog post, we will tackle another category in the Theme tier, [payroll redirects](/us/blog/threat-insight/bec-taxonomy-payroll-redirects "BEC Taxonomy: Payroll Redirects "), just in time for the US tax filing deadline on 17 May 2021.

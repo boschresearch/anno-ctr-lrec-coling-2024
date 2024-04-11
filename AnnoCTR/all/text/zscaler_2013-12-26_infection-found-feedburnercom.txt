@@ -1,0 +1,51 @@
+Infection Found On ‘feedburner.com’
+December 26, 2013
+Recently, we have seen the websites of [MySQL](http://www.zdnet.com/blog/security/mysql-com-hacked-redirects-users-to-malware-laden-sites/9470) and [PHP.net](http://www.zdnet.com/php-project-site-hacked-served-malware-7000022513/) being compromised.
+We have also blogged about Google Code being used as a drop site for holding malicious code.
+These instances clearly suggest that attackers are targeting popular websites and using them in their attacks as they are less likely to be blocked by URL filters.
+This time we found that Google acquired ‘FeedBurner’, which provides custom RSS feeds and management tools to users is hosting an infected page.
+We found that one of the pages on the sub-domain ‘feeds.feedburner.com’ is serving malicious JavaScript.
+The JavaScript is obfuscated and contains an iFrame, which after execution, redirects the user to a malicious website.
+More information about this particular attack can be found in McAfee's description of threat [JS/Exploit-Blacole.em](http://home.mcafee.com/virusinfo/virusprofile.aspx?key=1317346#none).
+Let’s look at the infection in detail.
+**URL**: hxxp://feeds.feedburner.com/bileblog
+The following shows the redirection trace when visiting the aforementioned URL.
+**Network Trace**:  
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/-A1ZDNtaY6jA/UuE9bXlpgkI/AAAAAAAAB4s/rbtQ4GvZFtQ/s1600/Image+1.png)](/sites/default/files/images/blogs/-A1ZDNtaY6jA/UuE9bXlpgkI/AAAAAAAAB4s/rbtQ4GvZFtQ/s1600/Image+1.png)
+The redirection chain above case is as follows:
+hxxp://feeds.feedburner.com/bileblog (Drops JavaScript Trojan)
+--> hxxp://rsnvlbgcba.ibiz.cc/d/404.php?go=1  (Intermediate Redirection)
+--> hxxp://fukbb.com/
+Let’s take a look at a beautified version of the obfuscated JavaScript Trojan code which is dropped:
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/-a2Xkypy6tLA/UuE9g9AQyQI/AAAAAAAAB40/d33y2TapzGQ/s1600/Image+2.png)](/sites/default/files/images/blogs/-a2Xkypy6tLA/UuE9g9AQyQI/AAAAAAAAB40/d33y2TapzGQ/s1600/Image+2.png)
+JavaScript Trojan code generally contains two main sections.
+The first is the decoder routine (i.e JavaScript code which decodes the embedded payload) and the second is the payload itself.
+Generally attackers keep on tweaking the decoder routine and payload to evade security vendors.
+The de-obfuscated version of the code above can be seen here:
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/-YLCwGcxboxI/UuE9kVA4XcI/AAAAAAAAB48/BK7JPSb3q-g/s1600/Image+3.png)](/sites/default/files/images/blogs/-YLCwGcxboxI/UuE9kVA4XcI/AAAAAAAAB48/BK7JPSb3q-g/s1600/Image+3.png)
+The de-obfuscated code loads an iFrame into the victim’s browser, which is redirecting the user to ‘hxxp://rsnvlbgcba.ibiz.cc/d/404.php?go=1’, which in turn redirects it to ‘hxxp://fukbb.com/’.
+The source code hosted at ‘hxxp://rsnvlbgcba.ibiz.cc/d/404.php?go=1’ is a simple redirect:
+Final re-directed page:
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/-008fa3y23zU/UuE9niQ4l-I/AAAAAAAAB5E/s_ZtFQPy_RI/s1600/Image+4.png)](/sites/default/files/images/blogs/-008fa3y23zU/UuE9niQ4l-I/AAAAAAAAB5E/s_ZtFQPy_RI/s1600/Image+4.png)
+Currently, ‘hxxp://fukbb.com’ is not serving any malicious code but the reputation of this site is found to be suspicious (Refer the VT link below).
+The page could however be revived at some point in the future.
+ThreatLabZ informed FeedBurner about this infection on 12/26/2013.
+**VT Reports**:
+File scan for JavaScript Trojan code: 24/49
+URL scan on ‘hxxp://rsnvlbgcba.ibiz.cc/d/404.php?go=1’ :  2/51
+URL scan on ‘hxxp://fukbb.com/’ :  3/51
+**ZULU Report**:
+URL Scan on ‘hxxp://feeds.feedburner.com/bileblog’: 100/100
+Similar instances of this infection have been found on ‘http://celebrityshowdown.net/?feed=rss2’, which is also an RSS feed management site.
+The following is the network trace seen when visiting this URL.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/-ZZ87BxKd5z4/UuE9rO9NwxI/AAAAAAAAB5M/IcY6G7NsLrI/s1600/Image+5.png)](/sites/default/files/images/blogs/-ZZ87BxKd5z4/UuE9rO9NwxI/AAAAAAAAB5M/IcY6G7NsLrI/s1600/Image+5.png)
+The redirection chain observed in this case is as follows:
+hxxp://celebrityshowdown.net/?feed=rss2    
+--> hxxp://rhtbjgw.ibiz.cc/?go=2
+--> hxxp://fukbb.com/
+For a detailed report about this infections check the urlQueryreport.
+We continue to see similar infections using malicious JavaScript injected into legitimate sites to redirect users to malicious sites on a daily basis.
+Most of the time the infected sites haven’t specifically been targeted, but have become infected during larger attacks conducted using browser exploit kits designed to automate the infection of as many sites as possible.
+We advise our readers to use online URL scanning tools such as ZULU to perform scans on URLs when suspicious, regardless of a site’s perceived reputation.
+- pradeep
+ 

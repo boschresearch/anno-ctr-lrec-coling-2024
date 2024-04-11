@@ -1,0 +1,71 @@
+What is TIBER-EU and how can Financial Institutions benefit from it?
+Jul 9, 2020
+![What is TIBER-EU and how can Financial Institutions benefit from it?](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "TIBER-EU")
+![What is TIBER-EU and how can Financial Institutions benefit from it?](https://quointelligence.eu/wp-content/uploads/2020/07/TIBER-EU-scaled.jpeg "TIBER-EU")
+**Part I of II: Testing the Cyber Resilience of Financial Institutions with TIBER-EU**
+--------------------------------------------------------------------------------------
+This post is the ***first*** part of a two-part blog series in which we will explain the Threat Intelligence-based Ethical Red Teaming (TIBER-EU) framework and how financial institutions can benefit from conducting this cyber resilience test.
+In these blogposts, we will describe the purpose, framework, and execution of TIBER-EU tests.
+Financial Institutions (FIs) have always been attractive targets for attackers, given the access to financial assets as well as highly sensitive information.
+In addition, the attack surface for FIs is continuously growing due to the increasing demand for digitization, online services, and mobile applications, as well as [shifts toward remote working](https://quointelligence.eu/2020/03/coronavirus-pandemic-recent-developments-and-response-checklist-for-cios-and-cisos/).
+Therefore, the threat landscape for FIs is continuously and rapidly evolving as threat actors are constantly advancing their Tactics, Techniques, and Procedures (TTPs) to remain ahead of security protections.
+In order to mitigate against these evolving new threats, FIs are required to continuously stay aware of the current threat landscape.
+The [European Central Bank](https://www.ecb.europa.eu/home/html/index.en.html) (ECB) developed the TIBER-EU framework to address exactly this: to test an organization’s critical live production services based on real-life and current attack scenarios pertaining specifically to the tested organization.
+The ECB published the TIBER-EU framework in 2018 and several European countries are currently implementing the framework.
+TIBER-EU is an [*“intelligence-led red team test of entities’ critical live production systems.”*](https://www.ecb.europa.eu/pub/pdf/other/ecb.tiber_eu_framework.en.pdf) At the start of the exercise, a dedicated threat intelligence team creates a customized threat landscape for the organization running the test.
+Based on this threat landscape, a red team conducts penetration tests which utilize the TTPs of real-life threat actors as defined by the threat intelligence team.
+Because the test is developed based on real-life and current threats, it simulates attacks on all critical functions and underlying systems within the scope that was agreed to before the start of the exercise; including people, processes, and technologies.
+TIBER tests help the testing organizations to understand their protection, detection, and response capabilities to cyberattacks in real-life scenarios.
+While the individual testing is bespoke to each organization, the test is undertaken based on a standardized framework created by the ECB and applied by each member state.
+**Overall, the core objectives of TIBER-EU are:**
+* **Enhance the cyber resilience** of entities and the financial sector overall
+* **Standardize and harmonize the way entities perform TIBER-EU**
+* **Provide guidance to authorities** on how they might establish, implement, and manage this form of testing at a national or European level
+* **Support cross-border, cross-jurisdictional intelligence-led red team testing** for multinational entities
+* **Enable supervisory and/or oversight equivalence discussions** where authorities seek to rely on each other’s assessments carried out using TIBER-EU
+* **Create the protocol for** cross-authority/cross-border collaboration, result sharing, and analysis.
+To achieve these core objectives, the implementation of TIBER-EU gives national jurisdictions the flexibility they need to adapt the framework suiting the specificities of their respective financial institutions, system, and structure.
+In Germany, the Bundesbank is currently establishing the TIBER-DE framework, which is compatible with German regulations.
+![TIBER-EU](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)
+![TIBER-EU](https://quointelligence.eu/wp-content/uploads/2020/07/TIBER-EU-framework-300x275.png)
+TIBER-EU framework and national/European implememtation guides
+(© European Central Bank, May 2018, *[TIBER-EU Framework: How to implement the European framework for Threat Intelligence-based Ethical Red Teaming](https://www.ecb.europa.eu/pub/pdf/other/ecb.tiber_eu_framework.en.pdf)*)
+**Main Benefits for Financial Institutions**
+--------------------------------------------
+At the time of publication, no EU jurisdiction has yet made TIBER-EU a mandatory exercise.
+However, conducting TIBER-EU tests would benefit FIs for various reasons:
+**Comprehensive Testing**
+-------------------------
+The TIBER-EU exercise provides the benefit of testing real-life attack scenarios that are specific to the tested organization, which in turn reveals vulnerabilities in the organization’s defenses.
+This way, organizations can understand their specific threat surface, identify which attack vectors present the largest risk, potential security gaps, and in turn, implement mitigation strategies for these.
+This type of comprehensive testing based on likely attack scenarios can reveal insights which might not be provided when conducting more limited and targeted tests on specific installations.
+**Regulators**
+--------------
+Due to their systemic relevance and access to highly sensitive data, FIs are highly regulated and often classified as Critical Infrastrucutre.
+Therefore, FIs are already required to have adequate security practices in place to mitigate any threats that could likely cause damage to an organization and their customers.
+In addition, since the General Data Protection Regulation (GDPR) has been enforced, all organizations handling personal data need to ensure that adequate security measures are in place to protect this data.
+So far, [324 GDPR fines have been issued](https://www.privacyaffairs.com/gdpr-fines/), including for insufficient technical and organizational measures to ensure information security, insufficient legal basis for data processing, and non-compliance with general data processing principles.
+Regardless of the attack scenario leveraged against an organization, under GDPR, organizations are required to establish a robust security posture to mitigate impacts of any potential attack.
+In the past, regulators imposed fines in response to incidents that reflect the extent of cybersecurity measures the impacted organization had in place.
+In short, if regulators find an organization had adequate security measures in place but was breached regardless, fines could be reduced.
+Vice versa, if regulators find that security measures were inadequate previous to the breach, fines could be higher.
+Therefore, ensuring all possible prevention measures are taken will not only reduce the risk of an incident, it could also reduce regulatory fines following an incident.
+**Customer Confidence**
+-----------------------
+Given the highly sensitive customer information stored by FIs, customers are likely to evaluate which organizations to work with based on their security posture.
+If FIs can demonstrate they are going above and beyond in ensuring the protection of customer data, they will likely be more attractive.
+Further, if a security incident occurs, organizations that followed the highest standard of cybersecurity measures, such as regular backups or encrypting all personal information, will face lesser repercussions and thus lower loss in customer confidence.
+**European-wide Resilience**
+----------------------------
+Given the interconnectedness of the European financial system, successful cyber incidents at one organization can potentially impact the wider European system and, in the worst case, affect the European economy.
+Therefore, the more FIs conduct TIBER-EU exercises, the higher the overall level of security for the whole European financial system.
+Further, it also creates a precedent for other organizations to increase their cyber resilience to lessen the threat to the European financial system as a whole.
+**Conclusion**
+--------------
+In short, the most significant benefit of TIBER-EU for financial institutions is to check their defense capabilities through a test based on real-life scenarios, bespoke to the organization by taking into consideration the systems the organization uses.
+Added benefits for organizations undergoing a TIBER-EU exercise include, at a minimum, protecting the organizations against indirect costs – such as fines imposed by regulators, loss in revenue and/or client business, as well as strengthening the wider European financial system.
+In the ***part two***, we outline [how TIBER-EU exercises are conducted and describe the role of the Threat Intelligence Provider in these exercises.](https://quointelligence.eu/2020/09/threat-intelligence-providers-tiber-eu-tests/)
+To learn more on how QuoIntelligence can help your organization benefit from TIBER tests, get in touch:
+[Contact us](https://quointelligence.eu/talk-to-an-expert/)
+* [Follow](https://twitter.com/QuoIntelligence "Follow on Twitter")[Follow](https://twitter.com/QuoIntelligence "Twitter")
+* [Follow](https://www.linkedin.com/company/quointelligence/ "Follow on LinkedIn")[Follow](https://www.linkedin.com/company/quointelligence/ "LinkedIn")

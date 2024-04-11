@@ -1,0 +1,176 @@
+E.K.P. & Agent Tesla: The Daily Operations of a Nigerian eCrime Gang
+Jun 30, 2021
+In late 2020, QuoIntelligence identified a malicious Word document.
+The Word document contained technical indicators associated with an Agent Tesla malware campaign, a readily available Remote Access Trojan (RAT) that steals keystrokes and credentials.
+It ultimately led us to uncover the operation of a Nigerian eCrime gang.
+Based on our investigation, we dubbed the eCrime gang “E.K.P.”.
+Further, we understand that they are located in Nigeria.
+We also learned that E.K.P is an operator within a service model known as Malware-as-a-Service (MaaS).
+MaaS & RaaS: The All Skill-Level eCrime Conductors
+--------------------------------------------------
+Cybercriminals are increasingly adopting MaaS for conventional malware campaigns and ransomware deployments (Ransomware-as-a-Service or short RaaS).
+Due to the offered capability and low barrier-to-entry, it doesn’t take a lot of skill to conduct attack campaigns.
+In this report, we highlight the daily operations of E.K.P and the various commodity tools used to both stage and execute attack campaigns.
+Uncovering E.K.P
+----------------
+The Microsoft Word document that we discovered in 2020 was entitled ”Azerbaijan-Turkey Military Negotiation.doc”.
+Apparently a user from a VirusTotal in the Netherlands containing a weaponized macro uploaded it.
+If the cyber attacker can successfully convince their target to open the document, the kill-chain will be launched, and the malware will be able to steal the information of the person who opened the file.
+[![Malicious Word document that E.K.P. used as attack lure](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Malicious Word document that E.K.P. used as attack lure")
+![Malicious Word document that E.K.P. used as attack lure](https://quointelligence.eu/wp-content/uploads/2021/06/image1.jpg "Malicious Word document that E.K.P. used as attack lure")](https://quointelligence.eu/wp-content/uploads/2021/06/image1.jpg "Malicious Word document that E.K.P. used as attack lure")
+[![Description and display of lure document](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Description and display of lure document")![Description and display of lure document](https://quointelligence.eu/wp-content/uploads/2021/06/image2-300x113.jpg "Description and display of lure document")](https://quointelligence.eu/wp-content/uploads/2021/06/image2-300x113.jpg "Description and display of lure document")
+##### Word document titled *Azerbaijan-Turkey Military Negotiations.doc* that E.K.P. used as lure for their recent attack
+E.K.P. Kill-Chain and Tesla Agent’s Connections to Other Malware Families
+-------------------------------------------------------------------------
+The macro embedded with the Word document obfuscates, i.e., creates difficult-to-read code, to another simple obfuscated script.
+This script then tries to download and execute a payload retrieved from a Command and Control (C2) URL.
+Unfortunately, at the time of analysis, we could not retrieve the file.
+However, we determined additional files associated with the same C2 URL: a widespread malware family known as *Agent Tesla*.
+Agent Tesla is a readily available keylogger and Remote Access Trojan (RAT), written in .NET.
+Its primary function includes logging keystrokes and the clipboard to exfiltrate data ultimately.
+At least this specific variant attempts to exfiltrate data from the victim using hardcoded Simple Mail Transfer Protocol (SMTP) credentials for an attacker-controlled mailbox.
+Another malware family tied to the C2 Infrastructure is “Remcos RAT,” giving a cybercriminal complete control of an infected system.
+Its capabilities include keylogging and surveillance through audio and screenshots.
+Sir Pee and Day to Day Operations at eCrime gang E.K.P.
+-------------------------------------------------------
+Based on what we have learned so far, we dubbed the cybercriminal gang E.K.P, and we understand that they are located in Nigeria.
+E.K.P. starts the day by communicating with customers and its management to determine the needed actions for the day.
+![E.K.P.'s communication thread between group members, managers, and clients](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "E.K.P.'s communication thread")![E.K.P.'s communication thread between group members, managers, and clients](https://quointelligence.eu/wp-content/uploads/2021/06/image3-1024x576.jpg "E.K.P.'s communication thread")
+##### Screenshot of the conversation thread between E.K.P. members, their managers, and clients
+Based on other conversation threads, the contact with the moniker Sir Pee appears to be the manager of E.K.P.
+As you can see in the screenshot above, Sir Pee instructs E.K.P to “spam zip file now” and then sends the link to where the malicious file is uploaded.
+E.K.P responds with login credentials for an email account to the domain *loanabank[.]com*.
+The domain appears to be a fake bank page.
+Sir Pee, in turn, sends E.K.P credentials for a CPanel – a control dashboard to facilitate the management of a web hosting server.
+[![Homepage of Ioanabank[.]com - a fake bank domain E.K.P. is using](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Screenshot of homepage of Ioanabank[.]com")
+![Homepage of Ioanabank[.]com - a fake bank domain E.K.P. is using](https://quointelligence.eu/wp-content/uploads/2021/06/image4.jpg "Screenshot of homepage of Ioanabank[.]com")](https://quointelligence.eu/wp-content/uploads/2021/06/image4.jpg "Homepage of Ioanabank[.]com - a fake bank domain E.K.P. is using")
+##### Screenshot of Loanabank’s homepage – a fake bank domain
+E.K.P.’s multi-functional, multi-vendor attacker toolset
+--------------------------------------------------------
+Our observations indicate clearly that E.K.P uses various malware builder kits, services, and inboxes for conducting their operations.
+After starting the day checking in with the apparent manager, E.K.P begins with their operational rounds by accessing their web shell on *predilletastore[.]com[.]br.*
+According to our research, the site is likely a compromised WordPress website hosting a web shell.
+E.K.P. uses this for attack operations and to control compromised hosts remotely.
+Further, the eCrime gang leverages it to store their attack tools such as payloads and files.
+[![E.K.P.'s web shell on predilletastore[.]com[.]br](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Screenshot of E.K.P.'s web shell on predilletastore[.]com[.]br")![E.K.P.'s web shell on predilletastore[.]com[.]br](https://quointelligence.eu/wp-content/uploads/2021/06/image5-1024x561.jpg "Screenshot of E.K.P.'s web shell on predilletastore[.]com[.]br")](https://quointelligence.eu/wp-content/uploads/2021/06/image5-1024x561.jpg "E.K.P.'s web shell on predilletastore[.]com[.]br")
+##### Screenshot of predilletastore[.]com[.]br – E.K.P. web shell
+Based on their contact list, E.K.P seems to have access to a wide range of tools, especially if a potential customer requires capabilities outside the gang’s service catalog.
+However, during our observations, E.K.P heavily relied on mainly three core malware builder kits.
+### Exploit Builder (version 1.5.0.1):
+A premium product requiring a license.
+Exploit Builder enables E.K.P to create an exploit document (e.g., Microsoft Word or Excel) that delivers a malware payload to a victim host.
+At first, the gang creates a payload using Origin Logger.
+Secondly, they obfuscate the payload with the Cassandra Crypter service.
+### Origin Logger (also known as Agent Tesla):
+ Through our analysis, we confirm that the payload generated by Origin Logger is nearly the same as previously decoded Agent Tesla payloads.
+The C2 panel interface matches the same panel that threat actors use for the malware Origin Logger, bundled with the C2 panel, and then sold to attackers.
+As the name suggests, its primary purpose is logging keystrokes, clipboard data, HTTP cookies, taking periodic screenshots, and viewing the webcam of infected computers.
+![Screenshots showing Exploit Builder and Origin Logger](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Screenshots showing Exploit Builder and Origin Logger")
+![Screenshots showing Exploit Builder and Origin Logger](https://quointelligence.eu/wp-content/uploads/2021/06/image6-1024x561.jpg "Screenshots showing Exploit Builder and Origin Logger")
+##### Screenshots showing Exploit Builder and Origin Logger
+E.K.P leveraged the Origin Logger builder to create multiple variants to infect victims.
+For obfuscation of the payloads, the threat actor used the online service known as Cassandra Crypter.
+### Cassandra Crypter Service:
+Based on their website, Cassandra Crypter Service describes itself as:
+>
+> *A cloud crypter which is coded by the coder of PoisonCrypter, it will be updated daily twice or even thrice (if needed).
+As a result, it will be giving you a FUD result and always fud for the premium users.
+It is working with both native and managed assemblies (running since 2018)*
+>
+>
+>
+The customized obfuscation (e.g., ConfuserEx) of the .NET Agent Tesla payloads offered through Cassandra Crypter is available through two subscription plans: The Premium or VIP Plan.
+The Premium Plan can be paid directly and works automatically, while the VIP Plan requires the subscriber to contact support first for personalization.
+[![Screenshot of Cassandra Crypter Service ](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Screenshot of Cassandra Crypter Service ")
+![Screenshot of Cassandra Crypter Service ](https://quointelligence.eu/wp-content/uploads/2021/06/image7-1024x815.jpg "Screenshot of Cassandra Crypter Service ")](https://quointelligence.eu/wp-content/uploads/2021/06/image7-1024x815.jpg "Screenshot of Cassandra Crypter Service ")
+[![Screenshot of Cassandra Crypter Service Plan & Pricing](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Screenshot of Cassandra Crypter Service Plan & Pricing")
+![Screenshot of Cassandra Crypter Service Plan & Pricing](https://quointelligence.eu/wp-content/uploads/2021/06/image8.jpg "Screenshot of Cassandra Crypter Service Plan & Pricing")](https://quointelligence.eu/wp-content/uploads/2021/06/image8.jpg "Screenshot of Cassandra Crypter Service Plan & Pricing")
+##### Screenshots of the Cassandra Crypter Dashboard and the service’s pricing plans
+While E.K.P expedites the time spent preparing malware variants and malicious documents for the attack campaigns using different tools, they eventually get to the distribution part.
+Consequently, they will check with their manager again for the target details.
+E.K.P communicates with multiple contacts throughout the day and even uses *Sendspace* – a free hosting site for instant file transfers – to receive and transfer documents for campaigns.
+[![Screenshots of Sendspace ](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Screenshots of Sendspace ")
+![Screenshots of Sendspace ](https://quointelligence.eu/wp-content/uploads/2021/06/image9.jpg "Screenshots of Sendspace ")](https://quointelligence.eu/wp-content/uploads/2021/06/image9.jpg "Screenshots of Sendspace ")
+[![Screenshots Turbomailer – both used by the Nigerian eCrime gang E.K.P.](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Screenshots Turbomailer – used by the Nigerian eCrime gang E.K.P.")![Screenshots Turbomailer – both used by the Nigerian eCrime gang E.K.P.](https://quointelligence.eu/wp-content/uploads/2021/06/image10.jpg "Screenshots Turbomailer – used by the Nigerian eCrime gang E.K.P.")](https://quointelligence.eu/wp-content/uploads/2021/06/image10.jpg "Screenshots Turbomailer – both used by the Nigerian eCrime gang E.K.P.
+##### Screenshots of Sendspace and Turbomailer – both used by the Nigerian eCrime gang E.K.P.
+Another tool that E.K.P frequently uses for mass emails is the *Xleet Phishing Service*, a service popular amongst threat actors to distribute spear-phishing emails throughout various attacks.
+One of the services offered by the marketplace where Xleet is sold, is access to a compromised server that hosts the PHP web shell that enables ongoing access to the server.
+QuoIntelligence recently analyzed campaigns attributed to [top-tier threat actor “Cobalt” group](https://quointelligence.eu/2020/07/golden-chickens-evolution-of-the-maas/), using a PHP-mailer script placed on a likely compromised server used to distribute spear-phishing emails.
+The Raise of eCrime Toolset Services
+------------------------------------
+This investigation is an example of the effectiveness of the cybercriminal underground offering competent toolset services.
+Through Malware-as-a-Service (MaaS) and other subscription models, less-skilled individuals can execute low-effort cybercrime.
+A similar, slightly more complex MaaS often used by APTs is the Golden Chickens (GC) MaaS.
+Since 2018, QuoIntelligence has tracked and highlighted the  [evolution of the Golden Chickens (GC)](https://quointelligence.eu/2020/07/golden-chickens-evolution-of-the-maas/) MaaS and how different actors use it, including top-tier threat actors FIN6, Cobalt, and Evilnum.
+By 2019, we uncovered [eleven tools attributed to the GC MaaS](https://quointelligence.eu/2021/04/golden-chickens-compilation/)and each customized per campaign for the threat actor purchasing the service.
+In general, attributing attack activity to threat actors leveraging a MaaS is often complicated.
+The services offered can include both C2 infrastructure and malware variants.
+These are available to all MaaS customers, whether script kiddies or Advanced Persistent Threat (APT) actors.
+E.K.P.: A Highly Active MaaS Provider Supporting Multiple Campaigns Simultaneously
+----------------------------------------------------------------------------------
+Our investigation uncovered E.K.P’s day-to-day operation over a couple of months.
+It became clear that the threat actor is highly active, supporting multiple campaigns in parallel, and leveraging complete and straightforward toolsets to monetize activity.
+E-Crime is a large ecosystem consisting of interconnected services, schemes, and affiliate networking in the cybercriminal domain.
+Overall, their primary goal is financial gain.
+QuoIntelligence will continue to observe threat actors like E.K.P, which are operating non-complex but effective eCrime services.
+Apendix
+-------
+**Malicious document (maldoc)**
+* 7007f35df3292a4ecd741839fc2dafde471538041e54cfc24207d9f49016dc77
+**Maldoc name**
+* Azerbaijan-Turky Military Negotiation.doc
+**Maldoc C2**
+* https://cannabispropertybrokers[.]com/pop/8OwWKrFQ0gQoKt9[.]exe
+**AgentTesla (delivered by maldoc)**
+* cda07296d20a239bdb9cb5a2c9a814f69811bc85ced8bf32e998b906a413f416
+**REMCOS RAT packed**
+* 15170d0dbe467efc4e38156ed4e03702ae19af44c100d7df7a75c6dbdb7ac587
+**REMCOS RAT upacked**
+* 4d755262fd2c7f0539f919d300c7ebc3bd70267c002bcb8edd886a40e3f8ba75
+**REMCOS RAT C2**
+* 79.134.225[.]72:64843
+MITRE ATT&CK
+------------
+| **TACTIC** | **TECHNIQUE** |
+| **Initial Access** | [T1566.001: Phishing: Spearphishing Attachment](https://attack.mitre.org/techniques/T1566/001) |
+| **Execution** | [T1203: Exploitation for Client Execution](https://attack.mitre.org/techniques/T1203)
+[T1053.005: Scheduled Task/Job: Scheduled Task](https://attack.mitre.org/techniques/T1053/005)
+[T1047: Windows Management Instrumentation](https://attack.mitre.org/techniques/T1047)
+[T1204.002: User Execution: Malicious File](https://attack.mitre.org/techniques/T1204/002) |
+| **Persistance** | [T1547.001: Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder](https://attack.mitre.org/techniques/T1547/001)
+[T1053.005: Scheduled Task/Job: Scheduled Task](https://attack.mitre.org/techniques/T1053/005) |
+| **Privilege Escalation** | [T1547.001: Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder](https://attack.mitre.org/techniques/T1547/001)
+[T1055.012: Process Injection: Process Hollowing](https://attack.mitre.org/techniques/T1055/012/)
+[T1053.005: Scheduled Task/Job: Scheduled Task](https://attack.mitre.org/techniques/T1053/005) |
+| **Defense Evasion** | [T1140: Deobfuscate/Decode Files or Information](https://attack.mitre.org/techniques/T1140)
+[T1564.001: Hide Artifacts: Hidden Files and Directories](https://attack.mitre.org/techniques/T1564/001)
+[T1564.003: Hide Artifacts: Hidden Window](https://attack.mitre.org/techniques/T1564/003)
+[T1562.001: Impair Defenses: Disable or Modify Tools](https://attack.mitre.org/techniques/T1562/001)
+[T1112: Modify Registry](https://attack.mitre.org/techniques/T1112)
+[T1027: Obfuscated Files or Information](https://attack.mitre.org/techniques/T1027)
+[T1055.012: Process Injection: Process Hollowing](https://attack.mitre.org/techniques/T1055/012/)
+[T1218.009: Signed Binary Proxy Execution: Regsvcs/Regasm](https://attack.mitre.org/techniques/T1218/009)
+[T1497: Virtualization/Sandbox Evasion](https://attack.mitre.org/techniques/T1497) |
+| **Credential Access** | [T1555: Credentials from Password Stores](https://attack.mitre.org/techniques/T1555)
+[T1555.003: Credentials from Web Browsers](https://attack.mitre.org/techniques/T1555/003)
+[T1056.001: Input Capture: Keylogging](https://attack.mitre.org/techniques/T1056/001)
+[T1552.001: Unsecured Credentials: Credentials In Files](https://attack.mitre.org/techniques/T1552/001)
+[T1552.002: Unsecured Credentials: Credentials in Registry](https://attack.mitre.org/techniques/T1552/002) |
+| **Discovery** | [T1087.001: Account Discovery: Local Account](https://attack.mitre.org/techniques/T1087/001)
+[T1082: System Information Discovery](https://attack.mitre.org/techniques/T1082)
+[T1016: System Network Configuration Discovery](https://attack.mitre.org/techniques/T1016)
+[T1033: System Owner/User Discovery](https://attack.mitre.org/techniques/T1033)
+[T1124: System Time Discovery](https://attack.mitre.org/techniques/T1124)
+[T1057: Process Discovery](https://attack.mitre.org/techniques/T1057)
+[T1497: Virtualization/Sandbox Evasion](https://attack.mitre.org/techniques/T1497) |
+| **Collection** | [T1560: Archive Collected Data](https://attack.mitre.org/techniques/T1560)
+[T1115: Clipboard Data](https://attack.mitre.org/techniques/T1115)
+[T1056.001: Input Capture: Keylogging](https://attack.mitre.org/techniques/T1056/001)
+[T1185: Man in the Browser](https://attack.mitre.org/techniques/T1185)
+[T1113: Screen Capture](https://attack.mitre.org/techniques/T1113)
+[T1125: Video Capture](https://attack.mitre.org/techniques/T1125) |
+| **Command and Control (C2)** | [T1071.001: Application Layer Protocol: Web Protocols](https://attack.mitre.org/techniques/T1071/001)
+[T1071.003: Application Layer Protocol: Mail Protocols](https://attack.mitre.org/techniques/T1071/003)
+[T1105: Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105) |
+| **Exfiltration** | [T1048.003: Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated Non-C2 Protocol](https://attack.mitre.org/techniques/T1048/003) |
+[Get in touch!](https://quointelligence.eu/talk-to-an-expert/)

@@ -1,0 +1,177 @@
+Fake VPN Sites Deliver Infostealers
+April 14, 2020
+Because of the worldwide call for social distancing, [many people working from home](/blogs/corporate/empowering-employees-work-remotely-during-covid-19) and taking classes online for the first time are turning to the [virtual private network (VPN)](/blogs/research/remote-access-vpns-have-ransomware-their-hands) for security and privacy.
+But, as we’ve all seen (and ThreatLabZ has reported in several blogs covering [CovidLock](/blogs/research/covidlock-android-ransomware-walkthrough-and-unlocking-routine) ransomware and a coronavirus [scam](/blogs/research/emergence-coronavirus-and-olympics-scams), among others), attackers are attempting to use the pandemic for financial gain.
+A new campaign is using the demand for VPNs to trick users into downloading and installing malware by masquerading as a legitimate VPN client.
+As part of our ongoing research, we monitor newly registered domains (NRDs) because they can be sources of new malware campaigns.
+We recently came across NRDs for multiple websites pretending to offer free VPN clients.
+When the user downloads and executes the VPN client, it runs in the background and installs an infostealer and serves other malware, such as a Remote Access Trojan and banking Trojan.
+In this blog we will discuss the fake Nord VPN site, the fake VPN4Test site, the malware they serve, and their infostealer capabilities.
+**1.Fake Nord VPN site**
+-------------------------
+![Fake Nord VPN site](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/nordvpn_site.JPG)
+Fig 1: Fake Nord VPN site
+![Whois info of fake Nord VPN site](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/whois_nordvpn1.JPG)
+Fig 2: Whois info of fake Nord VPN site
+Domain: nordfreevpn[.]com
+URL: nordfreevpn[.]com/NordVPNSetup.exe
+When a user tries to install a VPN client from this site, it downloads the encrypted payload from the web, decrypts it, and loads it in memory for execution.
+So, the user ends up installing Grand Stealer malware, which has several capabilities, including stealing various user credentials and cryptocurrency wallets.
+![Fake Nord VPN site overview](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/nordvpn_overview3.JPG)
+Fig 3: Fake Nord VPN site overview
+The downloaded file (NordVPNSetup.exe) from this fake VPN site is a MSIL-built executable file.
+It is a loader that downloads an encrypted payload, decrypts it, and executes it in memory.
+The URL to download the next payload is encrypted inside the binary.
+First, the binary decrypts the URL with the decryption logic shown in Fig 4.
+![Decryption Logic](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/nord_decryption_logic_1.PNG)
+Fig 4: Decryption logic
+Encoded URL: "softJsonLinqExtensionsValuesdZNjAaLxx2FiQzL3BdBHsSAisTNCgLWwcYPSQ7OR4vLAQxLRMXPh1bIC52QygIWTFcKQleOwYuNyYkEgxb"
+XOR key: “gJjLJDzQihIn”
+This encoded URL is getting parsed, Base64 decoded, then XORed with a hardcoded key.
+Decoded URL: "hxxps://ws38[.]watashinonegai[.]ru/GflawIpmuSbP"
+It downloads the encrypted data from this URL as shown in Fig 5.
+![Encrypted payload](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/nord_enc_payload_1.PNG)
+Fig 5: Encrypted payload
+This encrypted data is decrypted with the same decryption logic used to decrypt the encrypted URL.
+Decrypted\_data = Base64\_decode(Base64\_decode(XOR(Base64\_decode(Encrypted\_data), Key)))
+![Script for data decryption](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/nord_py_script.JPG)
+Fig 6: Script for data decryption
+The binary enumerates the DotNet directory path (C:\\Windows\\Microsoft.NET\\Framework\\[version]) and then creates the suspended process of first executable file (AddInProcess.exe), Unmaps its memory and then injects the decrypted payload inside it and executes the process.
+### **1.1 Grand Stealer**
+This malware steals the following information from the infected system.
+* Browser profiles (credentials, cookies, credit cards, auto fill)
+* Gecko credentials
+* FTP credentials
+* RDP credentials
+* Telegram sessions
+* Cryptocurrency wallets
+* Discord software data
+* Desktop files
+* Screenshots
+![Data to steal](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/grand_functionalities.PNG)
+Fig 7: Data to steal
+It collects login data, web data, cookies, and credit card information stored in the Chromium browser.
+![Stealing credit card data](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/grand_credit_card.PNG)
+Fig 8: Stealing credit card data
+It also searches for the below files in %appdata% and steals browsers profiles such as credentials and cookies.
+“key3.db”, “key4.db”, “cookies.sqlite”, “logins.json”
+The malware is able to steal wallets from the following cryptocurrency products.
+* Litecoin
+* Monero
+* Bytecoin
+* Electrum
+* Ethereum
+* Exodus
+![Stealing wallets data](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/grand_wallet_steal2.PNG)
+Fig 9: Stealing wallets data
+For FTP credentials, it searches for “%appdata%\\FileZilla\\recentservers.xml” or “%appdata%\\FileZilla\\recentmanager.xml” and steals the credentials from that.
+For Telegram sessions, it enumerates “%appdata\\Telegram Desktop\\tdata\\D877F783D5D3EF8C\\map*” and steals all the files that start with a map.
+It also captures the current screen and collects all the files stored on the desktop and sends it to the command-and-control (C&C) server.
+The address of C&C server is hardcoded inside the binary and it creates a websocket session for communication.
+ws://195.161[.]41[.]243:2012/websocket
+First, it requests the server for the configurations and, based on that, it collects the data and sends it back to the server.
+![Grand stealer C2 communication](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/grand_wireshark.JPG)
+Fig 10: Grand stealer C2 communication
+**2.Fake VPN4Test site**
+-------------------------
+![Fake VPN4Test site](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/vpn4test_site.JPG)
+Fig 11: Fake VPN4Test site
+![Whois info of fake VPN4Test site](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/whois_vpntest1.JPG)
+Fig 12: Whois info of fake VPN4Test site
+Domain : vpn4test[.]net
+URL : hxxps://vpn4test[.]net/VPN4Test-Setup.exe
+When a user tries to install a fake VPN client from this site, it downloads the encoded config data from the web, downloads the malware payload from the URL given in config data—which in this case is Azorult infostealer—and executes it.
+![Fake VPN4Test site overview](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/vpn4test_overview1.JPG)
+Fig 13: Fake VPN4Test site overview
+The downloaded file (VPN4Test-Setup.exe) from this site is again a MSIL-built executable.
+It is a loader module that downloads a configuration for the payload from the web and, based on that configuration, it downloads the payload and executes it on the system.
+This loader first extracts the IP geolocation information by calling the API “hxxp://ip-api[.]com/line/?fields=61439”.
+Based on the collected information, it forms a URL to download the configuration data.
+![URL formation](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/vpn_loader_url.PNG)
+Fig 14: URL formation
+URL: hxxp://176.96.239[.]39:80/Gate[.]php?Data=<collected\_data>
+The collected data is the Base64-encoded combination of country index, IP address, hardware ID, country, username, and OS.
+It sends the web request on this URL and gets the response.
+![Requesting configuration from server](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/vpn_loader_fiddler.PNG)
+Fig 15: Requesting configuration from server
+The response is Base64-encoded data.
+It is a comma-separated string that includes:
+<ID>,ALL,WebFile,<Payload\_URL>,<Destination\_directory>,<File\_name>
+In our case, the decoded config is:
+1834,ALL,WebFile,hxxp://51[.]83[.]210[.]220/au.exe,Appdata,au.exe
+After getting this configuration, the loader downloads the payload from the payload URL and stores it on “%appdata%” with the name “au.exe” and executes it.
+![ Loader config parsing](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/vpn_config_parsing.PNG)
+Fig 16:  Loader config parsing
+In this case, the final payload is an infostealer called Azorult.
+### **2.1 Azorult Infostealer**
+Azorult is an information stealer that harvests and exfiltrates saved passwords, browser login credentials, cookies, history, chat sessions, cryptocurrency wallet files, and screen captures.
+It may often download additional malware onto the infected system.
+The malware first generates a bot ID to uniquely identify the host machine.
+Once it is generated, it is encoded and encrypted with 3bytes and sent to the C&C server.
+![Sends request to C2 with Bot ID](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/azor_sendReq.PNG)
+Fig 17: Sends request to C&C with bot ID
+In response to this request, the server sends encoded configuration data.
+The configuration includes directory paths from where to steal the data, additional malware executables URLs, DLL modules required, targeted browsers, targeted cryptocurrency wallets, and all the suspicious strings used by the malware.
+This version of Azorult tries to get sensitive information from the below programs.
+**Web browsers:**
+Google Chrome, Comodo Dragon, Amigo, Orbitum, Bromium, Chromium, Nichrome, RockMelt, Vivaldi, Go Browser, Sputnik, Kometa, Uran, QIP Surf, Epic Privacy Browser, Brave, Cent Browser, CocCoc, 7 Star, Elements Browser, Safer Technologies, Mustang, Superbird, Chedot, Torch, Firefox, Waterfox, IceDragon, Cyberfox, PaleMoon, InternetExplorer, Microsoft Edge, Opera , Xpom, YandexBrowser, 360Browser, TorBro, Suhba
+**Cryptocurrency wallets:**
+Electrum, Electrum-LTC, ElectrumG, Electrum-btcp, Jaxx, MultiBitHD, Monero, Bitcoin, BitcoinGold, BitCore, Litecoin, BitcoinABC, Exodus, Exodus Eden, Ethereum
+**Others:**
+Outlook, Filezilla, PSI+, WinScp, Skype, Telegram, Steam
+All the stolen files are compressed in a ZIP file, combined with the browser’s data, and encrypted with the same 3bytes of XOR key before being sent to the C&C server.
+![Stolen data](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/azor_stolen.PNG)
+Fig 18: Stolen data
+This Azorult downloads and executes two additional pieces of malware from the URLs received in the config data.
+Masad stealer : hxxp://51.83.210[.]220/build.exe
+Parasite RAT : hxxp://51.83.210[.]220/svchost.exe
+### **2.2 Masad Stealer**
+Masad Stealer uses Telegram to exfiltrate stolen information.
+After execution, it starts collecting sensitive information from the infected system, such as browser credentials, FTP credentials, cryptocurrency wallets, screenshots, Telegram data, and desktop files.
+It compresses this information into a file using the 7-ZIP utility.
+![Information stolen by Masad stealer](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/masad_infostealer.png)
+Fig 19: Information stolen by Masad Stealer
+The Masad Stealer sends this 7-ZIP file using the sendDocument API to the C&C Telegram bot.
+Telegram bot username: “MyVavilon\_bot”
+Telegram bot ID: “bot1119740172”
+### **2.3 Parasite RAT**
+Like most RATs, Parasite HTTP offers information-stealing capabilities, VNC for observing or controlling a PC, and user management for bypassing permissions.
+It also advertises capabilities such as firewall bypass, optional system-wide persistence, and injection to white-listed system processes.
+It also features encryption for its C&C communications.
+![Parasite RAT communication](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/parasite_wireshark.PNG)
+Fig 20: Parasite RAT communication
+This variant of the Parasite RAT also downloads a DLL file which is NukeBot malware.
+NukeBot (aka Nuclear Bot) is a full-fledged banking trojan that includes a HiddenDesktop/VNC server and a reverse SOCKS4 server.
+It could steal passwords and inject arbitrary content when victims visited banking websites.
+### **Coverage:**
+The observed indicators in this attack were successfully blocked by the Zscaler Cloud Sandbox service.
+![Zscaler Cloud Sandbox report for fake Nord VPN client](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/sandbox_norvpn.JPG)
+Fig 21: Zscaler Cloud Sandbox report for fake Nord VPN client
+![Zscaler Cloud Sandbox report for fake VPN4Test client](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Fake_VPN/sandbox_vpn4test.JPG)
+Fig 22: Zscaler Cloud Sandbox report for fake VPN4Test client
+In addition to sandbox detections, Zscaler’s multilayered cloud security platform detects indicators at various levels.
+* [Win32.Backdoor.GrandSteal](https://threatlibrary.zscaler.com/?keyword=Win32.Backdoor.GrandSteal)
+* [Win32.PWS.Azorult](https://threatlibrary.zscaler.com/?keyword=Win32.PWS.Azorult)
+* [Win32.PWS.Masad](https://threatlibrary.zscaler.com/?keyword=Win32.PWS.Masad)
+* [Win32.Backdoor.ParasiteRat](https://threatlibrary.zscaler.com/?keyword=Win32.Backdoor.ParasiteRat)
+* [Win32.Backdoor.Nukebot](https://threatlibrary.zscaler.com/?keyword=Win32.Backdoor.Nukebot)
+### **IOCs:**
+nordfreevpn[.]com
+nordfreevpn[.]com/NordVPNSetup[.]exe
+ws38[.]watashinonegai[.]ru/GflawIpmuSbP
+195[.]161[.]41[.]243:2012
+vpn4test[.]net
+vpn4test[.]net/VPN4Test-Setup[.]exe
+176[.]96[.]239[.]39:80/Gate[.]php
+51[.]83[.]210[.]220/au[.]exe
+51[.]83[.]210[.]220/azor/index[.]php
+51[.]83[.]210[.]220/build[.]exe
+51[.]83[.]210[.]220/svchost[.]exe
+51[.]83[.]210[.]220/index[.]php
+F7C7CAE1EC7700D5449AE66B92D616C8 (NordVPNSetup.exe)
+219DA5218B48F58896BBDE95100E2CF4 (Grand stealer, AddInProcess.exe)
+5766E43D1AC9A8A6D6E0FDAEC5F63507 (VPN4Test-Setup.exe)
+F0DF7D1DC6B89E522776BF3AE3C09431 (Azorult stealer, au.exe)
+B093EB15D66808B141F320DCCB1A5178 (Masad stealer, build.exe)
+83983EB434FE1183ECAA8149187067E6 (Parasite stealer, svchost.exe)
+35D1BC49075E6D3B737DD59953AD33EB (NukeBot, plugin.dll)

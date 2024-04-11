@@ -1,0 +1,74 @@
+That Holiday Feelin’: TA575 Brings the Warm and Fuzzies with Year-end, Festive Lures
+December 09, 2021
+<!--/*--><![CDATA[/* ><!--*/
+<!--/*--><![CDATA[/* ><!--*/
+<!--/*--><![CDATA[/* ><!--*/
+table {
+margin: 0 auto !important;
+}
+table, tr, th, td {
+border: 0 !important;
+}
+th, td {
+width: 50% !important;
+font-family: Helvetica, Arial, "sans-serif" !important;
+font-size: 16px !important;
+text-align: center !important;
+}
+/*--><!]]]]]]><![CDATA[><![CDATA[>*/
+/*--><!]]]]><![CDATA[>*/
+/*--><!]]>*/
+The threat actor tracked by Proofpoint as TA575 has kicked off the festive season with holiday-themed lures and is getting a head start on tax season in their latest high-volume campaigns.
+Proofpoint researchers have observed a range of email subjects from "Black firday and Cyber Monday Survey Scam alert" to "Christmas tips: Preparing for Holydays," "Holiday Survey Threats beware," and even "Winter lifehacks: Cutest Tax Credit.
+The ultimate intent of the campaigns is to lure potential victims into downloading the Dridex banking trojan.
+Dridex, which is a prolific piece of malware distributed by multiple affiliates, can lead to theft of personally identifiable information and installation of secondary payloads such as [ransomware](/us/threat-reference/ransomware "Ransomware").
+The campaigns have impacted numerous industries, such as education, manufacturing, local government, insurance, and finance in the United States—a typical geographic focus of TA575.
+### November 2021 Campaigns
+TA575 began this year's spate of holiday campaigns on November 24, 2021.
+The emails delivered malicious Microsoft Excel file attachments that, if opened, used XL4 macros to download and execute Dridex affiliate id "22201" from a URL.
+A November 29, 2021 campaign shifted to pulling Dridex affiliate id "22202" from Discord URLs. TA575 has used the Discord content delivery network (CDN) to host and distribute the banking trojan in other [campaigns](https://www.proofpoint.com/us/blog/threat-insight/ta575-uses-squid-game-lures-distribute-dridex-malware) this year.
+TA575's November 2021 campaigns veered away from the more wholesome and, at times, religious themes used by the group in 2020 to play on potential victims' desires for discounts and fears over being scammed this holiday season.
+A sample of the lures used in 2020 versus November 2021 is as follows: 
+| **Holiday 2020 Lures:** | **November 2021 Lures:** |
+| --- | --- |
+| Enjoy the turkey together.
+Happy holidays 2020.
+I am truly grateful to you.
+Sharing is caring.
+Prepare for the silly season | Black Friday Amazon coupon #40868249
+Holiday Survey Threats warning.
+Thanksgiving Ebay gift coupon #1654420
+Don't Fall for This Holiday Survey Threats
+Black Friday Survey Fraud alert.
+|
+![Email samples](/sites/default/files/inline-images/Screen%20Shot%202021-12-06%20at%207.02.17%20PM.png)
+*Figure 1.
+Email samples: top right from November 2020 campaign; bottom right from November 24, 2021; left from November 29, 2021.*
+### December 2021 Campaign
+In December 2021, TA575 started to use both Microsoft Excel and Word attachments to deliver Dridex via Discord URLs, HTA files, and remote template.
+The campaign used both the Dridex affiliate id "22201" and "22204.
+In some cases, the emails combined themes, using both the approaching holidays and the coming new year with US tax filing preparation and spoofing popular do-it-yourself tax services as seen in Figure 2.
+![spoofing ](/sites/default/files/inline-images/Screen%20Shot%202021-12-06%20at%207.02.44%20PM.png)
+*Figure 2. December 1, 2021 email spoofing a tax service.*
+### Conclusion
+TA575, like other threat actors, is adept at using current events-based lures to take advantage of people being more interested in the topic than keeping their guard up from nefarious schemes.
+During the holiday season, users become desensitized to receiving numerous advertising links for shopping deals and the like and may not think twice about opening a dangerous file or clicking a suspicious link.
+Given the widespread nature of these campaigns, any number of users and/or organizations could be impacted.
+**2021 Indicators of Compromise**
+| **Indicator** | **Description** |
+| 149[.]56[.]106[.]83:443  | Dridex “22201” & “22204” C2  |
+| 45[.]79[.]248[.]254:2222  | Dridex “22201” & “22204” C2  |
+| 144[.]91[.]110[.]55:3978  | Dridex “22201” & “22204” C2  |
+| 94[.]177[.]217[.]88:808  | Dridex “22201” & “22204” C2  |
+| 185[.]4[.]135[.]165:5228  | Dridex “22201” & “22204” C2  |
+| afceea7c2fc2d273a60c73d209f4a700b98aa2d8df9740fb0a08c3ae47890539  | Dridex SHA256   |
+| b61f624589d5ad3584e09f3174f8e3e1ac38958f260eee526b0abaf7389d7932  | Dridex SHA256  |
+| 7f7aef4e87411653743576c1de6933c3736e6153faae926fbfb9add35ac2f93f  | Dridex SHA256  |
+| aef59db50378667cff8b3181421445c59a27932d835d47f016a879ced1f04dd7  | Dridex SHA256  |
+| 4f6b068caf0cdbb62c0daaf4ee2f861820563c62853bfcad43a0e6d88cfdbe68  | Dridex SHA256  |
+|  
+|  |  |
+|  |  |
+|  |  |
+  |
+|   |

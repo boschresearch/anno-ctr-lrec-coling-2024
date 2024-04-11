@@ -1,0 +1,127 @@
+Zero Trust: How to Secure Your Network in the Age of Cloud and Worker Mobility
+November 12, 2020
+Many enterprises heartily embrace cloud computing by putting their own applications in the cloud, subscribing to ready-to-use SaaS applications, and supporting an expanding remote and mobile workforce.
+However, these practices strain the capabilities of legacy networks built around site-centric connectivity and security stacks.
+Some well-known shortcomings of relying on data-center-based Firewalls and VPNs include the large network attack surface, unreliable end-user experience, and administrative headaches.
+Proofpoint Meta offers an evolutionary step in networking: the first software-defined enterprise [Zero-trust](https://www.proofpoint.com/us/blog/zero-trust-network-access)
+Network-as-a-Service that can securely connect users to data centers, public and private clouds, SaaS applications, and offices, along with the agility and performance that enterprises need.
+### Networking and Security for a Bygone Era
+Most enterprises still have legacy networking and network security infrastructures that are site-specific; that is, centered around a major location like a data center or a company headquarters.
+Security devices – firewalls, secure web gateways, IDS/IPS appliances, and so on – are located on-premise with the networking infrastructure, seemingly creating a secure perimeter around the network, the applications and the data contained within the site.
+The follow-on assumption is that employees go to work at this site during specific hours to login to the network via wired or wireless connections, and they access their routine business applications.
+Remote employees use a company-specific VPN to come back into the home network, even if they want to access web-based applications or the Internet in general.
+Branch offices use a WAN, often with dedicated MPLS lines, to access company applications and resources.
+Regardless of where it originates, all traffic is backhauled to this site-specific central network and is put through the security perimeter before being routed out to whatever destination it ultimately has.
+This network architecture works just fine—if the year is 2005.
+But it isn’t.
+![Old world new world ](/sites/default/files/inline-images/Old%20world%20network.png)
+### Cloud Migration and a Mobile Workforce: Different Network Security Needs
+Today’s way of work barely resembles that scenario.
+These days, many enterprise applications, workloads and storage are in the cloud as companies adopt a “cloud first” strategy to get out of the business of owning and managing infrastructure.
+They are migrating their own custom applications to the cloud to run on platforms like Amazon AWS or Microsoft Azure, as well as subscribing to enterprise SaaS applications like Office 365, Salesforce, Workday, ServiceNow and countless other productivity applications.
+The idea of people always working in the same office location during specific work hours seems quaint in 2018.
+The workday doesn’t end at 5 PM; many people work extra hours at home in the evening and on weekends, and they need remote access to their office computer.
+People are mobile; they work from home or wherever they happen to be.
+In fact, some people may never even go to a company site—especially if they aren’t actual employees of the company.
+An organization’s workforce is very likely to include contractors, partners and consultants who need varying levels of access to applications, data and other company resources.
+What’s more, workers may use non-corporate-owned, unmanaged devices as they access the network and applications.
+With people and computing resources scattered about, unknown devices connecting from near and far, and cloud-based applications now essential to business operations, the traditional site-centric perimeter of network security is long gone.
+Nevertheless, strong security is needed more than ever as threats grow more pervasive and damaging, and reports of cyber breaches and attacks surface with alarming regularity.
+![New world network ](/sites/default/files/inline-images/New%20world%20network.png)
+### Mission Impossible: Securing the Perimeter with Overly Permissive VPN
+In terms of networking, people must connect to something regardless of where they work.
+Most organizations do that today by connecting workers to the network in the corporate data center or headquarters.
+For those employees in an office, it’s typically a simple LAN or WAN connection; those outside the office (i.e., mobile or remote workers) usually connect via a VPN.
+The security paradigm for either method of connectivity is flawed because once authenticated users access the enterprise network, they are considered “trusted” and have overly broad access to the network.
+VPNs have their own problems because the user experience can be bad, and from the IT perspective, VPNs can be difficult to manage.
+The connectivity and security challenges escalate when the organization uses cloud applications.
+For branch or mobile workers, the enterprise can either bring all traffic back to the headquarters network hub and then send it out to the cloud or allow the traffic to go straight to the cloud from wherever the user is.
+Backhauling all remote traffic to a central facility isn’t practical.
+Companies do it to enforce the on-premise security stack, but this practice puts a strain on network and application performance and degrades the user experience.
+What’s more, mobile users lose “locality,” meaning that someone who is traveling quite far from the home network – perhaps out of the country – still has their traffic backhauled to the network hub, which results in latency and throughput issues.
+Allowing user traffic to go straight to the cloud or the internet is too risky.
+This practice circumvents corporate security infrastructure and policy and doesn’t allow all traffic to be logged for audit and security purposes.
+Companies compensate by installing one after another security solutions — [CASBs for SaaS applications](https://www.proofpoint.com/us/products/cloud-security/cloud-app-security-broker), and VPNs for IaaS/PaaS, which becomes more complex and expensive with the growing number of instances.
+It’s simply not practical or cost-effective to deploy so many security solutions, especially for cloud applications.
+It forces corporate IT departments to become systems integrators to make a lot of disparate solutions work together for the sake of trying to hold onto a porous security perimeter.
+### A New Paradigm for Networking and Network Security
+As computing paradigms go, many enterprises are still in the early stages of grappling with these networking and security challenges—and it will only get more complicated as mobility grows, applications in the cloud/multiple clouds increase, and traditional “sites” for computing hubs disappear.
+The current site-centric networking and network security architecture can’t meet today’s needs, much less tomorrow’s.
+What’s needed is a new, [user-centric approach to networking and security](https://www.proofpoint.com/us/blog/zero-trust-network-access/what-user-centric-network-security-or-i-am-not-number).
+What does this mean.
+* Instead of connecting users to specific sites, they connect to a global network through a worldwide arrangement of local points-of-presence (POPs) for “always on” secure connectivity.
+* Instead of treating clouds as silos, clouds connect to the Meta NaaS, and from there to the data center, offices or another cloud.
+Multi-vendor, cross-cloud networking is easily enabled.
+* Instead of securing the network perimeter, there is a [software-defined perimeter (SDP) for each user](https://www.proofpoint.com/us/blog/zero-trust-network-access/five-steps-move-vpn-sdp), giving workers micro-segmented access to only the applications and network resources they need.
+* Instead of turning enterprise IT departments into systems integrators, there is a best-of-breed network security stack in the cloud, and enterprises can chain together the security services they need.
+Security is pervasive at every point in the network
+### Meta Networks: Zero Trust Network-as-a-Service
+Proofpoint Meta is building the fabric that delivers user-centric computing to enterprises.
+Network-as-a service (NaaS) is a global overlay network that is worldwide and multi-tenant but functions like a private enterprise wide area network for each customer organization.
+All the infrastructure of this network is provided by Proofpoint Meta is in the cloud, so there is no hardware for a customer organization to deploy.
+![Meta overview ](/sites/default/files/inline-images/Meta%20overview.png)
+### The Meta NaaS™
+The [Meta NaaS](https://www.proofpoint.com/us/products/cloud-security/meta/naas) has a dense network of points-of-presence (POPs) all around the world.
+End users, legacy data centers, branch offices and clouds all connect to the NaaS via the nearest local POP.
+There are two ways for users to connect to a POP.
+One is an always-on VPN-based connection, which is recommended for managed corporate devices.
+The other means is browser-based secure remote access, which is most appropriate for personal devices and non-employees such as contractors, partners and consultants.
+All user traffic – WAN, LAN and Internet – flows through this network, where it is secured and audited.
+Internet traffic breaks out at the local POP. From a technology perspective, this network is like a very big distributed identity-based router that Proofpoint Meta is deploying in the cloud.
+Policies abstract the physical topology and deal with users and resources.
+Because all traffic flows through this network, the enterprise can have a holistic approach to security that encompasses access to corporate applications and data as well as Internet access.
+This is essential for making sure that a device isn’t breached when it’s disconnected from the enterprise network.
+With Meta NaaS, enterprises can be confident with an “always-on” VPN security model for employees if they wish, whereas many other software-defined perimeter solutions ignore the Internet.
+That means the enterprise needs to find another solution for Internet traffic or leave the device vulnerable.
+Meta NaaS has a zero-trust architecture where each user is bound by a software-defined perimeter.
+Each user has a unique, fixed identity no matter from where they connect to this network.
+The SDP security framework allows one-to-one network connections that are dynamically created on demand between the user and the specific resources he needs to access.
+Everything else on the NaaS is invisible to the user.
+No access is possible unless it is explicitly granted, and it’s continuously verified at the packet level.
+This model effectively provides dynamically provisioned secure network segmentation.
+The process also ensures that all endpoints attempting to join the network are authenticated and authorized before gaining access any resource on the network, as well as throughout the session.
+This not only applies the principle of least privilege to the network, but it also reduces the attack surface area by hiding network resources from unauthorized or unauthenticated users.
+In addition to the user-centric SDP, a wide range of more traditional security services are available as network functions.
+A customer organization can choose its preferred, best-of-breed services and “chain” them so that traffic passes through all the appropriate security points in succession.
+This allows Proofpoint Meta’s enterprise customers to have a customized security stack consisting of their choice of best-of-breed products rather than a limited choice of vertically integrated products.
+Integration happens in the cloud rather than on office appliances or end users’ devices, which saves time and labor for enterprises.
+It means nearly zero-touch, policy-based provisioning of those products.
+### Key Features of Meta NaaS™
+Here are some of the key characteristics of the Meta Network-as-a-Service:
+**Cloud native**
+Meta NaaS leverages a secure cloud overlay over a worldwide backbone of PoPs.
+The density of the PoPs makes sure the last mile between the user and the network is always short, and therefore enables low latency and stable VPN connections.
+The traffic leaves the optimized network as close to its destination as possible, further reducing latency (sometimes close to zero, if they are hosted in the same cloud internet exchange).
+Enterprises can avoid backhaul to private data centers when accessing cloud and Internet services.
+**User-centric**
+This network is built around users, not around specific sites or offices.
+All connections are essentially “always on.
+People can connect from anywhere, with any device.
+The network has native client support for Windows, macOS, iOS, Android and Linux devices.
+Centralized policies of the software-defined perimeter control what resources users can access.
+The user experience is exceptional.
+The scaled-out, completely software-defined network assures low latency and is designed to support millions of concurrent users.
+**Scalable**
+Meta NaaS has been built to support millions of concurrent IPSec tunnels that connect users and applications to the NaaS infrastructure.
+The network is built to scale out and support any growing amount of traffic that is sent to it.
+The density of PoPs and their close location to users and resources provide excellent performance, regardless of the number of users connected.
+**Zero-trust access**
+The software-defined perimeter means the network has micro-segmentation powered by strong identity from end-to-end.
+Enterprises have complete visibility into all network access, verified and enforced at the packet level and auditable at the user/device level with no need to correlate data from different sources and services to deliver per-device audit and traffic detailed information.
+**An open security stack**
+Enterprises can choose the security services they prefer to use.
+Proofpoint Meta partners with the world’s leading security vendors to integrate their solutions as services on the network.
+The services can be chained such that traffic passes through multiple security solutions before traversing the network, either for enterprise assets, or for Internet-bound traffic.
+**Comprehensive, non-reputable audit logs**
+Meta NaaS captures complete logs for all traffic all the time, regardless of where a user device connects from.
+Logs are always accessible and available to whatever services need to consume those logs.
+For example, these audit logs can be available to analytics tools, such as user behavior analytics to detect anomalies, or to forensic tools to determine what has happened surrounding an event or activity.
+The audit trails also support regulatory compliance requirements.
+**Easy deployment**
+There is no equipment to install.
+Enterprise customers do not need to buy, maintain or manage any RAS or VPN concentrators.
+It’s simple to set-up and tear down compared to an enterprise operating its own network and saves time and unnecessary risk of creating segregated DMZs, introducing external users to Active Directory and configuring complex firewalls.
+It’s easy to on-board workers and bring applications and data onto the network.
+The [cloud-delivered security](https://www.proofpoint.com/us/products/cloud-security) further reduces security services on-boarding, switching and maintaining.
+Once the topology is abstracted, all management of the network is policy-based, centrally managed, and instantly enforced globally.
+For more information on Proofpoint’s approach to Zero Trust security view our [Webinar](https://www.proofpoint.com/us/resources/webinars/protecting-your-people-and-data-forresters-zero-trust-framework).

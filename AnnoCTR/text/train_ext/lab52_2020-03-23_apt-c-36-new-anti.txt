@@ -1,0 +1,37 @@
+APT-C-36 new anti-detection tricks
+March 23, 2020
+Lab52 has recently detected an increase in the efforts carried out by APT-C-36 to improve their capabilities to remain undetected by Anti Malware software, using a more complex infection chain than a simple packer, as they have been doing so far.
+The sample detected using this new detection evasion technique has a name and icon that tries to supplant a PDF document, which is already a common TTP of this group.
+![](https://lab52.io/blog/wp-content/uploads/2020/03/1.png)
+Until now, these binaries were executables packed with common anti-virus circumvention software, but in this case it is an “SFX
+Installer” that contains a bunch of files, including some that are simply trash and others that are part of the infection chain:
+![](https://lab52.io/blog/wp-content/uploads/2020/03/2.png)
+When these installers are executed, they create a temporary folder on the system, where they dump all the files they contain, and then execute one of them as an “Entry Point” in the execution/infection chain.
+In this case, it is called gospels.exe:
+![](https://lab52.io/blog/wp-content/uploads/2020/03/3.png)
+![](https://lab52.io/blog/wp-content/uploads/2020/03/4.png)
+This executable consists of a very small program that simply loads dynamically the library “Quoteworthy.dll” that is near the binary, and calls its exported function “Excluders”, passing as parameters some system APIs resolved by the original executable:
+![](https://lab52.io/blog/wp-content/uploads/2020/03/5.png)
+The DLL’s Excluders function simply calls two internal functions:
+![](https://lab52.io/blog/wp-content/uploads/2020/03/6.png)
+The first one (unk\_6D321170), consists of code that is part of the DLL, and that is in charge of deciphering (with an XOR algorithm) a buffer contained in the .data section of the library.
+Inside this buffer, the function ignores out of every 4 bytes (since they are zeros).
+After building this buffer, it reserves a memory area with execution permissions and copies there the decoded content.
+Then it creates an array of 7 elements in which it stores the string “Boondoggle” (which corresponds to a binary file inside the temporary folder), 4 numbers, and the pointers to the functions “GetProcAddres” and “GetModuleHandleA” that match with the ones received as parameters by this DLL:
+![](https://lab52.io/blog/wp-content/uploads/2020/03/7.png)
+![](https://lab52.io/blog/wp-content/uploads/2020/03/8.png)
+After that, the first function of this DLL ends and calls the second one, which, at this point of the execution, points to the memory area where it was written the decoded shellcode, and to which it passes as parameter the before mentioned 7-element array.
+Once it jumps to that shellcode, using GetProcAddres and GetModuleHandle, it extracts a list of Kernel32 Functions that are “hardcoded”:
+![](https://lab52.io/blog/wp-content/uploads/2020/03/9.png)
+It loads the “Boondoggle” file with the CreateFile API and makes a decode with the same XOR key as before, from which it decodes a new complete executable and a small “PE Loader” that allows it to load the executable into memory using the technique known as “ReflectivePEInjection” either in the process itself or in a remote process.
+After this, it runs the decrypted binary, which repeats the same logic over another section of the “Boondoggle” from which it extracts a second executable, this time consisting of a copy of the “OllyDBG” plug-in called “OllyDBG PE Dumper” which contains overwritten malicious code that is called.
+![](https://lab52.io/blog/wp-content/uploads/2020/03/10.png)
+This dll extracts the final threat and in case the initial binary “gospels.exe” had been executed from the installer arriving by mail, it has been observed that it is injected in a legitimate new process “cmd.exe”.
+On the other hand, in case it is loaded through its persistence in the registry, it is injected in the process “gospels.exe” itself.
+An interesting point of this stage of infection is that it tries to remove a file called “turpitude.exe” that should be located in the user’s %APPDATA% folder, but no trace has been observed at any point of the analysis, thus it could be an attempt to clean up tools from previous campaigns of this group, although it has not been able to confirm this fact through the analysis of the threat.
+Eventually, the final threat remains completely deployed in the memory of the machine, which in this case consists on the “Remcos” remote acces trojan.
+![](https://lab52.io/blog/wp-content/uploads/2020/03/11.png)
+This threat contacts the command and control domain “pruebaremc.]duckdns.org” through port “1010”.
+IOCS:
+| SHA256 |  E03903AFC4DC4A9DEEDF5442B6D1C8319194F57F1D7620A9C4EBC7D61C436B70  |
+| DNS |  pruebaremc.duckdns.]org  |

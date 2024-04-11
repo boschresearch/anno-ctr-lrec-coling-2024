@@ -1,0 +1,60 @@
+Coverage Advisory for Kaseya VSA Supply-Chain Ransomware Attack
+July 04, 2021
+Background
+----------
+On July 2, 2021, Kaseya, an IT Management software firm, disclosed a [security incident](https://helpdesk.kaseya.com/hc/en-gb/articles/4403440684689) impacting their on-prem version of Kaseya VSA software.
+Kaseya VSA is a cloud-based MSP platform that allows service providers to perform patch management, backups, and client monitoring for their customers.
+As per Kaseya, the majority of their customers that rely on SaaS based offering were not impacted by this issue and only a small percentage (less than 40 worldwide) running on-prem instances of Kaseya VSA server were affected.
+Zscaler Threatlabz is actively tracking the Kaseya VSA supply-chain ransomware attack incident, involving REvil/Sodinokibi ransomware targeting a number of Managed Service Providers (MSPs) and [encrypting data for 1000+ businesses](https://www.bleepingcomputer.com/news/security/revil-ransomware-hits-1-000-plus-companies-in-msp-supply-chain-attack/) they manage.
+To minimize the adverse impact, Kaseya has shutdown all the SaaS server instances of VSA remote monitoring as a precautionary measure although the impact has been observed in the on-prem version of the VSA servers and they have notified all their customers to shutdown on-prem VSA server instances until they are explicitly notified to bring them back.
+As per the Kaseya, they have identified the vulnerability that was possibly exploited to compromise the VSA server and will soon release the patch.
+###
+What is the issue
+-----------------
+The investigation on this security incident is still in progress and more details are emerging regularly.
+Based on information available till now, it appears that a zero day vulnerability in the VSA server software was potentially exploited in order to plant a custom malware loader and eventually distribute [REvil](/press/zscaler-ransomware-report-reveals-sophisticated-double-extortion-attacks-are-targeting) ransomware to the target systems.
+The compromised version of VSA will drop a .crt file to a specific path in c:\ which is believed to be distributed through updates from the VSA server.
+In this case, it was [reportedly distributed](https://www.huntress.com/blog/rapid-response-kaseya-vsa-mass-msp-ransomware-incident) as 'Kaseya VSA Agent Hot-fix.
+A PowerShell command will then disable various Microsoft Defender security measures before decoding the .crt file using legitimate Windows certuit.exe command.
+The extracted file is saved as *agent.exe* in the same folder and is responsible for encrypting data on the victim machine.
+The attacker is leveraging DLL Side Loading technique by making use of an older version of legitimate MS Defender executable to launch the malicious REvil DLL on the victim machines.
+What can you do to protect yourself.
+------------------------------------
+* Shutdown all the instances of on-prem VSA servers, if you haven’t already until further communication from Kaseya.
+While details of this incident are still surfacing and we will update this advisory further, following are some of the best practices for safeguarding and limiting impact from supply-chain attacks.
+* Route all server traffic through Zscaler Internet Access, which will provide the right visibility to identify and stop malicious activity from compromised systems/servers.
+* Restrict traffic from critical infrastructure to an allow list of known-good destinations
+* Ensure you are inspecting all SSL traffic.
+* Turn on Advanced Threat Protection to block all known command-and-control domains.
+* Extend command-and-control protection to all ports and protocols with the Advanced Cloud Firewall (Cloud IPS module), including emerging C2 destinations.
+* Use Advanced Cloud Sandbox to prevent unknown malware delivered as part of a second stage payload.
+* Limit the impact from a potential compromise by restricting lateral movement with identity-based micro-segmentation (Zscaler Workload Segmentation) and a Zero Trust architecture.
+* Safeguard crown jewel applications by limiting lateral movement using Zscaler Private Access.
+Zscaler coverage
+----------------
+Zscaler leveraged the details on the countermeasures published to ensure coverage against the variant of REvil/Sodinokibi ransomware.
+Enhanced protection has been added wherever necessary across multiple layers of the Zscaler security platform.
+Below are the threat names of the existing detections:
+#### Advanced Threat protection
+* [Win32.Ransom.REvil](https://threatlibrary.zscaler.com/?keyword=Win32.Ransom.REvil)
+* [Win32.Ransom.Sodinokibi](https://threatlibrary.zscaler.com/?keyword=Win32.Ransom.Sodinokibi)
+* [Win32.Ransom.Revil.LZ](https://threatlibrary.zscaler.com/?keyword=Win32.Ransom.Revil.LZ)
+#### Malware protection
+* [W32/Agent.DCD.gen!Eldorado](https://threatlibrary.zscaler.com/?keyword=W32%2FAgent.DCD.gen%21Eldorado)
+* Win32\_Ransom\_Gen\_120472
+* Win32\_Ransom\_Sodinokibi\_120054
+* [W32/Trojan.CTZP-7180](https://threatlibrary.zscaler.com/?keyword=W32%2FTrojan.CTZP-7180)
+* [W32/Trojan.NUKQ-0017](https://threatlibrary.zscaler.com/?keyword=W32%2FTrojan.NUKQ-0017)
+* [W32/Trojan.OSEZ-5971](https://threatlibrary.zscaler.com/?keyword=W32%2FTrojan.OSEZ-5971)
+* [W32/Trojan.QYHK-7170](http://w32/Trojan.QYHK-7170)
+* [W32/Trojan.UAOH-3259](https://threatlibrary.zscaler.com/?keyword=W32%2FTrojan.UAOH-3259)
+* [TR/Ransom.Sodinokibi.ufzkr](https://threatlibrary.zscaler.com/?keyword=tr%2Fransom.sodinokibi.ufzkr)
+Details related to these threat signatures can be found in the [Zscaler Threat Library](https://threatlibrary.zscaler.com/).
+####
+#### Advanced Cloud Sandbox
+We have ensured that [Zscaler Cloud Sandbox](/products/sandboxing) flags these Indicators Of Compromise (IOCs).
+As always, Cloud Sandbox plays a critical role in blocking newer variants of ransomware payloads and providing protection against patient zero infection.
+![Ransomware](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/kaseya_advisory_1/kaseya.png)
+Fig: Zscaler sandbox report REvil sample involved in Kaseya supply chain attack
+The Zscaler ThreatLabz team is actively monitoring this campaign and any activity around REvil/Sodinokibi ransomware to ensure coverage for newer IOCs as they are discovered.
+The detailed technical analysis of the REvil payload used in Kaseya's VSA server supply chain ransomware attack can be found [here](/blogs/security-research/kaseya-supply-chain-ransomware-attack-technical-analysis-revil-payload).

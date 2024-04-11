@@ -1,0 +1,29 @@
+Microsoft vulnerability: Source code published for three zero-day vulnerabilities in Windows
+May 24, 2019
+### **Background**
+A security researcher (with the pseudonym SandboxEscaper) has discovered three zero-day vulnerabilities in Microsoft Windows.
+Their POC and source code have been released on GitHub.
+Two of these are local privilege escalation (LPE) vulnerabilities.
+They have been tested to work on Windows 10 only.
+The third vulnerability is a sandbox bypass vulnerability in Internet Explorer 11 (IE11).
+As of this writing, no patch has been released by Microsoft for these vulnerabilities.
+### **What is the issue?**
+The security researcher has published three POCs: angrypolarbearbug2, bearlpe, and sandboxescape.
+The first vulnerability – angrypolarbearbug2 – can be exploited by performing specially crafted DACL (discretionary access control list) operations when the Windows Error Reporting service tries to write a DACL for the given Windows Error Reporting (.wer) file.
+Once successfully exploited, the vulnerability gives SYSTEM privileges to the attacker.
+The second vulnerability – bearlpe – targets the way the Windows task scheduler service uses the SetJobFileSecurityByName() function to write DACL for the job file.
+For this exploit to work, one needs to have "schtasks.exe" and "schedsvc.dll" files from Windows XP.
+Once successfully exploited, the vulnerability gives SYSTEM privileges to the attacker.
+The third vulnerability – sandboxescape – bypasses the IE11 sandbox and allows an attacker to execute code in IE low protection mode.
+To exploit this vulnerability, an attacker needs to inject a special DLL in the IE process.
+According to reports, this exploit cannot be triggered remotely.
+### **What systems are impacted?**
+The POC has been tested on Windows 10 32-bit and 64-bit and IE11.
+### **Zscaler coverage**
+Advanced Threat Signatures:
+Win32.Exploit.Bearlpe 
+Win32.
+Exploit.CVE.2019.0863
+Win32.Exploit.Polarbearescape
+W32/Agent.NBHI
+Zscaler Cloud Sandbox provides proactive coverage against exploit payloads and advanced threats like ransomware, and the Zscaler ThreatLabZ team is actively monitoring for in-the-wild exploit attempts to ensure coverage.

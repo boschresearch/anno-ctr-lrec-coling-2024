@@ -1,0 +1,87 @@
+Did COVID Cancel Christmas for Cybercriminals?
+January 29, 2021
+ThreatLabZ, the security research team at Zscaler, is responsible for monitoring and tracking global cybercrime activity, which typically drops each year around the Russian Orthodox Christmas on January 7th.
+In most years, activity increases back to normal near the middle to end of January.
+However, in 2021, cybercrime activity did not exhibit this cyclical pattern, which may be explained by COVID-19 travel restrictions that prevented many threat actors from taking an extended leave.
+Figure 1 shows that cybercrime activity last year began to rise starting around January 15, 2020, following a lull.
+In contrast, this year’s criminal activity remained at normal levels before, during, and after the Russian Orthodox Christmas.
+#####
+***![malware 2019-20](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/----category-images/botnets/2019-20-chart.jpg)***
+##### ***​Figure 1**: Malware trends before and after the holiday season in 2019-2020*
+![Malware 2020-21](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/----category-images/botnets/2020-21-chart.jpg)​
+##### ***Figure 2**: Malware trends before and after the holiday season in 2020-2021*
+The following sections describe recent activities for five of the top malware families, including Emotet, Trickbot, Dridex, ZLoader, and Qakbot.
+### **Emotet**
+**[Update]** – On January 27, 2021, Europol announced a [global action in disrupting](https://www.europol.europa.eu/newsroom/news/world%25E2%2580%2599s-most-dangerous-malware-emotet-disrupted-through-global-action) Emotet botnet operations.
+This was a collaborative effort between law enforcement authorities in the Netherlands, Germany, U.S., UK, France, Canada, Lithuania, and Ukraine, with international activity coordinated by Europol and Eurojust.
+Zscaler ThreatLabZ has been closely tracking Emotet for several years (see blogs from [October 2019](/blogs/security-research/emotet-back-action-after-short-break), [February 2019](/blogs/security-research/demystifying-crypter-used-emotet-qbot-and-dridex), and [August 2017](/blogs/security-research/look-recent-emotet-campaigns-august-2017)).
+We can confirm that we haven't seen any updates or activity from the Emotet C&C infrastructure in the past 48 hours, which indicates that the takedown operation has been successful.
+However, we have seen similar gangs push out new variants and resurrect the botnet using a new C&C infrastructure.
+We are closely monitoring for any new Emotet variants and activity.
+Emotet resumed its activity as of Monday, January 4, 2021.
+To take advantage of the holiday season, Emotet briefly ramped up its activity between December 21 and 30, 2020.
+During this ramped-up activity, Emotet was mostly using a *reply chain* (also known as *email thread hijacking)* spam email as the bait.
+A reply chain attack is when threat actors hijack real email threads and utilize legitimate email messages stolen from victims’ email applications.
+The threat actors then spoof a legitimate email and impersonate a reply to the stolen email.
+This email reply is again targeted to addresses from the original email, allowing it to further gain trust from targets.
+While the first batch of emails was targeting English-speaking countries, spam emails in German, Italian, French,  Spanish, and Polish followed shortly thereafter.
+An example of an Emotet reply chain spam email in Italian is shown in Figure 3.
+![fig.3](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/----category-images/botnets/figure3_reply_chain.jpg)
+##### ***Figure 3****: Emotet reply chain example*
+The main Emotet loader had some minor changes after returning from a brief break.
+The build version number was set to 0x13461BF (20210111), while the loader version number still remained at 0x1388 (5000).
+Emotet continued to use spam with malicious Microsoft Word documents attached as the primary distribution method.
+On January 20,2021, Emotet increased the build number to 0x13461C8 (20210120) and the loader version number to 0x1770 (6000).
+Another interesting tactical move by Emotet that started in January was the shift to password-protected ZIP attachments.
+Instead of including the password in the email body text, Emotet started using embedded images that contain the ZIP password.
+This tactic is likely to defeat automation deployed by security products and researchers.
+The group has also continued to use a DLL file for the loader instead of a standard Windows executable, which may be to further evade detection.
+Emotet was last seen deploying the following modules:
+* Proxy (uPnP) module
+* Browser password stealer (based on WebPassView)
+* Email password stealer (MailPassView)
+* Email content stealer
+* Email contact stealer
+In addition, Emotet has been observed delivering Trickbot as a second-stage payload.
+**Indicators - [Emotet IOCs](https://pastebin.com/bFAW538P)**
+### **Trickbot**
+Emotet started dropping Trickbot as a secondary payload on victim machines after it returned from the holiday break.
+Trickbot is operated by the same threat actor that deploys Conti and Ryuk ransomware.
+Therefore, these ransomware operations likely resumed around the same time as well.
+Emotet was distributing Trickbot with the group tags *mor12* and *mor13*.
+There have not been any significant changes in Trickbot following the holiday break.
+Trickbot was also distributed by another spam campaign on the same day by the group tag *rob35*.
+This specific campaign was being distributed via SpamEx, which distributed a malicious JavaScript file embedded in a ZIP file.
+When opened, the JavaScript was used to invoke PowerShell to download and execute Trickbot from phishing sites.
+The Trickbot campaigns with the group tags *tot6* and *lib6* have also been observed since the holiday break.
+**Indicators - [Trickbot IOCs](https://pastebin.com/mAzUnpUQ)**
+### **Dridex**
+On January 11, 2021, ThreatLabZ observed the emergence of Dridex with a Cutwail spam campaign.
+The group used an invoice theme to distribute the Dridex loader.
+The Cutwail spam distributed payloads for Dridex sub-botnets 10444 and 10555 as Microsoft Excel attachments.
+Dridex continues using DLL files for the loader instead of Windows executables, a technique that has been recently employed by the Emotet and Qakbot threat groups as well.
+There was another Dridex campaign with botnet 111 observed a day later, which was using the RIG exploit kit (EK).
+The same RIG EK gate was used before the Christmas holiday.
+**Indicators - [Dridex IOCs](https://pastebin.com/Mxa6Bfad)**
+### **Qakbot**
+On January 19, 2021, Qakbot emerged with a new spam campaign dropping a Qakbot payload with the campaign ID *abc118*.
+Similar to Emotet, Qakbot is using reply chain spam email attacks.
+An example is shown in Figure 4.
+Qakbot was also seen using a “complaint copy" spam theme.
+Qakbot spam campaigns are distributing malicious Excel files embedded inside a ZIP attachment.
+Like Emotet, Dridex, and ZLoader, Qakbot is using a DLL file for the loader instead of Windows executables.
+This technique is now widely used by cybercriminals and is apparently able to evade security and sandbox solutions.
+![malspam](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/----category-images/botnets/figure4_qakbot_malspam.jpg)
+##### ***Figure 4****: Reply chain spam email distributing Qakbot*
+**Indicators - [Qakbot IOCs](https://pastebin.com/MdbbHFhg)**
+### **ZLoader**
+ThreatLabZ observed new ZLoader activity on January 11, 2021.
+The botnet then went quiet, resuming with another spam campaign on January 19.
+So far in 2021, four different ZLoader campaigns have been observed, primarily targeting US and EU banks and financial institutions.
+**Indicators - [ZLoader IOCs](https://pastebin.com/n4JR2CeZ)**
+### **Conclusion**
+Campaign frequency differs for each malware family.
+Some have more regular Monday through Thursday cycles, while others, such as Emotet and Qakbot, are unpredictable.
+Usually, inactivity by cybercriminals or the absence of a malware strain is a sign of impending changes.
+Malware authors continually adapt their techniques and change their code to improve distribution, persistence, evasion, and overall success.
+ThreatLabZ continuously monitors activity from cybercrime gangs and their evolving malware strains, integrating all threat intelligence into the Zscaler platform so it can be distributed cloud-wide to protect all customers around the world.

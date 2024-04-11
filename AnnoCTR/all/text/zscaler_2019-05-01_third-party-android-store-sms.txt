@@ -1,0 +1,139 @@
+From third-party Android store to SMS Trojan
+May 01, 2019
+In lieu of downloading and installing apps from the official Android app store, users often turn to third-party stores.
+The reasons vary, from wanting a particular app that isn’t available on the official store to seeking cracked apps—versions that have been modified to disable certain features, such as copyright protections—of official Android apps.
+Recently, the ThreatLabZ research team came across one of these third-party app stores that seemed to be hosting Android games.
+The store, called “Smart Content Store,” portrays itself as an Android app store and uses names such as *sexy.smartcontentstore[.]com* and *games.smartcontentstore[.]com*.
+|  |
+| Fig 1: Third-party app store homepage |
+At first glance, the site appears to be an app store hosting Android games, but we were unable to download any apps.
+Clicking the *Install*option on any of the games, as seen in screenshot above, leads back to the same page.
+Upon further examination, we found many direct links to APKs being downloaded from these domains.
+The image below shows the direct downloads of these APKs.
+|  |
+| Fig 2: Zscaler dashboard |
+These apps have different package names and certificates, but every app exhibits the same functionality.
+We have provided an analysis of one of the apps below.
+(A complete list of apps can be found in the IOC at the end of blog.
+**App summary**
+---------------
+APK Name: *smartworld\_-\_WIN\_-\_500929091890143\_-\_.apk*
+Package name: *vaya.bailecito.epore.saturda*
+Size: *2100203* bytes
+MD5: *091E91A9ED7202CD44DC5E1C4B3DCC90*
+**Technical details**
+----------------------
+As soon as the app is installed, it appears as a blank space.
+As shown in the screenshot below, the app icon and app name are missing.
+Upon clicking the space (the invisible icon) the app displays its first activity with two options: *Smart World*and *Sexy World*.
+|  |
+| Fig 3: Invisible app icon and the first activity |
+During the initial phase, the app sends several requests to *hxxp://play4funclub[.]com/public/notification/is-active,*but during our analysis, we just received *301-Moved Permanently* in response.
+These requests can be seen in the screenshot below.
+|  |
+| Fig 4: Initial requests  |
+Upon clicking either of the two options shown above, *Smart World or Sexy World*, the app asks for Administrator privileges, stating "*To view all the porn videos you need to update.
+Click to activate.”* This message can be seen in the screenshot below (left image).
+|  |
+| Fig 5: Admin privileges |
+As soon as the victim activates admin rights, a request is sent to another domain.
+Nothing happened as a result of this request, so we believe that it is simply an indication to the attacker whether the victim has activated admin rights or not.
+|  |
+| Fig 6: Request upon enabling admin rights |
+After a certain amount of time passes, the app starts sending requests to *hxxp://app.in-spicy[.]com/scripts/app\_sms\_request\_get\_number.php*with details about the victim's device and location.
+It sends the following information in its POST request:
+* Android version
+* Installation date
+* Version
+* Date (Date of request)
+* Country code
+* Carrier
+* Device ID
+The screenshot below shows the request and response taking place between the compromised device and attacker:
+|  |
+| Fig 7: Request and response related to the SMS message |
+The app acts according to the response received from the attacker’s domain.
+If the response contains "*status":"OK",*the app fetches the desired details from the response.
+In our case, it was a phone number and message body.
+Further, it sends an SMS message to that specific number and message body.
+This functionality is visible in the screenshot below where the response from the attacker is contained in *paramJSONObject*and is based on the response, *sendTextMessage;* this response initiates a routine that sends actual SMS messages.
+|  |
+| Fig 8: Sending SMS functionality |
+During this phase of analysis, we observed several attempts to send SMS messages to different phone numbers with different text as the message body.
+This can result in high costs to the victim.
+Some examples of the SMS messages can be seen in the table below:
+| Phone # | Message Body |
+| 6768482371 | message:france athletes employed |
+| 6857215675 | message:experience iran yarn combines field |
+| 6768482371 | message:luther exercise queens |
+| 2347003300131 | message:hungary contributing task bird |
+| 6857215675 | message:boolean wisconsin criticism verification republic |
+| 2347003300131 | message:exchange audience nc medicaid |
+| 2347003300131 | message:ut controlled salt customized consider |
+| 6768482371 | message:legislative wayne brand hungarian |
+| 6768482371 | message:consulting gui contrary eclipse |
+| 79697530171 | message:boards tits difficulties |
+| 6768482371 | message:royalty relay mv |
+| 6768482371 | message:boards sie gabriel computer |
+| 6768482371 | message:mods html chronic |
+| 6768482371 | message:integer coleman monsters |
+| 6745596671 | message:capabilities labels addiction |
+| 6768482371 | message:checking upskirt football possibilities |
+| 6745596671 | message:academics actively matrix ga |
+| 2347003300131 | message:incidence quality mrs estimated default |
+| 6745590060 | message:estate mexican legal flour |
+| 6768482371 | message:cleared connectivity divx |
+| 2347003300131 | message:cafe activists our constantly |
+| 6745596671 | message:brush accepted role |
+| 6745596671 | message:plain weed senators reform framing |
+| 6745596671 | message:represents fig answers signup |
+| 6745596671 | message:animation failure lucas browser poetry |
+| 2347003300131 | message:biodiversity present solving herbal regulations |
+| 6857215675 | message:shakira wanna movie freight |
+| 6768482371 | message:shipping uzbekistan senators optimize basically |
+| 6857215675 | message:folks tamil cooper |
+| 6857215675 | message:picking maine shapes men wives |
+This app also has permission to view the victim’s contact list, which means the app can easily spread itself using those contacts.
+We also found other high-level permissions and we are analyzing the sample further to determine their functions and potential impact.
+We will update this report with any interesting findings.
+**Conclusion**
+--------------
+The Zscaler Cloud Sandbox successfully flagged the sample as malicious based on indicators found in the sample, as shown in the report screenshot below.
+|  |
+| Fig 9: Zscaler Cloud Sandbox |
+Zscaler advises Android users to download apps only from official app stores.
+Using third-party stores may lead to the installation of apps that have hidden, malicious intentions, as described in this case.
+We also advise users to keep the *Unknown Sources*option off at all times on your Android device.
+Keep this off will prevent any third-party app to directly get installed on the device.
+**IOCs**
+--------
+| **Domains** |
+| app.in-spicy(dot)com |
+| insidecontentsp(dot)com |
+| incontsmart(dot)com |
+| **MD5** |
+| 044b97016fdcd22c8c2211014e65c562 | bb5a4cea098a29ac8533c561784908b4 |
+| 58f237f346d81385eaa2005cd642e28c | f50091fbe2fef0c9501f242afb356c96 |
+| 2cbf13b90b76300f9668c2660b9cbc35 | 5c68ff95c2278da0fcc13b4c46f7978b |
+| 091e91a9ed7202cd44dc5e1c4b3dcc90 | 88c2ccec249ff6df0fd525e09e700861 |
+| 8ac5e78f4bc7212fcadd805c924ba67c | eaa2f149f33e35906095857064721044 |
+| 60772ad9808a5bab595f3459e8d5bb4c | 9f4ff0d5425f1542fe4aef50cb1b20dd |
+| 64d5bba5e3a18f971ee5904ccc9b7826 | 20614d2d2471b2a7fcfbbf67f0fdbfb6 |
+| 6f31a49153b6b504ce8804c91113852f | d717c2c4ebce47d40aea491e911b1c5d |
+| 3124ae1a165d2fd1f5ab4e6b83a1100a | 4f3289108728c33866e62e99a1fed40d |
+| 1a027810c28fad34c7590ddb18dc6a51 | 4fd81f83d8cb40f6fb0bd1ad94b8ea7f |
+| 32131606ac4448683dad9148e4754f81 | afe96ae477648b152e7434ac5c0790c6 |
+| 793fc48a4947a3c19efc570ba8af1235 | 62ff00af19ad0ed02ab65f3d8a6ceb27 |
+| 61d9506df0a016435297829bb386e4b8 | 61ded4d4c3268c354a794dc4c6dea530 |
+| 81685083658d7e839e68489391f15a05 | 2bcc9865edb66883b82f43c34e6ac19d |
+| a8a75b3055a9aa27a26d326061173287 | 8dbbcdfa3d4d1207e325890680f98d4a |
+| 58271be93858eb5baeaa401fe1d583bb | a350e8b88d586e26e9dc858c83407ebc |
+| a5219ee0c3c10ca8db991d05fe34b9b0 | ca17d9260a247e6457876a2f98e3fab7 |
+| 064a46635c0bda86bcc42ae484ee5c25 | 874e3af735b6e17ddd596c29e2fc55d5 |
+| cfe0d20dbf674f8619584c850eda2186 | 0cadfdf04df0f3dba0e8a0fdb087993b |
+| dada3ef23b89c9e0f535aa7dd49360e1 | b34d3dbd6241f63670e010f7da05630b |
+| 43a70f5f1929e882894a023a67ffe23f | 00b9c19f229892ad6f0c45f75a5bf729 |
+| 154ee512e7142f56118209ec9375433d | 4cd7745e9f0043ed3da046f88249b221 |
+| 1efefb04a779b5cd7ccfc1aa4b104fc1 |  |
+| 22b5cec87a9227abbaa6f120f4809230 |  |
+| 0648e6c78d85ce62eed06fbb94283712 |

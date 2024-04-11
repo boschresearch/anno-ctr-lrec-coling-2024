@@ -1,0 +1,54 @@
+Security Brief: Seven 2021 Security Predictions and Trends to Watch
+December 09, 2020
+It’s cliché at this point, but this year has been unlike any other.
+As security teams [prepare for 2021](https://go.proofpoint.com/cybersecurity-esummit-hindsight-predictions.html.
+it’s important to take a moment to anticipate how threat actors could evolve their strategies in the new year and how we can respond.
+In March, organizations were challenged to accommodate mass remote workforces overnight while stopping pandemic-related threats and maintaining business continuity.
+But what will next year hold, and how should you modify your strategy as the threat landscape continues to shift.
+Below are the top 2021 trends we expect:
+**#1: Ransomware will adapt to hit cloud repositories (not just OneDrive and SharePoint, but S3 and Azure too).**
+Ransomware remains the major thing keeping CISOs awake at night.
+As a proven moneymaker for cybercriminals, it was only a matter of time before the major ransomware crews developed new extortion methods, notably the threat of leaking stolen information.
+In 2021, following the rapid acceleration of cloud adoption (driven by the COVID-19 pandemic) we expect ransomware attacks will also drift toward the cloud.
+Many firms now house substantial portions of their sensitive data in external, cloud-based repositories and these data stores are often less visible to the security function —and often not as secured or backed up in a way that adversaries can’t also encrypt.
+In 2021, security professionals can expect to see ransomware increasingly target cloud storage to maximize impact and increase leverage to boost profits.
+**#2: Malware will continue to rely on user interaction (not technical vulnerabilities) and living off the land.**
+The vast majority of cyberattacks start via email, and virtually 100% of malware relies on user action for the initial compromise.
+Threat actors understand that trying to break through in other ways (like unpatched VPN gateways) is possible, but much tougher thanks to the great work security professionals have put in over the years and the scarcity of useful vulnerabilities in internet-facing systems.
+As a result, the threat actors have pivoted their attacks toward more vulnerable end users, convincing them to take some kind of action to compromise systems.
+When all it takes is one click to enable macros, why put in the very difficult work to exploit a modern OS or browser.
+In addition, we expect there will be no movement away from ‘fileless malware’ for post-compromise activities.
+From a threat actor’s perspective, what better way to avoid malware detection than by not using malware.
+Instead, we expect attackers will continue to leverage LOLBins and LOLScripts (“Living off the land Binaries/Scripts”) to compromise systems and steal/damage data.
+It’s vital that firms work to detect and prevent the malicious use of these LOLBins by working to stop initial compromises and limiting the use of tools like PowerShell where they can.
+**#3: BEC’s growth will slow, but it will still be the largest source of cybercrime losses.**
+Already a massive issue, [business email compromise](https://www.proofpoint.com/us/threat-reference/business-email-compromise) (BEC) will get even worse.
+Costing billions of dollars each year, BEC fraud is responsible for the majority of cyber-insurance claims and has a very low barrier to entry, so it will remain a draw for threat actors.
+As a result, attackers will likely work to increase their ‘earning potential’ and success rate by taking the additional step of compromising a user account and pretending to be a legitimate user.
+The FBI already chalks up a *[majority](https://www.proofpoint.com/us/corporate-blog/post/fbi-internet-crime-report-details-billions-lost-2019-bec-tops-list-most)* of cybercrime losses to BEC, and as BEC actors broaden their toolsets to compromise cloud accounts and organizations’ suppliers and vendors, stopping them will continue to be challenging.
+**#4: More techniques will emerge to bypass MFA, which will abuse cloud permissions and trust mechanisms (i.e. OAuth, SAML, etc.).**
+While multi-factor authentication (MFA) is widely regarded as the best way to protect access to enterprise systems, it’s not a silver bullet.
+Attackers have recognized that MFA is a major blocker and have crafted mechanisms to bypass it by exploiting older protocols (like the bypass [our researchers found recently](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjHu8P__r_tAhVCAqwKHRdtBnEQFjAAegQIAhAC&url=https%3A%2F%2Fwww.proofpoint.com%2Fus%2Fblog%2Fcloud-security%2Ftechnical-deep-dive-vulnerabilities-bypass-multi-factor-authentication-microsoft&usg=AOvVaw32sD4OEH1SLjhnl1HEMnWU)) or creating new attack types (like [OAuth phishing](https://www.proofpoint.com/us/blog/threat-insight/ta2552-uses-oauth-access-token-phishing-exploit-read-only-risks)) to circumvent MFA altogether.
+This is a trend we expect to increase thru 2021, especially by the more advanced threat actors.
+**#5: Automation will become part of more and more security tools, rather than a bolt on.**
+The shortage of security talent has been a concern for several years with CISOs struggling to keep fully staffed and skilled teams together for any length of time.
+The only way security functions are going to survive is by automating parts of their role – from joiner/mover/leaver account administration, to firewall admin, all the way through to metrics creation, SOC alerts and triage, DLP investigations, and more.
+To date, automation functionality has typically been addressed by buying additional tools or as bolt-on functions from suppliers.
+We expect that to change in 2021, as automation become more of a standard ‘in the box’ feature for most enterprise security tools – and for many CISOs, this can’t come soon enough.
+**#6: Security budgets will bounce back when COVID-19 comes under control in more places, but staffing will continue to be a challenge (even with more remote/flexible work options).**
+Resources for many organizations have been constrained during the pandemic.
+This includes security spending.
+We hope to see a return to ‘normality’ during 2021 and this will likely be reflected in security budgets which will return to expected levels.
+Security staffing, however, is not a short-term problem.
+In fact, CISOs will likely continue struggling to recruit staff for their growing teams.
+Offering more remote and flexible positions will help many organizations of all sizes, but the salary escalation problem will continue.
+As a result, many smaller, more regional firms will find themselves ‘priced out’ of the talent they may really need, even if they can draw from the more diverse talent pool of fully remote workers.
+**#7: We will see increased collaboration and interaction between cybercriminal groups, playing to their strengths.**
+The three most utilized paths to profit used by cybercriminals are BEC, [email account compromise](https://www.proofpoint.com/us/corporate-blog/post/what-email-account-compromise-eac) (EAC), and ransomware.
+Many actors who specialize in BEC and EAC, however, do not tend to serve as initial access brokers for ransomware crews even though they have the necessary access.
+Similarly, threat actors focused on ransomware do not tend to utilize [BEC and EAC attacks](https://www.proofpoint.com/us/solutions/bec-and-eac-protection).
+We expect this to change through 2021 as threat actors increasingly collaborate to create more effective attacks and reap higher profits.
+For example, we could see firms exploited by EAC attacks, and that access is then subsequently ‘sold on’ to a different group to deliver ransomware; alternatively that EAC group upskills and starts to leverage commercially available ransomware tools.
+Watch for more advanced BEC and EAC attacks as well.
+Next year will certainly continue to be a challenge for security leaders; however, leveraging a people-centric strategy, that protects users across the key channels they need to work, will help ensure success.
+For more information on what’s in store for 2021, please join us for an eSummit on Hindsight 20/20 & Predictions for 2021: <https://go.proofpoint.com/cybersecurity-esummit-hindsight-predictions.html> 

@@ -1,0 +1,40 @@
+Nation-states are taking their supply-chain attack strategy from the cybercriminal underground
+Jan 15, 2021
+It’s clear the SolarWinds incident has rocked the infosec community to its core, with the still-unfolding episode expected to reverberate in the industry for years to come.
+While there is still much to be uncovered, the public details point to [a known Russian APT](https://www.cisa.gov/news/2021/01/05/joint-statement-federal-bureau-investigation-fbi-cybersecurity-and-infrastructure) inserting code into a third-party IT provider’s services, allowing for further targeting of approximately 50 organizations.
+This type of incident, commonly referred to as a “supply-chain attack,” has been the cornerstone in some of the biggest security incidents of the past decade.
+As we have seen these attacks grow, a similar pattern of behavior has started to emerge: what started as a technique in the cybercriminal underground has become a hallmark of elite-level nation-state hacking groups that have refined it to maximize its impact.
+There has been a rise in events the past few years where actors aligned with governments are using supply-chain attacks for nation-state-level work.
+In these instances, third-party IT providers are consistently targeted, serving as a stepping stone that allows these actors to either sell access to the breached systems or pull data for other parties that have expressed interest.
+The most well-known supply-chain attacks of the past decade are now security parables: Russian-linked criminals have attacked ATMs for years with [different types](https://www.theguardian.com/technology/2014/oct/08/cash-machine-atm-malware-tyupkin) [of malware](https://www.vice.com/en/article/538ebn/atm-hack-russia-disappearing-malware).
+An unidentified hacking group was able to [breach a casino through a fish tank](https://money.cnn.com/2017/07/19/technology/fish-tank-hack-darktrace/index.html) that was connected to the internet.
+A litany of e-commerce sites, from Ticketmaster to British Airways to OXO, had the JavaScript in [their third-party payment forms](https://www.wired.com/story/magecart-amazon-cloud-hacks/) hijacked in order to send credit card information to various criminal groups.
+The common thread in these attacks was motivation: it’s believed that those attacks were all carried out by financially-motivated hackers, looking to take credit card numbers or other payment information.
+Criminals aren’t only trying to go after payment information in their supply chain attacks.
+In August 2019, attackers hit a managed services provider that worked with local government agencies [in 22 Texas towns](https://www.npr.org/2019/08/20/752695554/23-texas-towns-hit-with-ransomware-attack-in-new-front-of-cyberassault), launching a ransomware attack that brought city services and financial actions to a halt.
+That attack was carried out through [a version of the MSP’s remote access tool](https://www.crn.com/news/channel-programs/msp-at-center-of-texas-ransomware-hit-we-take-care-of-our-customers-#:~:text=Master%20MSP%20IT%20By%20Design,ransomware%20to%20recover%20its%20systems.), which attackers got access to during a different supply chain attack in June 2019.
+As history has shown us, what can be used to make money can also be turned into a geopolitical weapon.
+The devastating NotPetya attack was launched in part via a supply chain attack, when Ukrainian accounting software MeDoc was breached, resulting in a software update release that was laced with malware being pushed to users.
+The U.S. government estimated the attack, which crippled a slew of international companies, [caused $10 billion worth of damage](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/).
+The act is largely believed to have been conducted by the Russian government.
+The NotPetya attack was a watershed moment that has served as the blueprint for how supply chain attacks have become a well-worn tool of those conducting espionage or acting on behalf of a government.
+Intel 471 has seen an uptick in these actions over the past few years, well before SolarWinds commanded the community’s attention.
+A stark example of this behavior comes from a prolific actor with suspected ties to the Iranian government.
+In 2019, Intel 471 observed this actor on a popular underground forum advertising access to a wide array of corporate systems: a domain registrar, a ship builder, two large airlines, financial institutions, a media broadcaster, international oil and gas companies, a global online trading platform, cybersecurity companies, a U.S. enterprise information management company and a U.S. cable and satellite TV company.
+The actor boasted that he obtained this access by finding it when they used a password-spraying technique against large numbers of Office 365 and Citrix account interfaces.
+They also claimed to obtain access via RDP, and in web-based exploits, bypassing antivirus detection and exploiting already compromised email accounts that lack two-factor authentication.
+From there the actor pulled valuable data on future targets
+The tactics, techniques and procedures used by this actor links them to the Mabna Institute, an Iranian government contractor that has been responsible for coordinated attack campaigns since 2013.
+[Citrix told its customers last year](https://krebsonsecurity.com/2020/02/hackers-were-inside-citrix-for-five-months/) that it found hackers were its systems for months in order to claim a foothold in other enterprise systems.
+Another alleged government-linked group started taking advantage of supply chain attacks even before NotPetya.
+In 2017, there were several incidents targeting ATMs across South Korea, after two software vendors were compromised.
+The malware eventually allowed the perpetrators to gain access to 2,500 accounts at a major international bank, which were then used for an unspecified number of fraudulent transfers.
+Intel 471 found that actors possibly linked to North Korea found a way to manipulate the companies’ antivirus update server that allowed them to upload a remote access trojan (RAT) to the compromised ATM machines.
+There are numerous reasons why governments have either copied or outsourced these TTPs.
+Allowing cybercriminals to operate with their own skills and tools allows governments to save money in training and development, leveraging capabilities and a “workforce” they don’t have to build themselves.
+But a key asset is also the ability to “hide in the noise” created by cybercriminals and the marketplaces they frequently use.
+If the TTPs of a supply chain attack bear the hallmarks of financially-motivated actors, governments are given an extra layer of protection, plausible deniability and obfuscation from being labeled as responsible for a particular incident.
+While the SolarWinds incident will be pored over in the months to come, it is only one in a growing list of incidents that show that not only are supply-chain attacks a common practice, they are effective for both financially-motivated criminals and government-backed campaigns alike.
+Intel 471 has previously observed criminal actors advertising access to SolarWinds, years before this current incident was alleged to begin.
+Information technology companies that serve as the bedrock of enterprise’s technology stack need to be on the lookout for these actions, or run the risk of being a key vector for a monumental security event.
+The ability to shield true motive should force all enterprises to closely examine their relationships with every third-party business they work with, including efforts to fold it into their security and risk mitigation strategies.

@@ -1,0 +1,166 @@
+Leviathan: Geostrategy and TTP (Tactics, Techniques and Procedures)
+May 30, 2019
+**Executive summary**:
+----------------------
+FireEye posted a relevant report regarding one of the most active threat groups; Leviathan, also known as TEMP, Periscope or TEMP. Jumper.
+This APT is supposedly attributed to the Chinese government ([1]).
+In this report is shown how involved the cyber threat groups are in the geostrategy of countries.
+China is the main supplier of Europe in several products.
+Approximately since 2009, China has aimed to build up a maritime route known as OBOR (One Belt, One Road).
+The main goal of this project is to develop a safe trading corridor to export Chinese products to all European countries in a fluid way with lower international tax.
+However, the geostrategic trouble begins in the South Chinese Sea as there are many bordering countries which are trying to control the area by carrying out military operations with their navy forces.
+This fact poses a major threat for the effectiveness of the OBOR route.
+Presumably, to afford the conflict China has designed a strategic plan to quickly develop its navy to become one of the most important in the world.
+Leviathan has carried out several cyberattacks against the following countries: Cambodia, Belgium, Germany, Hong Kong, Phillipine Islands, Malaysia, Norway, Saudi Arabia, Switzerland and the United States.
+All of these countries are involved in the OBOR route.
+The fields of the organizations which have been cyber attacked by Leviathan belong to the logistic, engineering, naval technology and naval defense industry ([1]).
+**Geostratic analysis of the APT 40 campaign:**
+-----------------------------------------------
+Currently, there are relevant military tensions at the beginning of the route.
+In geostrategic terms, the Paracelso and Spratlkly Islands are key points for China and the surrounding countries to guarantee the normal vessel traffic inside the OBOR route ([11]).
+If a country blocked the traffic of this area, the negative consequences for the Chinese and the world’s economy would be considerably dangerous.
+A general map of the whole OBOR route and all the ports involved is shown below ([9]).
+As can be seenin the graph above, currently the most desired route for the Chinese government is by crossing the South Sea through the Malacca Channel, Arabic Sea to the Suez Canal to end in the Port of Piraeus.
+The main diplomatic conflicts in the OBOR route are among United States, Malaysia, Taiwan, Vietnam, Japan, Indonesia and the Philippine Islands ([12]).
+The following map shows the specific areas that are diplomatically confronted with China and the rest of the countries mentioned before.
+![](https://lab52.es/blog/wp-content/uploads/2019/05/cao-2.jpg)
+*Illustration 1: OBOR Route*
+![](https://lab52.es/blog/wp-content/uploads/2019/05/cao-3-1.jpg)
+*Illustration 2: International waters claimed by countries.*
+In this APT 40 or Leviathan campaign, the countries that received cyberattacks were USA, Malaysia, Cambodia, Brunei, Philippine Islands and Hong Kong.
+The relation among the States involved in this geostrategic conflict in the Chinese Sea and the organizations that have been targeted by APT 40 is highly strong.
+Moreover, it is important to mention that Saudi Arabia, Germany, Norway and UK has been targeted by Leviathan ([1]).
+![](https://lab52.es/blog/wp-content/uploads/2019/05/cao-414.png)
+*Illustration 3: SouthEast countries targeted by Leviathan*
+APT 40 has designed and carried out this campaign with the main goal of collecting classified information from navy and defense organizations.
+With this classified information, China, supposedly expects to develop its navy infrastructure to reach its aim of becoming a significant military power with high competencies in “blue waters” or oceanic waters ([13]).
+The following graph shows the evolution of the Chinese naval military development.
+As it is shown, in the last 20 years the Chinese Army has exponentially developed their military tools and navy resources ([10]).
+China is trying to be efficient and competitive in military terms as the United States.
+![](https://lab52.es/blog/wp-content/uploads/2019/05/cao-5-2-1024x538.png)
+*Illustration 4: Comparison between the US military resources and the Chinese military resources.*
+FireEye considers that presumably, Leviathan is an APT associated to the Chinese government and its main task and duties are focused on carrying out cyber-attacks to collect classified information.
+Among some of the evidence collected to conclude the attribution of this campaign was the Chinese time zone (UTC+8), as the majority of the operations were executed in this gap of time.
+Whois” data has also been collected from the domains suggesting that the infrastructure is located in China.
+Futhermore, some APT 40 IP have been identified and localized in China as 112.66.188[.]28 which is associated with a Chinese VPN.
+As can be seen in the following graph, this address is connected to a Chinese server from Telecom located in Haian.
+Although the geolocation of that kind of service and the location of an IP is not a determinant element to get an attribution, in this case there is another fact that reinforces the theory that China carried out the cyberattacks.
+It is important to mention that the Command and Control that was intercepted by FireEye was configured in Chinese.
+![](https://lab52.es/blog/wp-content/uploads/2019/05/8682AAB1-416D-4FB6-B739-89D65CE1008B.jpg)
+*Illustration 5: Análisis con maltego de la IP 112.66.160.20*
+LIFE CYCLE
+In the following part, there is a brief description about each stage followed by this threat group ([1]).
+First part of the cyberattack:
+Several techniques used in this phase have been identified.
+However, there are some techniques that have been used in the majority of this campaign’s cases.
+* Web Shells: In organizations that were previously compromised, usually the threat actors leavesleft the servers infected, just in case they want to exfiltrate more information in the future, as they still guarantee access to the system.
+* Spear Phishing: The threat group uses phishing emails to targeted organizations.
+In these campaigns they made use of links to Google drive to download the malware in their spear phishing emails with malicious attachments.
+In their campaigns they mostly exploited the following vulnerabilities:
+*
+o    CVE-2012-0158 [2]
+o    CVE-2017-0199 [3]
+o    CVE-2017-8759 [5]
+o    CVE-2017-11882 [6]
+Process to compromise
+When the threat actor has been able to access the systems they would try to get alternative points  of access to the organization by expanding new backdoors or collecting user credentials.
+Specifically, the new backdoors used in the organization ([8]):
+China Chopper: Web Shell that is able to execute code on compromised computers.
+This way, attackers can send commands via HTTP POST to infect servers.
+The web Shell is able to: list directories, access databases and in general any action allowed by .NET.
+Photo (also called: “dersubi”): A DLL that is the backdoor, this one has the following capabilities:
+▪ Listing directories, files and storage.
+▪ Opening of reverse shells.
+▪ Taking screenshots, video and audio recording.
+▪ Processing creation
+▪ Modifying registry keys.
+▪ Keylogging
+▪ Modifying files.
+Badflick: Backdoor with the ability to modify the file system, open reverse shells and modify the configuration of the C2.
+Airbreak (also called “Orz”): Malware which was programmed in JavaScript, with the capability to receive commands to execute from legitimate pages ([7]).
+Beacon: It is a malware distributed by the Cobalt Strike platform.
+This malware is able to inject and execute codes and exfiltrate files.
+The group usually collects corporate VPN credentials, as well as other remote administration services (see: SSH, RDP, etc.
+Escalation of privileges:
+As in the previous stage, the group uses different tools and techniques to carry out  the privilege escalation.
+In this stage, the group mainly focuses on collecting credentials from both open and private sources, passwords and hashes.
+We could expect the use of tools like HOMEFRY, a tool based on Badflick and Airbreak with the ability to obtain and crack passwords.
+As well as the use of native legitimate tools such as Windows Credential Editor or ProcDump.
+Internal recognition:
+Leviathan collects passwords to access other computers in the network.
+Moreover, the attackers take advantage of the native services of the system that would be activated by (RDP, SSH, etc.).
+Specifically, some of the TTPs associated with this stage would be:
+• MURKYSHELL: malware capable of scanning ports and network enumerations.
+• Use of native Windows tools such as net.exe
+• Use of web shells in the internal network, as internal servers usually are less secure than external servers.
+Lateral movement:
+This stage is based on the information gathered in the previous stages.
+Leviathan is accustomed to using its own scripts, web shells and accessible services of the computers in the network.
+For each compromised computer, the group usually executes a malware and performs new procedures of information recognition and theft tasks.
+Use of native tools such as at.exe (Task Scheduler) and net.exe (network resource management tool)
+MURKYTOP: Command line tool for equipment recognition ([8]).
+DISHCLOTH: Brute force tool to attack different services.
+Persistence:
+Leviathan uses backdoors and web shells to maintain persistence.
+* Some of the tools used in the previous phases also serve this purpose.
+Use of Web Shells as China Chopper.
+• Use of detection evasion techniques generating innocuous traffic.
+• Use of TCP ports 80 and 443.
+Exfiltration :
+The threat group uses compressing tools to encrypt the information before exfiltrating it.
+Moreover, the group develops its own tools to properly carry out y this stage.
+The following graph, provides the different tools used by the group throughout its life cycle.
+![](https://lab52.es/blog/wp-content/uploads/2019/05/cao-77.png)
+Illustration 6: Malware used by Leviathan in each phase.
+FireEye   MITRE ATT&CK TTP Matrix:
+========================
+The table below shows the TTP and Framework ATT&CK of MITRE ([4]):
+| **Domain** | **ID** | **Name** | **Description** |
+| Enterprise | T1078 | Valid Accounts | The group uses valid accounts to access to VPN, SSH and RDP services.|
+| Enterprise | T1192 | SpearPhishing Link | Leviathan uses Google Drive links in their Spear-phishing campaigns.|
+| Enterprise | T1193 | SpearPhishing Attachment | Leviathan spear-phishing emails typically leverage malicious attachments.|
+| Enterprise  | T1189 | Drive by Compromise | Leviathan usually compromises strategic websites and the group also relies on multiple web shells.|
+| Enterprise  | T1059 | Command-Line Interface | Leviathan uses different command line tools, like net.exe or MURKYTOP. |
+| Enterprise  | T1064 | Scripting | Leviathan uses custom scripts for internal reconnaissance and lateral movement.|
+| Enterprise  | T1053 | Scheduled Task  | Leviathan uses at.exe for lateral movement |
+| Enterprise  | T1100 |  Web Shell  | Leviathan relies on web shells such as China chopper.|
+| Enterprise  | T1110 | Brute Force  | Leviathan uses custom brute force tools as DISHCLOTH. |
+| Enterprise  | T1003 |  Credential Dumping  | Leviathan uses a mix of credential harvesting tools and password dumpers like Windows Credential Editor or their malware HOMEFRY. |
+| Enterprise  | T1081 | Credential in Files | Leviathan uses a mix of credential harvesting tools and password dumpers like Windows Credential Editor or their malware HOMEFRY. |
+| Enterprise  | T1046 | Network Service Scanning | Leviathan uses MURKYSHELL and net.exe for network service scanning.|
+| Enterprise  | T1210 | Explotation of Remote Service | Leviathan usually compromises internal servers with known vulnerabilities.|
+| Enterprise  | T1076 | Remote Desktop Protocol | Leviathan leverages RDP for lateral movement.|
+| Enterprise  | T1021 | Remote Service | Leviathan leverages RDP and SSH to facilitate internal reconnaissance.|
+| Enterprise  | T1002 | Data Compressed | Leviathan uses rar.exe to compress and encrypt files.|
+| Enterprise  | T1022 | Data Encrypted | Leviathan uses rar.exe to compress and encrypt files.|
+| Enterprise  | T1043 | Commonly Used Port | Leviathan uses mainly the TCP ports 80 and 443 for communications with their C2.|
+**Conclusions**:
+----------------
+The government of China is presumably using APT 40 to collect classified information from the governments that are involved in the OBOR route against the Chinese international policies.
+As we can see the defense industry is an important target for APT 40 as China aimed to grow and develop its defense resources to become one of the most important maritime army of the world.
+All the suppliers related with the defense industry should be aware that they would be an important target for APT 40 as well.
+The threat group would cyberattack the defense suppliers with the purpose of compromising the final defense organization.
+Currently, for China and the rest of the countries with economies completely focused on exportations, it is highly important to keep the OBOR route under control of non-incidents as 80% of international trading is carried out by vessels.
+**References**:
+---------------
+[1] <https://www.fireeye.com/blog/threat-research/2019/03/apt40-examining-a-china-nexus-espionage-actor.html>
+[2] <http://cve.circl.lu/cve/CVE-2012-0158>
+[3] http://cve.circl.lu/cve/CVE-2017-0199
+[4] <https://attack.mitre.org/matrices/enterprise/>
+[5] <http://cve.circl.lu/cve/CVE-2017-8759>
+[6] <http://cve.circl.lu/cve/CVE-2017-11882>
+[7] Same TTP example, carried out by another group <https://www.welivesecurity.com/2017/06/06/turlas-watering-hole-campaign-updated-firefox-extension-abusing-instagram/>
+[8] <https://www.fireeye.com/blog/threat-research/2018/03/suspected-chinese-espionage-group-targeting-maritime-and-engineering-industries.html>
+[9] EOM. (s.f.).
+Rough waters in the China Sea.
+(Spanish) <https://elordenmundial.com/aguas-revueltas-en-el-mar-de-la-china-meridional/>
+[10][https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iqLEpwHQiQe0/v0/1200×630.png](https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iqLEpwHQiQe0/v0/1200x630.png)
+[11] Izquierdo, J. C. (s.f.).
+China’s global strategy to defend its interests.
+(Spanish) <http://www.ieee.es/Galerias/fichero/docs_opinion/2019/DIEEEO04_2019JAVCAR-China.pdf>
+[12]  Parra Pérez, A. (s.f.).
+The geopolitical game of the new Silk Road in Asia.
+(Spanish) <http://www.ieee.es/Galerias/fichero/docs_opinion/2018/DIEEEO126_2018AGUPAR-RutaSeda.pdf>
+[13] Paino, L. (s.f.).
+Geopolitics in the Pacific Indian Ocean.
+(Spanish) <http://www.ieee.es/Galerias/fichero/docs_opinion/2018/DIEEEO59-2018_Indo-Pacifico_NvaChina_LauraPaino.pdf>

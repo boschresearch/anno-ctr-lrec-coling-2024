@@ -1,0 +1,170 @@
+Resurgence of the QakBot Stealer from Newly Registered Domains
+May 04, 2020
+The [Zscaler ThreatLabZ](/threatlabz/threat-map-dashboard) team is constantly on the lookout for trending and evolving techniques used by malware authors to infiltrate victims' machines, steal information, and carry out other malicious activities.
+Recently, we observed newly registered domains (NRDs) specifically created to distribute QakBot, a stealer delivered through spam email and bundled with a malicious Microsoft Office attachment.
+These malicious Office documents are used for the delivery of payloads and are often involved in targeted attacks.
+ThreatLabZ has analyzed thousands of malicious documents from different campaigns, and this blog will outline our analysis of the obfuscated macro used to deliver the QakBot stealer.
+### **Malicious Office macro analysis:**
+We noted a campaign using malicious Office documents with the filename *Operating Agreement\_<integervalue>.doc* and wedetonated the file in our sandbox to see what would happen if a user did the same.
+We observed that the user would receive the following notice before enabling the macro.
+![](https://lh4.googleusercontent.com/xbmGSBAD2nkGSybJfzXtv-05jM-BFoXn_GdG98ol_Oz9eoxodyh7i2fYaPP1qnnX0WTPBTDbrhb4xuXfA_pJVoVUVLAbPLT6K1ZRkgHFvEf-u-GXCwwgCvxmuvmwtJ18-btoEL-Q)
+The filenames and hashes for these attachments are as follows:
+| Md5 | File Type | File Name |
+| --- | --- | --- |
+| 35c410f461d0568449e8e1ce9071c9c8 | DOCM | Operating Agreement\_11.doc |
+| fc3ce33366a6a958190e1191381cd88a | DOCM | Operating Agreement\_1.doc |
+| 0662a56970ab101c3cc3ffd28f1e8611 | DOCM | Operating Agreement\_12.doc |
+| ef5f8a577667c01ca4e888fc92fbc2ba | DOCM | Operating Agreement\_4.doc |
+| ff3fb1ca6740a8bcfad9240931f58fd6 | DOCM | Operating Agreement\_1.doc |
+| 0045b7c3d514c62806f215ad6b2c009d | DOCM | Operating Agreement\_22.doc |
+| 78c96b3b71c6dc7c6a9462b85836cc12 | DOCM | Operating Agreement\_11.doc |
+| c8a121c6f5c23ee55d2d0d96d8dd6736 | DOCM | Operating Agreement\_25.doc |
+| ad00392f05ff38447fbd9cb6adc5e820 | DOCM | Operating Agreement\_40.doc |
+| 47a48a09467c0627e253da4e0caff9cc | DOCM | Operating Agreement\_33.doc |
+| 7f699f567aa1ee82d7d951acd1d1ed95 | DOCM | Operating Agreement\_8.doc |
+| 9c601faf5047ee6a783ee1d6d2b14327 | DOCM | Operating Agreement\_20.doc |
+| bcb055c370178754930305890f763988 | DOCM | Operating Agreement\_34.doc |
+| e8e06c8a52f2ac87874b93e777b5abba | DOCM | Info\_102.doc |
+| f3de4b872baf17a253da5cf05ea1bff9 | DOCM | Judgment\_1434.doc |
+The macro is password-protected, but we were able to extract it after tweaking the code.
+At first glance, the presence of many userforms in the macro implies that code is placed within it; but it is actually performing actions, including:
+* Copying hardcoded, obfuscated data from the userform and, after decrypting, placing it in the userform again in different “properties” sections, such as captions and tags, and, from there, executing PowerShell to download the payload from the command-and-control (C&C) server.
+![](https://lh6.googleusercontent.com/eJIQrGO6ASHOxUUEiGaYap5mZoN3Xzyv4zstcza_QgjOO-jBtYpg5osUhMW5KKDu9LtVvjjeLw4jp71IjAHKUIyJUO3RWhxqEzeamDW0tK52nW5CUTCv0PKbT6uESSOiUr55Jaxa)
+Once the macro is enabled, it generates a fake popup window to make the user believe the system is performing a function.
+This is similar to the activity we examined in the **TA505 APT** and **Emotet** campaigns.
+This window is displayed as malicious activities are being performed by the macro.
+![](https://lh6.googleusercontent.com/VAMP8Ne3f0mXc3LTF4byUzAIeh5d5eBjq6-5u468gD9AJFmF9rZJWThGsA9HWmY412e1ab9YRDWknpvALT39QyjAx9e1QQQ8wcSZEkyrEXo5pnCmKnhg1cVDDGZOdH5nB0_inkOG)
+**File system persistence:**
+It drops the .bat files to the following path:
+* *C:\Users\Public\tmp.bat*
+* *Tmp.bat in return makes a directory C:\Users\Public\tmpdir\tmps1.bat*
+**Functionality of tmps1.bat :**
+*C:\Windows\System32\cmd.exe /C choice /C Y /N /D Y /T 2 & C:\Users\Public\tmpdir\[payload].exe*
+The payload is run by using the choice command when prompted.
+The choice command was disabled in earlier versions but is available in Windows Vista and later versions.
+The choice command allows users to keep batch files and scripts from running while they make a set of choices.
+* /C : Specifies the list of choices to be created.
+Default list is "YN".
+* Y : Y signifies as YES which is to be displayed on the prompt.
+* /N : Hides the list of choices in the prompt.
+The message before the prompt is displayed and the choices are still enabled.
+* /D : Specifies the default choice after *timeout* seconds.
+* /T : The number of seconds to pause before a default choice is made.
+**Obfuscation and decryption routine:**
+This macro is highly obfuscated and difficult to analyze because of its added junk code.
+The below snapshot displays copying obfuscated data to the userform.
+![](https://lh4.googleusercontent.com/d038EnwMFTqyjjxKoSZ7T-najdi9ACpSIbxfi7_ExrQwWmF0sRjZNqTkKi2wZ5icAw3jFeSmvL1wRXpT-BVkQYEIkxYPU_7IIcRA-Qo2BdtTAivywK5YZ2GVfTt09tN2uO6m545L)
+The above-mentioned string appeared as **ubc/qnu]djmcv]tsftV];D.**
+We reversed the string before moving on to the decryption algorithm.
+**![](https://lh4.googleusercontent.com/b5wD_S0o1g8TNpS_YbxM4tgWUNn0rA7-BD2tnFfzYZ4tn8_xk-jTHXDV3C2QdtNU_HBGkeBzQSe6UDbMx7z77HySyfzFBIT9K68yOrQ7amkOYjug_cV3RHMod-rZt7ppqSjaId8e)**
+After reversing, it appeared as **D;]Vtfst]vcmjd]unq/cbu,** which was used later for decryption.
+**Decryption routine:**
+We fetched the obfuscated data from a stored variable and then calculated the mid-value of the string (**D;]Vtfst]vcmjd]unq/cbu**)in a loop.
+The loop will perform based on string length.
+After that, the returned value is converted to ASCII and subtracted by 1.
+The final value will be converted to Chr again.
+![](https://lh5.googleusercontent.com/480OHZ8_u3IFY43BTJ6wYkjsbVy8xmT-koIYUYrmJivEgtRLbStsmiELRoXJEiMJZt1ZLMClXMniwVSEBSufk9M2dPwmXJ5ikWqqppSy6qg9N9ZuTEEdLRp-zpASpDE2sh6Gu7v9)
+Using the same decryption routine, it obfuscates the four URLs mentioned in the file and, at the end, encodes the Base64 code which is, again, passed to the PowerShell script.
+![](https://lh6.googleusercontent.com/YNwVDEBX8Hf7yhGbF6xoVD66mfo7VChQhNsHLb8hHQbmpxw7kCLu949ylhVWWEyN88_7tpbeh1ZfLMV7UYdBmJ3qIuO7sMtAMlBT2mybJg46foy28VM3mUjicdqE0Y-31YGhGGSE)
+![](https://lh5.googleusercontent.com/Jb1n2EiHpc8JQiNU8fVJD6E_bqLrdx1WXJ4QMpYOTm75iNs5ZiqevWlC9k-60SuF1ueajcc5Tk7RvSYmDYrlqKbC_h8Bdu01D9vT4KPsZBK6e8gGhHhylWqdHG_B_RH1xdcv3bWd)
+**QakBot analysis:**
+QakBot is a sophisticated stealer that is distributed by documents downloaded from spam email.
+It uses different techniques to evade detection and complicate analysis.
+We checked the timestamp of the unpacked sample and discovered it was from 2010.
+![](https://lh6.googleusercontent.com/THpyQ6Y4rcDv7TpIBTjRgsRnr9hj0bA3tKNRq_MV2rWqrDM6rb1_Cc1Th6h2XZSn9H33lWLWPGVOnnx9Q6zhqfXQOiqyPdNf2EMQQnjWckffUJGxNaQc1BNsjmHPfYpCcLuPiZQG)
+Before executing the main code, the malware checks for the presence of antivirus software.
+It also checks for virtual environments and other monitoring tools by checking the running processes on the victim's computer.
+It takes a snapshot of the processes using *CreateToolhelp32Snapshot* and enumerates through all the processes using the *Process32First* and *Process32Next* API.
+Below is the list of processes:
+* ccSvcHst.exe
+* avgcsrvx.exe
+* avgsvcx.exe
+* avgcsrva.exe
+* MsMpEng..exe
+* mcshield.exe
+* avp.exe
+* egui.exe
+* ekrn.exe
+* bdagent.exe
+* vsserv.exe
+* AvastSvc.exe
+* coreServiceShell.exe
+* PccNTMon.exe
+* NTRTScan.exe
+* SAVAdminService.exe
+* SavService.exe
+* fshoster32.exe
+* WRSA.exe
+* vkise.ex
+* isesrv.exe
+* cmdagent.exe
+* MBAMService.exe
+* ByteFence.exe
+* mbamgui.exe
+* fmon.exe
+* Vmnat.exe
+Further, the malware copies itself into the *%AppData%\Roaming\Microsoft\{Random}\* directory and executes it.
+It executes the below command to ping itself and replace the original binary with a copy of the legitimate Windows Calculator application: calc.exe.
+*“C:\Windows\System32\cmd.exe'  /c ping.exe -n 6 127.0.0.1 & type 'C:\Windows\System32\calc.exe' > 'C:\<main\_payload.exe>”*
+**Persistence mechanism:**
+QakBot establishes persistence by creating a RUN key at the auto startup location and executing the malware at every login.
+It also creates scheduled tasks to execute the payload once at 5:33 a.m. and delete the scheduled task after execution.
+*HKEY\_USERS\Software\Microsoft\Windows\CurrentVersion\Run\{Random}*
+*C:\Windows\SysWOW64\schtasks.exe 'C:\Windows\system32\schtasks.exe' /Create /RU 'NT AUTHORITY\SYSTEM' /tn {Random}/tr '\'*% AppData%\Roaming\Microsoft\{Random}\{Random.exe}*\' /I {Random}' /SC ONCE /Z /ST 05:33 /ET 05:45*
+Additionally, it creates the explorer.exe process in suspended mode and injects the unacknowledged DLL into it.
+After executing, it creates a .wpl file that is in JavaScript and creates a scheduled task to execute JavaScript at 12:00 p.m. on Tuesday and Wednesday of every week as shown in the below screenshot.
+![](https://lh5.googleusercontent.com/Te59JDIigbGhsRy07kj8ONBuQwxZEHncxbthnhDLmWE8ukUeZciQ994ABXELWAP9VBF-L01sC-OmeaXw-bVQ8NdHldN3xaGMYyJ91gtyKyfzPKprY5OU-Pj5kQUIBk69t_313ahE)
+**Functionality:**
+The JavaScript downloads the updated QakBot form *ebook[.]w3wvg.com/datacollectionservice.php3* and executes it.
+The downloading payload is encrypted and the script decrypts it before dropping it into the system and stealing the following information from the victim’s machine:
+* IP address
+* Hostname
+* Username
+* OS Version
+* Banking credentials
+It uses WebInject to alter communication between the victim’s machine and banking websites and steals the credentials.
+Apart from this, we have analyzed the POST network activity in QakBot and it is using HTTPS or SSL/TLS traffic to 96.227.122.123 with no associated domain.
+![](https://lh4.googleusercontent.com/YLGnf4v83Y-otKQ26sOuaEo5cqUWKBbP5nnb71Bz6GQ93A4e_zWNXThNdD5wU0SJ11zsT8f9f5iIsk7z-bYJHXDzXEBjkh61Joi6-s7m9x07Y4t_ij5S1-GITCcbC1--R03J3goY)
+**Conclusion**
+QakBot malware is not new—we know it has been active for at least 13 years.
+But it is ever-evolving and uses different mechanisms and methods to infect machines and to evade detection.
+The Zscaler ThreatLabZ team is continuously monitoring these types of cyberattacks to keep our customers safe.
+**Sandbox detection:**
+**![](https://lh6.googleusercontent.com/p7FC0CvoIKz9wwu5-aztp8FBMhkVmMBr8ZIeVSTkzHWIRaZKCF2XWc6jItIOS9mddzLs0hhkQfr10FYO_m2njcPXBCWTz6XejpDZC3FVfs9JH5KCf--yIlhNHEi3nA1S9Ogmmsbn)**
+In addition to sandbox detections, the [Zscaler Cloud Security Platform](/solutions/cloud-security) detects indicators at various levels:
+VBA.Downloader.Qakbot
+<https://threatlibrary.zscaler.com/threats/7c716d69-474b-4d81-b67f-54d8db2b1412/>
+Win32.Banker.Qakbot
+<https://threatlibrary.zscaler.com/threats/dc8c9559-b57c-4358-8707-4100137ed1db>
+**Indicators of Compromise:**
+**Archive source URL**:
+| **URL** | **Md5** |
+| 8bmskg.sn.files.1drv.com | 5516505b431014e7e1239559a3d69d08 |
+| g1wf8w.dm.files.1drv.com | ffd16da51c2faf80d4787e9f707585e9 |
+| public.sn.files.1drv.com | d2ce5e5f9b0e62f825fbe52f3671b6f9 |
+| g1xquw.dm.files.1drv.com | b0abe47be307b67cdc0b53715a9d54b8 |
+| g1wf8w.dm.files.1drv.com | bf4699a1c0653150ebfa36532b2ce67e |
+| di2szw.ch.files.1drv.com | f2ad83b93ca5099a71e334e06ccee60b |
+| 8bmskg.sn.files.1drv.com | 71fac0d7b0af2be4cd9d1a79faab96d0 |
+| di1jlq.ch.files.1drv.com | 2b43ab02f13b6ccea9c0d5fe37739113 |
+| rh6zdw.by.files.1drv.com | e6bea2f73828b56e14b2107f5f22defa |
+| pr6zdw.by.files.1drv.com | 9caaa51ec65ab3018b4c512fae441347 |
+| gofjig.dm.files.1drv.com | af9a57237aa3b24ec88fe2658538ac1f |
+| ztmjyq.sn.files.1drv.com | 71e6e0049337764cb2bfd7f1d3a01f34 |
+| qb6zdw.by.files.1drv.com | 65ffdf05ecaf70b412c7953e487afb70 |
+| grieche.apptec24.com | 93274854c7ed4ee6f5c9fe7384cd2106 |
+| 9.kamstore.com.ua | 44a7f5101b54df759a895cc3996703fe |
+**Newly registered domains to serve the QakBot payload**:
+* econspiracy[.]se/evolving/888888.png
+* blog.buatvideomu[.[.]com/wp-content/uploads/2020/04/last/444444.png
+* intermed19[.]com/wp-content/themes/calliope/previous/444444.png.
+* greenmagicbd[.]com/wp-content/themes/calliope/previous/444444.png
+* y-sani[.]com/docs\_bcx/55555.png
+* tianmaouae[.]com/docs\_9qu/55555.png
+* dctechdelhi[.]com/wp-content/plugins/advanced-ads-genesis/previous/444444
+* themmacoach[.]com/wp-content/uploads/2020/04/docs\_cv0/55555.png
+**QakBot Md5:**
+ee360e519957018391a31808e4f4448e
+**QakBot C&C :**
+ebook[.]w3wvg.com/datacollectionservice.php3
+masson[.]prodigyprinting.com/datacollectionservice.php3

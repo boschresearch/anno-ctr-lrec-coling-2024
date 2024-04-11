@@ -1,0 +1,51 @@
+Intelligence operation against targets in Indonesia
+February 12, 2020
+Lab52 has detected malicious activity targeting Indonesian victims.
+This activity could be linked to an intelligence operation.
+We have been tracking this activity since December 27th of 2019
+The main tools of this threat actor, are built as DLL files, and launched with this commands:
+* “C:\Windows\System32\rundll32.exe” shell32.dll,ShellExec\_RunDLL regsvr32 /s C:\ProgramData\pubpool.dll /i:process104.dll
+* “C:\WINDOWS\system32\regsvr32.exe” /s C:\ProgramData\pubpool.dll /i:process104.dll
+| **process100.dll**      |  5813497bde09577bd1adf24b02707918bb15af62  |  Uploaded to Virus Total Intelligence on 12-07-2019 from Indonesia.|
+| **runtime\_report.dll** | 1815820307a23b99d93e7307ade8b6443bbb8e96   |  Uploaded to Virus Total Intelligence on 2019-07-17 12:29:35 from Indonesia.|
+| **process104.dll**      |  f09176a5130c17356ad2aa5850ca14a0a02a9ded  |  Uploaded to Virus Total Intelligence on 2019-07-17 12:29:10 from Indonesia  |
+| **pubpool.dll**         | e7b27d5e936d8dedc55ebe4ff64020d1bf4238b2   | Uploaded to Virus Total Intelligence on 2019-07-17 12:29:26 from Indonesia  |
+Pubpool.dll is used as a loader for three more encrypted dll that have been found during the incident research:
+**1. pubpool.dll file**
+Lab52 has analyzed pubpool.dll and this component has code to decrypt and load files, working as a dll loader.
+In the next picture, you can see one example of a dll being decrypted by pubpool in memory:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-1024x444.png)library loaded in memory.
+**2. process104.dll file**
+When we launch pubpool.dll with process104.dll as parameter, this dll maps this section:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-1.png) process104.dll is decrypted and mapped as inject\_usb.dll.
+It’s main purpose is to infect USB devices.
+This library exports a function named “done”.
+The function can be seen in the next picture:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-2.png)
+“Done” function checks for the existence of a mutex and starts if there isn’t another instance in execution.
+Inject\_usb.dll creates a folder named **“.Recycle Bin”** in every removable device and a log file named **“si.log”**.
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-3.png)
+**3. process100.dll file**
+When we launch pubpool.dll with process100.dll as a parameter, this dll maps the next sections:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-4.png)
+process100.dll is decrypted and mapped as inject\_host.dll.
+This module execute the malware.
+In the next pictures there is some IOCs:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-5.png)
+One LNK example:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-6.png)
+**4. runtime\_report.dll file**
+When we launch **pubpool.dll** with runtime\_report.dll as parameter, the loader maps this section:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-7.png)
+**runtime\_report.dll** is decrypted and mapped as **TinyMet.dll**.
+This module deploys TinyMET[1], a “tiny” meterpreter stager.
+This TinyMet version has a Mutex TEST\_9I89JNDBPWQ9ND:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-8.png)
+TinyMet connects to Internet using a Hardcoded domain and User-Agent that can be seen in the next picture:
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-9-1024x440.png)
+* Domain: musicstore.global.ssl.fastly[.]net
+* User-Agent: Mozilla/4.0 (compatible; MSIE 6.1; Windows NT)
+**5. CONCLUSION**
+Lab52 has the hypothesis that this infection is part of an intelligence operation.
+It’s a malware developed by a threat actor (currently, it’s not possible to identify the malware family).
+Attribution is not possible with the information handled by Lab52.

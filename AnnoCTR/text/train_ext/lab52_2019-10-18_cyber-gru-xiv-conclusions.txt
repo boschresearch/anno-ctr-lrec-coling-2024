@@ -1,0 +1,18 @@
+(Cyber) GRU (XIV): conclusions
+October 18, 2019
+In this work, we have analyzed mainly the structure, targets and TTP of the GRU in the cyber field, based on the information brought to light during 2018 and which allowed to obtain a detailed knowledge of the Service and its activities, not only to intelligence services, but also to poor analysts like us who do not have all the capabilities that a state can have.
+With what we know, even analyzing public sources, we have access to information that in some cases should be considered sensitive and that, without a doubt, is being -or has been- analyzed by services from all over the world, starting with Russia itself.
+The fact that we know the GRU better than a year ago does not mean that now it is a worse service than before; it will remain part of the elite, fulfilling its missions and acting “*in any part of the world where it is required*“, said one of its former directors.
+The GRU, or APT28, or whatever you want to name it, will continue to be a very important player in the cyber field and, of course, in the non-cyber realm.
+We all make mistakes, and the GRU made them on that occasion – and they were published.
+However, it is more of a concern in certain circles that the GRU failed in its operations than to have leaked the identities or modus operandi of some of its members.
+Currently, we are aware of the cyber activity of two Service Units that work in a coordinated manner to benefit the interests of the Russian Federation ; one of them, Unit 26165 which is responsible for the technical operations of the GRU (CNE and CNA), while the other one is Unit 74455, which is responsible for the psychological operations (PSYOP) of the Service.
+Their joint work reflects the Russian conception of information warfare, different from the Western conception, which is the handling of stolen information to favor Russian interests and which is identified with two fields of action: the confrontation of technical information and the confrontation of psychological information.
+APT28 is linked to the GRU, if it is not the name given to the cyber division of the Service.
+It has possibly been operational since 1953, the year that Military Unit 26165 was founded.
+So instead of ‘fancy bear’ we should call it ‘old bear’ (and change the logo to that of the attached image) and perhaps not only steals information for the benefit of the Russian government, but uses it intelligently in psychological operations.
+And it not only has NEC capabilities, like any other intelligence service in the world, but also NAC capabilities, since we must remember that it is a military service and will therefore carry out pure attack operations, not just information theft.
+![](https://www.securityartwork.es/wp-content/uploads/2019/05/bear.jpg) APT28.
+Source: Old Bear Press
+We hope this work will help a little bit to get to know the GRU better, which we talked about briefly when we discussed the issue of the Russian cyber-intelligence community and which lately, for all that has happened, deserved a series of its own.
+Now, we have to wait for new public information that allows us to also analyze the cyber division of the FSB. Until a few months ago, the FSB was better known than the GRU but surely it has aspects that we cannot even imagine…

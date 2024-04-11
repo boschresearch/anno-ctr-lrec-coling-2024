@@ -1,0 +1,20 @@
+Are you resolved to inspect SSL 2048 in 2014?
+December 02, 2013
+You should be familiar with secure socket layer (SSL) encryption, an important security industry standard designed to protect Internet communication in transit.
+In the past few years, SSL has been widely deployed by Web services, such as Gmail and Facebook, which previously reserved the encryption standard for its log-in pages.
+This adoption shows no signs of slowing, as businesses such as [Microsoft consider making the switch to SSL in light of MUSCULAR](https://rt.com/usa/microsoft-encryption-nsa-spying-358/).
+However, in the same way that encryption is used to secure the communication of legitimate traffic, malicious actors may also employ encryption in advanced attacks, such as hiden botnet callbacks.
+Similarly, a naive employee may leak sensitive data through encrypted channels.
+After all, it only takes two clicks to attach a document to Gmail, yet most DLP solutions cannot prevent this because they lack visibility into SSL traffic.
+Therefore, it is imperative for enterprise security teams to gain visibility into encrypted traffic in order to detect attacks and prevent data leaks.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/zscaler-generic-image-blog-pages.png)
+Web proxies are an effective solution for SSL traffic scanning, but can be very CPU intensive, resulting in slower traffic for organizations that are unable to scale its infrastructure.
+This challenge is exacerbated with the upcoming transition from 1024-bit encryption to 2048-bit encryption, the later of which may require five times more processing power to inspect than the former.
+However, Zscaler designed its global security cloud with ultra-fast proxies, which it makes available to its customers on-demand.
+And with the advent of 2048-bit encryption, Zscaler has upgraded its infrastructure with hardware acceleration designed to improve SSL processing power at a scale that far outpaces these new demands.
+Organizations that still rely on traditional appliance-based security solutions will be challenged to upgrade its hardware to provide the additional processing power required to inspect 2048-bit encryption.
+This is NOT a simple upgrade because of the added cost of increasing capacity.
+These added costs and the complexity of upgrading appliances is yet another reason to move to the cloud.
+For organizations that have planned ahead and made the necessary investments to upgrade its infrastructure, the transition to SSL 2048-bit encryption should go smoothly.
+But for those organizations that find themselves challenged by the inadequacy of appliance-based security, we invite you to join the [Zscaler Global Security Cloud](/cloud-security/advanced-persistent-threats-benefits.php).
+Register for a Zscaler Webinar to learn more about the challenge of 2048-bit SSL inspection: [https://www.zscaler.com/are-your-appliance-based-security-solutions-ready-for-2048-bit-ssl-certificates.php](/are-your-appliance-based-security-solutions-ready-for-2048-bit-ssl-certificates.php)

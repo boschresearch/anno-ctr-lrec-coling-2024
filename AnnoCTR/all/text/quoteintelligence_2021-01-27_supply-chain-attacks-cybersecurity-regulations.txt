@@ -1,0 +1,111 @@
+Supply Chain Attacks, Cybersecurity & Regulations: What to Expect in 2021
+Jan 27, 2021
+On 19 January, [Malwarebytes reported](https://blog.malwarebytes.com/malwarebytes-news/2021/01/malwarebytes-targeted-by-nation-state-actor-implicated-in-solarwinds-breach-evidence-suggests-abuse-of-privileged-access-to-microsoft-office-365-and-azure-environments/) that the nation-sponsored attackers behind last year’s [SolarWinds breach](https://www.fireeye.com/blog/threat-research/2020/12/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor.html), dubbed “UNC2452” by FireEye, had successfully compromised its systems and accessed limited internal data.
+Malwarebytes was not a user of SolarWinds products, and the intrusion vector allegedly leveraged a separate vulnerability in an email protection product for Microsoft Office 365 and Microsoft Azure – one of Malwarebytes supply chain participants.
+The Rise of Supply Chain Attacks
+--------------------------------
+Supply chain attacks are on the rise.
+The COVID-19 pandemic is only exacerbating the threat.
+Digital footprints are expanding even as the increased reliance on remote work and third-party vendors and services further distances organizations from visible IT infrastructure.
+Microsoft Office 365, the target of this recent attack, demonstrates an example of the growing risk of supply chain attacks.
+On 8 January, two weeks before the Malwarebytes disclosure, the [United States Cybersecurity and Infrastructure Security Agency (CISA) released](https://us-cert.cisa.gov/ncas/alerts/aa21-008a) an alert precisely detailing this attack vector
+Cybersecurity experts warn that one type of supply chain attack in particular – open source code attacks – is [rapidly increasing](https://blog.sonatype.com/2020-state-of-the-software-supply-chain-report): 
+### attacks
+According to a report from Sonatype, 929 such attacks were recorded between July 2019 and May 2020.
+Further, Sonatype warns of a 430% year-on-year increase in attacks targeting open source components directly to covertly infect key software supply chains.
+%
+### year-on-year increase
+Threat Actors and Attack Vendors to Watch Out for in 2021
+---------------------------------------------------------
+Supply chain attacks come from various threat actors with a wide range of attack vectors, which all present unique security threats: 
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Gov_light")
+![](https://quointelligence.eu/wp-content/uploads/2020/03/Gov_light-150x150.png "Gov_light")
+### Nation-State Threat Actors
+The scale and advanced nature of the SolarWinds breach has placed the attack and corresponding fallout in the spotlight.
+Incident responders implementing mitigations to prevent supply chain security weaknesses will need to acknowledge that attacks can come from an increasing variety of sources including nation-state actors.
+In 2020, researchers implicated the Chinese government-linked threat actor *APT40* in a[supply chain attack on Taiwanese government entities](https://mercury.quointelligence.eu/INTTicket/show/6449).
+The attack leveraged trusted relationships and privileged network access between government entities and their sub-contractors.
+Additionally, a group of Iranian government-linked APTs carried out large-scale espionage attacks against global entities leveraging, in part, compromises of their targets’ supply chains.
+[Request a Free Trial to Read Full Report in Mercury!](https://quointelligence.eu/talk-to-an-expert/)
+### Update Hijacking and Code Signing
+Advanced Persistent Threat groups (APT), such as the Winnti group, have [previously compromised entities within their targets’ supply chains](https://mercury.quointelligence.eu/INTTicket/show/4613) and inserted malicious code into automatically distributed software updates, thus exploiting trusted links and undermining code signing measures.
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "code")
+![](https://quointelligence.eu/wp-content/uploads/2020/03/code-150x150.png "code")
+![Malware Cybersecurity](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "malware")![Malware Cybersecurity](https://quointelligence.eu/wp-content/uploads/2021/01/malware-1-150x150.png "malware")
+### Open Source Attacks
+Attackers are increasingly attempting to covertly insert malware [into public open source code repositories](https://mercury.quointelligence.eu/INTTicket/show/4613).
+Numerous corporate and government entities are reliant on open source projects to accelerate development, but the increased vulnerability to supply chain attacks underpin their infrastructure and software.
+### Mobile Apps
+ In one instance, attackers [compromised a Ukrainian mobile application developer](https://www.wired.com/story/sandworm-android-malware/) and used that access to push a malicious update containing malware.
+Although Google caught this update and blocked its deployment, the attack brings to light a large attack surface, particularly against organizations with *Bring Your Own Device* (BYOD) policies.
+An employee running a malicious app could mistakenly grant an attacker comprehensive access to their employer’s systems, especially if no or inadequate security policies are in place for BYOD across the enterprise.
+![Mobile Apps Cybersecurity](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "overload_2")![Mobile Apps Cybersecurity](https://quointelligence.eu/wp-content/uploads/2020/03/overload_2-150x150.png "overload_2")
+![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Supply Chain Blog")
+![](https://quointelligence.eu/wp-content/uploads/2021/01/Supply-Chain-Blog.png "Supply Chain Blog")
+###### Infographic 1: Possible Impacts of New Supply Chain Approaches; © QuoIntelligence
+Tackling post-mortem supply chain attacks effectively
+-----------------------------------------------------
+In all these supply chain intrusion vectors, reacting to an attack post-mortem is technically challenging and resource intensive, involving network and host-based forensics.
+To effectively mitigate such attacks, organizations should instead establish stringent risk management and auditing of third-party vendors.
+Limiting system exposure to third-party infrastructure additionally limits the potential impact of a successful supply chain attack.
+The widely covered SolarWinds Orion attack that affected around 18,000 entities should not be seen as an extraordinary anomaly, but as a single blip in a continuous uptick of threat actors launching campaigns exploiting similar weaknesses in supply chains.
+Particularly accelerated by the COVID-19 pandemic, [we forecast espionage-driven supply chain attacks will become a major part of the threat landscape in 2021](https://quointelligence.eu/2020/12/cyber-security-trends-in-2021/).
+Governments are recognizing this threat and are creating regulatory frameworks to strengthen the security and resilience of supply chains.
+Enhancing Sustainability, Human Rights and Ethical Practices into Supply Chain Security Frameworks
+--------------------------------------------------------------------------------------------------
+(Virtual) supply chains move within broader economic and geopolitical circuits.
+Since [cybersecurity is strongly impacted by geopolitical trends and events](https://quointelligence.eu/2020/06/our-holistic-approach-to-cyber-threat-intelligence/), topics such as sustainability, human rights and ethical practices in supply chains are increasingly coming under government scrutiny.
+2021 will see a continued effort to curtail these topics by introducing more stringent regulation to ensure the sustainability, ethics, and security of supply chains.
+New or stricter regulations will increase pressure on organizations.
+If companies are forced to quickly shift suppliers, they risk failing to put adequate security measures in place.
+The COVID-19 pandemic and consequent lockdowns has also interrupted global supply chains, highlighting global interdependencies and pushing states to enhance home-grown industries.
+For example, the Monetary Authority of Singapore (MAS) [recently imposed measures](https://www.straitstimes.com/tech/tech-news/mas-announces-new-banking-rules-for-singapore-after-solarwinds-cyber-attack-exposes) which require all financial institutions to assess supplier third-party technology vendors, ranging from an evaluation of security measures to assuring safe programming practices.
+In addition, the US Department of Commerce issued an interim final ruling on the Information and Communications Technology and Services (ICTS) supply chain [designed to prohibit certain ICTS Transactions from listed foreign adversaries](https://www.commerce.gov/news/press-releases/2021/01/commerce-department-issues-interim-rule-secure-icts-supply-chain) including China, Russia, Iran, North Korea, Cuba, and Venezuela.
+Further, the [UK government](https://www.gov.uk/government/speeches/foreign-secretary-on-the-situation-in-xinjiang-and-the-governments-response) is implementing measures to ensure supply chains are free from forced labor as the UK government aims to tackle human rights abuses against the Uighur minority in Xinjiang, China.
+Governmental Regulatory Approaches to Safeguard Supply Chains
+-------------------------------------------------------------
+QuoIntelligence has gathered some key insights on recent supply chain measures in the EU and US with possible consequences for companies and other organizations:
+>
+> **European Union**
+>
+>
+>
+The European Commission is preparing legislation and will launch an action plan by 2021 that will [focus on shaping global supply chain sustainability](https://www.consilium.europa.eu/media/46999/st13512-en20.pdf) by promoting human rights, social and due diligence standards, and transparency.
+While the EU has not released any concrete details, the regulation will include the possibility of sanctioning companies that fail to monitor human rights and environmental standards.
+In the field of cybersecurity, the new [EU Cybersecurity Strategy](https://ec.europa.eu/commission/presscorner/detail/en/ip_20_2391) seeks to intensify supply chain security by promoting standardization and certification schemes and the diversification of suppliers.
+Similarly, the novel [Network and Information Systems Directive proposal](https://ec.europa.eu/digital-single-market/en/news/proposal-directive-measures-high-common-level-cybersecurity-ac5ross-union)(NIS) also contains provisions that seek to strengthen supply chain cybersecurity by requiring individual companies to address risks in it and supplier relationships.
+>
+> **United States of America**
+>
+>
+>
+The US Department of Commerce issued an interim ruling on the ICTS’ supply chain, designed to prohibit certain ICTS Transactions from listed foreign adversaries.
+President Biden also stated that the US needs to *“close supply chain vulnerabilities across a range of critical products on which the US is dangerously dependent on foreign suppliers.”* 
+The Biden administration claims it will [monitor supply chain vulnerabilities](https://joebiden.com/supplychains/), designate vital products, and enhance resiliency, while also increasing domestic production and limiting anti-competitive practices that threaten those chains.
+Possible Impacts of New Supply Chain Approaches
+-----------------------------------------------
+* **Greater Leverage by States to Control their Markets:** Novel approaches to supply chain security will possibly build on previous 5G network cybersecurity frameworks, allowing bans for certain companies under national security concerns, and thus augmenting states’ control over their markets.
+* **Increasing Protectionism:** New supply chain regulations could follow protectionist approaches as countries try to limit and secure their critical dependencies by enhancing domestic production and restricting access to offshore companies.
+* **More Stringent Supervisory Measures for Companies:** Companies will have to face a new reality of compliance costs and fines.
+Consequently, some might have to change business models if the cost of contracting, for example, domestic companies is higher; even putting at risk their forward supply chain if they fail to find appropriate alternative suppliers.
+Regulated models or voluntary frameworks.
+-----------------------------------------
+Nations are shifting towards a more regulated model to enhance the security of supply chains.
+While interconnection with third-parties in foreign countries will remain, it is likely that protectionist measures will evolve and continue.
+While new regulatory models also consider voluntary frameworks, such as standards and certifications, there is a tendency towards more stringent compliance including fines and due diligence obligations.
+Consequently, companies will need to stay closely informed to avoid costs from either [new global cybersecurity threats](https://quointelligence.eu/cyber-threat-intelligence-01-2/) and protectionist regulations.
+How QuoIntelligence Secures Your Supply Chain
+---------------------------------------------
+Supply chains are an accepted risk to organizations to ensure a continuity of service to customers, both external and internal to the enterprise.
+However, decision makers do not need to sacrifice security in the process.
+QuoIntelligence offers a Risk Intelligence services, to support Risk management in both the digital and physical domain.
+Learn about this offering which removes the uncertainty around companies and technologies.
+Become familiar with insight into past cyber incidents, brand vulnerabilities, and more plaguing key players.
+[Request Your Risk Intelligence Demo Today!](https://quointelligence.eu/talk-to-an-expert/)
+Join Our Newsletter.
+--------------------
+Subscribe to our newsletter to receive Weekly Intelligence Summaries, cyber news, and exciting updates.
+Only valid business emails will be approved.
+Please enable JavaScript in your browser to complete this form.Name *FirstLastBusiness Email *Checkboxes ** I have read and agree to the [Privacy Policy](https://quointelligence.eu/privacy-policy).
+GDPR Agreement ** I consent to having this website store my submitted information so they can respond to my inquiry.
+WebsiteSubscribe

@@ -1,0 +1,165 @@
+Targeted Attack on Government Organizations Delivers Netwire RAT
+July 14, 2021
+The Zscaler ThreatLabz team has observed an interesting spear phishing campaign beginning July 2021 in which a threat actor is targeting a wide range of organizations in Pakistan.
+NetwiredRC is being used as the final payload in this attack campaign.
+The combination of spear phishing and the use of information stealing RAT indicates that this is not a simple cyber crime, but a larger cyberattack campaign targeting multiple government organizations in Pakistan along with other industry verticals.
+**Attack Cycle**
+![Attack chain infographic](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Attack%20chain%20infographic.png)
+*Figure 1: Attack chain*
+**Key features of this attack**
+1.The attack has targeted multiple Pakistani government organizations using spear phishing emails.
+2.Lures use email info stolen from the actual website of the Pakistan government (*Ministry of Information technology and telecommunication*).
+3.The attack downloads its payload from the compromised website of the National College of Nepal located in Kathmandu.
+4.NetwireRAT, a well-known malware for stealing sensitive information, is being used as the final payload in the attack.
+5.Stolen information is sent using a proxy server in obfuscated form using the api *WinHttpGetIEProxyConfigForCurrentUser()* to command and control server 66[.]42.43.177:443
+One of the latest spearphishing emails was sent from a spoofed email ID <[[email protected]](/cdn-cgi/l/email-protection)> masquerading as “National Cyber Security Policy Feedback,” impersonating a government account which may be known by the target.
+During analysis, we found that the originating IP of the email is 209[.]58.188.82 which belongs to Hong Kong and has been [reported](https://www.abuseipdb.com/check/209.58.188.82) for multiple phishing attacks in the past.
+![Spoofed email from <feedback.ncsp@moitt.gov.pk>](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/email.PNG)
+*Figure 2: Spoofed email from <[[email protected]](/cdn-cgi/l/email-protection#3a5c5f5f5e585b5951145459494a7a5755534e4e145d554c144a51)>*
+The email was sent on Wednesday, June 30, 2021 10:44 AM (PKT) with the subject “Cyber Security Policy Consultation Draft Final Update” to lure the recipients into opening an attached file named “NSCP-DRAFT-Final.docm”.
+The mail body contained information on the latest updates of the National Cyber Security Policy Draft along with the signature of a senior official to make the email look more professional and genuine.
+Upon further research, it seems that the email info has been copied from the Ministry of Information Technology & Telecommunication site.
+![Email info from MoITT site.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/moiTT.jpg)
+*Figure 3: Email info from MoITT site.*
+Digging into the message source of the email, we can see that the spearphishing email is targeting users from a number of different industry verticals.
+![Recipients email id from Message Source](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/users%20recieved%20email.PNG)
+*Figure 4: Originating IP and recipient email IDs from Message Source*
+Looking at the Email ID of multiple users, we can see that multiple sectors are being targeted by the threat actor, including Energy, Agricultural, Chemicals, Educational, Telecommunication and Financial Sectors, among others.
+**Distribution Strategy**
+We have observed multiple documents being delivered in various spearphishing attacks.
+All the documents have exactly the same macro content with the same URL to download the final payload.
+1.The first document we analyzed has a macro code containing a PowerShell script to download the final payload and execute it.
+**MD5 Hash: 22DF783F7881A7F6973028E21CA19D4F
+File Name: NSCP-DRAFT-Final.docm**
+![Attached Docm file prompts to enable Macro.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/1st%20Docm%20file%20asking%20to%20enable%20macro.PNG)
+*Figure 5: Attached .Docm file prompts the user to enable macros*
+2.The second document we analyzed has a different title and slightly different text, but is otherwise extremely similar to the first document, and also has a macro code containing a PowerShell script to download the final payload and execute it.
+**MD5 Hash: AB5DAC030DC5FC9ED802C0322168558B
+File Name: SCO-Cyber-Advisory.docm**
+![Another docm file having malicious macro](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/2nd%20Docm%20file%20asking%20to%20enable%20macro.PNG)
+*Figure 6: Another malicious .docm file*
+3.The third document we analyzed is also very similar to the first two instances.
+It contains a macro code containing a PowerShell script to download the final payload and execute it.
+The content displayed in this document masquerades as a lab handbook related to Institute of Space Technology (IST), Islamabad.
+**MD5 Hash: B6EC09770ED5B34922B0CF56CB17BC95
+File Name: Press Note July-SCO.docm**
+![Another similar docm having malicious macro](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/3rd%20Docm%20file%20asking%20to%20enable%20macro.PNG)
+*Figure 7: Another similar .docm with a malicious macro*
+**Technical Analysis of the macro**
+Once the document is opened, attackers try to trick the user by prompting them to enable macros to read the complete document.
+Once the user enables the macro, an AutoOpen() subroutine is called which then executes a malicious Visual Basic Application (VBA) macro with base-64 encoded URL.
+The macro downloads the final payload and path to save and execute the payload with the help of a PowerShell command.
+![Macro code having based 64 encoded URL](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/1st%20macro%20code.PNG)
+*Figure 8: Macro code with base 64 encoded URL*
+The two functions performed by the macro code are:
+a.Download the payload from the given URL in the macro code.
+b.Save and execute the payload from the specified path in the macro code.
+Upon decryption, we get the URL which seems to be a recently compromised website belonging to the National College of Nepal located in Kathmandu.
+“***hxxps://nationalcollege.edu[.]np/admin/assets/js/jquery/tiny/plugins/anchor/.anchor/sysWow64.exe***”
+![Decrypted Macro code](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/1st%20decrypted%20macro.PNG)
+*Figure 9: Decrypted Macro code*
+File Path: <*C:\Windows\System32\spool\drivers\color\sysWow64.exe*>
+**Technical Analysis of the payload**
+Once PowerShell downloads the final payload (NetwiredRC), it copies itself to the above mentioned path from where it gets executed.
+NetwireRAT is not a new malware/RAT on the surface.
+First seen in 2012, it attempts to steal victims' passwords, including login credentials, FTP credentials, credit card data etc.
+It claims to be available in all OS formats including MacOS, Android and Windows.
+NetWireRAT is believed to have been used by the Iranian Nation state sponsored group APT33/Elfin back in 2016.
+Once executed on the victim’s machine, several anti-analysis techniques are used to protect it from analysis.
+This version of Netwire has recently been employed with new anti-analysis techniques in order to hinder its reversal.
+Earlier versions involved WinApi usage for anti-analysis tricks like using **GetCursorPos(), ZwGetContextThread()** to check mouse position and to check register status for breakpoints respectively.
+The below screenshot shows the usage of GetCursorPos() api as anti-trick in an older version.
+![Anti-Analysis technique used in older version](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Anti-Analysis%20technique%20used%20in%20older%20version.png)
+*Figure 10: Anti-Analysis technique used in older version of NetWire*
+In addition to this, the old NetWire malware also checked the registers status against soft breakpoints, as we can see in the above image.
+For example, the call 'eax' is the call to the API.
+If we put a breakpoint on that in the debugger, the byte is replaced with 0xCC.
+That value is checked by NetWire using ZwGetThreadContext() api as an anti-trick.
+**MD5 Hash: 60D234D54C25DCEF19A64DED3A587072**
+During our analysis, we found that the malware extracts malicious code into the memory and executes it to evade antivirus detection.
+During static analysis, we have found that the malware is using some important libraries such as WS2\_32 library to perform network activity.
+![Import libraries of the malware](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/import.PNG)
+*Figure 11: Import libraries of the malware*
+Debugging the malicious code, we have seen that the malware author has also employed string obfuscation as an anti-analysis trick as shown in figure:12.
+![Obfuscated String](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Obfuscated%20String.PNG)
+*Figure 12: Obfuscated String*
+Following decryption, we get the following API: “***winHttpGetIEProxyConfigForCurrentUser***”
+This piece of code has a self-decryption routine where it allocates a new memory space and then decrypts the code.
+![Self-Decryption Routine](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Self%20decrypting%20routine.PNG)
+*Figure 13: Self-Decryption Routine*
+**Persistence**
+After decryption, the malware assigns HostId randomly and adds it as a registry key.
+![Random HostID](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Host-ID.PNG)
+*Figure 14: Random HostID*
+**key: HKEY\_CURRENT\_USER\Software\NETwIRe
+name: HostId**
+**key: HKEY\_CURRENT\_USER\Software\NETwIRe
+name: Install Date**
+**key: HKEY\_CURRENT\_USER\Software\Microsoft\Windows\CurrentVersion\Run
+name: sysWOW32**
+![Registry key for persistence](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Host%20ID%20and%20install%20date%20in%20registry.PNG)
+*Figure 15: Registry key for persistence.*
+**Stealing functionality**
+This malware basically steals sensitive information from the victim's machine.
+![Stealing information](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Stealing%20data.PNG)
+*Figure 16: Stealing information*
+A sample of keystrokes logs in a file that is created in the %AppData% directory, which the malware stores in obfuscated form.
+![Keylogs in obfuscated form](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/log.png)
+*Figure 17: Keylogs in obfuscated form*
+**Command and Control**
+Another thing related to network activity we observed in the new variant was that this new Netwire variant uses **WinHttpGetIEProxyConfigForCurrentUser()** api ,which retrieves the Internet Explorer proxy configuration for the current user in the system (adversaries use this feature as a network relay between the malware and the proxy server by listening over a certain port).
+This api retrieves the list of proxy servers in the system.
+It steals users' sensitive information and browser history stored in the browsers and sends it to the command and control server.
+During our analysis of the binary structure, we found the hardcoded IP address of the Command and Control server: 66[.]42.43.177.
+![Data to be sent using proxy](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Data%20to%20be%20sent%20using%20proxy.png)
+*Figure 18: Data to be sent using proxy*
+ThreatLabz observed that NetwireRAT malware sends the collected victim’s data using the proxy server in obfuscated form using the same api (which was decrypted above).
+This way of sending victims' data using a proxy server is a new feature being implemented in the updated version of NetWireRAT.
+**Config extracted from malware**
+{
+*"C2 list": [
+    "127.0.0.1:3360",
+    "66.42.43.177:443"
+  ],
+  "Password": "Password",
+  "Host ID": "HostId-%Rand%",
+  "Mutex": "-",
+  "Install Path": "C:\\Windows\\System32\\spool\\drivers\\color",
+  "Startup Name": "sysWOW32",
+  "ActiveX Key": "-",
+  "KeyLog Directory": "-"*
+}
+**Cloud Sandbox Detection**
+Zscaler Cloud Sandbox successfully detects the malicious documents as well as the payload.
+![Zscaler Cloud Sandbox detection](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/NetwireRAT/Sandbox%20report%20of%20payload.PNG)
+*Figure 19: Zscaler Cloud Sandbox detection*
+In addition to sandbox detections, Zscaler’s multilayered cloud security platform detects indicators at various levels
+[VBA.Downloader.NetwiredRC](https://threatlibrary.zscaler.com/?keyword=VBA.Downloader.NetwiredRC)
+[Win32.Backdoor.NetwiredRC](https://threatlibrary.zscaler.com/?keyword=Win32.Backdoor.NetwiredRC)
+**Conclusion**
+Over the years, cyber criminals have adopted multiple ways to infect their victims with NetwiredRC and achieved lots of success.
+We are not conclusively attributing this attack to any particular group with high confidence, but similar techniques and NetwireRAT payloads have been utilized by state sponsored groups such as APT33 and Gorgon.
+Attackers continuously embrace new anti-analysis tricks to evade security solutions; re-packaging of malware makes static analysis even more challenging.
+The Zscaler ThreatLabz team will continue to monitor this attack, as well as others, to help keep our customers safe.
+**MITRE ATT&CK TTP Mapping**
+| Tactic | Technique |
+| T1547 | Boot Logon or AutoStart Execution |
+| T1056 | Input Capture |
+| T1036 | Masquerading |
+| T1113 | Screen Capture |
+| T1082 | System Information Discovery |
+| T1055 | Process Hollowing |
+| T1555 | Credentials From Web Browsers |
+| T1074 | Data Staged: Local Data Staging |
+**Indicators of Compromise (IOC’s)**
+**Doc files**
+22DF783F7881A7F6973028E21CA19D4F
+AB5DAC030DC5FC9ED802C0322168558B
+B6EC09770ED5B34922B0CF56CB17BC95
+**Payload**
+60D234D54C25DCEF19A64DED3A587072
+715788FB520B3873DB406FDF59521AFA
+026C1CE7E96A898C23A7CE9A567B9568
+617E8CC54BB247091266826225553A25
+**CnC**
+66[.]42.43.177:443

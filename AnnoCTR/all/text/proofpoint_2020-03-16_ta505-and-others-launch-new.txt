@@ -1,0 +1,32 @@
+TA505 Malware Threat Insights
+March 16, 2020
+Proofpoint researchers are continuing to monitor malicious threat actor activity surrounding COVID-19.
+To date, the cumulative volume of coronavirus-related email lures now represents the greatest collection of attack types united by a single theme that our team has seen in years, if not ever.
+We’ve observed credential phishing, malicious attachments, malicious links, [business email compromise (BEC)](https://www.proofpoint.com/us/products/email-protection/email-fraud-defense), fake landing pages, downloaders, spam, and [malware](https://www.proofpoint.com/us/threat-reference/malware), among others, all leveraging coronavirus lures.
+Over the past week, the team observed a campaign from TA505, the group behind Locky ransomware and the Dridex banking Trojan, that uses a coronavirus lure as part of a downloader campaign targeting the U.S. healthcare, manufacturing, and pharmaceuticals industries.
+The team also found a separate coronavirus-themed campaign that uses a downloader, targets the healthcare industry, and demands Bitcoin payment.
+Indicating a potential future shift in the attack landscape, the downloaders used in the above two campaigns are sometimes seen as a first stage payload before ransomware is later downloaded and installed on a victim’s machine.
+[Ransomware](https://www.proofpoint.com/us/threat-reference/ransomware) is typically delivered as either second or later stage payload.
+We’ve additionally seen TA564 using coronavirus emails to target Canadian users by spoofing the Public Health Agency of Canada in an attempt to deliver Ursnif.
+**New TA505 Malware and Campaign Examples**
+-------------------------------------------
+As everyone around the world continues to search online for the latest developments and news around coronavirus, Proofpoint researchers have observed TA505, the group behind the Locky ransomware, using a coronavirus lure in an attempt to deliver a downloader to a victim’s computer.
+Once delivered, attackers can then download additional types of malware including banking Trojans and ransomware.
+TA505 is known as one of the most significant financially motivated threat actors due to the extraordinary volumes of messages they send.
+Figure one below shows an email from one of the attempted TA505 Coronavirus attacks purporting to contain information to help protect users’ friends from the virus, urging readers to click the link provided.
+![Ta505 Covid Phishing Email Example](/sites/default/files/2020-03/CV_1.png)
+*Figure 1 TA505 Coronavirus FAQ Lure*
+We have also separately seen coronavirus-themed emails with downloaders targeting healthcare organizations that request Bitcoin payments.
+Figure 2 below shows an email offering coronavirus remedies in exchange for Bitcoin.
+![Ta505 Coronavirus Ransomware Email Example](/sites/default/files/2020-03/CV_2.png)
+*Figure 2 Coronavirus Campaign Requesting Bitcoin for Remedy*
+We’ve also seen TA564 using coronavirus emails targeting Canadian users by spoofing the Public Health Agency of Canada in an attempt to deliver Ursnif.
+Ursnif is a common banking Trojan that can steal stored data, including passwords, from banking websites via web injections, proxies, and VNC connections.
+Figure 3 below shows an email addressing “parents and guardians,” with a reported update from the Public Health Agency of Canada’s Medical Officer of Health, listing the individual’s correct name.
+![Ta505 Coronavirus Phishing Email Example](/sites/default/files/2020-03/CV_3.png)
+*Figure 3 Fake Public Health Agency of Canada Lure*
+**Summary of TA505 Coronavirus Attacks**
+We anticipate TA505 malware attackers will continue to leverage COVID-19 (as detailed in our new Redline Stealer Threat Insight blog) as it develops further worldwide and will also likely pursue potential targets who are now being asked to work from home.
+Stay vigilant for malicious emails regarding remote access and fake corporate websites, all aimed at ensnaring teleworkers.
+When working remotely, be sure to use a secure Wi-Fi connection, protect your VPN log-in, use strong passwords, think twice about clicking on links, and confirm all transactions are authentic.
+We’ll continue posting future TA505 attack news as well as coronavirus campaigns and insights on our threat research Twitter account: [https://twitter.com/threatinsight.](https://twitter.com/threatinsight) You can also review additional coronavirus-themed campaign examples on [conspiracy theories](https://www.proofpoint.com/us/corporate-blog/post/attackers-expand-coronavirus-themed-attacks-and-prey-conspiracy-theories) and [global shipping concerns](https://www.proofpoint.com/us/corporate-blog/post/coronavirus-themed-attacks-target-global-shipping-concerns) in our previous posts.

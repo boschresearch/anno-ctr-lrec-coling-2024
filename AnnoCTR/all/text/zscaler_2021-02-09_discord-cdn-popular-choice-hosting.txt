@@ -1,0 +1,201 @@
+Discord CDN: A Popular Choice for Hosting Malicious Payloads
+February 09, 2021
+### **Introduction**
+Since the onset of the pandemic, the internet has become a central part of our lives.
+People of all ages turned online for school and work, to stream videos, to play video games, have virtual get-togethers, shop, talk to their doctor, and engage in any number of other activities.
+During 2020, [research](https://www.analyticsinsight.net/gaming-boom-in-covid-19-times-analysis-insights/) showed a sharp increase in game downloads, and this activity did not go unnoticed by cybercriminals.
+Attackers have often exploited the popularity of certain games ([Among Us](/blogs/security-research/among-us-imposter-google-play) was a recent example) to lure players into downloading fake versions that served malware.
+Recently, the Zscaler ThreatLabZ team noticed new campaigns in which cybercriminals are targeting gamers.
+The key findings of our research include:
+* Multiple campaigns relying on the cdn.discordapp.com service for their infection chain.
+* Cybercriminals are using Discord CDN to host malicious files as well as for command-and-control (C&C) communication.
+* Malicious files are renamed as pirated software or gaming software to trick gamers.
+* File icons are also related to gaming software to trick gamers.
+* Multiple categories of malware are being served through the Discord app’s CDN infrastructure - ransomware, stealers, and cryptominers.
+The attack usually starts with spam emails in which users are tricked with legitimate-looking templates into downloading next-stage payloads.
+It’s worth noting, however, that using Discord to host payloads is not new.
+This campaign uses Discord services to form a URL to host malicious payloads as follows: *https://cdn.discordapp.com/attachments/ChannelID/AttachmentID/filename.exe*
+***![panel](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/zdf%20panel.PNG)***
+*Figure 1: Malicious files blocked in the Zscaler cloud served via cdn.discordapp.com*
+### **Technical Analysis**
+Discord is a chat application that allows users to chat with each other in real time.
+Users can communicate with voice calls, chat messages, and video calls, and send files to one another.
+But attackers also use Discord, often to distribute malicious files and steal information.
+This CDN service was actually started as a content distribution network for serving static content to users, but it has revealed some considerable risks.
+For example, an attacker can upload a malicious file on a Discord channel and share its public link with others—**even non-Discord users can download it**.
+Worse, a file sent from Discord is there forever, so even if an attacker deletes a file within Discord, its link can still be used to download the malicious file.
+![final](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Final%20Diagram_0.jpg)
+*Figure 2: Infection chain of different malware on* cdn.dscordapp.com
+We have seen multiple payloads being used in recent campaigns, primarily consisting of these four:
+1.Epsilon ransomware
+2.Redline stealer
+3.XMRig miner
+4.Discord token grabbers
+### **Epsilon ransomware**
+***(MD5: f509bd9e1fbd7721c95d0d19ba317b03)***
+We have analyzed the Epsilon ransomware loader in which execution starts with dropping an .inf file and .exe file in the Windows/Temp folder.
+The dropped payload performs the following actions upon execution.
+![Payload functionality](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Payload%20working.PNG)
+*Figure 3: Payload functionality*
+* persistence() - Establishes persistence on the victim machine
+* encryptionStage() - Encrypt files
+* wallpap() - Download ransom image from Discord
+* extract() - Download ransom note from Discord
+* sapi() - Display ransom note
+* x3() - Delete shadow copy(Recovery File)
+* clearmem() - Clean Memory
+* Exit() - Quit application
+The malware establishes persistence by creating the follow registry key on the victim's machine:
+![Run key entry for persistence](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/persistence.PNG)
+*Figure 4: Run key entry for persistence*
+It will enumerate through the the system drives to encrypt the files using double encryption.
+First, it encrypts the files with AES encryption using a randomly generated 32-bit key.
+Then, those encrypted files will again be encrypted with the RC4 algorithm with a randomly generated 256-bit key.
+![Searching Drives for file encryption](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Drive.PNG)
+*Figure 5: Searching drives for file encryption*
+The custom AES algorithm using 256-bit encryption.
+![CustomAES](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/CustomAES.PNG)
+*Figure 6: Custom AES algorithm*
+It also uses custom RC4 encryption that has a 2048-bit variable-length key, whereas actual RC4 encryption uses a 256-bit variable-length key.
+![CustomRC4](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/CustomRC4.PNG)
+*Figure 7: Custom RC4 algorithm*
+It downloads the ransom note image from the cdn.discordapp.com link to show on the victim’s machine upon successful encryption.
+![hta file](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/hta%20file.PNG)
+*Figure 8: Downloading* READ\_ME.hta *file*
+The ransom note contains an email ID *[[email protected]](/cdn-cgi/l/email-protection)[.]com* to communicate with the attacker for further information on payment and decryption key/software.
+There is no C&C used by this ransomware variant.
+![ransomware note](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Readme.PNG)
+*Figure 9: Epsilon ransomware note with email ID to contact attacker*
+The ransomware deletes the shadow copies as well as the catalog to prevent victim from recovering the original files which are now encrypted.
+![Deleting Shadow copy and catalog](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Shadow%20Copy.PNG)
+*Figure 10: Deleting shadow copy and catalog*
+### **Redline stealer**
+***(MD5: 67A29EF483B6A9485269D5B15A900119)***
+The next file we saw during our analysis is a Redline stealer.
+This stealer has been available on Russian underground forums since the first quarter of 2020 and is fairly new.
+It’s available as a standalone application and on a subscription basis with prices ranging from $100 to $300, depending upon the version and capabilities.
+We have seen multiple samples of the Redline stealer blocked in the Zscaler cloud sandbox and below is our analysis of a recent sample written in .NET.
+**Redline Stealer Functionalities**
+* Collects login and passwords, cookies, autocomplete fields, credit cards
+* Data collection from FTP clients, IM clients
+* Customizable file-grabber based on path, extension
+* Customizable to not work in a blacklisted country
+* Collects information from the victim's machine: IP, country, city, current username, HWID, hardware information (video cards, processors), screenshot, screen resolution, keyboard layout, operating system, UAC settings, administrative privileges, user-agent, installed antiviruses
+* Downloads file from the URL to a specified location on the victim's machine
+* Process injection
+* Download and execute the file
+* Supports all browsers based on Chromium
+* Supports all Gecko-based browsers
+Execution starts with dropping a copy of itself into the AppData/Roaming folder.
+Unpacked binary shows the author making use of several popular gaming application names for internal functions.
+![Parent file disguised as Gaming File](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Desguise%20as%20game.PNG)
+*Figure 11: Redline stealer .NET function names using popular gaming applications.*
+The stealer is capable of collecting data form several FTP and IM clients installed on the victim's machine as seen below:
+![igure xx: Data collection from FTP clients, IM clients](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/NordVPN%20grabing.PNG)
+*Figure 12: Data collection from FTP clients, IM clients*
+Figure 13 shows a module that is responsible for collecting information from browsers, such as stored cookies and credit card information.
+![Stealing Credit card info](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Credit%20card%20detail.PNG)
+*Figure 13: Stealing credit card info*
+In addition to the functions to grab data from browser, FTP, and IM clients, the malware also steals victim's cryptocurrency wallet and collects victim's geolocation, hardware information, and Client IP address.
+**SOAP over HTTP for C&C**
+Redline stealer uses SOAP over HTTP for C&C communication.
+The malware is developed in .NET framework where the use of SOAP becomes very easy and also provides the additional advantage of being independent of an underlying protocol.
+![Figure xx: Getting Config setting from CnC](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Pcap.PNG)
+*Figure 14: Getting config setting from C&C*
+All the data being collected according to configuration settings is sent back to the C&C server.
+![Sending stolen client info](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Sending%20stolen%20info%20to%20server.PNG)
+*Figure 15: Sending stolen client info*
+After sending the collected data to the C&C server, the stealer is tasked with downloading and executing additional payloads based on the victim's machine information.
+![Gets a Task from CnC server.](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Sending%20request%20to%20server%20to%20get%20a%20task.PNG)
+*Figure 16: Receiving a task from the C&C server*
+The remote task action module is used to download and execute the files as instructed by the C&C server.
+![Remote Task Action](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/remote-task%20action.PNG)
+*Figure 17: Remote task action*
+### **XMRig miner**
+***(**MD5:41F5CF39159295CFECE4D6B37BEB2D6D)***
+The next malware we have been seeing in this ongoing campaign is XMRig miner.
+The miner’s execution starts by dropping a copy of itself at
+*%ProgramData%\RealtekHDUpdater\realtekdrv.exe*.
+The malware also changes the file permissions using the following command:
+* *%ProgramData%*\RealtekHDUpdater" & ATTRIB +h +s +r
+* *%ProgramData%*\RealtekHDUpdater\cuda-helper.dll"& ATTRIB +h +s +r
+* *%ProgramData%*\RealtekHDUpdater\nvrtc-builtins64\_100.dll"& ATTRIB +h +s +r
+This is done to use the miner capabilities without user permissions.
+The malware connects to C&C server using the following command:
+* Cmd open *(class="de1">)(.*)(</div></li>).https://pastebin(.)com/VKRXfjxX*, which yields *shgsqfdzin.000webhostapp.com*.
+Notice the usage of PasteBin URL to store the C&C server location.
+The malware then creates a scheduled task:
+* /CREATE/SC MINUTE /MO 1/TN "Realtek Updater"
+The miner also tries to delete some programs that can be used to detect the miner or impact its efficiency, such as games.
+The following is the list of programs the miner tries to delete:
+Process Hacker, Task Manager, Windows, Windows Task Manager, AnVir Task Manager, Taskmgr.exe, taskmgr.exe, procexp64.exe, procexp32.exe, perfmon.exe, procmon.exe, csgo.exe, dota2.exe, RainbowSix\_Vulkan.exe, RainbowSix.exe, FortniteClient-Win64-Shipping.exe, EscapeFromTarkov.exe, Rust.exe, VALORANT.exe, Overwatch.exe, gta\_sa.exe, GTA5.exe, Radeon, NVIDIA GeForce
+After this, the miner is launched using the following Monero address:
+*4BrL51JCc9NGQ71kWhnYoDRffsDZy7m1HUU7MRU4nUMXAHNFBEJhkTZV9HdaL4gfuNBxLPc3BeMkLGaPbF5vWtANQswVtyKcWBsLoeY6A2*
+### **Discord token grabbers**
+***(MD5:5dd2400c3b6e3178eedde22c2427fda9)***
+Cloud apps have become a mainstay for gamers just as they have for business and individual users.
+Cloud apps are great for interactivity, but they can also be leveraged for malicious attacks.
+The Discord token grabber is a broad term used to describe attacks that use Discord tokens to steal user information.
+In this case, the stealer uses Discord app to steal data from the user and send it to a predetermined C&C server.
+Below is the screenshot of token grabber code extracted from a recent payload:
+![Stealer code](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Stealer%20code.png)
+*Figure 18: Stealer code*
+Here, the program collects user information, for example, *Environment.UserName*, and sends it over using a webhook defined in the *dcWebHook.WebHook* variable.
+![Json when the URI is visited](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Json%20when%20the%20URI%20is%20visited.png)
+*Figure 19: JSON response when the URI is visited*
+### **TroubleGrabber**
+***(******MD5: 2c178066d48d69dd56923343d338a376)***
+This is a known stealer that uses Discord tokens to steal and send user data to its C&C.
+This stealer both spreads and communicates through Discord app, using Discord URLs for attachments like *cdn[.]discordapp[.]com/attachments/[0-9]{18}/[0-9]{18}/Nameofattachment.rar*.
+The name of the attachment can vary from being the name of a software application used by most users or cracked versions of games or tools, such as Discord Server Tool.exe, Galaxy Security Panel.exe, Vron Software.exe, CrackHub 2021.exe, or Vape V4 Cracked.exe.
+TroubleGrabber fetches payloads from https://github[.]com/Itroublve/Token-Browser-Password-Stealer-Creator to begin its next stage after being executed in the victim's machine.
+These files are as follows:
+*https://cdn[.]discordappp[.]com/attachments/797230131218874430/797241057136869446/sendhookfile[.]exe*
+*https://raw.githubusercontent.com/Itroublve/Token-Browser-Password-Stealer-Creator/master/AVOID%20ME/tokenstealer2[.]vbs*
+*https://cdn[.]discordapp[.]com/attachments/797230131218874430/797241059254992916/Token\_Stealer[.]bat*
+*https://github[.]com/Itroublve/Token-Browser-Password-Stealer-Creator/raw/master/AVOID%20ME/WebBrowserPassView[.]exe*
+*https://github[.]com/Itroublve/Token-Browser-Password-Stealer-Creator/raw/master/AVOID%20ME/curl[.]exe*
+### **Coverage**
+The malware payloads observed in these campaigns were successfully blocked by the Zscaler Cloud Sandbox.
+![Zscaler Cloud Sandbox report of Epsilon Ransomware](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Epsilon%20sandbox%20report.PNG)
+*Figure 20: Zscaler Cloud Sandbox report of Epsilon ransomware*
+![Zscaler Cloud Sandbox report of Redline Stealer](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Redline%20sandbox%20report.PNG)
+*Figure 21: Zscaler Cloud Sandbox report of Redline stealer*
+![Zscaler Cloud Sandbox report of XMRig miner](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/cdndiscord/Sandbox%20report%20of%20XMRig%20miner.png)
+*Figure 22: Zscaler Cloud Sandbox report of XMRig miner*
+**Detections:**
+[Win32.Ransom.Epsilon](https://threatlibrary.zscaler.com/?keyword=Win32.Ransom.Epsilon)
+[Win32.PWS.Redline](https://threatlibrary.zscaler.com/?keyword=Win32.PWS.Redline)
+[Win32.Coinminer.Xmrig](https://threatlibrary.zscaler.com/?keyword=Win32.Coinminer.Xmrig)
+[Win32.PWS.TroubleGrabber](https://threatlibrary.zscaler.com/?keyword=Win32.PWS.TroubleGrabber)
+### **Conclusion**
+Discord is primarily a chatting platform built for gamers and is becoming increasingly popular among other professional communities for sharing information.
+We’re observing an increase in the usage of the Discord app to deliver malicious files by attackers.
+Due to the static content distribution service, it is highly popular among threat actors to host malicious attachments that remain publicly accessible even after removing actual files from Discord.
+The Zscaler ThreatLabZ team will continue to monitor Discord-based malware campaigns to share the information with the community and to keep our customers safe.
+**MITRE ATT&CK:**
+| **ID** | **Tactic** | **Technique** |
+| T1078 | Valid Accounts | It uses valid account to access email  |
+| T1107 | File Deletion | Self delete |
+| T1204 | User Execution | User interaction |
+| T1268 | Conduct social engineering | Uses social eng to install payload |
+| T1489 | Service Stop | Stop critical services |
+| T1528 | Steal Application Access Token | Steal access token for valid account |
+| T1490 | Inhibit System Recovery  | Delete shadow copies on a system |
+| T1222 | File Directory Permissions Modification | Change directory permission to hide its file  |
+| T1555 | Credentials from password store | Steal stored password |
+| T1056 | Keylogging | Keylog of infected machine  |
+| T1055 | Process Injection | Inject code into other process |
+**Indicators of Compromise**
+| MD5 | Malware Name | Malicious URLs / C&C |
+| f509bd9e1fbd7721c95d0d19ba317b03 | Epsilon Ransomware | https://cdn.discordapp[.]com/attachments/599226424695455755/800470210456846366/TaskHostHelper.exe |
+| 77d69cda0eebcd83f3a5e48d5f46a0d6 | Epsilon Ransomware | https://cdn.discordapp[.]com/attachments/599226424695455755/800087465523675176/65QEF.bmp |
+| 384c8470e59de327922bc5b8bc70c5f7 | Epsilon Ransomware | https://cdn.discordapp[.]com/attachments/599226424695455755/798932401216552974/READ\_ME.hta |
+| efd0d1bd1e2bd38644a856707e0736ee | Redline Stealer | hxxps://cdn.discordapp[.]com/attachments/789938122951098380/791391319288184832/Outwith.exe |
+| 67a29ef483b6a9485269d5b15a900119 | Redline Stealer | https://cdn.discordapp[.]com/attachments/791427246031241270/797113668583948288/UpdaterMicrosoft.exe |
+| 4f5a53d149b343503c090601552468b1 | XMRig Miner | hxxp://cdn.discordapp[.]com/attachments/789938122951098380/791391327693832202/frost-miner-pro-v1.2.exe |
+| add4a9d06d21a044336462ff9871739f | XMRig Miner | hxxp://cdn.discordapp[.]com/attachments/553272395977195520/792811479073292298/crypted.exe |
+| 55c481a5eb77786ea4a12f8509301272 | XMRig Miner | hxxps://cdn.discordapp[.]com/attachments/553272395977195520/792811479073292298/crypted.exe |
+| b6d5b390d8248e95810e7af2e92faf5b | XMRig Miner | hxxps://cdn.discordapp[.]com/attachments/553272395977195520/797581786623901706/Summerset.exe |
+| 2c178066d48d69dd56923343d338a376 | Trouble Grabber | https://cdn.discordapp[.]com/attachments/799044673527611392/799045065116221490/Token\_Stealer.bat |
+| 5dd2400c3b6e3178eedde22c2427fda9 | Discord Token Grabbers | http://207.32.216[.]211/peepee.exe |

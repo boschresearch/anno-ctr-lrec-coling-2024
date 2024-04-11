@@ -1,0 +1,68 @@
+New Vulnerabilities Bypass Multi-Factor Authentication for Microsoft 365
+September 15, 2020
+Proofpoint researchers recently discovered critical vulnerabilities in multi-factor authentication (MFA) implementation in cloud environments where [WS-Trust](https://en.wikipedia.org/wiki/WS-Trust) is enabled.
+These vulnerabilities could allow attackers to bypass MFA and access cloud applications that use the protocol, notably Microsoft 365.
+Due to the way Microsoft 365 session login is designed, an attacker could gain full access to the target’s account (including mail, files, contacts, data and more).
+Furthermore, these vulnerabilities could also be used to gain access to various other Microsoft-provided cloud services, including production and development environments such as Azure and Visual Studio.
+The vulnerabilities were announced by Proofpoint and demonstrated at our virtual user conference, [Proofpoint Protect](https://www.proofpoint.com/us/events/protect).
+Most likely, these vulnerabilities have existed for years.
+We have tested several Identity Provider (IDP) solutions, identified those that were susceptible and resolved the security issues.
+The vulnerabilities were a result of the “[inherently insecure protocol](https://docs.microsoft.com/en-us/power-platform/important-changes-coming#deprecation-of-office365-authentication-type-and-organizationserviceproxy-class-for-connecting-to-common-data-service)” (WS-Trust) as described by Microsoft combined with various bugs in its implementation by the IDPs. In some cases, an attacker could spoof his IP address to bypass MFA via a simple request header manipulation.
+In another case, altering the user-agent header caused the IDP to misidentify the protocol and believe it to be using Modern Authentication.
+In all cases, Microsoft logs the connection as “Modern Authentication” due to the exploit pivoting from legacy protocol to the modern one.
+Unaware of the situation and the risks involved, the administrators and security professionals monitoring the tenant would see the connection as made via Modern Authentication.
+Vulnerabilities require research, but once discovered, they can be exploited in an automated fashion.
+They are hard to detect and may not even appear on event logs, leaving no trace or hint of their activity.
+Since MFA as a preventative measure can be bypassed, it becomes necessary to layer additional security measures in the form of account compromise detection and remediation.
+**MFA Adoption Accelerates During the Pandemic**
+Multi-factor authentication (MFA) is quickly becoming a must-have security layer for cloud applications.
+During the global pandemic, the demand for cloud-based applications such as messaging and collaboration platforms surged as organizations [shifted to work from home](https://www.proofpoint.com/us/resources/podcasts/expert-insights-how-cyber-criminals-manipulate-the-shock-state-of-remote-workers).
+Employees started accessing corporate applications from personal and unmanaged devices.
+And they started spending more time on their corporate devices at home, reading potentially malicious personal emails, or browsing risky websites.
+COVID-19-themed attacks successfully took advantage of people’s concerns to compromise their credentials, increasing the security risk of unauthorized access to corporate cloud applications.
+MFA can help reduce your organization’s attack surface by adding another layer of account security.
+It supplements the username and password model with another factor that only the user possesses such as their mobile phone.
+Yet, as the new vulnerabilities show, MFA does not provide enough security on its own.
+**How Attackers Bypass MFA**
+Some commonly known MFA-bypass methods are real-time phishing, channel hijacking and the use of legacy protocols.
+*Real-time phishing*
+Unlike regular phishing, real-time phishing involves stealing the user’s extra factor.
+In some cases, the attacker may create a “proxy” between the target website and the victim.
+The “proxy” looks similar to the original website.
+Using this imposter website, the attacker manipulates the victim to hand over the authentication code along with his credentials.
+Such attacks can be automated using tools like Modlishka.
+However, the attackers must update their tools frequently in order to avoid detections from large vendors and need more complex infrastructure.
+Another real-time phishing method attackers use is “challenge reflection,” where the users are prompted to fill MFA credentials at a phishing site, and they are distributed to the attackers in real-time.
+While this method does not require a man-in-the-middle, it usually involves a real person facilitating the entire process of account compromise for each targeted account.
+*Channel hijacking*
+Channel hijacking attacks the victim’s phone or computer, usually with malware.
+PC malware can use man-in-the-browser or web injects to get information.
+Some malware steals the MFA from the phone.
+In some cases, attackers even steal text messages via the cell tower directly or via a rouge cell tower, taking over the victim phone number or hacking to their voice answering machine.
+*Legacy protocols*
+A cheaper and more scalable method of bypassing MFA leverages legacy protocols for attacks on cloud accounts.
+Many organizations continue to allow legacy protocols to be able to support legacy devices or applications such as copy machines or shared accounts such as conference rooms.
+Legacy email protocols like POP and IMAP do not support MFA with non-interactive applications so they cannot enforce it.
+This bypass method is easily automated and applied to credential dumps from the web or credentials obtained from phishing.
+Even though organizations started to block legacy protocols or allow them only for some specific users, the problem persists.
+Proofpoint cloud threats research showed that in the first half of 2020, 97% of organizations came under brute force attacks and 30% of them had at least one compromised cloud account.
+When we studied email-based cloud attacks (credential phishing, malware, etc.
+we found that 73% of all monitored tenants are targeted and 57% are compromised.
+When it comes to cloud security, MFA is not a silver bullet.
+As more organizations adopt the technology, more vulnerabilities will be discovered and abused by attackers.
+However, MFA can improve overall security posture, especially when combined with people-centric threat visibility and adaptive access controls.
+**Combine MFA and Threat Visibility to Secure Cloud Applications**
+As a first layer of SaaS and IaaS protection, [Proofpoint CASB](https://www.proofpoint.com/us/products/cloud-security/cloud-app-security-broker) provides adaptive access controls to help you prevent account take-over.
+These real-time security measures are based on risk, context, role and Proofpoint’s [Very Attacked People](https://www.proofpoint.com/us/corporate-blog/post/how-proofpoint-attack-index-reveals-your-most-targeted-users) profiling.
+Here’s what we empower you to do:
+* Automatically block access from risky locations and networks and by known threat actors.
+* Apply people-centric policies to high-risk and high-privilege users.
+* Enforce more granular controls: MFA, access via browser isolation, log in via VPN, etc.
+Unlike static security and compliance controls that apply to every user in the same way, CASB-enabled access controls are adaptive.
+They allow you to apply just the right amount of security and compliance controls without unduly burdening lower-risk users.
+Given the risk of MFA bypass, CASB provides people-centric threat visibility as a second layer of protection.
+Proofpoint combines cross-channel (cloud, email and more) threat intelligence with user-specific contextual data from application logs to analyze user behavior and detect anomalies across cloud apps and tenants.
+Through machine learning and rich threat intelligence, we help you detect, investigate and automatically remediate cloud account takeover.
+**Learn More:**
+Learn more about Proofpoint’s solution by downloading our whitepaper, [Getting Started with CASB](https://www.proofpoint.com/us/resources/white-papers/getting-started-with-casb).
+To view the session on Bypassing MFA for Cloud Applications and the demo of the vulnerabilities, register for Proofpoint Protect [here](https://www.proofpoint.com/us/events/protect).

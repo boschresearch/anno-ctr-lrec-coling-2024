@@ -1,0 +1,159 @@
+njRAT pushes Lime ransomware and Bitcoin wallet stealer
+March 30, 2018
+*Updated - April 1, 2018*
+*Updated - April 3, 2018 (added IOCs)*
+njRAT, also known as Bladabindi, is a remote access Trojan (RAT) that was first seen in 2013 and continues to be one of the most prevalent malware family.
+It was developed using the Microsoft .NET framework and, like many other RATs, provides complete control of the infected system and delivers an array of features to the remote attacker.
+There are multiple .NET obfuscation tools that make detection difficult for antivirus solutions and that hinder analysis by security researchers.
+njRAT utilizes dynamic DNS for command-and-control (C2) servers and communicates using a custom TCP protocol over a configurable port.
+We covered njRAT builder kit in our [previous blog](/blogs/research/njrat-h-worm-variant-infections-continue-rise) published in 2015.
+In this blog, we will cover one of the newer variant of njRAT dubbed njRAT Lime Edition that we are seeing in the wild.
+This variant includes support for:
+* Ransomware infection
+* Bitcoin grabber
+* Keylogger
+* USB spreader
+* Password stealer
+* Bot killer
+* Screen Locker
+* DDoS (ARME,Slowloris)
+Below is a snapshot of the njRAT Lime Edition configuration file:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/images/configuration.PNG)
+Some highlights from the configuration files:
+* Configured to drop into Temp folder of the infected system with filename Client.exe
+* Bot Version: 0.7.3
+* C&C server: online2018.duckdns[.]org
+* Port Number: 1700
+Upon receiving *searchwallet* command, the malware tries to gather the running process in the victim's machine and uses it to track crypto wallets when merchants buy or sell Bitcoins or make other payments.
+These digital wallets securely store digital currency, and they can be connected to bank accounts, debit cards, or credit cards, so that digital currency can be exchanged into and out of one's local currency.
+* Bitcoin core aka bitcoin-qt
+* Bitcoin.com
+* Electrum
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/images/bitcoin_wallet.PNG)
+The malware leverages windows WMI queries, such as "SELECT * FROM AntivirusProduct" and "SELECT * FROM Win32\_VideoController," to check for VM or sandbox environment.
+It is capable of sending system information such as:
+* System Name
+* UserName
+* Windows Version
+* Bits(64 or 32 bit)
+* WebCam(Yes/No)
+* Active Window
+* CPU
+* Video Card
+* Memory
+* Volume Information
+* Installed Antivirus
+* Infection time
+Malware monitors for the following process names on the victim machine and if found in running state, malware will try to kill the process:
+* Process Hacker
+* Process Explorer
+* SbieCtrl
+* SpyTheSpy
+* SpeedGear
+* Wireshark
+* Mbam
+* apateDNS
+* IPBlocker
+* Cports
+* KeyScrambler
+* TiGeR-Firewall
+* Tcpview
+* Xn5x
+* smsniff
+* exeinfoPE
+* Regshot
+* RogueKiller
+* NetSnifferCs
+* taskmgr
+* VGAuthService
+* VBoxService
+* Reflector
+* Capsa
+* NetworkMiner
+* AdvancedProcessController
+* ProcessLassoLauncher
+* ProcessLasso
+* SystemExplorer
+* ApateDNS
+* Malwarebytes Anti-Malware
+* TCPEye
+* SmartSniff
+* Active Ports
+* ProcessEye
+* MKN TaskExplorer
+* Currports
+* System Explorer
+* DiamondCS Port Explorer
+* Virustotal
+* Metascan Online
+* Speed Gear
+* The Wireshark Network Analyzer
+* Sandboxie Control
+* .NetReflector
+This njRAT variant also has the capability of performing ARME and Slowloris DDoS attacks.
+Slowloris is an attack tool designed to allow a single machine to take down a server with minimal bandwidth, and also to send multiple partial HTTP requests.
+Slowloris tries to keep many connections to the target web server open and hold them open as long as possible.
+ARME attack also tries to exhaust the server memory.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/images/slow_loris.PNG)
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/images/SL_2.PNG)
+The malware shuts down and restarts the system with the following command:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/images/shut_down.PNG)
+**Switches:**
+-r -> restart the computer that's currently being used
+-t -> time, in seconds
+-f -> forces running programs to close without warning
+We have seen the following C&C commands in the malware:
+C&C Commands| delchrm | Delete chrome cookies and saved logins |
+| MonitorOFF | Turn off monitor |
+| TextToSpeech | Announces text received from C&C using TextToSpeech |
+| NormalMouse | Restores normal mouse button functionality |
+| taskmgrON | Enable task manager |
+| ChngWLL | Change wallpaper |
+| Kl | Keylogger command that checks foreground window and keys pressed |
+| Seed | Sharing, downloading files with torrent software such as BitTorrent and uTorrent |
+| ddos.slowloris.start | Start Slowloris attack |
+| RwareSU | Drop and show ransom note |
+| restartme | Restart the computer |
+| DisableCMD | Disable command prompt |
+| EventLogs | Delete event logs |
+| BitcoinOFF | Stop Bitcoin monitor thread |
+| Botk | Start the botkiller thread |
+| pcspecs | Send system information (CPU/GPU/RAM) |
+| Searchwallet | Check installed bitcoin wallets in the system and send to C&C server |
+| PLG | Load plugin and configure with C&C server |
+The malware also has a WORM functionality to spread through USB that enumerates the files and folders on the hard drive.
+Once it detects the USB drive inserted into the system, it copies itself to the USB drive and creates a shortcut using the folder icon.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/images/USB.PNG)
+**Ransomware functionality**
+The ransomware encrypts files with the extension **.lime** using the AES-256 symmetric algorithm, which means the key is the same for encryption and decryption.
+**Ransomware Key generation**
+When Lime is first launched, it will call a RandomString() function, which will attempt to generate an AES key.
+It generates a 50-byte array from the input string using a random index, and uses the random() function to fetch one character and stores it to the output string.
+Lime drops the output string at %AppData%**\\Microsoft\\MMC\\hash** location.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/images/ransomware.PNG)
+Upon receiving command, the malware will try to encrypt files in following folders:
+* Environment.SpecialFolder.LocalApplicationData
+* Environment.SpecialFolder.ApplicationData
+* Environment.SpecialFolder.ProgramFiles
+* Environment.SpecialFolder.Desktop
+* Environment.SpecialFolder.Favorites
+* Environment.SpecialFolder.Personal
+* Environment.SpecialFolder.MyMusic
+* Environment.SpecialFolder.MyPictures
+* Environment.SpecialFolder.Recent
+The malware also contains function to decrypt all files that are encrypted by Lime ransomware as seen below:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/images/ransomware2.PNG)
+Zscaler ThreatLabZ is actively tracking njRAT variant activities and ensuring Zscaler customers are protected.
+**Indicators of Compromise**
+MD5
+dee4b5a99bcd721c3a88ae3180e81cc1
+35bd9b51781dfb64fd5396790265ab10
+c7dc42db2f7e5e4727c6f61f9eed0758
+01b791955f1634d8980e9f6b90f2d4c0
+C&C
+online2018.duckdns.org
+oficinabogota.duckdns.org
+**Zscaler Detection Names**
+Win32\_Backdoor\_NjRATLime\_117974
+Win32\_Backdoor\_NjRATLime\_117975
+Njrat\_2227 (generic)

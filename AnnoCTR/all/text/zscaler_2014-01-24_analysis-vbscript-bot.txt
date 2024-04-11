@@ -1,0 +1,69 @@
+Analysis Of A VBScript Bot
+January 24, 2014
+**Introduction:** 
+In the long list of complex threats that we see daily, it is interesting to see malware that is rather simple but effective in terms of the payload that it carries.
+At Zscaler ThreatLabZ, we recently came across one such innocent looking Bot, which targeted our customers.
+The file arrived as an attachment to a spam email message.
+The malware was written in VBScript.
+**Analysis:**   
+Virustotal scan results show 14 out of 50 vendors detecting the malware.
+|  |
+| Figure 1: Virus-total Result |
+The image below shows the malware opened in notepad.
+We can see that the file is obfuscated.
+That’s because the file has a “.vbe” extension (a “.vbe” is an encoded VBscript file), which would otherwise have a “.vbs” extension.
+The encoding support is provided to prevent people from reading the script.
+|  |
+| Figure 2: Obfuscated VBScript |
+To be persistent, the malware copies itself into the startup folder in Windows (Figure 3)  
+|  |
+| Figure 3: Copy of Malware in the startup folder |
+Registry entry created by the malware to run itself at the system startup.(Figure 4)  
+|  |
+| Figure 4: Windows Registry (run entry) |
+It also adds a copy of itself to the Windows temporary folder (Figure 5).
+|  |
+| Figure 5: Copy of Malware in temp folder |
+Next, the malware attempts to establish a connection to it's server (here wscript.exe is the Script Engine which executes VBScript).
+|  |
+| Figure 6: Network communication |
+To extract more information we need to decode the file and obtain the original malware code in a readable form.
+Let's have a look at the decoded file.
+|  |
+| Figure 7: Malware install code |
+The image above shows the code that is responsible for adding entry in the registry which allows the malware to execute every time the system starts , Also create it's own copy in the startup, temporary folder.
+Another interesting part of this malware is it's ability to communicate over the network.
+The malware can actually receive a set of commands and execute them in an infected machine
+At the time of analysis, the server to which the malware communicates seems to be down.
+Therefore, in order to fully understand how the malware communicates and also to demonstrate how effective and damaging this Bot is, I have decided to create an HTTP server and issue commands to the bot directly.
+We can see from the code below, the wide range of commands that can be executed by this Bot.
+The commands are simple and self explanatory.
+|  |
+| Figure 8: Remote Commands |
+Let's see the effects of a few of these commands in detail.
+The “execute” command is capable of executing additional VBScript statements in the infected machine.
+The “update” command is issued to update the Bot , while “uninstall” removes the Bot entry from the Windows registry and startup folder.
+There are also commands such as “send”, ”recv” and “site-send”.
+Interesting commands include “enum-driver”, “enum-faf”, “enum-process”, “cmd-shell”, “delete”, “exitprocess”.
+Let us execute our server and wait for the Bot to connect to us and send information so we can then issue commands.
+|  |
+| Figure 9: Malware callback |
+As seen in the image above, a “POST” request is made with it's path as “/is-ready”, indicatingthat the Bot is up and ready.
+We can also observe information about the infected machine such as “volumeserialnumber”, “computername”, “username”,“operating system type”, installed“anti-virus name” etc.
+To retrieve such information, the malware relies on Windows Management Instrumentation (WMI) queries.
+Let us issue the command “enum-driver”.
+This command fetches the drive name and drive type of the infected machine as seen in the image below.
+|  |
+| Figure 10: enum-drive |
+The next command “enum-faf” enumerates and fetches the content of an input directory or drive of the infected machine.
+|  |
+| Figure 11: enum files  |
+The “enum-process” command fetches a list of processes that are running on the infected system.
+|  |
+| Figure 12: enum-process |
+The “cmd-shell” command will allow the attacker to execute all DOS commands on the infectedsystem.
+|  |
+| Figure 13: Execute Dos Command |
+Those are just a few of the powerful commands that the malware can execute in the infected system.
+This gives the malware near limitless power to control and steal data from the infected machine.
+The Bot and all it's communication are blocked by Zscaler.

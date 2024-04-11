@@ -1,0 +1,95 @@
+Adult themed Android SMS Stealer Trojan
+March 17, 2016
+During our continued efforts to protect our customers against the latest mobile threats, we came across another malicious app that used pornography to attract users.
+[Noting that 1 in 5 mobile searches are related to porn](http://www.covenanteyes.com/pornstats/), it’s no surprise that hackers continue to create fake porn apps to disguise malware.
+Our researchers analyzed another [similar adult themed malware](/blogs/research/pornography-favorite-costume-android-malware) in November last year.
+**App Name:**岛国速播
+**URL:**hxxp://bhltzgs[.]com:81/sebo363[.]apk
+**MD5:**f71f8db8994699299b0bcda31d951c41
+**Package Name:**ugo.jkh.efp
+**VirusTotal Detection: [15/55](https://www.virustotal.com/#/file/f053f24f5a0913e82f71076458169f328ab6ad39494336a40137dead09aa0d2e/analysis/)**
+### **Overview:**
+The application in question is presented as a porn player.
+When the user clicks on the application icon, he or she will be presented with thumbnails to many porn videos.
+When the user tries to play one of these videos, the application will download 3 files in the background and a shortcut will be placed on the main page of the device.
+The application also requests on-demand videos via SMS - costing the user money without them knowing.
+The 3 dropped files are also depicted as porn players.
+When the user clicks on videos shown in these applications, they again drop more files to the device - resulting in a never-ending process.
+Some of these dropped files have icons that look similar to the Internet Explorer and Angry Birds applications for the sole purpose of scamming the user.
+However, these dropped applications are actually SMS stealers or fake installers.
+### Details:
+When you try to install the application, it asks for the following permissions:
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/-nvI7W-eRINQ/VuZa-W3qLvI/AAAAAAAAAY8/0bgbNV672tslXvwYqE5b7q2eM2-G1DabA/s640/permissions1.png)](/sites/default/files/images/blogs/-nvI7W-eRINQ/VuZa-W3qLvI/AAAAAAAAAY8/0bgbNV672tslXvwYqE5b7q2eM2-G1DabA/s640/permissions1.png) 
+|  |
+| Permissions |
+Upon launching the application, you will be able to see a list of obscene videos.
+When you click on any of those videos, instead of playing them the malware drops 3 additional porn applications on the device.
+|  |
+| Different Levels |
+### **Technical Analysis:**
+When the user tries to play a video from the application, a JAR file is downloaded from the link hxxp://link[.]kssgx[.]com/cj[.]jar.
+This URL is stored in the application in the following fashion:
+|  |
+| cj.jar URL formation |
+Subsequently it fetches another URL from the downloaded cj.jar, which is then used to drop multiple malicious apps to the user's device.
+The link for downloading the dropper files are stored in an xml file, the link to which is present in cj.jar
+|  |
+| URL for XML file |
+This xml file contains the URL for downloading the dropper files.
+|  |
+| XML file contents |
+All the downloaded files have been flagged malicious by multiple AV vendors.
+Here are links to 3 malicious APK files dropped on the device by the main application:
+* hxxp://sfgg[.]gpdzj[.]com/download/20160302/mmys1069[.]apk
+* hxxp://www0127[.]007wr[.]com/a[.]php?aid=1313 - Qvodplayer1001.apk
+* hxxp://csu[.]hsouying[.]com/IJjyMj - this gets redirected to hxxp://appcdn[.]hsouying[.]com/video/appstore1/destapk/1457085498605/avplay02039[.]apk
+These files also take the form of porn players, but are actually SMS stealers.
+When the user tries to launch one of these applications, it again results in dropping of more files into the device, which continues a never-ending chain.
+Two of the dropped applications have icons similar to Internet Explorer in order to scam the users into using the application.
+|  |
+| Downloaded Applications |
+This application downloads yet another file from the link hxxp://cdn2[.]upay360[.]cn/pack[.]dat.
+This is a jar file, which shows some really shady behavior.
+This jar file uses 3 broadcast receivers:
+* SMSReceiver
+* SendBroadcastReceiver
+* DeliverBroadcastReceiver
+The application uses the concept of pending intents, which allows another application to use your application's permissions to execute a predefined piece of code.
+SMSReceiver is triggered whenever an SMS is received.
+Its functionality is to fetch the details of each new SMS.
+It checks whether the SMS has been sent from China and if so, will abort the notification so that the user has no knowledge of the new SMS.
+|  |
+| SMS Receiver |
+The application also scams the user with premium on-demand videos, which are requested via SMS without the knowledge of users.
+This application leverages the commonly known *1npay* to scam the victims.
+The application sends out a POST request, in which the method of payment is specified via SMS.
+|  |
+| POST request for SMS |
+SendBroadcastReceiver listens to the order SMS being sent to the number 106566660020, which is hardcoded in the application.
+On sending the order message, the user will receive a verify code via SMS.
+SMSReceiver aborts the broadcast of this message so no notifications are shown for the delivery of the new message to the end user.
+DeliverBroadcastReceiver retrieves the verify code from the message and sends it in order to verify the order.
+This whole process causes the user to lose money.
+The application also sends device related information.
+Below is the POST request sent by the application that was captured during our analysis:
+|  |
+| Device Details in post request |
+### **Removal:**
+Since the malware does not ask for Administrator privileges, removing it is not a difficult task.
+The victim can traverse to *Settings*option in the Android device.
+* *Settings --> Apps*
+* Find the app in the list and click on it
+* Then, click on *Uninstall*option
+* Click *Ok*
+We urge users to not trust any unknown links received via messages or emails.
+Additionally, disable the option of "Unknown Sources" under *Settings*of your device.
+This will not allow installation of apps from unknown sources.
+### **Conclusion:**
+The application divides the overall functionality between the various dropped files.
+This can be a mechanism to evade detection by AVs.
+If one of the applications is detected by AV, the other applications can continue with their work.
+It is also interesting to note that each of these dropped applications try to target different sim operators in China.
+There has been an increasing tendency of malware in disguise of adult rated applications in order to attract victims.
+The best way to avoid such applications is to stick to official app stores like Google Play and the Amazon app store.
+---
+Research Blog by - Lakshmi Devi & Shivang Desai

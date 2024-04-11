@@ -1,0 +1,58 @@
+Bulletproof hosting: How cybercrime stays resilient
+Feb 23, 2021
+If we were to list all of the malicious acts carried out by cybercriminals who leverage bulletproof hosting (BPH), we’d have a report that would rival “Infinite Jest” or “War & Peace” for length.
+Bulletproof hosting has been hand-in-glove with cybercrime for decades, supplying criminals with the infrastructure they need to carry out their crimes.
+But by pinpointing the role BPH plays in cybercrime’s functionality, security practitioners can be armed with another set of indicators by which they can detect bad behavior before it impacts their organization’s operations or bottom line.
+Below are some popular malware families that actors host or leverage via BPH services.
+While much more goes into a cybercriminal’s full operation, it would be vastly more difficult to pull off without the ability to host malware and be free from impunity.
+Banking Trojans
+---------------
+One of the most common malware families on the internet, banking trojans have been around as long as bulletproof hosting.
+That’s not a coincidence; if criminals were ever going to succeed with their schemes, they would need a safe harbor to host their criminal wares.
+While both bulletproof hosting and banking trojans have evolved, they’ve been linked together for nearly 15 years.
+Some of the most popular banking trojans that take advantage of bulletproof hosting are:
+* **Silent Night/ZLoader:** One of the most ubiquitous banking trojans currently in existence, actors are using bulletproof hosting in conjunction with ZLoader.
+Intel 471 has observed a Russian-speaking actor leverage bulletproof hosting for a website that is linked in a Microsoft Excel spreadsheet sent to phishing targets.
+Once visited, the website drops ZLoader on a victim’s machine.
+This particular website is known to be among the IP addresses used by [Yalishanda](https://krebsonsecurity.com/tag/yalishanda/)’s fast-flux proxy service.
+Yalishanda is one of the most prolific BPH service providers in the world.
+* **DanaBot**: This banking trojan is the work of a fluent Russian-speaking actor that works with several other persons to offer a malware-as-a-service (MaaS) platform.
+In 2018, the author stated on an underground forum that he relied on bulletproof hoster IronHost for the trojan’s command-and-control infrastructure.
+IronHost, a now defunct brand that has operated under many different fronts, is thought to be linked to a long-standing BPH service based in Moldova that has changed names numerous times since 2008.
+It currently operates as Perfect Quality Hosting or PQ Hosting.
+Additionally, Intel 471 found DanaBot samples in 2019 that were hosted on infrastructure belonging to a different, well-known bulletproof hosting provider.
+* **GozNym:** Known as more of a hybrid, GozNym was two separate malicious programs modified and merged together: a malware downloader (Nymaim) and a banking trojan variant (Gozi ISFB).
+The crew behind GozNym were known to leverage a very popular fast-flux hosting botnet called Avalanche until the malicious hosting service was brought down by [law enforcement](https://www.wired.com/2016/12/took-4-years-take-avalanche-huge-online-crime-ring/) in late 2016.
+The GozNym cybercrime network itself would later be dismantled by international law enforcement [in late 2019](https://www.justice.gov/opa/pr/goznym-cyber-criminal-network-operating-out-europe-targeting-american-entities-dismantled).
+Information Stealers
+--------------------
+While, in a sense, all banking trojans are information stealers, not all information stealers are banking trojans.
+Cybercriminals have found ways to make money off information that isn’t directly tied to banking services, due partly to BPH infrastructure that allows it to proliferate.
+Some of the info stealers that have been powered by BPH are:
+* **AZORult:** A notorious information stealer, its main function to steal credentials from victim machines and download or execute additional payloads.
+In use since 2016, the malware’s author claimed in 2019 that there were over 100 customers using the malware.
+While it’s impossible to track all deployments of AZORult, one of the most prolific BPH hosters on the internet, CCWeb, has hosted web domains that have sent users the malware.
+CCWeb is currently the only bot-based, double-flux hosting botnet offered in the underground marketplace.
+* **VIDAR:** An information stealer which was advertised for sale on various forums in October 2018, its primary functionality is to steal form data and stored credentials from common software such as email clients, FTP clients and web browsers.
+Hosted by the developers, VIDAR has deviated from other BPH models, buying inexpensive virtual private servers (VPS) until those are shut down by abuse complaints.
+It is unclear whether the VPS hosted the real VIDAR control server code or served as a proxy.
+This was done after the malware’s author got into a dispute with Yalishanda, who hosted it for 18 months.
+* **Baldr:** An information stealer that had a short-but-popular run, the Russian-linked malware developer would offer discounts to those who bought his product and hosted it on BraZZZerS, a well-known BPH provider.
+By mid-2019, the developer had stopped issuing new versions, but told current customers they could continue to use the product at their own wishes.
+Ransomware
+----------
+Currently the most pervasive form of cybercrime, ransomware operations would not be possible without a helping hand from BPH providers.
+There are many ways bulletproof hosting helps criminals fine-tune their criminal enterprise.
+Here are some of the ways bad actors take advantage of BPH:
+* **DarkSide:** One of the newest ransomware gangs in the cybercriminal underground, the author relies on a ransomware-as-a-service (RaaS) model in order to make as much money as possible.
+One actor that has claimed to be the malware’s operator uses a custom PowerShell script that could exfiltrate data about a compromised system and run commands from a remote command and control (C2) server.
+The website used to drop that script is hosted in an IP range that has been used by two prominent BPH providers, MoreneHost and Yalishanda.
+* **NEMTY/NEFILIM:** Between March and April 2020, Intel 471 discovered that an affiliate of the NEMTY ransomware service was running a blog used to disclose victim data.
+That blog was run on BraZZZerS until the operators closed down the ransomware for good.
+In May, when the NEFILIM ransomware variant was used, a new blog was launched, albeit hosted by a different BPH service.
+* **Maze:** Much like NEMTY/NEFILIM, operators of Maze ran a blog that publicly announced victims.
+That blog was hosted on a backend netblock associated with the front company of Yalishanda.
+The blog stopped operating once the Maze gang moved onto an updated version, known as Egregor.
+This list is just scratching the surface when it comes to bulletproof hosting’s relationship with the cybercrime underground.
+BPH providers also can be tied to the following: carding shops, virtual credit card skimmers, phishing sites, DDoS attacks and spam campaigns, among others.
+But by gaining stronger familiarity with the most popular services used by cybercriminals, and monitoring for significant activity stemming from their infrastructure, security practitioners can better formulate a proactive plan to guard against these crimes and law enforcement can better hone attempts to permanently take the machines offline.

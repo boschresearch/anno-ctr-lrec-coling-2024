@@ -1,0 +1,37 @@
+Emotet Makes Timely Adoption of Political and Elections Lures
+October 01, 2020
+During the 76 days since Emotet’s [return](https://www.proofpoint.com/us/blog/security-briefs/emotet-returns-after-five-month-hiatus), researchers have observed activity reminiscent of [past Emotet campaigns](https://www.proofpoint.com/us/threat-insight/post/threat-actor-profile-ta542-banker-malware-distribution-service), like high message volumes and global distribution.
+Emotet uses a [variety of lure themes](https://www.proofpoint.com/us/blog/threat-insight/comprehensive-look-emotets-summer-2020-return), some of which occasionally leverage current events or news items, like COVID-19 or [Greta Thunberg](https://www.proofpoint.com/us/corporate-blog/post/emotet-leverages-coronavirus-and-greta-thunberg-again-while-coronavirus-threats).
+While TA542, the actor behind Emotet, has sent messages to local, state, and other government recipients, historically they have not directly leveraged political themes in their messaging.
+On October 1, 2020, we observed thousands of Emotet email messages with the subject “Team Blue Take Action” sent to hundreds of organizations in the US. The message body is taken directly from a [page](https://democrats.org/team-blue/) on the Democratic National Committee's website, with the addition of a line requesting that the recipient open the attached document.
+Attached is a malicious Word document, “Team Blue Take Action.
+The Word doc contains macros which, if enabled by the intended recipient, will download and install Emotet.
+The current second stage payload we’ve observed following Emotet is Qbot "partner01" and The Trick "morXXX" (e.g., "mor125").
+![Figure 1 Emotet email lure containing malicious attachment](/sites/default/files/inline-images/Team_Blue_Take_Action_-_Temporary_Items.png)
+*Figure 1: ”Team Blue Take Action” lure containing malicious Word doc attachment*
+Sample of additional related subjects observed includes: 
+* Valanters 2020
+* Detailed information
+* List of works
+* Volunteer
+* Information
+Sample of additional related filenames observed includes: 
+* Team Blue Take Action.doc
+* List of works.doc
+* Valanters 2020.doc
+* Detailed information.doc
+* Volunteer.doc
+The shift to using politically themed lures comes days after the [first of several](https://www.nytimes.com/article/presidential-debate-calendar.html) 2020 US Presidential debates.
+The debate received widespread media coverage, and as Election Day draws nearer, many voters are likely feeling compelled to volunteer for political causes or for the election in some way.
+However, it’s unlikely that this shift is driven by any specific political ideology.
+Like earlier use of COVID-19 or Greta Thunberg lure themes, TA542 is attempting to reach as many intended recipients as possible by capitalizing on a popular topic.
+"Team Blue Take Action.doc" document SHA256: 21cda873bff60530ae094d7906219b5c0cc5d98e808f8608962886683fc37504
+<!--/*--><![CDATA[/* ><!--*/
+<!--/*--><![CDATA[/* ><!--*/
+<!--/*--><![CDATA[/* ><!--*/
+.node-blog-full .blog-content img {
+border: 1px solid #000 !important;
+}
+/*--><!]]]]]]><![CDATA[><![CDATA[>*/
+/*--><!]]]]><![CDATA[>*/
+/*--><!]]>*/

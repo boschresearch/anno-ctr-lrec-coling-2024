@@ -1,0 +1,110 @@
+NetSupport RAT installed via fake update notices
+November 15, 2019
+Recently, the Zscaler ThreatLabZ team came across two campaigns designed to trick users into downloading a Remote Access Trojan (RAT) via a fake Flash Player update and a font update.
+These campaigns are designed to inject malicious redirector scripts into compromised content management system (CMS) sites.
+These sites use popular programs, such as WordPress, Joomla, Drupal, and others, and are being attacked as a result of vulnerabilities introduced by plugins, themes, and extensions, something we’ve [discussed previously on this blog](/blogs/research/abuse-hidden-well-known-directory-https-sites).
+The two malware campaigns we examine in this blog deliver a payload designed to steal sensitive information.
+The following figure depicts the hits on the various compromised sites.
+Overall, Zscaler has blocked nearly 40,000 of these attempts in the past three months.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/ZDF.PNG)](/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/ZDF.PNG)
+*Figure 1: The number of hits on the various types of compromised CMS sites: WordPress (green), Joomla (gold), Drupal (blue), and other CMS sites (orange)*
+### **Method 1: Fake Flash Player update campaign**
+In this attack, cybercriminals hacked WordPress sites using the *theme* plugin vulnerability and injected two malicious redirect scripts in the compromised site.
+By using either one of the scripts, the attackers will deploy malware at the user’s end.
+The injected script will redirect to the malware site and download the fake update template script to show a fake Flash Player update alert to the user over the compromised site.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Flash_update.PNG)
+*Figure 2: A compromised WordPress site with the fake Flash Player update page*
+The following figure shows the source code of the compromised website with the injected scripts.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Sourcepage.PNG)
+*Figure 3: The injected redirector scripts in a compromised CMS site*
+The first injected script will direct the user to *click.clickanalytics208[.]com* to download the fake update template.
+If it fails to meet the attacker's checkpoints, such as geolocation and network settings, then it will execute the next injected script.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/old.PNG)
+*Figure 4: The first injected malicious script redirects to the*click.clickanalytics208[.]com*site*
+The second injected script will redirect to the *chrom-update[.]online* site and will download the fake update template script from the malicious site.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/New_script.PNG)
+*Figure 5: The second injected malicious script redirects to the*chrom-update[.]online*site*
+The attacker will send the *template.js*file as a layer of the compromised site with a fake update page.
+The fake update page template will be displayed based on the particular variable’s value, also called a “banner.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/template_new.PNG)
+*Figure 6: The default template.js code [banner value = 1: browser update; 2: font; 3: Flash]*
+The fake template page will display an alert to try to trick the user into starting the update.
+Once the user clicks the "Update" button, the script downloads the malicious HTA file from the specified URL.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Update_link.PNG)
+*Figure 7: A fake Flash Player update page with the link to download malicious HTA file*
+If the user clicks the "Later" button, the redirect still occurs, taking the user to the same page to download the malicious HTA file.
+The following figure depicts the source code of the *template.js*with the link to download the malicious HTA file with the banner value 3.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Template_script.PNG)
+*Figure 8: The source code of the*template.js *script from the redirection URL (chrome-update[.]online)*
+Once the user runs the HTA file, it will also run the PowerShell application using the command prompt and download the RAT payload from the specified URL.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/hta.PNG)
+*Figure 9: The source code of the downloaded malicious HTA file*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/encrypted.PNG)
+*Figure 10: The obfuscated content responsible for the malware download*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/decrypt.PNG)
+*Figure 11: The deobfuscated code showing the download link*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/setup1.PNG)
+*Figure 12: Step 1 of the malware payload installation process*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/setup2.PNG)
+*Figure 13: Step 2 of the malware payload installation process*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Net_monitor_installed.PNG)
+*Figure 14: The NetSupport RAT malware running as a client-side application*
+Finally, the installed RAT malware will send the victim's information in an encrypted format to the attacker’s site (*hxxp://179.43.146[.]90/fakeurl.htm*) to enable remote access of the victim’s machine, as shown in Figure 15 below.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Flash_update_data.PNG)
+*Figure 15: The captured user data is transferred to the attacker’s site in an encrypted format*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Overall_Traffic.PNG)
+*Figure 16: The overall traffic of the fake Flash Player update malware campaign*
+The attackers were also tracking the visitor count, as shown in Figure 17 below.
+So far, 113,000 unique users were affected by this malware attack.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Affected_User_count.PNG)
+*Figure 17: The affected user count*
+### **Method 2: Fake font update campaign**
+In this attack, the cybercriminals will directly inject the fake update template script by exploiting the legitimate site to evade detection.
+As mentioned earlier, the template script logic will identify which browser is being used.
+While accessing the compromised site via Chrome, the user will receive an alert that the “PT Sans” font wasn’t found.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/FONT.PNG)
+*Figure 18: The compromised site with a fake font update page (Chrome)*
+The same site was accessed via Firefox and shows the same alert to the user in the Firefox template.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Firefox_FONT.PNG)
+*Figure 19: A compromised site with a fake font update page (Firefox)*
+The following image shows the source code of the compromised site with the injected template script.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Direct_script.PNG)
+*Figure 20: The* template.js *is injected directly into the compromised site*
+The source code of the *template.js*script shows a banner value “2” and has a link (*sreex[.]info/update.exe*) to download the malware payload.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/font_template.PNG)
+*Figure 21: The source code of the*template.js *script with the malware download link*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Firefox_FONT_LINK_EXE.PNG)
+*Figure 22: After clicking the update button, the malware payload will be downloaded (via*update.exe*)*
+The following activities were observed while executing the downloaded Trojan.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/process.PNG)
+*Figure 23: The program created a process “gdsun.exe”  from the malware payload (a self-copy of the payload)*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/copy.PNG)
+*Figure 24: The malware creates a copy of the payload in the %ProgramData%/<randomfolder\_name> folder*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/reg.PNG)
+*Figure 25: It also creates a startup registry entry for the dropped malware*
+It will post the following collected user data to (*clickies(.)site/CC/index(.)php*), which is operated by the attackers.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Post_information_data_new.PNG)
+*Figure 26: Post-infection callback traffic*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Overall_traffic_font.PNG)
+*Figure 27: The overall traffic of the fake font update campaign*
+### **Conclusion**
+In today's digital world, a company's website is its most valuable asset.
+Therefore, it is critically important for companies to protect this public face from an attack that could put your business, employees, and your customers at risk.
+Zscaler has blocked more than 40,000 malicious attacks related to this campaign in the past three months.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Gayathri/Fake_update_campaign/Zulu.PNG)
+*Figure 28: The Zscaler Risk Analyzer score for the malware payload download URL*
+### **IOCs**
+**URLs:**
+click.clickanalytics208(.)com
+chrom-update(.)online
+asasasqwqq(.)xyz
+bitbucket(.)org/execuseme1/1312/downloads/download.hta
+xyxyxyxyxy(.)xyz/wwwwqwe/11223344.exe
+179(.)43(.)146(.)90/fakeurl(.)htm
+sygicstyle(.)xyz
+sreex(.)info/update(.)exe
+clickies(.)site/CC/index(.)php
+**Malware payload:**
+5ad69da64dacdf87c5bdea12a20ca8fd4d34e6a16c37dfbb9a2af8df79901504(**download.hta**)
+9c69a1d81133bc9d87f28856245fbd95bd0853a3cfd92dc3ed485b395e5f1ba0(**11223344.exe**)
+ea137c0079624de8d2f8b174d44f90faa58c4eda558f7d5db0efa742f36c2cdf(**update.exe**)

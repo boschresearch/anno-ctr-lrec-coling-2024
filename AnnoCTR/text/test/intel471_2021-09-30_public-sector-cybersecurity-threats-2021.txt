@@ -1,0 +1,36 @@
+The public sector is a juicy target for cybercriminals
+Sep 30, 2021
+The public sector is an extremely high-value target for cybercrime due to the wealth of valuable information it possesses, such as PII and confidential and sensitive documents.
+Intel 471 has observed government-run systems being exploited in multiple ways for both financial gain or in politically motivated cyberattacks.
+By analyzing and distinguishing the common threats and underlying threat actor motivations, we identified how actor’s intentions can give hints on what government organizations threat actors like to target.
+While attacks on national or international institutions tend to earn the most attention, Intel 471 has observed a greater number of compromises in government institutions at the regional, local and municipal level.
+Below is an overview of the common threats we have identified.
+### **Ransomware attacks**
+Ransomware and RaaS groups have plagued organizations across different industry vectors.
+Government entities are no different.
+From January 2021 to August 2021, we observed about 50 possible breach events for international government, national and regional governments that were ransomware-related, with about half of those incidents tied to RaaS programs.
+Below is a graph that tallies the attacks and the RaaS affiliates tied to them:
+![](https://lh5.googleusercontent.com/8H7kJzvdlCu6g5EeWxRyvr0kw2eL1n9PG7X24yHUu1zciDmVVokUP41oAaRoPGr1pKj6IK\_dbPRTymb5r8HTEUIxQ5rNkmj\_y4nyia1OemRIYq421ncZP4yoRYaB\_2tCjTS8ALjb=s0)
+The most attack of the measured time period was the DarkSide ransomware attack against Colonial Pipeline in May 2021.
+That attack drew heavy attention to the impact these services could have on government organizations and supply chains.
+As a result of the attention gained from this event, Intel 471 observed RaaS groups adjust their operations, which included new regulations on operators or affiliates targeting government entities.
+Operators of several RaaS programs retreated from additional public focus, opting to maintain a low profile and prohibited their affiliates from targeting government organizations.
+These changes were short lived: by June 2021 the REvil RaaS operators lifted previous bans and promised additional benefits to affiliates who were willing to attack any U.S.-based company or organization, which likely included government entities.
+### **Social Engineering**
+From January 2021 to August 2021, Intel 471 observed multiple social engineering tactics used against the government sectors including call centers, which allowed scammers to leverage multilingual threat actors to defeat and bypass phone-based anti-fraud measures.Threat actors typically fueled call centers with an array of compromised PII that could be used to answer challenge questions such as date of birth, national identification numbers and more.
+Operators at call centers then could impersonate an account holder and manipulate employees to perform authorized account activity, approve transactions, open new accounts and transfer funds
+Additionally, we observed increased sophistication in phishing pages over the same time period.
+Particularly, pages designed to look like COVID-19 pandemic relief programs from several different countries were discovered, ranging from debt forgiveness to tax payments.
+### **Vulnerabilities**
+Intel 471 has observed three particular vulnerability types used as initial access vectors to compromise public sector networks: remote code execution (RCE), structured query language-injection (SQLi) and cross-site scripting (XSS).
+These methods, which were used to gain initial access, were observed in breach events conducted by individual threat actors and RaaS operators.
+In March 2021, an Italian-linked actor claimed on a popular cybercrime forum that they obtained access to a VMware ESXi cloud virtualization server that would grant someone access to municipalities in Eastern Europe.
+In April 2021, we observed another actor offer to sell information about an SQLi vulnerability allegedly impacting resources belonging to a U.S.-based government entity in Colorado.
+Also in April, an actor was advertising a compromised database stolen from a city in Turkey, allegedly containing about 1 million records including names, passwords, permissions, phone numbers, user IDs and usernames.
+### **Looking Ahead**
+Government entities at all levels should remain vigilant in order to defend against the aforementioned threats as cybercriminals continue to improve and refine their TTPs.
+The public sector will need to improve their defensive and detection capabilities, shifting from individual indicators of compromise (IoCs) to proactive threat intelligence that offers insight and visibility into key trends in the cybercrime underground.
+Intel 471's range of intelligence products can help security teams defend against threats and mitigate risks from the underground.
+Our Adversary Intelligence provides security teams with visibility into the cybercrime underground, including insight into actor TTPs, motivations and operations.
+Users also can monitor for compromised credentials proactively via Intel 471's Credential Intelligence service, track weaponized malware via our Malware Intelligence and determine patch prioritization of vulnerabilities via our Vulnerability Dashboard.
+[![Intel 471 Periscope Newsletter](https://no-cache.hubspot.com/cta/default/8813571/4fc6dfd2-c5df-4a7a-9cec-c81feb7ef387.png)](https://cta-redirect.hubspot.com/cta/redirect/8813571/4fc6dfd2-c5df-4a7a-9cec-c81feb7ef387)

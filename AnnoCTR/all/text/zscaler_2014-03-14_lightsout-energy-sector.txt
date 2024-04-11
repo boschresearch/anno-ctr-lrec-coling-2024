@@ -1,0 +1,13 @@
+LightsOut for the Energy Sector
+March 14, 2014
+This week, Zscaler ThreatLabZ has published research focused on the LightOut exploit kit being used in a "watering hole" attack again the energy sector.
+You can read [additional analysis](https://threatpost.com/energy-watering-hole-attack-used-lightsout-exploit-kit/104772) on the well-respected security research blog, ThreatPost.
+In late February, Zscaler ThreatLabZ security research discovered a “watering-hole” attack targeting the energy sector.
+“Watering-hole” attacks compromise legitimate Web sites where its intended victims are expected to visit.
+In this instance, the compromised Web site was a law firm that works with energy companies.
+The compromised Web site was serving the “LightsOut” exploit, which installs a Remote Access Trojan (RAT).
+This attack is similar to an attack against the energy sector last fall and is potentially related.
+Attacks like these show the sophistication of motivated attackers.
+In the past, infected documents and malicious URLs delivered via email were the primary vector for targeted attacks; however, by infecting a legitimate Web site, such as this law firm, attackers can more effectively compromise their targets through a trusted channel.
+Additionally, that these attacks are against the energy sector should be a concern since recent [FERC and NERC reports about physical infrastructure](https://thehill.com/blogs/e2-wire/e2-wire/197851-senate-dems-may-need-stronger-regs-to-secure-electric-grid) have indicated that substation compromise could bring down the entire power grid nationwide.
+Are energy companies doing enough to protect its IT infrastructure.

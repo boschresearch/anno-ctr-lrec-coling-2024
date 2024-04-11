@@ -1,0 +1,53 @@
+A look at recent Emotet Campaigns - August 2017
+August 23, 2017
+**Introduction**
+Emotet, the credential stealing banking Trojan, was first reported in 2014 when it wreaked havoc in Europe and the United States.
+The Zscaler Threat Research team has been monitoring the new variant of Emotet since April 2017 and has recently seen a spike in Emotet related spam activity.
+Emotet is a multi-component malware which specializes in a multitude of nefarious activities, including stealing credentials from browsers and mail clients, banking theft via Man-in-the-Browser attack, email harvesting and propagation through spam emails from infected systems.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/image_1503416760.png)
+Figure 1.
+Unique new malicious document payloads in last 3 weeks.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/image_1503417128.png)
+Figure 2: Geolocations targeted by recent Emotet campaign
+**Distribution**
+Emotet is commonly distributed through malicious spam email (malspam) **campaigns** containing a malicious document file attachment or a link to a malicious URL hosting a JavaScript or a document file, which further downloads and installs the Emotet payload.
+As reported here, in April Emotet was mainly distributed via JavaScript malspam campaigns, whereas the attackers are now leveraging malicious document files with highly obfuscated macro to serve the emotet payload.
+Obfuscated VBS macro code contains predetermined URLs with code to download and install Emotet payload on the victim machine.
+As seen in the de-obfuscated VBS macro code (Figure 3), the downloaded binary is stored in “%Temp%“ directory with random integer value.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/image_1503416707.png)
+Figure 3: De-obfuscated VBS macro code
+**Emotet Payload**
+The downloaded executable is packed with a  custom packer which has encrypted data hiding the Emotet executable and the code to load it.
+When executed, this data is decrypted in the memory using a custom algorithm involving “Base-64 decode” and “XOR”.
+A new process is created in suspended mode and the decrypted Emotet binary is written in the address space of this process.
+[![](https://3.bp.blogspot.com/-DsHM0PyoCgs/WZwOywQNZXI/AAAAAAAAAjg/O9ke_NotGe8CyojjuOmeueFCR1uDIZUuwCLcBGAs/s640/Untitled.png)](https://3.bp.blogspot.com/-DsHM0PyoCgs/WZwOywQNZXI/AAAAAAAAAjg/O9ke_NotGe8CyojjuOmeueFCR1uDIZUuwCLcBGAs/s1600/Untitled.png)
+[![](https://3.bp.blogspot.com/-D46Im-IxRx4/WZwO32QAACI/AAAAAAAAAjk/CPFCa9V04oA9OPPU3FtmXJTXtS6blgl4gCLcBGAs/s640/CustomDecrypt.jpg)](https://3.bp.blogspot.com/-D46Im-IxRx4/WZwO32QAACI/AAAAAAAAAjk/CPFCa9V04oA9OPPU3FtmXJTXtS6blgl4gCLcBGAs/s1600/CustomDecrypt.jpg)
+Figure 4: Pseudo code of decryption algorithm used to decrypt Emotet and Code to load it.
+When control is handed over to the new process, it creates a copy of itself in “C:\windows\system32\” with the filename created by appending two strings from a predetermined set of hard-coded strings (Figure 5).
+The combination of strings is picked based on “volume serial number” of infected system’s volume.
+Example filenames can be seen below:  
+lookuprpc.exe
+homeservice.exe
+providernvidia.exe”
+The malware also creates a system service for the dropped executable.
+[![](https://4.bp.blogspot.com/-FS0aAswWOjo/WZwPAIGcsyI/AAAAAAAAAjo/BFHAcawPTSkSsv2Dx1NXB84po-_sjJYSwCLcBGAs/s640/NameList.png)](https://4.bp.blogspot.com/-FS0aAswWOjo/WZwPAIGcsyI/AAAAAAAAAjo/BFHAcawPTSkSsv2Dx1NXB84po-_sjJYSwCLcBGAs/s1600/NameList.png)
+Figure 5: List of hard-coded strings used for filename
+Once the service is started, *CreateTimerQueueTimer* Windows API is invoked and it’s *Callback* function is used to periodically trigger core malicious code that is responsible for communication with the Command & Control (C&C) servers, send collected information, and wait for a commands from the server.
+Upon successful infection, Emotet registers the compromised host with the C&C server by sending information such as computer name, CPU architecture and OS version, as well as a list of active processes and whether they were executed with administrator privilege.
+[![](https://1.bp.blogspot.com/-ehfSPVx8f_o/WZwPUO0jpxI/AAAAAAAAAjs/5Rbh8viRoMgqheFUJF6nIEjIoYWWygCvQCLcBGAs/s640/datatosend.jpg)](https://1.bp.blogspot.com/-ehfSPVx8f_o/WZwPUO0jpxI/AAAAAAAAAjs/5Rbh8viRoMgqheFUJF6nIEjIoYWWygCvQCLcBGAs/s1600/datatosend.jpg)
+Figure 6.
+Data sent to C&C server upon successful infection
+The malware uses API calls “RtlGetVersion” and “GetNativeSystemInfo” to fetch system information as seen in Figure 6.
+A “dword” is baked out of values returned by these API calls which contains values: processor architecture, OS type, OS version and Service pack.
+[![](https://2.bp.blogspot.com/-P2RZLV_OccI/WZwPdAQYcjI/AAAAAAAAAjw/zjZrd7Yq4KI7VO4C1-KdShvv6mtHPxUhQCLcBGAs/s640/GetSystemInfo.png)](https://2.bp.blogspot.com/-P2RZLV_OccI/WZwPdAQYcjI/AAAAAAAAAjw/zjZrd7Yq4KI7VO4C1-KdShvv6mtHPxUhQCLcBGAs/s1600/GetSystemInfo.png)
+Figure 7: Code for collecting system information.
+Collected information is encrypted and sent to the C&C server using HTTP POST request with UserAgent “*Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)”*.
+The malware polls for a new command every 15 minutes and if the C&C server doesn’t reply, it will try to contact the next server from the hard-coded list of server.
+C&C Server IP addresses are stored in hexadecimal DWORD format followed by port number as seen in Figure 7.
+[![](https://4.bp.blogspot.com/-c2lPqBucaBk/WZwPqA8YOGI/AAAAAAAAAj0/QUNzF_5ATbYsedY5nSeyUdkVhRiS0WaJACLcBGAs/s640/IPAddress.png)](https://4.bp.blogspot.com/-c2lPqBucaBk/WZwPqA8YOGI/AAAAAAAAAj0/QUNzF_5ATbYsedY5nSeyUdkVhRiS0WaJACLcBGAs/s1600/IPAddress.png)
+Figure 8: Hard coded list of IP address of C&C servers.
+**Conclusion**
+Emotet is a multicomponent malware that is known for downloading other malware payloads on the infected hosts.
+There have been reports of Emotet variants with network spreading features but none of the payloads we are seeing in the recent campaigns have this feature.
+Zscaler ThreatLabZ is actively monitoring this threat and will continue to ensure coverage for Zscaler customers.
+Technical Analysis by Manohar Ghule.

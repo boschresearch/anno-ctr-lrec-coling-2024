@@ -1,0 +1,82 @@
+How DNS-over-HTTPS (DoH) has Changed the Threat Landscape For Companies
+Feb 16, 2021
+Executive Summary
+-----------------
+DNS-over-HTTPS (DoH) protocol is now offered and in some instances standard, in major Internet browsers.
+DoH provides the benefit of communicating DNS information over a secure HTTPS connection in an encrypted manner.
+The protocol offers increased privacy for home-users but presents new challenges for enterprise networks and new opportunities for malicious actors.
+In order to prevent evolving threats from malware authors, organizations should stay updated and follow the latest security recommendations.
+>
+> ### Pros this protocol offers to organizations:
+>
+>
+>
+* Improving privacy and confidentiality by preventing data interception.
+* Preventing Man-in-the-Middle (MitM) attacks.
+* Enhancing security of information in transit.
+>
+> ### **Cons this protocol offers to organizations:**
+>
+>
+>
+* Interfering with national surveillance laws in several countries.
+* Potential information leakage when attempting to resolve internal DNS records.
+* Losing visibility into DNS traffic.
+* Losing control of DNS data.
+Introduction to DNS-over-HTTPS (DoH)
+------------------------------------
+In 2017, [the Internet Engineering Task Force (IETF) proposed a new standard](https://tools.ietf.org/html/rfc8484) for the Internet protocol named DNS-over-HTTPS (DoH).
+DoH is meant as a secure alternative to the existing standard Domain Name System (DNS) protocol for sharing IP addresses.
+The DoH protocol communicates DNS information over a secure HTTPS connection in an encrypted manner.
+However, DoH does not provide end-to-end security and only protects communications while in transit.
+The primary benefit of DoH is that it encrypts all DNS information, whereas DNS is currently sent in plain text over HTTP.
+Therefore, DoH offers more privacy and data protection, especially from Man-in-the-Middle (MitM) attacks (e.g. DNS hijacking and spoofing) that would allow for snooping and manipulation of the DNS information.
+Google Chrome and Mozilla Firefox were early adopters, having rolled out DoH in their respective browsers in late 2019.
+Malicious Activities and Threats Observed Early On
+--------------------------------------------------
+Malware authors have rushed to exploit DoH in their attack operations because a victim’s DNS traffic will now often bypass organizational DNS infrastructure, circumventing security detection and protection systems.
+At the time of initial rollout in 2019, we assessed it would be very likely that more malware families would begin to incorporate DoH into their operations, as well as new data-exfiltration tools leveraging DoH as C2.
+In fact, in July 2020 Researchers from Kaspersky reported on [Iran-linked threat actor group *APT34*](https://quointelligence.eu/2020/12/cyber-security-trends-in-2021/) (also known as *OilRig*) evolving tactics using DNS-over-HTTPS (DoH) as a channel for data exfiltration through an open-source tool.
+The evolution was first discovered in May 2020, when the threat actor group used the publicly available tool DNSExfiltrator2 to move data laterally through the internal network and attempted to exfiltrate to an attacker-controlled system.
+Additionally, in August and November 2020, [QuoIntelligence detected targeted campaigns that share similarities to the threat actor we previously dubbed ReconHellcat.](https://quointelligence.eu/2020/09/apt28-zebrocy-malware-campaign-nato-theme/) Among the state-of-the-art techniques leveraged by ReconHellcat, the group also used Cloudflare Workers as a C2 communication interface and DoH as their name resolution channel.
+Implications of DoH for Organizations
+With the introduction of DoH by Internet browsers and operating systems, companies are often unable to detect compromised hosts based on DNS traffic analysis.
+Monitoring solutions built around DNS identification are now outdated and unable to deal with new threats from malicious actors.
+Additionally, [while configuring DNS logging can increase network visibility](https://media.defense.gov/2021/Jan/14/2002564889/-1/-1/0/CSI_ADOPTING_ENCRYPTED_DNS_U_OO_102904_21.PDF), network administrators will need to incorporate supplemental tools and services to prevent users in the organization from accessing certain non-work-related sites and malicious domains.
+>
+> Here are some of the threats Information Security Operations and Engineering will soon have to face:
+> ----------------------------------------------------------------------------------------------------
+>
+>
+>
+* **Bypassed security measures**: [According to Qihoo 360 researchers](https://blog.netlab.360.com/an-analysis-of-godlua-backdoor-en/), the first malware spotted in the wild using DoH was employed by threat actors operating a new backdoor malware dubbed Godlua.
+Shortly thereafter, [ProofPoint researchers](https://www.proofpoint.com/us/threat-insight/post/psixbot-now-using-google-dns-over-https-and-possible-new-sexploitation-module) detailed a new variant of the PsiXBot malware incorporating Google’s DoH service.
+Malware authors implement DoH in their attack operations because a victim’s DNS traffic will mostly bypass the organization’s DNS infrastructure, circumventing security protections.
+* **Data leakage:** Employees using an enterprise network which responds to internal names, such as the address of an application or server, will inadvertently leak company data within DNS data routed outside the organization to public DNS servers.
+* **Incompatibility with established regulation:** The rapid adaption of DoH could negatively affect the ability of governments to monitor terrorist threats or to censor and ban other illegal content.
+For example, [the UK’s 2016 Investigatory Powers Act](https://services.parliament.uk/bills/2015-16/investigatorypowers.html) requires ISPs to store 12-month web visit history for its citizens, achieved using now often-encrypted DNS requests.
++ In April 2020, chief information officers of agencies within the US Government were recommended to disable third party encrypted DNS services.
+In a Memo from then-director Chris Krebs, the offers were reminded of their obligation to use the EINSTEIN 3 Accelerated (E3A) DNS services on systems connected to federal agency networks.
+Recommended actions to reduce the risk of implications
+------------------------------------------------------
+In January 2021, [the US National Security Agency (NSA) released an updated guideline](https://media.defense.gov/2021/Jan/14/2002564889/-1/-1/0/CSI_ADOPTING_ENCRYPTED_DNS_U_OO_102904_21.PDF)  for companies adopting DoH in enterprise environments.
+The following tables of high- and medium-risk threats and remedial actions related to the DoH protocol in enterprise networks has been updated to include a summary of these latest recommendations.
+[![Table of Threats & Mitigations](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "High-Level Risk Threat & Mitigation")
+![Table of Threats & Mitigations](https://quointelligence.eu/wp-content/uploads/2021/02/1.png "High-Level Risk Threat & Mitigation")](https://quointelligence.eu/wp-content/uploads/2021/02/1.png "Table of Threats & Mitigations")
+###### Table 1: High-risk threats and remedial actions related to the DoH protocol in enterprise networks by QuoIntelligence
+[![Table of Medium-Threats and Mitigations](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== "Medium-Threat Level and Remedial Actions")
+![Table of Medium-Threats and Mitigations](https://quointelligence.eu/wp-content/uploads/2021/02/2.png "Medium-Threat Level and Remedial Actions")](https://quointelligence.eu/wp-content/uploads/2021/02/2.png "Table of Medium-Threats and Mitigations")
+###### Table 2: Medium-risk threats and remedial actions related to the DoH protocol in enterprise networks by QuoIntelligence
+Conclusion
+----------
+While the DNS-over-HTTPS protocol offers increased privacy and security, it also enables users and threat actors to bypass traditional network controls used to secure a network.
+In order for enterprises to make their own switch to DoH, which could introduce a network blind spot, and to prepare for new external threats, a plan must be established.
+Organizations must enhance their infrastructure capabilities to detect and mitigate threat actors and insiders attempting to bypass network-level security controls.
+[Get in touch!](https://quointelligence.eu/talk-to-an-expert/)
+Join Our Newsletter.
+--------------------
+Subscribe to our newsletter to receive Weekly Intelligence Summaries, cyber news, and exciting updates.
+Only valid business emails will be approved.
+Please enable JavaScript in your browser to complete this form.Name *FirstLastBusiness Email *Checkboxes ** I have read and agree to the [Privacy Policy](https://quointelligence.eu/privacy-policy).
+GDPR Agreement ** I consent to having this website store my submitted information so they can respond to my inquiry.
+MessageSubscribe

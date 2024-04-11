@@ -1,0 +1,25 @@
+Criminals posing as Lazarus Group threatened Travelex: Bitcoin or DDoS
+Oct 13, 2020
+A group posing as notorious nation-state-linked hacking group “Lazarus Group” threatened to hit British foreign exchange company Travelex with a distributed-denial-of-service (DDoS) attack unless it paid 20 bitcoins.
+According to an email discovered by Intel 471 researchers, attackers threatened to hit Travelex with an “extremely powerful” attack that would “peak over 2 Tbps” until the company paid a ransom.
+The demand, which was sent in late August, asked for a value of approximately US $213,000.
+“It's a small price for what will happen when your whole network goes down,” the email read.
+“Is it worth it.
+You decide.
+Following the extortion email, the threat actor conducted a volumetric attack on a custom port of four IP addresses serving the company’s subdomains.
+Two days later, the attackers carried out another DNS amplification attack against Travelex using Google DNS servers.
+The email also said that if Travelex didn’t comply by a certain date, the ransom would “increase by 10 Bitcoin for each day after [the] deadline that passed without payment.
+A bitcoin wallet address in the email shows that Travelex did not pay the attackers at any point.
+While it's unclear whether or not the North Korea-backed group was responsible for the note, Intel 471 VP of Intelligence Michael DeBolt says it’s "unlikely" to be related to the nation-state.
+"We've seen this come up quite a few times recently," DeBolt said.
+"The attackers are trying to capitalize on the notoriety of well-known groups as a scare tactic to pressure victims into paying.
+The true actors or groups likely possess some DDoS capabilities that need to be taken seriously, so organizations should be prepared to deal with that sort of attack as part of their cybersecurity plan.
+The threat to Travelex comes as the company underwent one of the most notable ransomware attacks of the past year.
+In January, the company was [hit with REvil ransomware](https://www.cyberscoop.com/travelex-sodinokibi-ransomware/), forcing it to suspend all of its online services, including its app and internal email systems, for several weeks.
+Groups posing as nation-state hacking groups while threatening ransom-backed DDoS attacks have been bubbling up over the past year.
+In November 2019, New Zealand’s cybersecurity organization, CertNZ, [issued a warning](https://www.cert.govt.nz/it-specialists/advisories/ddos-extortion-campaign-targeting-financial-sector/) about ongoing extortion campaigns targeting companies in the financial sector.
+The threat actors claimed to represent the Russian hacker group Fancy Bear and demanded a ransom to avoid a DDoS attack.
+Additionally, the New Jersey Cybersecurity and Communications Integration Cell [issued an advisory](https://www.cyber.nj.gov/alerts-advisories/extortionists-claiming-to-be-apt-groups-threaten-ddos-attacks) in August on actors who targeted the finance and retail sectors with DDoS attacks, claiming to be members of Fancy Bear and Armada Collective.
+New Zealand-based enterprises [have seen a rash of DDoS attacks](https://www.stuff.co.nz/business/industries/122636840/metservice-anticipates-future-ddos-cyberattacks-in-coming-days) over the past few months.
+In August, the New Zealand stock exchange was hit by a DDoS attack that spanned several days and caused a disruption of some services.
+The Meteorological Service of New Zealand, news media company Stuff, public-service radio broadcaster Radio New Zealand and Australian bank Westpac Banking Corp have also been hit with DDoS attacks in recent weeks.

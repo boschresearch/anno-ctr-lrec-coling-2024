@@ -1,0 +1,50 @@
+Security Brief: Mobile Phishing Increases More Than 300% as 2020 Chaos Continues
+November 02, 2020
+COVID-19 rapidly shifted our society to rely on remote communication—and it’s clear cybercriminals are actively taking advantage of our new digital realities with an onslaught of mobile/text-message phishing (Smishing) attacks that claim to be from reputable companies.
+We process more than 80% of North America’s mobile messages and our telemetry reports indicate mobile phishing messages increased by 328% in Q3 2020 when compared to Q2 2020.
+Overall, the top impersonated brands in Q3 2020 included prominent financial institutions, technology companies, and content providers (see below).
+Thirty-six percent of the reported mobile messages also originated Communication Platform as a Service (CPaaS) providers, which points to the increased reliance on automated messaging programs.
+This recent surge in mobile phishing reports is concerning given that our recent Proofpoint 2020 State of the Phish Report found that 84% of organizations were subject to [mobile-based phishing attacks](https://www.proofpoint.com/us/glossary/smishing), and the FBI has reported that losses from phishing and other scams topped [more than $3.5 billion](https://www.fbi.gov/news/stories/2019-internet-crime-report-released-021120) to individual and business victims in 2019.
+The increased mobile phishing volume can be attributed to a number of factors.
+For example, as consumers continue to be concerned about phishing, carriers and handset developers are working to make it easier to report mobile messaging abuse including phishing.
+We’ve also seen mobile phishing reports extend beyond financial brands to include well-known brands across various market segments, especially brands that consumers are frequently turning to during the pandemic.
+In addition, cybercriminals are continuing to invoke [social engineering techniques](https://www.proofpoint.com/us/corporate-blog/post/cybersecurity-101-what-social-engineering) and misuse known brands to expand credential harvesting capabilities in an attempt to circumvent mobile abuse detection systems.
+***Top Phished Brands and Examples***
+![Mobile Phishing_Blog_1](/sites/default/files/inline-images/Blog_Figure%201_Mobile%20Phishing.png)
+*Fig 1:  Top Brands Featured in Mobile Messages, September 2020*
+![Mobile Phishing_Blog_2](/sites/default/files/inline-images/Blog_Figure%202_Mobile%20Phishing.png)
+*Fig 2:  June-August 2020 Mobile Phishing Report*
+![Mobile Phishing-Blog_3](/sites/default/files/inline-images/Blog_Figure%203_Mobile%20Phishing.png)
+*Fig 3:  Example SMS phishing messages using known brands*
+***Anatomy of a smishing attack***
+Netflix is a popular worldwide streaming service with tens of millions of customers in countries around the globe.
+This level of exposure results in an opportunity for scammers to attempt to compromise user data to resell for profit.
+Let’s examine how scammers use an easily recognized brand like Netflix in a smishing campaign to compromise user credentials.
+The following timeline demonstrates a recent SMS phishing campaign:
+* At **4:20pm** PDT a scammer starts a low-volume phishing campaign using a newly created website.
+The following is an example of a received message:
+*We've had an issue with your current billing details, Please update your information to avoid any service interruption.
+netflix.usa-eng.org*
+* By **4****:21pm** PDT **Proofpoint** Cloudmark analysis systems performed automated research on the domain contained in the phish and identified several suspicious characteristics.
+The domain was immediately marked as suspicious.
+* At **4:23pm** PDT Cloudmark starts blocking messages from the suspicious sender
+* At **4:25pm** PDT a small group of messages are allowed due as some users dispute the spam classification
+* By **4:26pm** PDT, all messages from this suspicious sender are being blocked
+* From **4:26pm to****7:50pm**, Cloudmark systems detected thousands of additional phishing messages, all of which were blocked before arriving at the user device.
+![Mobile Phishing_Blog 4](/sites/default/files/inline-images/Blog_Figure%204_Mobile%20Phishing.png)
+*Fig 4:  Timeline demonstrating automated SMS blocking of malicious messages*
+Lookalike domains like the domain listed in the above timeline represent a common tactic of scammers.
+These domain names often resemble the legitimate company domain name but instead take the user to a site controlled by the attacker.
+These lookalike domains attempt to add legitimacy to fraudulent websites.
+Whois research for the website listed notes the creation date as the same day the spam campaign occurred.
+Being able to quickly purchase and setup up website capable of harvesting user input is a result of scripts and tools that attackers use to quickly automate the process.
+This allows attackers to simulate brands with little time and effort and for maximum effect.
+![Mobile Phishing_Blog 5](/sites/default/files/inline-images/Blog_Figure%205_Mobile%20Phishing.png)
+*Fig 5: Whois report for Netflix.usa-eng.org*
+**Conclusion**
+During these challenging times the value of messaging has never been more important, and the deliverability of legitimate messages is key to how we live and communicate.
+Mobile messaging is attracting the attention of cybercriminals who see mobile messaging as an attractive vector to deliver their attacks into the hands of consumers and employees.
+It is encouraging to see that mobile carriers and handset developers are taking strides to make it easier to report mobile abuse.
+Having the ability to identify and block messages as rapidly as the campaigns evolve is paramount for the security for individuals and organization.
+Proofpoint’s Cloudmark Security Platform for Mobile Messaging provides important carrier-grade, mobile messaging security to safeguard users from malicious messaging by providing real-time, automated protection against phishing, spam, and malicious mobile messages.
+For more information on secure mobile messaging, please visit <https://www.cloudmark.com/en/s/products/cloudmark-security-platform-for-mobile>.

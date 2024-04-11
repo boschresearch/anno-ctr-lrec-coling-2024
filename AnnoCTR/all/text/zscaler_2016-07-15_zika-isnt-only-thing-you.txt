@@ -1,0 +1,45 @@
+Zika isn't the Only Thing You Need to Worry About During the Rio Olympics
+July 15, 2016
+In just a few weeks, thousands of athletes and fans from around the world will gather in Rio de Janeiro for one of the world's most widely anticipated international sporting events, the Olympics.
+However, as one of the most popular events, the Olympics also entices cyber criminals and scamsters to take advantage of unsuspecting users who might be searching for related news, the event schedule, online streams, or even the Zika virus impact.
+At ThreatLabZ, we are always on the lookout for threats taking advantage of major world news and events, and recently found some examples of exploit kit traffic coming from Olympics-related content.
+As is usually the case, these websites are compromised to redirect users to exploit kits and ultimately infect unwary visitors with a variety of payloads.
+In the cases we present here, we have seen RIG Exploit Kit dropping Qakbot as well as Neutrino Exploit Kit dropping CryptXXX.
+**Case 1**:
+The first case begins with a user looking to make an Olympic themed cake, and getting served with the RIG Exploit Kit.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/downloads/blog-image-0-1501492994.png)
+The compromised site contains a malicious inject hidden in the jquery.js file that redirects the user to a gate.
+This gate redirects the user to the RIG landing page, which loads a malicious SWF.
+Following exploitation, a payload encrypted with a simple XOR cipher is downloaded onto the victim’s system.
+The malware in question is the infamous worm, [Qakbot](https://www.microsoft.com/security/portal/threat/encyclopedia/Entry.aspx?Name=Backdoor%3AWin32%2FQakbot.T).
+In addition to attempting to spread itself across network shares, Qakbot can allow remote access to the user’s system, steal information from the victim's machine and exfiltration to the attacker’s remote server, among other functions.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/downloads/blog-image-1-1501492994.png)
+The threat installs itself as a service named "Remote Procedure Call (RPC) Service" to mask its presence and ensure persistence.
+**Case 2**:
+Our second case involves the compromised South Africa Gymnastic Federation website, which is leading users to Neutrino Exploit Kit via an injected script.
+When examining the website's code, we can see the Flash object for the EITest redirector embedded towards the bottom of the page.
+![compromised.png](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/downloads/blog-image-2-1501492995.png)
+Following the EITest gate is a Neutrino landing page and SWF payload.
+Upon successful exploit run, the ransomware CryptXXX is delivered to the victim's machine.
+![drop.png](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/downloads/blog-image-3-1501492996.png)
+Before actually encrypting users' data, CryptXXX attempts to delete shadow copies of system files to prevent recovery.
+![uac.png](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/downloads/blog-image-4-1501492996.png)
+Below is the Neutrino EK Activity seen in last 30 days
+![neutrino_activity_30_days.png](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/downloads/blog-image-5-1501492996.png)
+Conclusion
+We’ve reported on previous cases where compromised sites can cause [ransomware infections](/blogs/research/chinese-government-website-compromised-leads-angler) or [worse](/blogs/research/neutrino-malvertising-campaign-drops-gamarue), and this continues to be true with the examples covered today.
+Users should always make sure that Adobe Flash Players Auto-Update feature is enabled, and it is highly recommended to leverage click-to-play functionality in web browsers.
+These steps can greatly reduce users' exposure to vulnerabilities.
+As we get closer to the event, we expect to see a rise in threats and scams leveraging Olympics topics to target a large number of victims.
+Zscaler's standard security checklist - Olympics Edition:
+* Inspect the source of emails with enticing shopping deals.
+Be wary of any suspicious attachments
+* Steer clear of unofficial mobile application stores
+* Check the authenticity of the URL or website address before clicking on a link
+* Stay away from e-mailed invoices - this is often a social engineering technique used by cyber criminals
+* Use two-factor authentication whenever possible especially on sensitive accounts such as those used for banking
+* Always ensure that your operating system and web browser have the latest security patches installed
+* Use browser add-ons like Adblock Plus to block popups and potential malvertisements
+* Backup your documents and media files - this is extremely important with the surge in ransomware infections
+* For health safety guidelines, please review the [Centers for Disease Control & Prevention notice](http://wwwnc.cdc.gov/travel/notices/alert/2016-summer-olympics-rio).
+*Writeup by - Chris Mannon, Rubin Azad*

@@ -1,0 +1,54 @@
+Who hacked the Democratic National Committee?
+Jun 17, 2016
+By Mark Arena, CEO of Intel 471.
+**Who hacked the Democratic National Committee?**
+I’ll preface this post by saying that I possess no information on this incident beyond what has been mentioned in open sources.
+This post is my personal opinion and is based on my experience researching and tracking both state and non-state cyber threat actors.
+I’ll also add that [Intel 471](https://intel471.com) does not actively research and track threat actors that are involved with espionage and is focused on financially motivated cyber criminals and hacktivists/politically motivated threat actors.
+On June 14, the Washington Post published a [story](https://www.washingtonpost.com/world/national-security/russian-government-hackers-penetrated-dnc-stole-opposition-research-on-trump/2016/06/14/cf006cb4-316e-11e6-8ff7-7b6c1998b7a0\_story.html?hpid=hp\_hp-banner-main\_dnc-hackers-1145a-banner%3Ahomepage%2Fstory) that indicated Russian government hackers had hacked into the Democratic National Committee (DNC).
+The specific information linking the hack to the Russian government came from the cyber security company [CrowdStrike](https://www.crowdstrike.com/):
+> One group, which CrowdStrike had dubbed Cozy Bear, had gained access last summer and was monitoring the DNC’s email and chat communications, Alperovitch said.
+>
+>
+> The other, which the firm had named Fancy Bear, broke into the network in late April and targeted the opposition research files.
+>
+>
+I personally know a number of smart people who work at CrowdStrike and I trust them when they say that a specific intrusion or incident is linked to a specific hacking group.
+With regards to linking intrusion sets to groups, CrowdStrike uses an animal naming scheme to tie intrusion activity and intrusion sets to groups and countries.
+In this case CrowdStrike said that they observed intrusions in the DNC tied to the groups they call *Cozy Bear* and *Fancy Bear* where Bear signifies Russia.
+I have no doubts at all that CrowdStrike indeed observed intrusion set activity within the DNC’s environment that linked to these groups they had identified and were almost certainly actively tracking.
+**Guccifer 2.0: A spanner in the works**
+On June 15, an actor who calls himself *Guccifer 2.0* created a [Wordpress blog](https://guccifer2.wordpress.com) where he posted a number of claimed confidential reports from the DNC including one on Donald Trump.
+In the blog post, an effort appears to be made to say how easy it was to hack the DNC and called into question CrowdStrike who linked two intrusions of the DNC to the Russian government.
+For those that aren’t aware, the handle [*Guccifer*](https://en.wikipedia.org/wiki/Guccifer) was used by a Romanian hacker who was recently extradited to the United States.
+This actor was involved with hacking high profile people such as politicians and celebrities and publicly releasing their emails.
+*Guccifer* currently sits in a jail in Virginia awaiting sentencing.
+**Russia.
+Attribution is hard right?**
+When it comes to attribution of intrusions to groups or specific people, we are really talking about two things:
+* Attribution of the observed intrusion sets (malware, exploits etc) to known intrusion groups.
+This is where CrowdStrike tied this activity to the groups they call *Cozy Bear* and *Fancy Bear.*
+* Attribution of the threat grouping to a specific person, group/organization or nation state where in this case CrowdStrike has clearly singled out Russia.
+This is a lot harder than the previous point.
+On the first point, I have complete confidence that CrowdStrike is able to track and link specific intrusions tools to known groups which they actively track.
+On the second point, it is a little more unclear whether this activity is tied to the Russian government and I can’t really comment on that as I don’t have information that supports this or not.
+This type of attribution is done in a number of ways but is not limited to:
+* Tracking of specific targets/target sectors over a long period of time and mapping that against nation state objectives.
+Confidential and internal information within the DNC would be of clear interest to the Russian government and other governments.
+It might also be of interest to a politically motivated hacker who would want to discredit the DNC by publishing their sensitive information.
+* Researching intrusion activity and identifying operational security failures on behalf of the intrusion operators.
+A good example of this is where [iSIGHT Partners](https://isightpartners.com) was able to [tie](http://freebeacon.com/national-security/cyber-caliphate-hackers-not-linked-to-islamic-state/) a claimed Islamic State (ISIL) hacking group to a Russian group they track as APT28.
+**Guccifer 2.0 did it!**
+One thing for sure with *Guccifer 2.0* is that he clearly has demonstrated access to internal documents of the DNC.
+Given that, I believe there’s two possibilities:
+* One or both of the groups identified by CrowdStrike is tied to *Guccifer 2.0* and this is a disinformation campaign against CrowdStrike and the DNC.
+* *Guccifer 2.0* is a distinct threat actor who had access to the DNC’s systems at some point.
+At no way does this mean CrowdStrike was wrong with linking the activity they saw in the DNC’s environment.
+I’ve seen numerous occasions where organizations have been compromised by multiple different intrusion groups and the evidence of one intrusion group being active in a victim’s environment doesn’t mean another intrusion group can’t be active in the same environment at the same time.
+On *Guccifer 2.0* being a possible disinformation operation, I recommend closely looking at *Guccifer 2.0*’s writing.
+Based on the style and how it has been done, it looks like it was written by someone who doesn’t speak English as a first language and uses mannerisms used by people based in Eastern Europe or was purposely written like this.
+I also recommend reading the Twitter timeline for [pwnallthethings](https://twitter.com/pwnallthethings) which talks about claimed operational security (OPSEC) failures on behalf of *Guccifer 2.0* and various files that were uploaded online.
+I’ll add that initially I was surprised by how quickly a disinformation operation could possibly have been executed after the Washington Post article.
+**Final Remarks**
+I’ll finish things off by repeating that in my opinion the emergence of *Guccifer 2.0* does not at all conflict with CrowdStrike’s findings.
+*Guccifer 2.0* may be a separate actor or may be tied to one or both of the intrusion groups CrowdStrike claims were active inside the DNC.

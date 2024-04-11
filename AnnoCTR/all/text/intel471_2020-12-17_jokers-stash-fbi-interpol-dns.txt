@@ -1,0 +1,28 @@
+More annoying than crippling: Joker’s Stash takedown is temporary
+Dec 17, 2020
+Law enforcement has allegedly seized proxy servers used in connection with the blockchain-based domains belonging to Joker's Stash, a prolific vendor of compromised financial card data in the cybercrime underground.
+On December 17, an image adorned the shop's website that claimed the U.S. Federal Bureau of Investigation and Interpol had taken it into law enforcement's possession.
+After noticing the action, Joker's Stash operators took down the site completely.
+![](https://d39ec1uo9ktrut.cloudfront.net/splash-e1608237933863.png)
+The image that greeted users if they visited Joker's Stash's blockchain-based website on Dec. 17, 2020.
+Shortly after the action, the site's operators took to several underground forums to deal with the fallout.
+Messages claimed that the external proxy server associated with their blockchain-based domain name was seized.
+At the same time, the actor stressed the shop would go back to normal in a couple of days after access was restored.
+The actor also suggested that people should use the forum's Tor-based domain in the meantime, which is still working.
+We believe that this action will only serve as a temporary issue for the site.
+Blockchain-based DNS differs from traditional DNS, particularly in the sense that law enforcement cannot seize the domain name of the site, just the IP address of the server it points to.
+[Joker's Stash has been using this infrastructure since 2017](https://www.recordedfuture.com/jokers-stash-infrastructure/) as both an added security measure and a way to minimize barriers for new customers.
+The actors told worried customers on one particular forum that law enforcement did not seize the site's particular IP address, and even if they did, there was no data on the servers themselves.
+The actor said that within a few days, new proxies will be configured, linked back to the seized domain, and the shop's blockchain-based site will resume normal functions.
+One of the most well-known cybercriminal shops in the world, Joker's Stash has had a rough second half of 2020.
+In October, the actor who allegedly runs the site announced he had contracted COVID-19, spending a week in the hospital.
+The condition impacted the site's forums, inventory replenishments and other operations.
+Intel 471 has also observed the site's clients complaining that the shop's payment card data quality was increasingly poor.
+This comment points to the changing nature of the cybercriminal underground, where actors are moving away from carding-related crimes.
+If that trend continues into 2021, Joker's Stash standing as a preferred home of criminal activity could change.
+"It's apparent that major intrusions resulting in valuable stock for sale across his shop has taken a bit of a dive over the last year," said Intel 471 VP of Intelligence Mike DeBolt.
+"This could be a result of many things, from the pandemic to the massive shift of many cybercriminals to ransomware, where significantly less effort can lead to marginally higher profits.
+"Payment card fraud has shifted its attention to e-commerce targets due to a handful of factors including the pandemic forcing consumers to stay at home, and the rise of Magecart-type attacks," said a security expert in the financial services industry who asked to remain anonymous.
+"It doesn't appear Joker's Stash has pivoted his business model to address this reality, which may be the reason why we are seeing a decline in sales in his shop.
+It remains to be seen how Joker's Stash reacts to this in 2021 and beyond.
+Intel 471 will continue to watch how Joker's Stash and the greater cybercrime underground react to actions taken by law enforcement.

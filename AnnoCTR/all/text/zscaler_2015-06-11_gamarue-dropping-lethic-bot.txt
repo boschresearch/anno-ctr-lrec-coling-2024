@@ -1,0 +1,51 @@
+Gamarue Dropping Lethic Bot
+June 11, 2015
+The Gamarue (aka Andromeda) botnet is a highly modular botnet family that allows attackers to take complete control of an infected system and perform a range of malicious activity by downloading additional payloads.
+In this blog, we will cover a recent Gamarue infection that we looked at, which downloads and installs the [Lethic bot](http://en.wikipedia.org/wiki/Lethic_botnet) on an infected system.
+The Lethic botnet has been known to be involved in pharmaceutical and replica spam since it's inception as was detailed by Arbor Networks [here](https://www.arbornetworks.com/blog/asert/lethic-spambot-analysis-pills-watches-and-diplomas/).
+Neither of these botnets are new and have both survived takedown attempts by authorities.
+The Gamarue infection in our case was leading to the download of Lethic bot from the following URLs:   
+| **Lethic Bot URLs** |
+| 155[.]133.18.45/nut40a361.exe |
+| 155[.]133.18.45/dq40a361.exe |
+| 155[.]133.18.45/dqfjr73.exe |
+| 155[.]133.18.45/85fjr73.exe |
+| 155[].133.18.45/112fjr73.exe |
+(MD5: F909BE6B96C10E36F3C5B9E676F49C7E)  During our analysis, we noticed that the Gamarue and Lethic payloads involved in this infection were both packaged using the same custom packer.
+Below is the comparison of the code snippet from the packer routine: 
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/-mNC2VriAH6A/VW7cDiDrGwI/AAAAAAAAAAM/poMT4zlH_4I/s1600/gamarue.JPG)](/sites/default/files/images/blogs/-mNC2VriAH6A/VW7cDiDrGwI/AAAAAAAAAAM/poMT4zlH_4I/s1600/gamarue.JPG)  
+**Quick Analysis of Lethic bot**  
+**Installation** 
+The payload first checks the current running path.
+If the path does not contain “RECYCLER\S-1-5-21-0243556031-888888379-781862338-1861771”, it will create a new folder in “C:\RECYCLER” with a name of “S-1-5-21-0243556031-888888379-781862338-1861771” and then drops a copy of itself with the name “**gBvhieXlS1.exe”.**
+It also changes the attributes of the file to make it a system and hidden file.
+|  |
+| **Creating Path For Dropping File** |
+It then creates “Run” and “RunOnce” registry keys with **“fBvhieXlS1”**as key name.
+* “**HKEYCURRENT\_USER\Software\Microsoft\Windows\CurrentVersion\Run”**
+* “**HKEY\_CURRENT\_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce”**
+|  |
+| **RunOnce Key Created** |
+**Remote Process Injection**
+Depending on the system CPU architecture, it utilizes one of these two methods to inject itself into *explorer.exe:* 
+* For a 32-bit CPU architecture, it attempts to get the handle to the existing *explorer.exe* process and injects a malware module into it.
+It executes the injected code by calling **“CreateRemoteThread”** and terminates itself.
+* For a 64-bit CPU architecture, it creates a new *explorer.exe* process in suspended mode and then injects the malicious code into it.
+It follows this method if the processor architecture is x64 (AMD or Intel) or Intel Itanium-based.
+The following screenshot shows the instructions that the payload uses to identify the correct path to the *explorer.exe* file, taking into account both 32-bit and 64-bit versions of the Windows Operating System: 
+|  |
+| **Function to get the path of explorer.exe** |
+**Network communication** 
+The Lethic bot connects to a predetermined Command and Control (C&C) server at 93.190.137.107 on port 9900.
+We noticed several connection failures before a successful connection attempt to the C&C server.
+We believe that this is the malware author's attempt to evade automated analysis systems.
+Shown below is a snapshot of the network communication: 
+|  |
+| **Command from C&C server** |
+Lethic bot uses the infected machine as a SMTP proxy as evident in the network communication below: 
+|  |
+| **SMTP proxy traffic** |
+**Conclusion**
+Gamarue & Lethic malware families have both survived takedown attempts and continue to be active in the wild.
+ThreatlabZ is actively monitoring these two malware families and ensuring coverage for our customers.
+Analysis by:  Amandeep Kumar and Nirmal Singh

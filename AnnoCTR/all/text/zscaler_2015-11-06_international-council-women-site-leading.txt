@@ -1,0 +1,85 @@
+International Council Of Women Site Leading To Nuclear & Kelihos
+November 06, 2015
+### Introduction
+We recently wrote about a [compromised Chinese government](/blogs/research/chinese-government-website-compromised-leads-angler) site leading to an Angler Exploit Kit (EK) infection cycle.
+Nuclear EK operators are on par with their Angler EK peers in terms of the activity we are seeing in the wild.
+During our course of EK hunting, we came across a popular multinational organization, the International Council of Women (ICW), being compromised and leading users to a Nuclear EK landing site.
+The end user will get infected with the information stealing Kelihos bot if the exploit cycle is successful.
+### Compromised site - ICW
+The following screenshot shows the malicious iframe injected on the compromised website.
+|  |
+| Compromised ICW web page |
+The malicious iframe leads users to a Nuclear EK landing site as seen below.
+|  |
+| Nuclear EK redirection |
+The Nuclear EK landing page is heavily obfuscated to evade security software detection as shown below.
+|  |
+| Nuclear EK landing page |
+Upon successful execution of the obfuscated JavaScript, a malicious Flash file is downloaded on the victim's machine as seen below.
+|  |
+| Flash Exploit Download |
+### Kelihos Payload Analysis
+Upon successful exploitation, a new variant of the Kelihos bot is downloaded and installed on the victim machine.
+Here are some of the download locations for the Kelihos bot that we have seen in this campaign:
+ hxxp://46.63.32[.]75/harsh02.exe
+ hxxp://95.65.55[.]6/harsh02.exe        
+ hxxp://31.202.178[.]239/harsh02.exe    
+ hxxp://37.233.40[.]97/harsh02.exe    
+ hxxp://178.136.213[.]107/harsh02.exe
+|  |
+| Final Payload Download |
+Kelihos is a Trojan family that distributes spam email messages.
+The malware communicates with remote servers to exchange information that is used to execute various tasks, including sending spam email, capturing sensitive information or downloading and executing arbitrary files.
+The malware executable file is a Microsoft Visual C++ 6.0 compiled binary with custom packed content stored in the executable's overlay section.
+Kelihos installs WinPcap, a legitimate and commonly used Windows packet capture library at the following locations:
+* %system32%\winpcap.dll
+* %system32%\Packet.dll
+* %system32%\drivers\npf.sys
+Note: %system32% is c:\windows\system32
+It uses hard coded User-Agents from the following list when communicating with the remote host:
+|  |
+| Crafted User-Agent |
+Kelihos tries to steal the login credentials of FTP and POP3 applications by monitoring the network traffic of the victim's machine using the installed WinPcap libraries.
+The bot checks for the presence of the following applications on the victim machine and attempts to steal login credentials, digital currency and other information:
+* 3D-FTP
+* Bitcoin
+* BitKinex
+* BlazeFtp
+* Bullet Proof FTP
+* Classic FTP
+* Core FTP
+* CuteFTP
+* Cyberduck
+* Directory Opus
+* FFFTP
+* FileZilla
+* Frigate3
+* FTPGetter
+* LeapFTP
+* FTPRush
+* xterm
+* PuTTY
+* SecureFX
+* SmartFTP
+* Bitcoin
+* BitKinex
+The malware extracts stored information such as usernames, passwords and host names from the following browsers:
+* Google\Chrome
+* Chromium
+* ChromePlus
+* Bromium
+* Nichrome
+* Comodo
+* RockMelt
+* CoolNovo
+* MapleStudio\ChromePlus
+* Yandex
+Kelihos communicates to Command & Control (C&C) servers using HTTP via messages encrypted using the Blowfish symmetric-key algorithm.
+|  |
+| Post Infection Communication |  |  |
+### Conclusion
+###
+Nuclear EK remains a worthy rival to Angler EK, with widespread campaigns, regular exploit payload updates, new obfuscation techniques and new malware payloads.
+The end malware payload we saw in this campaign was the information stealing Kelihos bot which has extremely low AV detection.
+ThreatLabZ is actively monitoring new Nuclear EK infections in the wild and ensuring that Zscaler customers are protected.
+Research by Dhanalakshmi PK and Rubin Azad###

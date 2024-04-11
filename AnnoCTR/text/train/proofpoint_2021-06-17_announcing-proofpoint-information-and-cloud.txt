@@ -1,0 +1,93 @@
+Announcing Proofpoint Information and Cloud Security Platform – Enabling DLP and SASE Use Cases
+June 17, 2021
+As the world continues to embrace work from anywhere and the adoption of cloud applications accelerates, people have become the new perimeter.
+To protect that perimeter from threats, data loss and compliance risk, your organization needs visibility into risky behavior by remote workers, such as:
+* Downloading sensitive data from IT-approved applications
+* Storing enterprise data on personal cloud storage
+* Using unapproved cloud applications, such as chat and conference apps
+* Browsing malicious or inappropriate content
+Addressing these challenges requires in-line access controls and real-time data loss prevention (DLP) from the start.
+That’s why we’ve rearchitected [Proofpoint CASB Proxy](/us/resources/solution-briefs/casb-real-time-controls-approved-and-tolerated-apps "CASB Real-Time Controls for Approved and Tolerated Apps") and introduced [Proofpoint Web Security](/us/resources/data-sheets/proofpoint-web-security "Proofpoint Web Security")—a cloud-native secure web gateway—at [Proofpoint Protect 2021](/us/newsroom/press-releases/proofpoint-launches-industrys-first-cloud-native-information-protection-and "Proofpoint Launches Industry’s First Cloud Native Information Protection  and Cloud Security Platform").
+We built these proxy-based cloud security solutions on the cloud-native but mature [Proofpoint Zero Trust Network Access (ZTNA)](/us/products/cloud-security/secure-access "Secure Access") infrastructure.
+These solutions, combined with the [Proofpoint Cloud App Security Broker (CASB)](/us/products/cloud-security/cloud-app-security-broker "Cloud App Security Broker"), [remote browser isolation](https://www.proofpoint.com/us/products/cloud-security/browser-isolation), and Proofpoint ZTNA solutions, provide organizations a new [Secure Access Service Edge (SASE)](/us/threat-reference/sase "SASE") security architecture that can ensure access control with threat and data protection for users accessing internet sites, cloud services and private applications.
+### **Proofpoint CASB Proxy for real-time controls for approved and tolerated cloud apps**
+You need a forward proxy to govern access to cloud apps from corporate devices and prevent sensitive data loss in the cloud.
+As files are uploaded and downloaded in the cloud, CASB Proxy monitors for sensitive data and enforces DLP policies.
+It also identifies and classifies regulated data, such as personal health information (PHI), personally identifiable information (PII) and payment card industry (PCI) data, as well as intellectual property and confidential documents (for example, source code or design, legal and engineering documents).
+Together with [Proofpoint SaaS Isolation](/us/resources/solution-briefs/casb-adaptive-access-controls "Proofpoint CASB Adaptive Access Controls"), CASB Proxy provides granular access controls such as read-only access and real-time DLP for both approved and tolerated apps.
+SaaS Isolation secures users’ access to cloud apps and data by isolating browser sessions in a secure container.
+Using our proxy’s contextual and people-centric policies, you can apply real-time data controls over cloud activity—and help prevent data loss and compliance violations.
+With the help of a lightweight endpoint agent, we forward user traffic to our cloud-native solution to block risky apps and provide access and data controls for approved and tolerated applications.
+CASB Proxy is an add-on to our CASB solution—an integral part of the Proofpoint Information and Cloud Security Platform.
+When you start your cloud security journey, you can first deploy our CASB in API mode to gain in-depth visibility to cloud risks such as cloud account compromise, excessive file-sharing, and malicious or [risky third-party OAuth (open authorization) apps](/us/blog/email-and-cloud-threats/how-attackers-use-compromised-accounts-create-and-distribute-malicious "How Attackers Use Compromised Accounts to Create and Distribute Malicious OAuth Apps").
+You can also use our cloud applications catalog and traffic auditing capabilities to assess shadow IT risks.
+With a better understanding of people, application and data risks, you can enhance your CASB solution with real-time controls, including adaptive access and data controls for unmanaged devices and forward proxy and isolation-based controls for managed devices.
+And when you need to expand access controls, threat protection and DLP beyond cloud applications to all internet traffic, you can upgrade to Proofpoint Web Security.
+### **Web security with the industry’s best threat intelligence**
+As organizations continue to reimagine security for their hybrid workforce, they also need to reimagine their security stack.
+That includes the tools they need to secure internet traffic.
+The old approach of having a web gateway-type of appliance in centralized data centers doesn’t work in a world where users connect from everywhere and access company data located in various locations.
+A cloud-based security approach is critical to ensure users stay safe while browsing the web—and that attackers don’t comprise an organization’s critical data and assets.
+Proofpoint Web Security provides controls and isolation when end users are accessing the web.
+Our solution is built on a global, highly elastic cloud framework that allows ultimate scalability for organizations regardless of their size or location.
+Web Security inspects all internet traffic, including encrypted traffic, to deliver access control to all users seamlessly.
+It provides acceptable use control to specific sites and visibility and control of web app usage to help with the issue of shadow IT.
+To ensure the highest level of security for users as they’re browsing the internet, Proofpoint Web Security integrates with our industry-leading threat intelligence—making it easier for an organization to block the most sophisticated, web-borne security threats.
+![Information Protection ](/sites/default/files/inline-images/Screen%20Shot%202021-06-18%20at%201.47.33%20PM.png)
+*Figure 1*
+Proofpoint Web Security goes beyond traditional web gateway functionality or just blocking or allowing access to sites.
+It has seamless integration with [Proofpoint Browser Isolation](/us/resources/data-sheets/browser-isolation "Browser Isolation").
+This integration allows organizations to send users to an isolated browser session when visiting certain categories of sites, such as unknown or personal sites (for example, email or medical).
+While in isolation, the user can access the site.
+But if there are any threats on the site’s pages, they’re not allowed to leave isolation and impact the user.
+This integration helps dramatically lower the organization’s attack surface.
+It also provides a better user experience and preserves the privacy of your people during personal browsing.
+Web Security and Browser Isolation are part of the Proofpoint Information and Cloud Security Platform.
+### **A powerful platform with a unified console to “rule them all”**
+The **Proofpoint Information and Cloud Security Platform** brings together [Proofpoint Enterprise DLP](/us/products/information-protection/enterprise-dlp "Enterprise Data Loss Prevention "), [Proofpoint Insider Threat Management](/us/resources/data-sheets/insider-threat-management "Proofpoint Insider Threat Management"), CASB, ZTNA, Browser Isolation and Web Security.
+This powerful, cloud-native single platform aligns to the industry vision of SASE architecture, where organizations can apply secure access and threat protection as people access applications and data, no matter their location or device type.
+![image 13](/sites/default/files/inline-images/image_13.png)
+*Figure 2*
+Our platform delivers a unique people-centric approach to access governance for the internet, cloud services and private applications, and DLP across email, cloud apps, the web and endpoints.
+It combines:
+* A comprehensive suite of information protection and cloud security solutions
+* A unified administration and response console
+* Intelligent risk modeling
+* World-class threat, content and behavior detection
+* People-centric visibility and controls
+[Proofpoint Cloud Security](/us/products/cloud-security "Security Service Edge") unifies people-centric access controls and threat protection for users of internet, cloud and private applications within a global cloud-native platform.
+To enable adaptive and people-centric secure access across the enterprise, we combine: 
+* Granular controls such as risk-based authentication, read-only access and micro-segmented application access
+* Rich, cross-vector threat intelligence on user risk
+* Advanced threat protection
+With coverage across all DLP channels and a common data classification framework, [Proofpoint Information Protection](/us/products/information-protection "Information Protection") combines content, behavior and threat-based telemetry with sophisticated analytics.
+Security teams worldwide rely on Proofpoint to address the full spectrum of data loss scenarios across malicious, negligent and compromised users.
+Its unified alerts also help users better prioritize warnings, respond faster and achieve a shorter time to value.
+Our unified admin and response console simplifies day-to-day security operations and accelerates response by combining advanced tools:
+**![Dashbaord](/sites/default/files/inline-images/Screen%20Shot%202021-06-16%20at%2012.20.32%20PM.png)**
+*Figure 3*
+#### **Policy management:**
+* Manage all cloud and data access policies in a single console
+* Create sophisticated rules across multiple channels using a common data classification framework and advanced threat intelligence and detection
+#### **Incident and investigative workflow:**
+* Collect threat, DLP and user-behavior alerts into a unified alert manager to get a holistic risk profile for the user
+* Investigate user behavior to determine intent and severity of risk
+* Manage alert status cross-functionally from discovery to resolution
+#### **Threat hunting and explorations:**
+* Proactive hunting for new threats such as cloud account compromise, large data transfer to personal cloud storage, unsanctioned application use, and more
+* Build watch lists that organize and prioritize users by risk profile (executives, Very Attacked People™ (VAPs), privileged users, human resources staff, contractors, and others)
+* Powerful filter and search functionality to customize out-of-the-box explorations
+#### **Reporting and analytics:**
+* Intuitive timeline-based views of user and data activity across multiple channels
+* Based on user intent, share reports of risky activities with business partners
+* Correlate multichannel activities and alerts with data from other security tools through seamless integration with security information and event management (SIEM), security, orchestration, automation and response (SOAR), and ticketing systems
+#### **Administration and data privacy controls:**
+* Manage alerts and investigations cross-functionally with role-based access controls
+* Address data privacy concerns with granular, attribute-based access controls
+Our platform is global, with the ability to store data locally to help you meet data compliance requirements.
+### **Discover more**
+Learn more about the information and cloud security solutions from Proofpoint:
+* [Proofpoint Information Protection](/us/products/information-protection "Information Protection")
+* [Proofpoint CASB](/us/products/cloud-security/cloud-app-security-broker "Cloud App Security Broker")
+* [Proofpoint CASB Proxy](/us/resources/solution-briefs/casb-real-time-controls-approved-and-tolerated-apps "CASB Real-Time Controls for Approved and Tolerated Apps")
+* [Proofpoint Web Security](/us/resources/data-sheets/proofpoint-web-security "Proofpoint Web Security")

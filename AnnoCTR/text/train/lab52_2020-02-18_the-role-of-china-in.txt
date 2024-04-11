@@ -1,0 +1,123 @@
+The role of China in the Persian Gulf and potential cyberthreats:
+February 18, 2020
+After the rise of tensions between the US and Iran due to the US military operation that ended the life of the Iranian General Qasem Soleimani and the Iraqi Commander Abu Mahdi al-Muhandis ([12]), Iran carried out an attack with missiles against two US military bases located in Iraq ([13]).
+These events have generated a climate of uncertainty and an increase of geopolitical risk in one of the most relevant areas, the Persian Gulf.
+This fact does not only involve the US and Iran, furthermore it involves other actors with a high influence in the world order such as China.
+This phenomenon could provoke that China carries out certain strategies to keep its energy interests safeguarded in the Middle East area.
+During 2019, some technical traces were detected and this traces where potentially related to certain APT groups presumably associated with the People’s Republic of China (APT10) that would be carrying out malicious campaigns against various targets like critical infrastructures  organizations among others ([14]) ([15]).
+In the past, the relationship between Tehran and Beijing was based on a trade agreement focused in the exchanging of crude oil and weapons ([19]).
+Regarding the second point, in the war between Iran and Iraq (1980-1988), when the targets of both actors were the oil stations and oil freighters, reaching the blockade of the Strait of Hormuz, the situation began to be unsustainable from the point of view of the trade of crude.
+In order to reduce the tension, the USSR and the USA, agreed in 1985 to cease the sale of weapons.
+However, according to the Stockholm International Institute for Peace,
+China was always faithful to Iran to keep the arm sales operations and currently it is still being one of the most relevant Iran’s partners ([21]).
+The Chinese interests in Iran directly clashed with the long-standing confrontation between the USA and Iran since the fall of Shah M. Reza Pahlavi and subsequently with the power of Ayatollah R. Khomeini in 1979, establishing the Islamic Republic of Iran, thus Islamic Revolution ended its westernization.
+That’s why, currently the new commercial approach between the US and China comes with the US imposition to try to finish within the crude oil trade with Iran.
+Consequently, china has significantly reduced its crude oil imports from Iran since the US again imposed sanctions during November 2018 ([16]).
+During 2015, the Obama Administration carried out jointly with Iran, Germany, Great Britain, China, France and Russia, the Tehran nuclear agreement, at those time China significantly increased its commercial ties with Iran.
+During 2016, Iran and China agreed to expand bilateral ties and increase trade to $ 600 billion by 2025.
+This business planning was truncated at the time that the Trump Administration withdrew from the Nuclear Pact.
+Chinese imports of Iranian crude oil fell from 650,000 barrels per day to an average of 140,000 barrels in recent months ([16]).
+China, in response to the impossibility of establishing and developing business operations with Iran, imported a total of 76.3 million tons of crude oil from Saudi Arabia in the first 11 months of last year, 53% more than in the same period of 2018 ([16]).
+On the other hand, Iranian oil exports fell to 14.4 million tons.
+Moreover, China has a relative neutral role in the Iran-USA conflict, Pekin is trying to strength the ties with Saudi Arabia, looking to supply them specific military material and weapons that the USA does not supply them as the CH-4 UAV drones, similar to the American MQ-1 Predator ([21]).
+China aims to balance its crude oil suppliers against the rise of instability in the Middle East.
+In addition, China is one of the world’s leading oil consumers, this means that its economy has an important high dependence on oil.
+As can be seen in the following table, China remain in the second place in the top of oil consumers after the US ([6]).
+| **Country**         | **M. barrels per day**      | **Share of world total** |
+|  United States      |  19.96                      |  20%                     |
+|  China              |  13.57                      |  14%                     |
+|  India              |  4.34                       |  4%                      |
+|  Japan              |  3.92                       |  4%                      |
+|  Russia             |  3.69                       |  4%                      |
+|  Saudi Arabia       |  3.33                       |  3%                      |
+|  Brazil             |  3.03                       |  3%                      |
+|  South Korea        |  2.63                       |  3%                      |
+|  Germany            |  2.45                       |  2%                      |
+|  Canada             |  2.42                       |  2%                      |
+|  Total top 10       |  59.33                      |  60%                     |
+|  World total        |  98.76                      |                          |
+*Illustration 1. Oil consumption (2018)*
+Moreover, as can be seen in the following graph, China ranks fifth in the ranking of oil producing countries in the worldwide ([6]):
+| **Country**         | **Million barrels per day** | **Share of world total** |
+| United States       |  17.94                      |   18%                    |
+| Saudi Arabia        |  12.42                      |   12%                    |
+| Russia              |  11.40                      |   11%                    |
+| Canada              |   5.38                      |    5%                    |
+| China               |   4.81                      |    5%                    |
+| Iraq                |   4.62                      |    5%                    |
+| Iran                |   4.46                      |    4%                    |
+| United Arab Emirates|   3.79                      |    4%                    |
+| Brazil              |   3.43                      |    3%                    |
+| Kuwait              |   2.91                      |    3%                    |
+| Total top 10        |  71.15                      |    71%                   |
+| World total         | 100.89                      |                          |
+*Illustration 2. Origin of oil imports in China.*
+The graph shows us that a significant part of China’s oil suppliers comes from politically unstable regions and must be transported through narrow and sea lanes disputed with other States with high military competence.
+It is relevant for China to keep these logistic access roads insured to keep its development and economic expansion.
+In addition, this dependence on foreign energy resources is likely to increase considerably.
+It is expected that in 2040 about 80% of the oil consumed by China will come from other States ([7]).
+For this reason, China is interested in investigating and controlling the instability in the Middle East, since a significant percentage of its oil imports come from Iran, Iraq, Saudi Arabia, Oman and Kuwait, all within the Persian Gulf.
+To maintain this flow of energy resources, China and the Saudi King Salman signed an oil trade agreement for $ 65 billion in 2017 ([8]).
+In addition, the OBOR route, the main international route to carry out the transport of goods, is increasingly getting consolidated and more functional.
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-10.png)
+*Illustration 3. OBOR route for the oil trade.*
+Currently, all imports from Iran and Saudi Arabia are introduced into China through the Malacca Canal, near the South China Sea.
+Probably, the presence and influence of China in the Middle East is not going to be militarily.
+However, it constantly looks for diplomatic and business opportunities to acquire organizations from the energy sector in order to accomplish their future energy demands ([9]).
+These business and diplomatic opportunities could be preceded by cyber espionage operations with the purpose of acquiring advantages in the sector.
+Organizations in the energy sector have important confidential information that certain governments may be highly interested in.
+The energy organizations which are located in certain Middle East locations of interest of China would be a potential target of cyberespionage.
+CAMPAIGN AGAINST THE USA ADMINISTRATION AND THE ENERGY SECTOR
+During 2019, a malicious campaign was executed against US public sector organizations.
+This campaign, due to the macros used, is likely to be attributed to APT10, a group allegedly linked to the Ministry of Security and Intelligence of China ([1]) ([18]).
+The malware used was “Lookback.
+The spear phishing carried out an impersonation of GEC (Global Energy Certification) to offer certain certification courses ([2]).
+Topic which would be highly interesting for critical infrastructure or energy professionals.
+Several spear phishing emails came from the following malicious domain: globalenergycertification[.]Net. The same domain was used in previous malicious campaigns.
+The hostile actor tries to impersonate a licensing agency that is linked to the public sector globalenergycertification[.]Org. In the body of the email, topics are included to impersonate the “Global Energy Certification” (GEC).
+The word file attached in the email has the macros that once is downloaded and executed infects the systems of the victim ([2]).
+During the first stages of the infection it was possible to identify that the attackers carried out a reconnaissance phase through SMB scans on the port 445.
+This activity was carried out two weeks before to the reception of spear phishing.
+The delivery was a fake invitation to carry out the exam to get the Global Energy Certification ([2]):
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-11.png)
+*Illustration 4. Spear phishing email body*
+The domain globalenergycertification[.]Net resolves to this IP 79.141.169[.]3.
+In the following chart there are the domains and IPs which were hosted with their respective date and impersonated entity records:
+| **IP**          | **Domain**                     | **Dates Registered**         | **Impersonated entity**                                  |
+|  79.141.169[.3  | globalenergycertification [.net| August 1 – September 19, 2019| Global Energy Certification (“GEC”)                      |
+| 103.253.41 [.75 | globalenergycertification [.net| June 12 – July 30, 2019      | Global Energy Certification (“GEC”)                      |
+|  79.141.168[.137| nceess [.com                   | June 24 – September 19, 2019 | National Council of Examiners for engineering and Survey |
+| 103.253.41[.75  | nceess [.com                   | May 29 – June 19, 2019       | National Council of Examiners for engineering and Survey |
+It has been identified that Lookback samples use the same C&C 103.253.41 [.45.
+In the MISP (Malware Information Sharing Platform) is showed the IPs shared and the domain associated to both malicious campaigns: 
+![](https://lab52.io/blog/wp-content/uploads/2020/02/image-12.png)
+*Illustration 5. MISP graphic*
+CONCLUSIONS
+A rise of malicious campaigns against the critical infrastructure or even energy sector has been detected.
+This sector can be decisive for the progress of large economies such as China, the US and the main suppliers of the Middle East energy sector.
+The instability in the Middle East’s energy sector and the protectionist policies of certain governments are increasing the geopolitical risk and could increase the China’s concern about its own energy supply.
+The malicious campaign showed before was carried out in 2019.
+However, the geopolitical tension is getting higher in the Middle East, so it would be possible that more malicious campaigns will come to acquire confidential information for spying purposes.
+REFERENCES
+[1] Proofpoint.Lookback and United States. <https://www.proofpoint.com/us/threat-insight/post/lookback-forges-ahead-continued-targeting-united-states-utilities-sector-reveals>
+[2] Proofpoint.Lookback malware. <https://www.proofpoint.com/us/threat-insight/post/lookback-malware-targets-united-states-utilities-sector-phishing-attacks>
+[3] Schroders.2019 Global market prespective. <https://www.schroders.com/en/sysglobalassets/digital/insights/2019/pdfs/q3-2019-global-market-perspective-261959.pdf>
+[4] NBR.Securing belt and road 2019. [https://www.nbr.org/wpcontent/uploads/pdfs/publications/sr80\_securing\_the\_belt\_and\_road\_sep2019.pdf] (https://www.nbr.org/wp%20content%20/%20uploads%20/%20pdfs%20/%20publications%20/%20sr80_securing_the_belt_and_road_sep2019.pdf)
+[5] CSIS.China grand strategy. <https://csis-prod.s3.amazonaws.com/s3fs-public/publication/190807_China_Grand_Strategy_Final_Full.pdf>
+[6] EIA. <https://www.eia.gov/tools/faqs/faq.php?id=709&t=6>
+[7] World to Export <http://www.worldstopexports.com/top-15-crude-oil-suppliers-to-china/>
+[8] English Al-Arabiya. China geo-economic interest. <https://english.alarabiya.net/en/views/news/middle-east/2018/08/29/China-s-geo-economic-interests-and-Middle-East-energy-industry.html>
+[9] Washington Institute. China and the Middle East. <https://www.washingtoninstitute.org/policy-analysis/view/chinas-middle-east-policy-speak-softly-and-wave-a-large-purse>
+[10] Scrip.Paper Information ID 83914 <http://www.scirp.org/journal/PaperInformation.aspx?PaperID=83914>
+[11] China Power CSIS. <https://chinapower.csis.org/energy-footprint/>
+[12] BBC. <https://www.bbc.com/news/world-middle-east-50995792>
+[13] NBC news. <https://www.nbcnews.com/news/world/u-s-base-iraq-comes-under-attack-missiles-iran-claims-n1112171>
+[14] Energy Government. <https://www.energy.gov/articles/department-energy-statement-chinese-hacking-global-managed-service-providers>
+[15] Cyberscoop. <https://www.cyberscoop.com/chinese-linked-apt10-has-been-active-in-the-philippines-researchers-say/>
+[16] Japan Times. <https://www.japantimes.co.jp/news/2020/01/18/asia-pacific/us-iran-tensions-china-economy/>
+[17] Middle East Monitor. <https://www.middleeastmonitor.com/20200115-is-the-strait-of-hormuz-the-key-to-iran-asserting-its-dominance/>
+[18] Lifars <https://lifars.com/2019/08/apt10-targeting-american-utility-companies/>
+[19] South China Morning Post <https://www.scmp.com/news/china/military/article/3045253/china-and-iran-relationship-built-trade-weapons-and-oil>
+[20] Brown. <https://www.brown.edu/Research/Understanding_the_Iran_Contra_Affair/i-thebeginning.php>   
+[21] SIPRI <https://www.sipri.org>
+[22] Atlantic Council.<https://www.atlanticcouncil.org/blogs/menasource/chinas-persian-gulf-strategy-keep-tehran-and-riyadh-content/>

@@ -1,0 +1,29 @@
+CCleaner Compromise: Yet another software supply-chain attack
+September 22, 2017
+Earlier this week, Avast, a multinational security software vendor, reported a compromise of their Windows system utility CCleaner.
+CCleaner is a very popular file system and registry clean up utility that optimizes performance by removing unneeded registry entries and files.
+Attackers managed to compromise the software update infrastructure sometime in August 2017 and inject malicious code in the CCleaner update v5.33 and cloud version v1.07.
+The injected malicious code causes the compromised machine to communicate back to a predetermined C&C server (hardcoded IP addresses and DGA domains) to report infection and download a second stage malware payload.
+Users from a very targeted list of organizations including Microsoft, Cisco, Intel, VMware, Sony, etc., were the only ones to be served a second stage malware payload.
+Per Avast, 700K users downloaded and installed the compromised version of CCleaner, however, only the 20 users that belonged to the targeted organizations were served with a second stage payload.
+It is important to note that the malicious CCleaner installer package was delivered using CCleaner’s software update infrastructure over HTTPS and was signed using a legitimate certificate.
+The Zscaler team has been actively monitoring this issue over the past 72 hours and has added multiple protections to block the payloads as well as post-infection activity for the backdoor module.
+**Avast’s Response**
+Avast contacted all the impacted customers and revoked the legitimate certificate that was used to sign the compromised version of CCleaner package and issued an updated version of the package.
+More details: <https://blog.avast.com/update-to-the-ccleaner-5.33.6162-security-incident>
+**How Zscaler Can Help with Preventative Measures**
+Zscaler added multiple signatures and indicators for blocking the original payloads as well as post-infection activity shortly after the information was disclosed to help any affected organizations in their remediation efforts.
+**Advanced Threat Signatures:**
+Win32.Trojan.PRForm.A
+Win32.Trojan.Prform.A.LZ
+Win32/CCleaner.A Trojan
+Cloud Sandbox provides the best line of defense in a proactive manner against these threats.
+Zscaler Cloud Sandbox successfully detected the payloads from this compromise.
+Here is a sample Cloud Sandbox report from one such detonation:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/image_1506126448.png)
+![](/cdn-cgi/image/format=auto/sites/default/files/images/image_1506126462.png)
+SSL inspection is necessary to protect organizations.
+Over 60% of Internet traffic is over SSL, yet most advanced threats hide in SSL. Zscaler Cloud Security Platform provides native SSL inspection.
+**Reference**
+<https://blog.avast.com/progress-on-ccleaner-investigation>
+<https://blog.avast.com/avast-threat-labs-analysis-of-ccleaner-incident>

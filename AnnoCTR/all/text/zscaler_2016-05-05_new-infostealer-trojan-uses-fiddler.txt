@@ -1,0 +1,73 @@
+New Infostealer Trojan uses Fiddler Proxy & Json.NET
+May 05, 2016
+**Introduction**
+Zscaler ThreatLabZ came across a new Infostealer Trojan written in .NET that utilizes popular tools like Fiddler & Json.NET for its operation.
+In April, the new Infostealer family of Spanish origin was first noted targeting users in the U.S. and Mexico.
+The malware authors are currently targeting users of Mexico's second largest bank, Banamex, but it is capable of updating the configuration file to include more financial institutions.
+**Delivery Mechanism & Installation**
+The infection cycle starts with an installer payload that uses double extension 'curp.pdf.exe' in a relatively poor attempt to pose as a PDF document to the end user.
+The malware payload does not have the PDF file icon embedded in it, so the user will see the document file with a generic application icon as seen below:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/May4_infostealer_fileicon.png)
+Infostealer installer using double file extension
+Sample URLs that we have seen serving installer payloads in last two weeks:
+> cigm[.]co/js/slick/curp.pdf.exe
+> saysa[.]com.co/js/rfc.pdf.exe
+> saysa[.]com.co/js/curp.pdf.exe
+> bestdentalimplants[.]co.in/js/curp.pdf.exe
+> denticenter[.]com.co/js/slick/curp.pdf.exe
+>  
+Once executed, the installer will attempt to download the following three components on the victim's machine:
+* syswow.exe - This is the main Infostealer payload that steals the banking credentials
+* FiddlerCore3dot5.dll - Fiddler Proxy Engine for .NET applications.
+This is a legitimate .NET Class library file that the malware authors are using in the main Infostealer functionality
+* Newtonsoft.Json.dll - Open source JSON framework for .NET applications.
+This is a legitimate .NET Class library file that the malware authors are using for parsing Command & Control (C&C) server response data and converting it into XML format
+The above files are downloaded in the windows system directory as seen in the code below:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Downloadallfiles.png)
+Infostealer installer downloading components
+The installer will then execute the main Infostealer payload and terminates itself.
+**Infostealer Payload analysis**
+The Infostealer payload first checks for the presence of the FiddlerCore3dot5.dll and Newtonsoft.Json.dll on the victim's machine.
+If the DLL files are not found then the malware will attempt to download these files from a new location that is hard-coded in the payload.
+Once the DLLs are in place, the malware will check for the victim's operating system version as seen below:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/OS_0.png)
+Infostealer checking operating system version
+For Windows XP (32-bit & 64-bit) and Windows Server 2003, the malware will create an autostart registry key entry to ensure persistence upon system reboot.
+Then, the malware downloads a configuration file and starts the Fiddler proxy engine.
+For other versions of Windows, the malware will not create an autostart registry key.
+However, in order for the Fiddler proxy engine to work properly the malware will install a Fiddler generated root certificate before starting the proxy engine.
+**C&C configuration file**
+Upon successful installation, the Infostealer Trojan will collect information such as “MachineName”, “UserName”, “systeminfo” and “hostip” from the infected system and sends it to the remote C&C server in Base64 encoded format as seen below:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/concat.png)
+Infostealer sending machine information
+The C&C server will respond back with a configuration file that contains a list of URLs pointing to alternate C&C locations as well as other instructions.
+The malware uses Json.NET library to parse the server response and save it in the XML format with file name registro.xml.
+Here is a sample configuration file that we saw during our analysis:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/XML_entries.png)
+Infostealer XML configuration file
+The configuration file also contains a list of Domain to IP tuples that are primarily used by the Infostealer Trojan to hijack user requests to those domains and redirecting them to a malicious server hosting fake phishing site for the targeted domain.
+The malware initializes a timer component with an interval of 10 minutes that will trigger a RefreshInfo function call.
+This will result in a download of a new configuration file from the next URL in the list every 10 minutes.
+**Fiddler to intercept HTTP and HTTPS traffic**
+It is interesting to note that the malware leverages Fiddler proxy engine to intercept HTTP/HTTPS connections and redirecting the users to the attacker-controlled server hosting fake site.
+The malware achieves this by adding x-overrideHost flag containing attacker's Server IP address, if the domain name is on the target list in the C&C configuration file.
+This will cause Fiddler proxy engine to resolve the domain to the supplied IP address sending the victim user to a fake website.
+Screenshot of fake Banamex page from an infected system:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Redirected%20banamex%20site.png)
+Fake Banamex site hosted on the attacker-controlled server
+**Conclusion**
+We regularly see multiple .NET based malware payloads but this particular Infostealer Trojan caught our attention because of the use of popular application libraries like Fiddler & Json.NET in its operation.
+Mexico's second largest bank - Banamex, appears to be the main target of this Infostealer Trojan for credential theft and financial fraud.
+However, the authors can easily add more targets given that they are actively updating the list every 10 minutes.
+Zscaler’s ThreatLabZ has confirmed coverage for the initial downloader and the Infostealer payloads, ensuring protection for organizations using Zscaler’s Internet security platform.
+**IOCs**
+Infostealer installer payload MD5sum:
+* 123f4c1d2d3d691c2427aca42289fe85
+* 070ab6aa63e658ff8a56ea05426a71b4
+* ac6027d316070dc6d2fd3b273162f2ee
+* 98bbc1917613c4a73b1fe35e3ba9a8d9
+* 070ab6aa63e658ff8a56ea05426a71b4
+* 06f3da0adf8a18679d51c6adaa100bd4
+* 123f4c1d2d3d691c2427aca42289fe85
+* 8c9896440fb0c8f2d36aff0382c9c2e4
+Authors: Deepen Desai, Avinash Kumar

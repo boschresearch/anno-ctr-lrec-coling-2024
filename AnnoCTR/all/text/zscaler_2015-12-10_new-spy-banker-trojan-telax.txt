@@ -1,0 +1,162 @@
+New Spy Banker Trojan Telax Abusing Google Cloud Servers
+December 10, 2015
+### Introduction
+Zscaler ThreatLabZ has been closely monitoring a new Spy Banker Trojan campaign that has been targeting Portuguese-speaking users in Brazil.
+The malware authors are leveraging Google Cloud Servers to host the initial *Spy Banker Downloader* *Trojan,* which is responsible for downloading and installing *Spy Banker Trojan Telax*.
+The attackers are using social engineering tactics, such as offering coupon vouchers and free software applications like WhatsApp and Avast antivirus, to lure the end user into downloading and installing the malicious payload.
+Social networking sites Facebook and Twitter are primarily being used to spread a shortened URL (using bit.ly service) that points to a Google Cloud Server hosting the malicious payload with .COM or .EXE file extensions.
+### Campaign Details
+The attack starts with a shortened URL posted on a social networking site or via drive by download from malicious sites posing to offer premium software or coupons.
+Below is a recent attack chain where the user clicked on a link shared via Facebook that lead to the download of Telax payload:
+|  |
+| Figure 1: Spy Banker Telax served via Facebook |
+The bit.ly link points to a PHP file hosted on the Google Cloud Server that does a 302 redirect to download the initial Spy Banker Downloader Trojan payload.
+The executable file *receitanet.com* is posing to be Brazil's federal revenue online tax returns service.
+We have also seen other themes offering fake premium software applications and discount vouchers as seen from the file names below.
+**Malicious payload file names:**
+* americanas.com
+* americanas.exe
+* app.ricardoeletro.com
+* atube.com
+* avast.com
+* AvastPro.exe
+* baixaki.com
+* receitanet.com
+* ricardoeletro.com
+* setup.exe
+* submarino.com
+* voucher.americanas.com
+* voucher.mercadolivre.com
+* voucher.ricardoeletro.com
+* walmart.com
+* web.whatsapp.com
+* whatsapp\_setup.exe
+* WhatsApp\_Setup.exe
+Below are the statistics (credit: Bit.ly) on the number of users clicks that were recorded for the attack campaign shared in Figure 1:
+|  |
+| Figure 2: User clicks on the malicious bit.ly link |
+Majority of the target users were lead to the malicious bit.ly link from Facebook as seen below:
+|  |
+| Figure 3: Source for the bit.ly link visits |
+In addition to social networking sites, we also saw users arriving to the Spy Banker Telax payloads hosted on Google Cloud servers from the following sites:
+* aquinofinal[.]com
+* aquiredire[.]com
+* brasildareceita[.]com
+* mundodareceita[.]com
+* ofertasplusdescontos[.]com
+All but one of the domains listed above are repossessed by Go Daddy and are no longer active.
+A quick *WhoIs* look up of the active domain shows that it was recently registered to 'kleyb maxbell' with following information:
+|  |
+| Figure 4: Whois information for an attack domain |
+We found another domain 'ofertasmaxdescontos[.]com' registered by the same user that also appears to be actively redirecting users to the malicious payload hosted on a predetermined Google Cloud Server as seen below:
+|  |
+| Figure 5: Active attack domains |
+It is important to note that Google has already cleaned up the cloud servers being currently redirected by these two active sites and hence the infection cycle will fail with a 404 Not Found message.
+Geographic distribution of the users attempting to download the end malicious payload from Figure 1 is shown below:
+|  |
+| Figure 6: Geographic distribution of target users |
+As expected, majority of the users targeted by this malware campaign are from Brazil.
+It is important to note that the success of this attack depends primarily on the social engineering tactics in convincing the end user into opening the downloaded payload.
+### Spy Banker Trojan Telax analysis
+The initial file that gets downloaded is the Spy Banker Downloader Trojan.
+The Downloader Trojan is responsible for downloading & executing the final payload from a list of predetermined URLs as seen below:
+|  |
+| Figure 7: Downloader Trojan hardcoded URLs |
+The final payload, Spy Banker Trojan Telax, is a Delphi executable that is capable of stealing Banking credentials targeting Portuguese users.
+Upon execution, Telax injects malicious code into legitimate Visual Basic Compiler (vbc.exe) process.
+The injected code first checks for the presence of virtual environment like VMWare, Virtual Box, Wine and Virtual PC on the target system.
+Telax executable contains following additional files embedded in it's resource section:
+* SQLLite.dll - legitimate SQL Lite binary
+* 32-bit rootkit component
+* 64-bit rootkit component
+* 64-bit copy of itself
+Depending on the bit-ness of the target operating system, Telax will register the appropriate rootkit driver:
+> *HKLM\SYSTEM\CurrentControlSet\Services\hookmgr\ImagePath: "<User>\<CurrentLocation>\hookmgr.sys"*
+The main form that we extracted from the malicious Delphi binary is named 'Telax' by the author and can be seen below:
+|  |
+| Figure 8: Spy Banker Telax main form |
+Here is the translation for the pre-configured features found in this bot:
+* Auto Reconectar se perder conexao -> Auto Reconnect lost connection
+* bloquear VM -> VM block
+* Proteger Processo -> Protect Process
+* Mensagem de instalacao -> Message installation
+* Gerar infect -> Generate infect
+* Ativar host -> Enable host
+* ativar update -> Activate update
+* ativar killer -> Activate killer
+* ativar Worm -> Activate Worm
+* Versao -> Version
+* Porta -> Port
+Following are the additional Telax modules that we looked at during our analysis:
+**A. Modulename: TnHulk.MITO**
+Detects installed Antivirus applications on the system.
+It specifically looks for following antivirus executables on the target system:
+BavUpdater.exe - Baidu Antivirus
+instup.exe - Avast
+avgmfapx.exe - AVG
+Update.exe - Symantec
+**B. Modulename: TTitulo.IPTX**
+Responsible for decrypting embedded strings in the file.
+**C. Modulename: TXRPD**
+Responsible for installing malware on the system.
+**D. Modulename: TLISTING**
+Contains the rootkit functions
+**Network Communication**
+Upon successful installation, Telax sends following information to a remote Command & Control (C&C) server:
+* ID\_MAQUINA - Machine ID
+* VERSAO - Bot version
+* WIN - Operating system
+* NAVEGADOR - Default browser
+* PLUGIN - Presence of G-Buster Browser Defense (gbieh.dll) plugin
+* AV - Antivirus installed
+|  |
+| Figure 9: Telax C&C communication |
+Following are the C&C commands that are used by Telax for its communication:
+| Command | Description |
+| --- | --- |
+| <|PING|> | Checking status of connection |
+| <|Info|> | Sends infected OS details and bot version |
+| <|Close|> | Close all connections |
+| <|DESI|> | Uninstall itself |
+| <|reini|> | Restart system |
+| <|REQUESTINFO|> | Request for information regarding installed AntiVirus, AntiSpyware and Firewall |
+| <|REQUESTKEYBOARD|> | Sends keystrokes to active application window |
+| <|HjiopPos|> | Set mouse position |
+| <|HjiopLD|> | Set mouse left button down |
+| <|HjiopLU|> | Set mouse left button up |
+| <|POWT|> | Type given string in current window |
+| {DESMON} | Sets the state of the display using WM\_SYSCOMMAND window message |
+We also found fake panels for two-factor authentication that will presumably be used to capture and bypass the two-factor authentication mechanism.
+|  |
+| Figure 10: Fake two factor authentication panel |
+**Telax Downloader Hashes**
+1101C68DF9B31D1C086902D12ECC8521
+14066DDD16BF58CD8815F19B183A2801
+18FDAA5C3BC8519798912DD8CFDBA0FD
+391022155B4BF56309E335308CA86E9D
+3DF54DA82678F377FE3FA0AC2122550B
+3EAD81990D055C6B7F9F026912D06C28
+47ADF66B8AADFA147FF4E528B9F1ADC1
+4AA96DC421E509C51F69BF3253702FC4
+53D7A67EBF62150288FABF3AA38F0D06
+5B3C393563FEEFE50D5B79B555896EA2
+695C89E87D18FE9C7BBEBD65E2DA8308
+6D27E0A7F9753DCD27B0418023077342
+6DC1168629BBFD1AF343B13E08C0FC72
+710E945AC8247B3F8B19022A9401E351
+9648CED20C9BBD304F3234644842F663
+A87112588AD6F5DD4C4D8F88442F6B66
+B037980732D665EE46662A2D3D5D067D
+BA6F9083D4F559BBBC000806C6357C9F
+C4EBF36C756504F30D80BEDAECC27AF9
+CF2D555048B87BED05D0486F00209797
+D1D29793D9FA4DDD3FA8AD66903CB75F
+D63D2A72EAA672F2BC46901CC460308B
+DF08C8549F14AAE4CAC8FF46640212CA
+F0416E5EF08E2DE12B409F51E42C7A31
+### Conclusion
+Spy Banker Telax is a Banking Trojan that has specifically targeted Portuguese users.
+The malware authors are actively pushing out new versions of Telax (latest version 4.7) binaries and are abusing Google Cloud Servers to host the payload for infection.
+There is no vulnerability exploit being used in this campaign and the attackers are solely relying on social engineering to infect the end users.
+Zscaler’s ThreatLabZ has confirmed coverage for the initial downloader and Telax payloads, ensuring protection for organizations using Zscaler’s Internet security platform.
+Research by: Deepen Desai, Nirmal Singh, Lenart Brave

@@ -1,0 +1,24 @@
+FlimKit Coughs Up More Malvertising
+July 11, 2013
+FlimKit is a known exploit kit which takes advantage of Java Vulnerabilities in order to drop malicious content on the victim's PC.
+Previous iterations of this Exploit Kit were known to be distributed through at least 1 popunder service.
+The EK itself is fairly straight forward.
+Like so many other kits, it begins with a malicious flash based redirect from a malvertising ad.
+From there it will exploit known Java vulnerabilities to drop JAR file which in turns will give you a malicious executable.
+In most cases, this will be some variation of ZBOT.
+The following domains were seen as newly added to the FlimKit drop:
+* 9euei.info
+* kvmhja.info
+* sdjeu7.info
+* adiwep.info
+* d0e9ue.info
+* idueya.info
+* sdioep.info
+* sieod.info
+Previous iterations of this exploit were also sent as part of known ad services.
+This instance is no different other than they have obviously branched out to other services to spread their malvertising message.
+Through my research I found that the following ad services were known to send user's to the malicious Exploit Kit which exploits [CVE-2013-2423](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-2423):
+* yieldmanager.net
+* smxchange.com
+* glispa.com
+As far as the actual exploit is concerned, there is solid example seen [here](http://pastebin.com/7Ea19UWx).

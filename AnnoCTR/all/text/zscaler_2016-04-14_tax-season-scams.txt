@@ -1,0 +1,74 @@
+Tax Season Scams
+April 14, 2016
+**Introduction**
+Tax Season is once again upon those of us who don’t have a tax shelter company in Panama.
+This year, the IRS warned of a [400% increase](http://wreg.com/2016/02/19/irs-reports-400-surge-in-phishing-malware-incidents-this-tax-season/) in phishing attempts and tax related e-mail scams.
+While phishing can be leveraged to steal credentials and other information directly, malware attacks can give a foothold to surveil users and networks, and steal all kinds of confidential information.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/season-introduction.png)](/sites/default/files/images/blogs/season-introduction.png)
+A broad search of Tax related files indicates that there are a number of users actively downloading files that are related to filing their yearly income taxes.
+Scammers are counting on this subset of users to exploit.
+In the next section, we will detail some attacks attempting to social engineer and infect the unwary tax-preparer.
+**Scams**
+TurboTax Ad/Bundleware
+In addition to the e-mail based threats the IRS warned of (which we will detail below), we have found some fake downloads for commonly-used tax software such as TurboTax.
+These "Download Manager" packages rely on search engine poisoning combined with unwary users looking for a way to download tax software, even if it may not be completely legal.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/turbotax-deluxe-installer.PNG)](/sites/default/files/images/blogs/turbotax-deluxe-installer.PNG)
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/norton-offer.PNG)](/sites/default/files/images/blogs/norton-offer.PNG)
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/stormfall-offer.PNG)](/sites/default/files/images/blogs/stormfall-offer.PNG)
+Besides promising TurboTax, one of the fake "installer" packages we found also offers to install Norton and a free-to-play MMO called StormFall.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/stormfall-link.PNG)](/sites/default/files/images/blogs/stormfall-link.PNG)
+Since StormFall is web-based, the "installation" consists of placing a shortcut entry in the start menu that launches Chrome with the address of Stormfall (including the adware author's advertising ID, of course).
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/smart-download.PNG)](/sites/default/files/images/blogs/smart-download.PNG)
+If the Norton option was selected, an icon for an app called Smart Wrapper appears in the taskbar.
+Opening this app from the taskbar shows the Smart Download status window, depicting the status of the Norton download.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/chrome-tabs.PNG)](/sites/default/files/images/blogs/chrome-tabs.PNG)
+In the end, this "installer" doesn't even install the TurboTax software that was the original lure.
+To add insult to injury, the user is shown two browser tabs, one of which is the official TurboTax purchase and download page.
+Generating advertising revenue is the primary purpose of threats like these, however they still create a situation where an unknown actor with unknown intentions has achieved the ability to monitor the system, gather information, and make system changes including installing additional software packages.
+**Tax Report**
+Our first e-mail based case comes via a ZIP attachment from a scam e-mail aptly named ‘Tax Report.zip’.
+At the time of research, this threat was detected by [34/56](https://www.virustotal.com/#/file/c1e2d4caf3b90df5f9925a85f699da4c309a1bcb15872893456955072c992216/analysis/) AV vendors on VirusTotal.
+The threat itself is a family of Trojan Droppers known as Bagsu.
+Its purpose is to download additional malware payloads and gain remote access to the PC to collect sensitive information.
+This sample appears to be no different as it delivered a payload from the Worm family [Gamarue](https://www.microsoft.com/security/portal/threat/encyclopedia/entry.aspx?Name=Worm:Win32/Gamarue.I).
+Gamarue is a Worm that copies itself to all removable devices and network drives connected to the victim’s system.
+Once installed, it begins beaconing to remote control servers with information about the user.
+It can download new malicious modules to the victim after infection or simply perform reconnaissance on the user’s system.
+At the time of research, this sample was already well covered with a score of [46/56](https://www.virustotal.com/#/file/9564851dbd97833c336786d4e6ecc6a5ada72a0445da3ad56213aa7c74297c2d/analysis/) on VirusTotal.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/tax-report.png)](/sites/default/files/images/blogs/tax-report.png)
+The sample made other attempts to connect to malicious domains, but these were sinkholed at the time of research:
+http://dudebox[.]pl/image.php
+http://dyndin[.]ru/image.php
+http://headart[.]pl/image.php
+http://iprice[.]pl/image.php
+http://linebench[.]ru/image.php
+**Tax 'Challan'**
+Our second e-mail sample is part of a spam campaign that has been targeting Indian national taxpayers this year.
+In this campaign, emails are sent from spoofed Indian government domains, alerting the victim that a sum of money has been deducted from their bank account to cover owed taxes.
+The email instructs the victim to see the challan (receipt) for the transaction, which is a zip archive either attached to the email or hosted at a malicious domain.
+The archive, typically named some variant of “Tax Payment Challan.zip”, contains a malicious executable.
+[Symantec](http://www.symantec.com/connect/blogs/scammers-impersonate-indias-income-tax-department-deliver-malware) reported on this campaign earlier this year.
+This threat remains active, and ThreatLabZ has seen incidents going back to November of 2015.
+The malicious payload is an infostealer trojan that attempts to dump passwords from browsers installed on the victim’s machine.
+The threat is detected with a ratio of [41/57](https://www.virustotal.com/#/file/3057c51a0bf934bd9e545037172d27a8787aeaf9e11bdaf98c55a305a9c455a3/analysis/) on VirusTotal, but is mainly detected under generic threat names.
+The payload is a Visual Basic binary that installs itself in %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\ for persistence.
+The binary also stores a UPX-packed, custom-compiled cURL binary as a resource.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/tax-challan.png)](/sites/default/files/images/blogs/tax-challan.png)
+The trojan extracts the resource and uses cURL to download additional payloads from a malicious domain.
+These tools are wrappers for various freely-available browser password dump software.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/tax-challan-2.png)](/sites/default/files/images/blogs/tax-challan-2.png)
+The trojan runs the password dump utilities, collects their output, and sends it via HTTP POST to a separate malicious domain.
+[![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/tax-challan-3.png)](/sites/default/files/images/blogs/tax-challan-3.png)
+Zscaler provides coverage for the trojan payload and its network communication.
+The following domains are contacted by the infostealer:
+laptopb4you[.]com (password dump utilities)
+holytrinitycarehome[.]com (callback)
+The initial payload has been observed downloaded from the following domains:
+digitalcareer.co[.]in
+balajiitilanji[.]com
+Ijggpb[.]in
+**Conclusion**
+Zscaler protects its customers from these threats with multiple layers, but the best protection in this case is to be mindful and cautious.
+As the IRS Spokesperson Mark S. Green stated: “The IRS DOES NOT initiate contact with taxpayers by email, text, social media or electronic communications to request personal or financial information.
+If you receive a suspicious email from the IRS, report it by sending it to [[email protected]](/cdn-cgi/l/email-protection)
+Authors: Edward Miles, Chris Mannon, Derek Gooley

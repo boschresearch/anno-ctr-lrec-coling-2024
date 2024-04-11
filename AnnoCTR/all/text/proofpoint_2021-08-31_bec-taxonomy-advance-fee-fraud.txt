@@ -1,0 +1,39 @@
+BEC Taxonomy: Advance Fee Fraud
+August 31, 2021
+### Last Time in the BEC Taxonomy Series…
+Proofpoint researchers in the [sixth](/us/blog/threat-insight/bec-taxonomy-gift-carding "BEC Taxonomy: Gift Carding ") of the [Business Email Compromise](/us/threat-reference/business-email-compromise "Business Email Compromise (BEC)") (BEC) taxonomy series explored the gift carding theme from the Email Fraud Taxonomy framework (Figure 1).
+Gift carding is a fairly common form of email fraud that relies heavily on familiarity and, like the final theme we will explore, a sense of urgency to override any hesitation on the part of the victims to get them to fall for the fraud.
+In the final theme, threat actors primarily attempt to leverage the promise of money to lure victims.
+This theme is Advance Fee Fraud.
+![image-20210830142022-1](/sites/default/files/inline-images/image-20210830142022-1.png)
+*Figure 1. Email Fraud Taxonomy Framework.*
+### What is Advance Fee Fraud.
+Advance Fee Fraud, which in the past has been referred to as ‘419,’ ‘Nigerian 419,’ or ‘Nigerian Prince’ email fraud, occurs when a threat actor asks the potential victim for a small amount of money in advance of a larger, promised payout to be given to the victim at a later date.
+There are endless variations of this type of fraud.
+Typical schemes contain elaborate stories that explain why there is a large sum of money available to the victim and why the sender needs a small upfront or advanced fee before the victim gets the promised money.
+The fraudsters often bait victims with subjects such as inheritance, lottery winnings, awards, government payouts, and international business.
+Once the victim provides the small amount of money to the fraudster, however, they cut all contact and disappear.
+### Advance Fee Fraud and the Email Fraud Taxonomy Framework
+Advance Fee Fraud leverages impersonation from the Deception layer of the Email Fraud Taxonomy.
+Threat actors will commonly spoof a government official, a legal representative, or a person in a dire situation to make the emails appear legitimate.
+Most Advance Fee Fraud emails use display name spoofing, as illustrated in Figure 2, to deceive recipients.
+To a lesser extent threat actors will use the other impersonation tactics, such as spoofing the domain or using a lookalike domain.
+![image-20210830142022-2](/sites/default/files/inline-images/image-20210830142022-2.png)
+*Figure 2.*
+### Real World Examples
+Advance Fee Fraud emails use a variety of lures to convince recipients of their legitimacy and to entice them to follow through on the request.
+As seen in the following examples, threat actors will use anything from current events such as the pandemic to business deals to beneficiary payouts in their schemes.
+Figure 3 is a good example of threat actors attempting to capitalize on COVID-19 while Figure 4 shows how this type of fraud can incorporate a sense of urgency to give the victim as little time as possible to contemplate whether this is a fake request or not.
+![image-20210830142022-3](/sites/default/files/inline-images/image-20210830142022-3.png)
+*Figure 3.*
+![image-20210830142022-4](/sites/default/files/inline-images/image-20210830142022-4.png)
+*Figure 4.*
+In figure 5, the threat actor tries to tempt the victim with a large beneficiary payment—a common strategy in this type of fraud—in the hopes that they can capitalize on the victim’s greed and get them to share personally identifiable information as well as pay a small amount of money.
+![image-20210830142023-5](/sites/default/files/inline-images/image-20210830142023-5.png)![image-20210830142023-6](/sites/default/files/inline-images/image-20210830142023-6.png)
+*Figure 5.*
+### Conclusion
+Most Advance Fee Fraud emails are simple and easy to spot as fraudulent with few being well-crafted and more complex than the examples provided above.
+While Advance Fee only makes up a small fraction of the fraud emails Proofpoint researchers see in a day, the average loss can still be about $5,100 per incident when someone does fall for them.
+Relying on greed and a sense of urgency, Advance Fee Fraud can be lucrative for threat actors, although their success rate is probably not nearly as high as it is in previously discussed themes such as gift carding.
+### Keep Reading…
+To better understand Proofpoint’s approach to BEC and how our researchers think of the various fraud themes, take a look at the first blog in this series, [BEC Taxonomy: A Proofpoint Framework](/us/blog/threat-insight/bec-taxonomy-proofpoint-framework "BEC Taxonomy: A Proofpoint Framework").

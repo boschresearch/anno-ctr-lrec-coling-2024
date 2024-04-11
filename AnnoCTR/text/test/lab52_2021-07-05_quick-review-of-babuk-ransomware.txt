@@ -1,0 +1,42 @@
+Quick review of Babuk ransomware builder
+July 05, 2021
+Last week, the builder for the Babuk ransomware family was leaked online.
+Lab52 has obtained and analyzed this builder sample determining that it is very likely to be authentic.
+After their recent official move from Ransomware as a Service to data leaks extortions, someone uploaded to [virusTotal](https://www.virustotal.com/gui/file/82e560a078cd7bb4472d5af832a04c4bc8f1001bac97b1574efe9863d3f66550) the ransomware builder for unknown reasons, and it was soon identified as such by British researcher [Kevin Beaumont](https://twitter.com/GossiTheDog/status/1409121823376117772).
+![](https://lab52.io/blog/wp-content/uploads/2021/07/01-1.png)
+Content of Babuk builder leak
+What we first find is builder.exe, along with 2 other Windows executable files with .bin extension, 4 different Unix executables, and note.txt.
+At a first test, we could see how we have to tell builder.exe the output folder as an argument, and we noticed that the files generated were similar to the builder folder files.
+![](https://lab52.io/blog/wp-content/uploads/2021/07/02.png)
+Babuk builder usage
+![](https://lab52.io/blog/wp-content/uploads/2021/07/03-1.png)
+Babuk builder output
+After the successful execution, we get the two eliptic curve keys generated for encryption, 3 encryption executables for Windows, ARM-based NAS decives, and VMWare ESXi servers respectively, together with its corresponding decryption executables.
+One interesting thing that we found after these firsts test was that builder.exe would look for its files in the folder from where it is called, causing an error in case we want to execute builder.exe with an absolute path from a different location, which could be considered a bug or, at least, a not so much elegant implementation.
+![](https://lab52.io/blog/wp-content/uploads/2021/07/04.png)
+Babuk builder path bug
+We decided to compare the Windows crypter executable with real samples uploaded to public sandboxes, and we could first see useful information that was already suggesting that the builder could indeed be authentic.
+![](https://lab52.io/blog/wp-content/uploads/2021/07/050-1024x397.png)Comparison *between real Babuk sample and built sample*
+We also compared the encryption timing between two samples, getting similar times, which would be a reinforcement about its authenticity since Babuk is Top 3 fastest [ransomware encryption speed](https://twitter.com/CryptoInsane/status/1408342272438005762/photo/2) since they updated their efficiency “flaws” identified by Chuong Dong during his [great analysis](https://chuongdong.com/reverse%20engineering/2021/01/16/BabukRansomware-v3/) of the three versions of Babuk.
+We were also able to also identify that this was a builder for their last version.
+As the final comparison to ensure the authenticity of the sample, we compared the assembly code of both files using a plugin for IDA pro named Diaphora, and resulting to be almost identical.
+![](https://lab52.io/blog/wp-content/uploads/2021/07/07.png) Not matching functions between real Babuk sample and built sample
+![](https://lab52.io/blog/wp-content/uploads/2021/07/06-1.png) Partial matching functions real Babuk sample vs. built sample
+![](https://lab52.io/blog/wp-content/uploads/2021/07/08.png)Perfect matching function from real Babuk sample vs. built sample
+As it could be expected, the builder would take the content of note.txt and use it as the ransomware note that it would be dropped in the infected machines.
+Since Babuk decided not to use any packing mechanism, we could also spot in clear text the ransom note and the rest of the space reserved for the ransomware note inside the built binaries.
+![](https://lab52.io/blog/wp-content/uploads/2021/07/09.png) Strings of built sample
+![](https://lab52.io/blog/wp-content/uploads/2021/07/10.png) Hex content of built sample
+After this, we decided to take a deeper look into the actual builder executable, and we found out that we could pass as a second argument an actual eliptic curve encyption key, instead of letting the builder generate it for us, allowing the ransomware operator to use the same decryption executable for different builds.
+Furthermore, it has been observed that, if no encyption key is specified as an argument, the key would be generated randomly.
+![](https://lab52.io/blog/wp-content/uploads/2021/07/11-Copy-1024x729.png)
+Argument parsing of Babuk builder
+It could also be predictable that the builder would use the binary files as templates, and we could identify this operations within the assembly code, where it would first read the “template” file, modify it, and finally write the modification as a new file in the specified folder.
+![](https://lab52.io/blog/wp-content/uploads/2021/07/12.png) Babuk builder read of binary files as Templates
+![](https://lab52.io/blog/wp-content/uploads/2021/07/13.png) Babuk builder write of output binary files
+Since Babuk binaries did not use any packer, anyone having these files and a deep knowledge about them, could have written this builder.
+However, according to the compilation dates which seem legit, we do not think this is the actual scenario.
+About the decrypter, we have not analyzed its code, but during the tests we realized that it does not contain the eliptic curve keys hardcoded, therefore it needs to be run from a command prompt located in the same folder than these generated keys.
+We could also identify that it works, but it takes a ridiculous amount of time to decrypt go through the whole disk and decrypt all the files.
+This could be considered important since new ransomware gangs could try to take advantage of this leak for their own Raas “startup”.
+However, it is also valuable for researchers since it will allow us to generate better detection rules, or even track new unofficial variations of the ransomware family.

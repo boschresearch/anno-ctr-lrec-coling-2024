@@ -1,0 +1,128 @@
+Chinese Government Website Compromised, Leads To Angler
+November 03, 2015
+### Introduction
+Despite a recent takedown targeting the Angler Exploit Kit (EK), it's back to business as usual for kit operators.
+On 30-October-2015, ThreatLabZ noticed a compromised Chinese government website that led to the Angler Exploit Kit with an end payload of Cryptowall 3.0.
+This compromise does not appear targeted and the compromised site was cleaned up within 24 hours.
+We have noticed some recent changes to Angler, as well as the inclusion of newer Flash exploits.
+A set of indicators for this compromise is at the end of this post.
+### Compromised Site
+The "Chuxiong Archives" website, www.cxda[.]gov.cn, was compromised with injected code.
+The site has a similar look and feel to both the Chuxiong Yi Prefecture and Chuxiong City websites and appears somewhat inactive, but surprisingly the site was remediated in less than 24 hours.
+The full infection cycle from compromised site to encrypted payload is shown in the fiddler session below.
+|  |
+| Fig 1.
+Infection cycle |
+The injected code was before the opening HTML tag and was heavily obfuscated.
+The code, shown below, is very similar to other recent compromises we've observed and was present on every page of the site, suggesting a complete site compromise.
+|  |
+| Fig 2.
+Injected script |
+Consistent with other recent examples, the injected code appears to target Internet Explorer (IE) since Firefox and Chrome consistently throw errors when attempting to execute the code and no redirection occurs.
+IE has no issues executing the code, however, which unsurprisingly decodes to an iframe leading to an Angler EK landing page:
+|  |
+| Fig 3.
+Decoded injected code |
+While we did not have access to the server-side code, it likely retrieves landing page URLs from a remote server since we observed iframes leading to multiple different Angler domains within a brief period of time.
+### Landing Page
+The landing page for Angler is immediately recognizable, but with some notable recent changes.
+For example, instead of using a long block of around seven-character long strings inside divs tag, the newer landing pages use 'li' tags and most of the strings are only about two characters long.
+Additionally, there's a conspicuous 'triggerApi' function toward the top of the main script block:
+|  |
+| Fig 4: Short strings and triggerApi function |
+Outside of these changes, the functionality of the landing page appears unchanged, and the goal is naturally to serve up a malicious SWF:
+|  |
+| Fig 5.
+Decoded landing page SWF objects |
+#### Malicious SWF - CVE-2015-7645
+Kafeine already [broke the news](http://malware.dontneedcoffee.com/2015/10/cve-2015-7645.html) that Angler is exploiting Flash 19.0.0.207, and we can corroborate that with the samples we've observed.
+|  |
+| Fig 6.
+Flash 19.0.0.207 being exploited |
+In fact, we compared the sample from his recent post with one obtained from this infection and the structure is identical, with very few changes in the actionscript.
+The biggest change we saw was in the embedded binary data.
+|  |
+| Fig 7.
+SWF structure, 30-Oct sample on the left, Kafeine's sample on the right |
+|  |
+| Fig 8.
+Comparison of binary data, 30-Oct sample on the left, Kafeine's sample on the right |
+Upon successful exploit cycle, a new CryptoWall 3.0 variant from the *crypt13* campaign is downloaded and installed on the target machine.
+The image below shows a decrypted Command & Control (C&C) communication message from the CryptoWall variant which also contains the total number of files encrypted on the target system:
+|  |
+| Fig 9.
+CryptoWall 3.0 C&C message reporting encrypted file count |
+### Final Thoughts
+As stated, this seems to be business as usual for Angler EK operators.
+While these attacks were not targeted in nature, this is the first instance where we saw EK operators leveraging a government site to target end users.
+One interesting observation is that we no longer see any Diffie-Helman POST exchange to prevent replaying captured sessions for offline analysis.
+Additionally, there was a much larger number of C&C servers than we've previously observed, and some of the domain names seem to suggest multi-use hosts (e.g.: spam, bitcoin mining, etc).
+Note that none of the C&C servers are pseudo-randomly generated domains.
+ThreatLabZ will continue to track new developments with the Angler Exploit Kit.
+#### Indicators of Compromise
+| Domain | IP Address | Description |
+| --- | --- | --- |
+| cxda.gov[.]cn | 118.123.7.122 | Chinese government site |
+| erteilend-taendelt.sewnydine[.]com | 104.129.192.32 | Angler Domain |
+| repersuasionboldoblique.classactoutlet[.]com | 104.129.192.32 | Angler Domain |
+| ayh2m57ruxjtwyd5.stopmigrationss[.]com | 95.128.181.195 | Payment Server |
+| ayh2m57ruxjtwyd5.starswarsspecs[.]com | failed | Payment Server |
+| ayh2m57ruxjtwyd5.malerstoniska[.]com | 109.70.26.37,194.85.61.76 | Payment Server |
+| ayh2m57ruxjtwyd5.blindpayallfor[.]com | 95.128.181.195 | Payment Server |
+| flat.splo1t[.]ru | 188.127.239.164 | C&C connections |
+| sanliurfapastanesi[.]com | 95.173.190.210 | C&C connections |
+| wesalerx[.]xyz | 46.148.18.100 | C&C connections |
+| urfakaplanticaret[.]com | 95.173.190.210 | C&C connections |
+| taigastyle[.]ru | 37.140.192.180 | C&C connections |
+| flickstudio[.]com | 103.21.59.22 | C&C connections |
+| mydaycarewebsite[.]com | 104.24.102.98,104.24.103.98 | C&C connections |
+| sampiyonvitamin[.]com | 95.173.190.210 | C&C connections |
+| xmest.web-zolotareva[.]ru | 82.146.36.185 | C&C connections |
+| aandwrentalspm[.]com | 142.4.6.13 | C&C connections |
+| orucogluelektronik[.]com | 95.173.190.210 | C&C connections |
+| gaja24[.]pl | 91.234.146.241 | C&C connections |
+| developmysuccess[.]com | 50.30.46.201 | C&C connections |
+| 20dollarhomebusiness[.]com | 50.30.46.201 | C&C connections |
+| rizvanogluhafriyat[.]com | 95.173.190.210 | C&C connections |
+| sanliurfapastanesi[.]com | 95.173.190.210 | C&C connections |
+| newatena[.]com | 95.173.190.210 | C&C connections |
+| stalkerbanget[.]com | 68.65.120.182 | C&C connections |
+| primevisionstudio[.]com | 192.185.206.97 | C&C connections |
+| i-tem[.]ru | 62.173.143.242 | C&C connections |
+| localuzzweb[.]com | 143.95.32.179 | C&C connections |
+| getpostivemind[.]com | 158.85.170.253 | C&C connections |
+| zemli72.chaukakau[.]ru | 62.173.143.242 | C&C connections |
+| grandmedianetwork[.]com | 111.118.215.77 | C&C connections |
+| karakoprudugunsalonu[.]com | 95.173.190.210 | C&C connections |
+| sanliurfaparke[.]com | 95.173.190.210 | C&C connections |
+| nsdstudio[.]net | 192.185.206.97 | C&C connections |
+| meble-simone[.]eu | 91.234.146.241 | C&C connections |
+| vsedveri33[.]ru | 81.177.165.33 | C&C connections |
+| osk-wojcikiewicz[.]pl | 91.234.146.241 | C&C connections |
+| love-deep[.]com | 111.118.215.77 | C&C connections |
+| turizmkirov[.]ru | 82.146.36.185 | C&C connections |
+| new.turizmkirov[.]ru | 82.146.36.185 | C&C connections |
+| avtoreliv[.]com.ua | 91.234.34.80 | C&C connections |
+| localwebsitepro[.]com | 192.185.41.191 | C&C connections |
+| makrol[.]net | 91.234.146.241 | C&C connections |
+| altopics[.]com | 111.118.215.77 | C&C connections |
+| burnfatquicky[.]com | 184.168.221.57 | C&C connections |
+| mediaopt33[.]ru | 81.177.165.33 | C&C connections |
+| otmanad[.]com | 91.234.146.241 | C&C connections |
+| markossolomon[.]com | 104.27.181.171,104.27.180.171 | C&C connections |
+| kominki-gorlice[.]pl | 91.234.146.241 | C&C connections |
+| chaukakau[.]ru | 62.173.143.242 | C&C connections |
+| crm.ruhtech[.]com | 202.160.165.21 | C&C connections |
+| takas3aya.xsrv[.]jp | 183.90.232.25 | C&C connections |
+| famouswhiskybrands[.]com | 103.21.59.21 | C&C connections |
+| edwardbrownjr[.]com | 50.30.46.201 | C&C connections |
+| avatar77[.]ru | 62.173.143.242 | C&C connections |
+| bollywoodupdate[.]net | 95.173.190.210 | C&C connections |
+| asiaroyaldeveloper[.]com | 103.21.59.22 | C&C connections |
+| asattyres[.]com | 192.185.206.97 | C&C connections |
+| records.karika[.]in.ua | 91.234.34.80 | C&C connections |
+| ppcprofitz[.]com | 143.95.32.180 | C&C connections |
+| ecodeva[.]ru | 62.173.143.242 | C&C connections |
+| btcdoubler[.]biz | failed | C&C connections |
+| 18dollars1time[.]info | 50.30.46.201 | C&C connections |
+| urfaeleganceoptik[.]com | 95.173.190.210 | C&C connections |

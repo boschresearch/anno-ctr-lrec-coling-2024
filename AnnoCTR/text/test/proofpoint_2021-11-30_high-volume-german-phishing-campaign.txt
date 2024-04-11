@@ -1,0 +1,58 @@
+High Volume German Phishing Campaign Aims to Steal Banking Credentials
+November 30, 2021
+Proofpoint researchers identified an increase in credential phishing campaigns attempting to steal German banking credentials.
+Since the end of August 2021, Proofpoint researchers observed multiple high-volume campaigns leveraging customized, actor-owned landing pages spoofing major German banks, notably Volksbank and Sparkasse.
+The activity is ongoing and continues to impact hundreds of organizations.
+The campaigns targeted multiple industries, specifically German companies and employees of foreign entities located in Germany.
+Each campaign included tens of thousands of messages impacting hundreds of organizations.
+The phishing emails purport to be account administration information and contain links or QR codes that direct the victim to a geo-fenced credential harvesting page.
+Targeted information includes banking branch data, login identification, and PIN.
+![deabnk1](/sites/default/files/inline-images/debank1_0.png)
+![debank2](/sites/default/files/inline-images/DEbank2_0.png)
+*Figure 1: Email samples containing QR code (left) and link to spoofed website (right).*
+The threat actor has used multiple URL redirection techniques to deliver the malicious links.
+In several observed campaigns, the threat actor leveraged compromised Wordpress websites to redirect users to the phishing landing pages.
+Abusing Wordpress plugins and websites running Wordpress software is a [common technique](https://portswigger.net/daily-swig/url-redirect-malware-infects-thousands-of-wordpress-sites) used by threat actors to distribute malicious links for phishing and malware attacks.
+Additionally, researchers observed both Feedproxy URLs and QR codes used to redirect to the phishing pages.
+The threat actor leverages geo-fencing techniques to ensure only users in Germany are redirected to the phishing page.
+Proofpoint assesses with high confidence the threat actors are conducting IP geolocation checks to identify a target’s location.
+If they are not in Germany, the user is directed to a clone of a website purporting to be tourist information for the Rhine Tower in Dusseldorf, Germany.
+If a user is in Germany, they will be directed to a webpage masquerading as a legitimate banking website.
+![debank3](/sites/default/files/inline-images/debank3_1.png)
+![deabnk4](/sites/default/files/inline-images/debank4_1.png)
+*Figure 2: Actor hosted pages spoofing legitimate banking websites.*
+The user is encouraged to choose their Branch location and click “Login” to be directed to the credential capture page, spoofing the legitimate banking site.
+![debank5](/sites/default/files/inline-images/debank5_0.png)
+![debank6](/sites/default/files/inline-images/debank6_0.png)
+*Figure 3: Actor hosted banking credential capture web pages.*
+The actor hosts these pages on their own actor-controlled infrastructure using similar domain naming patterns.
+For example, the Sparkasse credential phishing URLs often start with “spk-” while Volksbank clones begin with “vr-”.
+The following are a sample of the domains used by this threat actor:
+* vr-mailormular[.]com/Q20EBD6QLJ
+* vr-umstellungssystem-de[.]com/FLBSEKZ9S3
+* spk-security-spk[.]com/P84OZ3OIS2
+* spk-systemerneuerung-spk[.]com/CJ4F6UFR0T
+Typically, the actor uses the domain registrar REG.RU, with domains hosted via AliCloud (Germany) GmbH.
+The first domains associated with this activity appeared in late August 2021.
+The actor/s is/are consistently registering new domains in the identified URL structure and the campaigns are ongoing.
+Proofpoint is not able to attribute this campaign to a known threat group.
+However, registrant information associated with multiple domains observed in some this activity is linked to over 800 fraudulent websites, most of which spoof banks or financial services.
+Domain registration indicates this actor may have been focused on targeting users of Spanish banks earlier this year.
+Cybercriminal threat actors associated with banking credential theft and fraudulent financial activity tend to be opportunistic and target large numbers of victims.
+This is typically referred to as “spray and pray” activity, sending mass email campaigns in the hopes some of the targeted individuals fall for their scams.
+**Conclusion**
+Today’s threats target people, not infrastructure.
+That’s why you must take a people-centric approach to cybersecurity.
+That includes user-level visibility into vulnerability, attacks and privilege and tailored controls that account for individual user risk.
+Here’s what we recommend as a starting point.
+* Train users to spot and report malicious email.
+Regular training and simulated attacks can stop many attacks and help identify people who are especially vulnerable.
+The best simulations mimic real-world attack techniques.
+Look for solutions that tie into real-world attack trends and the latest threat intelligence.
+* At the same time, assume that users will eventually click some threats.
+Attackers will always find new ways to exploit human nature.
+Find a solution that spots and blocks inbound email threats targeting employees before they reach the inbox.
+Invest in a solution can manage the entire spectrum of email threats, not just malware-based threats.
+Some threats—including business email compromise (BEC) and other forms of email fraud—can be hard to detect with conventional security tools.
+Your solution should analyze both external and internal email—attackers may use compromised accounts to trick users within the same organization.
+Web isolation can be a critical safeguard for unknows and risky URLs.

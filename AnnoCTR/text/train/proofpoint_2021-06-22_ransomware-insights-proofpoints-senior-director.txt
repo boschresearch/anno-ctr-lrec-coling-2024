@@ -1,0 +1,42 @@
+Ransomware Insights from Proofpoint’s Senior Director of  Threat Research and Detection, Sherrod DeGrippo
+June 22, 2021
+While email has historically been the undisputed champion of [ransomware](https://www.proofpoint.com/us/threat-reference/ransomware) attack vectors, its role has undergone a major transformation.
+In a recent article by Kelly Sheridan in [Dark Reading](https://beta.darkreading.com/attacks-breaches/ransomware-operators-strategies-evolve-as-attacks-rise),
+Sherrod DeGrippo explains the changing landscape as she’s seen it from her perch as Proofpoint’s Senior Director, Threat Research and Detection.
+Ransomware was once sent to users directly, usually in an email attachment.
+These direct or “[first stage](https://www.proofpoint.com/us/blog/threat-insight/first-step-initial-access-leads-ransomware)” attacks peaked in 2017 during the [Locky ransomware](/us/threat-insight/post/dridex-actors-get-in-ransomware-with-locky "Locky Ransomware Is Becoming More Sophisticated - Cybercriminals Continue Email Campaign Innovation") outbreak.
+At their height, one million such attacks were detected every day.
+Yet attack damage – and therefore ransoms – were fairly limited, often ending in one infected machine that could be fixed by restoring from a previous backup.
+As DeGrippo tells Dark Reading: “Many IT and information security teams in corporate settings were able to quickly adapt to the handling of a ransomware incident on a single laptop or host, treating it in some ways as stolen hardware and simply reformatting and moving on.
+That began changing in 2018 as [ransomware attackers](/us/security-awareness/post/ransomware-roundup-march-2018 "Ransomware Roundup: March 2018") increasingly leveraged cybercriminal organizations – mostly banking trojan distributors – to install “access facilitators.
+Still hitching a ride via email, these “second stage” attacks were a bit more subtle and a lot more damaging.
+Instead of directly launching a ransomware attack, malicious links and attachments within the email quietly download backdoor trojans unbeknownst to users.
+According to DeGrippo, what happens next depends on the attacker.
+Some attackers maintain the access and sell it, some cover their tracks to remove traces of their presence.
+Other attackers practice double and even triple extortion, selling stolen data on Dark Web markets or publishing it unless a ransom is paid.
+“Threat actors moved to downloaders as a first stage to give themselves more choice and flexibility,” she continues.
+“It is a natural evolution.
+While direct ransomware attacks are not extinct, they’re getting there.
+In fact, only one strain accounted for 95 percent direct, first-stage ransomware attacks in the first half of 2021.
+### That Was Then, This is Now These days, banking trojans – often used as ransomware loaders –are the runaway favorite among malware distributors.
+According to DeGrippo, banking trojans accounted for almost 20 percent of malware her researchers observed in identified campaigns.
+Banking trojans are also the most popular type of malware in the overall threat landscape observed by Proofpoint.
+Compounding the problem, criminal groups already distributing banking trojans can join ransomware “affiliate networks” to further their reach.
+Proofpoint currently tracks 10 threat actors acting as initial access facilitators or likely ransomware affiliates.
+Prior to its takedown in 2020, the [Emotet botnet](/us/threat-insight/post/proofpoint-q1-2019-threat-report-emotet-carries-quarter-consistent-high-volume "Proofpoint Q1 2019 Threat Report: Emotet carries the quarter with consistent high-volume campaigns") was one of the most prolific ransomware distributors between 2018 and 2020.
+Since Emotet’s disruption, DeGrippo’s team has tracked a myriad of other malware such as The Trick, Dridex, Qbot, IcedID, ZLoader, Ursnif, serving as first-stage malware payloads in attempts to enable further infections.
+Proofpoint researchers have also tracked downloaders like Buer Loader and [BazaLoader](/us/blog/threat-insight/bazaflix-bazaloader-fakes-movie-streaming-service "BazaFlix: BazaLoader Fakes Movie Streaming Service ") which often serve as an initial attack vector for ransomware.
+Over the last six months, Proofpoint has seen almost 300 downloader campaigns distributing nearly six million malicious messages.
+The article notes that ransomware is not the only second stage payload associated with the above malware and downloaders, and that ransomware purveyors do use other attack methods to distribute their product.
+DeGrippo states that other targets include software flaws, VPN’s, Remote Access Protocols, and other external-facing appliances.
+In other words, ransomware isn’t limited to existing backdoors.
+"Regardless of the broker economy, the initial vectors are now much more open and available," she explains.
+"Threat actors have specialized and brought great efficacy to their campaigns with that specialization.
+Dark Reading concludes with some findings by Check Point Research which point to a dramatic surge in ransomware, including a 93 percent growth year-over-year.
+In 2021 alone, ransomware has experienced a 41 percent growth, felt most in Latin America (62 percent) and Europe (59 percent).
+For more on Proofpoint’s Advanced Threat Protection, visit: 
+<https://www.proofpoint.com/us/products/advanced-threat-protection> 
+For more on Proofpoint’s Targeted Attack Protection, visit: 
+<https://www.proofpoint.com/us/products/advanced-threat-protection/targeted-attack-protection> 
+To learn more about Proofpoint’s ransomware research, visit: 
+<https://www.proofpoint.com/us/blog/threat-insight/first-step-initial-access-leads-ransomware> 

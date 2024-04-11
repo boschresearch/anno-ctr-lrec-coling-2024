@@ -1,0 +1,153 @@
+Anti-Coinminer Mining Campaign
+August 16, 2018
+Coinminer malware has been on the rise for some time.
+As more and more users become aware of this threat and try to take measures to protect themselves, cybercriminals are attempting to cash on that fear by serving crypto-miner malware from a website claiming to offer a coinminer blocker.
+Although the website looks unprofessional and would appear suspicious to most, there are plenty of non-tech savvy users who may fall for it.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/1.%20xmrminingpro.png)
+Figure 1.
+Source website
+We have observed two variants of this malware strain being served from the above mentioned website as well as coin-blocker[.]com.
+In both cases malware operator is using malicious miner code written by another author for his financial gains and in the process also getting duped himself/herself.
+CryptoMiner Variant #1
+----------------------
+**MD5s**: 927adcebfa52b3551bdd008b42033a6e and c777e949686f49cc0a03d0d374c5e68a
+The first malware variant was getting downloaded with file names like 'cr\_blocker\_v12.exe', 'apollo.exe' and was making extensive use of batch files.
+First it will drop and execute a batch file , which in turn, runs a PowerShell command (a slightly modified version of the PowerShell script from http://moneroocean[.]stream) to download and execute a batch script (again a copy of moneroocean's xmrig\_setup.bat) from same website.
+The purpose of final batch script is to download, setup and run monero miner on infected system.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/cryptominer%20variant%231%20flow.png)
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/2.%20cmd.png)
+Figure 2.
+Execution flow and Batch file executed by malware
+The above script is sourced from a script that is published on MoneroOcean's GitHub account with two minor modifications.
+The malware author has modified the *DownloadFile* URL to point to a copy of official miner batch file that is hosted on the malware author's site.
+The second and obvious modification is the wallet address change, where the attacker is collecting the revenue from this fradulent mining campaign.
+This address has not earned much yet (as of August 16, 2018, just 1.298239 XMR has been paid), but this campaign is just getting started, so it is early to draw any conclusions.
+CryptoMiner Variant #2
+----------------------
+**MD5s**: d3fa184981b21e46f81da37f7c2cf41e
+The second malware variant was seen being downloaded with filename *start\_me\_now.exe* which will further download another file named *start\_me.exe* from same domain and executes that file.
+The downloaded file is an SFX archive containing multiple files, including both *xmr-stak* and *xmrig* miner with same configuration.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/cryptominer%20sfx%20variant%20execution%20flow.png)
+*Image: Cryptominer SFX variant execution flow diagram*
+The malware operator has used a version of Playerz Multi Hidden Cryptocurrency Miner from *multicryptominer[.]com* with the addition of *silent.exe* containing an embedded copy of xmrig miner.
+*Silent.exe* will run xmrig miner by injecting it into a process such as *notepad.exe*.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/3.%20sfx%20script.png)
+Figure 3.
+SFX Script from *start\_me.exe*
+Batch files are just one-line scripts in this case as seen below; 
+*run.bat* will run *c:\ProgramData\playersclub\player.exe* and *share.bat* will open xmrminingpro[.]com/share.html in an attempt to convince the user to share this website on social media sites - Twitter, Facebook and Google Plus - resulting in further infections.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/4.%20bat%20files.png)
+Figure 4.
+Batch files
+*Setup.exe* and all other files which are part of this SFX archive belong to Playerz Multi Hidden Cryptocurrency Miner, whose details follow.
+Playerz Multi Hidden Cryptocurrency Miner
+-----------------------------------------
+### setup.exe
+It will first run *setup.exe,* which will copy the folder “pcdata” and its files to *C:\programdata\playersclub* and run *installer.exe.*
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/5.%20setup.ahk.png)
+Figure 5.
+Autohotkey script from *setup.exe*
+### Installer.exe
+It will register and run xmr-stak as a service using *launchserv.exe,* allowing it to run with higher privileges, and also create C:\programdata\playersclub\player.txt by taking configuration data from *playerconfig.txt*:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/6.%20installer.ahk.png)
+Figure 6.
+Autohotkey script from *installer.exe*
+*Launchserv.exe* will use following configuration to register service:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/7.%20LaunchServ.ini.png)
+Figure 7.
+*LaunchServ.ini* file
+### systemSpawn.exe
+systemSpawn.exe is registered as a service with the purpose of ensuring *player.exe* exists in the *C:\programdata\playersclub\* folder and, if not download and run it with escalated privileges using *PaExec.exe* (similar tool to Microsoft's PsExec) from poweradmin[.]com/paexec/.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/8%20systemSpawn.ahk.png)
+Figure 8.
+Autohotkey script from *systemSpawn.exe*
+It will run player.exe using the following switches to gain escalated privileges:
+ -s (run the process in the system account), -x (display the UI on the Winlogon secure desktop), -d (don't wait for process to terminate [non-interactive]), -i (run the program so that it interacts with the desktop of the specified session on the specified system.
+If no session is specified, the process runs in the console session).
+### player.exe
+*Player.exe* is the main process responsible for managing the *xmr-stak.exe* process.
+It will do all of the things mentioned by the malware author on its website, such as: run when the computer is idle; check if video or audio is being played; automatically download and, if needed, update miner software; kill processes mentioned in all *ProcessesList.txt*, and more.
+Ironically, the Playerz Multi Hidden Cryptocurrency Miner author has provided a wallet address for donations to help fund the development of this malware.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/9.%20donations.png)
+Figure 9.
+Donation address mentioned on the website
+But that was not enough, the author also added a backdoor functionality to mine cryptocurrency for his own address in the mutlicryptominer binary.
+It will check the modified timestamp of *player.txt,* and if that file is more than five days old, it will get latest config from multicryptominer[.]com/pool2.xml.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/10.%20latest%20config%20download.png)
+Figure 10.
+Downloading latest configuration from C&C
+It will parse the received data as seen below:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/11.%20parse%20data.png)
+Figure 11.
+Parsing configuration from C&C
+Response from the C&C server:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/12.%20pool2.png)
+Figure 11.
+Configuration received from server
+It will then calculate time for running the original author's and the second level malware operator's miner on the infected system:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/13.%20time%20distibution%20calculation.png)
+Figure 12.
+Calculation time distribution for author's and customer's address mining
+In case the server did not respond with the proper configuration, or *player.txt* is not more than five days old, it will run the second level malware operator's miner for 105 minutes and author’s for 15 minutes; otherwise, it will distribute time among mining addresses depending on a value received from the server.
+At the time of analysis, the server was sending the maximum possible value of nine, which means it is splitting mining time between author and customer in a 3-to-1 ratio (90 minutes for author and 30 minutes for customer).
+After it is done downloading the backdoor configuration and calculating time, it will start timers for various activities:
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/14.%20timers.png)
+Figure 13.
+Timers for running and stopping the mining process
+When conditions are met for running the miner—for example, when the system is idle and no video or audio is playing—it will run the miner using *runProcesses.exe.*
+This will also ensure that the end user will not notice any obvious system slow downs from miner operation.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/15.%20runminer.png)
+Figure 14.
+Run miner processes using *runProcesses.exe*
+It also starts a timer with callback to kill the process after timeout.
+### runProcesses.exe
+This will try to detect CPU and graphics to run miner with optimal settings and, in case no configuration is downloaded from C&C, it also includes hardcoded wallet addresses for mining.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/16.%20hardcoded%20address.png)
+Figure 15.
+Hardcoded addresses used if configuration is not received from server
+Conclusion
+----------
+There is a rising trend of new cryptominer malware families as well as existing malware families adding cryptominnig support as highlighted in our previous writeup [here](/blogs/research/cryptominers-and-stealers-malware-edition).
+AntiCoinMiner malware operator is leveraging the tried and tested scareware tactics theme very similar to FakeAV malware families, where it gives a false sense of security to the end user while exploiting their machine for financial gains.
+The malware operator is using an off-the-shelf cryptominer malware for this campaign; however the original cryptominer malware author has a backdoor functionality embedded in the code which deceives the second level malware operator by stealing large portion of CPU cycles from the infected machines to mine coins for the original author.
+Zscaler ThreatLabZ is actively monitoring for threats like these and will continue to ensure coverage for Zscaler customers.
+![](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Aug2018_anticoinminer_blog/ba_report.png)
+IOCs
+----
+**MD5s**:
+927adcebfa52b3551bdd008b42033a6e
+d3fa184981b21e46f81da37f7c2cf41e
+c777e949686f49cc0a03d0d374c5e68a
+Ecd13814885f698d58b41511791339b6
+642cccf03f9493b3d91d84e1b0e55e9c
+Da8d0c73863afe801bb8937c4445f5f9
+D3fa184981b21e46f81da37f7c2cf41e
+E6569c2c9bceb6a5331d39a897e99152
+06ded4e24118a4baccfd2f93fffe3506
+927adcebfa52b3551bdd008b42033a6e
+f8df9d2adf5b92dc4dd419098d444bde
+B0cec3e582a03c978eaff9a8d01f3c31
+D204728ac2e98ac380953deb72d3ca57
+c842a49268b52892268e3ff03205b2de
+95ea8c948a5254a3b24cbbf3edec1a1a
+**URLs**:
+www.xmrminingpro[.]com/start\_me\_now.exe
+xmrminingpro[.]com/cr\_blocker\_v12.exe
+xmrminingpro.com/Crypto\_Blocker\_.BAT.exe
+coin-blocker[.]com/Coin\_Blocker\_v1.55.exe
+xmrminingpro[.]com/Apollo.exe
+coin-blocker[.]com/Coin\_Blocker\_v1.5.exe
+coin-blocker[.]com/old/apollo\_stream.exe
+coin-blocker[.]com/apollo/apollo\_x86.exe
+**Wallet Addresses:**
+From Samples:
+4BrL51JCc9NGQ71kWhnYoDRffsDZy7m1HUU7MRU4nUMXAHNFBEJhkTZV9HdaL4gfuNBxLPc3BeMkLGaPbF5vWtANQsjqdY9cck94oTET4i
+48LYTsUuFis3eheaGJSVC1b4DiftHw8249KCELDPGLU7Ke7GddfV7vM8qmuoW3x3qy8hPXiEknM2jixquq4qbHYHHmWut4J
+4BrL51JCc9NGQ71kWhnYoDRffsDZy7m1HUU7MRU4nUMXAHNFBEJhkTZV9HdaL4gfuNBxLPc3BeMkLGaPbF5vWtANQrzvo2Dv3ebJHC95XG
+4BEqL8aYcuydaT26Rm9BBDgx5MAPeMSeJGgMd8RJDQKaPZEVySfAaTU8bVMsp2uykJZJ1aJDtyLRHREUBe1XXjfUAty7XJy
+4BrL51JCc9NGQ71kWhnYoDRffsDZy7m1HUU7MRU4nUMXAHNFBEJhkTZV9HdaL4gfuNBxLPc3BeMkLGaPbF5vWtANQrzvo2Dv3ebJHC95XG
+4BrL51JCc9NGQ71kWhnYoDRffsDZy7m1HUU7MRU4nUMXAHNFBEJhkTZV9HdaL4gfuNBxLPc3BeMkLGaPbF5vWtANQmRkHZngZS7So7FipR
+Author's wallet addresses:
+Hardcoded in sample: 472dyZhom95Higc85N5E1LbiY3kgbQvapcZ1DosRfjKX4EAvK3ZrdvuLxLMe4vTFbEUAhECZoDZHyGMdFJktrZZyNA3v1Wr
+Received from c&c: 48LYTsUuFis3eheaGJSVC1b4DiftHw8249KCELDPGLU7Ke7GddfV7vM8qmuoW3x3qy8hPXiEknM2jixquq4qbHYHHmWut4J
+Mentioned for Donation: 48YAdSiCmzSPXxbrqjhnkVNLfFwcX6uJvV6wVGxNdDZ1Fww43c6zdjo1HePWZY6KXp78q8kv5rcqFYM76uSpPv8u4E2pnuq

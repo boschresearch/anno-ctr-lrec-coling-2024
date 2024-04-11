@@ -1,0 +1,140 @@
+Election 2020-themed scams and threat activities
+November 03, 2020
+The United States presidential election is here.
+And as COVID-19 still runs unchecked throughout the world, 2020 continues to be an outlier year in so many ways.
+But one thing remains constant—scammers and threat actors taking advantage of current topics for their own profit.
+Strangely, this is probably the most normal aspect of 2020 thus far.
+Cybercriminals will target users from every conceivable method possible, leveraging their email scams, SMS phishing (SMiShing), typo-squatting, domain-squatting, and malvertising in an attempt to collect sensitive information from the user or worse.
+With many companies operating under an indefinite work-from-home order, it’s important to keep your professional and personal devices safe and secure.
+Following your IT’s best practice security awareness training is still the best way to educate yourself, but real-world examples are necessary to illustrate its necessity.
+This being an election year, the additional outreach that most Americans are receiving from political entities creates a perfect storm of potential clickbait.
+Let's take a look at what the ThreatLabZ team has seen during the run-up to the election.
+### **Malware**
+The ThreatLabZ team at Zscaler came across spam emails with embedded links where threat actors were using election lures to trick users into opening malicious PDF documents, resulting in malware execution.
+We have also seen a malicious PDF document show up in Google search results for “CA voter registration form”.
+We can see this in the screenshot below.
+![Google search result](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/2020-10-28%2011_28_32-Ubuntu%20-%20VMware%20Workstation.png)
+*Figure 1: This Google search result CA voter registration form returned a link to a malicious PDF.*
+When a user clicks on the Google search result or opens the link in the email (*cdn[.]shopify[.]com/s/files/1/0434/3165/7621/files/31416322246.pdf)*, the PDF will open and a Captcha image is presented, trying to trick the user into clicking it.
+![PDF page 1](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/2020-10-21%2016_40_23-Ubuntu%20-%20VMware%20Workstation.png)
+*Figure 2: The first page of malicious PDF claiming to be a California voter registration form.*
+The second page of the PDF contains text claiming to provide users with information about the voter registration form.
+![PDF page 2](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/2020-10-21%2016_47_11-Ubuntu%20-%20VMware%20Workstation.png)
+*Figure 3: The second page of a malicious PDF claiming to provide information about California voter registration.*
+Upon clicking, the PDF downloads a malware payload.
+The executable payload includes many junk statements in an attempt to evade analysis.
+![Junk code](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image24.png)
+*Figure 4: This malware is stuffed with junk statements in an attempt to evade detection.*
+The malware utilizes GlobalAlloc to allocate memory and then stores obfuscated shellcode at the location.
+![obfuscated code](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image4.png)
+*Figure 5: The obfuscated shellcode of this malware.*
+A change of permission happens using VirtualProtect and the shellcode is decoded using the loop below.
+![decoding loop](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image15.png)
+*Figure 6: The shellcode decode routine.*
+The call to the decoded shellcode is seen below.
+![call to shellcode](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image13.png)
+*Figure 7: The call to the deobfuscated shellcode.*
+The final deobfuscated PE payload is seen below.
+![Final exe](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image21.png)
+*Figure 8: The deobfuscated malicious executable payload.*
+The [Zscaler Cloud Sandbox](/products/sandboxing) detected this malicious executable and blocked it from reaching the end user.
+Below is the report for this executable payload when it was directly submitted to the Zscaler Cloud Sandbox.
+![sandbox_report](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image19.png)
+*Figure 9: The Zscaler Cloud Sandbox report for the malware payload.*
+### **Malicious redirectors**
+We also observed domains associated with fake digital election campaign platforms, which were serving malicious redirects.
+The URL seen was “*digitalelectioncampaign[.]com/secure/accounts/secur/list/jtgcwqhnepg2sh7r/”.*
+When we reviewed the homepage of the website, we discovered that the site makes use of stock photos in the public speaker section trying to mislead visitors.
+The domain involved is known to have a bad reputation for being associated with malicious activity.
+![Election Campaign page](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/2020-10-14%2015_30_23-.png)
+*Figure 10: A fake digital election campaign homepage.*
+![speaker page](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/2020-10-14%2015_30_57-Ubuntu%20-%20VMware%20Workstation.png)
+*Figure 11: Stock photos are used on the homepage to mislead visitors into believing that they are legitimate candidates.*
+We also found malicious JavaScript redirects being loaded by the domain.
+![Malicious JavaScript Redirects](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/2020-10-21%2012_30_33-Ubuntu%20-%20VMware%20Workstation.png)
+*Figure 12: The malicious JavaScript redirect served by the domain.*
+The redirected domain is malicious in nature and is found to serve trojan, adware, and malicious APK files.
+**Keywords in domain names**
+----------------------------
+We also observed attempts to register typo-squatting domains of political campaigns.
+Users should be aware that just because a site may bear the name of a candidate, it doesn’t necessarily mean it is legitimate.
+Being mindful of the candidate’s actual main page will give voters the better idea of their platform and message.
+We have also noticed that attackers selling illegal credit card data and bank credentials are utilizing election trend keywords for their nefarious purposes.
+For instance, we have seen the domain *trump-dumps[.]cn* claiming to sell stolen credit card numbers and login credentials for banks.
+![whois info](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image20.png)
+*Figure 13: Whois information of “trump-dumps.cn”*
+![CC selling website](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image25.png)
+*Figure 14: The login page of trump-dumps[.]cn.*
+![stolen info](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image7.png)
+*Figure 15: The homepage of trump-dumps[.]cn with links to various types of stolen data dumps.*
+There are also domains registered by scammers to mislead benign users to serve scam pages for monetary gain.
+In one instance, we found “*voterlist[.]info*” domain redirecting the users to fake Microsoft tech support pages.
+![Voterlist whois](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image12.png)
+*Figure 16: Whois information for voterlist[.]info.*
+The domain redirecting users to fake Microsoft tech support scams websites.
+It uses JavaScript to capture mouse controls and trick users into believing their machines are infected.
+![packet capture](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image5.png)
+*Figure 17: The redirection chain of voter-list[.]info, leading to tech support scam page.*
+![Tech support scam](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image10.png)
+*Figure 18: The voterlist[.]info serving fake tech support scam page.*
+**Newly registered domains**
+----------------------------
+Threat actors and scammers have always taken advantage of recent trends by registering domains based on the latest keyword trends.
+As the 2020 presidential election is one of the top trending events, The ThreatLabZ team has been actively monitoring newly registered domains (NRDs) based on election trends and keywords for the past three months.
+![NRD domains registered](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image22.png)
+*Figure 19: The NRD count seen during the past 10 weeks based on election-related keywords.*
+Here is the list of a few of the election keywords and/or their variations that we monitored against NRDs.
+![keywords](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image9.png)
+*Figure 20: The list of monitored election keywords (found in NRDs).*
+We also looked at the type of content served by these NRDs.
+![content distribution](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image23.png)
+*Figure 21: The type of content served by election-related NRDs*
+Let's take a closer look at each of these:
+* Valid: We noticed that a good section of the NRDs serving valid content are related to selling merchandise for specific election campaigns.
+* Parked: We noticed that a significant percentage of the NRDs are currently parked (that means being held for later use).
+* Invalid: Domains that do not resolve to any IP address.
+* Open directories
+As we analyzed some of these live websites, there were several instances of suspicious or malicious content being hosted on these election-related NRDs.
+We will take a look at some of the recent examples.
+**Fake Surveys**
+We observed instances of fake polling surveys targeted around presidential candidates.
+These are usually amateur polls or polls designed to redirect users to unofficial merchandise websites once the user chooses an option.
+Below we can see one such amateur polling site, which was hosted on a vulnerable server containing open directory and outdated software.
+![Fake Poll Survey](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/2020-10-13%2012_25_33-Ubuntu%20-%20VMware%20Workstation.png)
+*Figure 22: A fake polling website.*
+While the site appears to be legitimate, the hosting infrastructure has been repeatedly flagged for hosting phishing pages (most recently, a Costco phishing campaign).
+Another trick that scammers use to lure users to their fake merchandise websites is by publishing ads on Google search results and claiming to be the official websites.
+![Suspicious Shopping Websites](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/google_search_result.png)
+*Figure 23: A Google search result for candidate's merchandise website.*
+![Biden Merchandise unofficial website](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/homepage.png)
+*Figure 24: An inactive suspicious merchandise website.*
+![Biden Merchandise Products page](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/productspage.png)
+*Figure 25: An inactive merchandise website.*
+On reviewing the site, we see that it is suspicious in nature.
+We see the logo design has mistakes and the most recent visit to the website showed that the website is down and inactive.
+We also observed some disinformation campaigns targeting presidential candidates.
+![disinformation](/cdn-cgi/image/format=auto/sites/default/files/images/blogs/Election_Blog_2020/image2.png)
+*Figure 26: Websites promoting unverified information and parody websites.*
+Everyone should be careful to validate all sites they visit and only use information from official sources.
+**Conclusion**
+--------------
+The Zscaler ThreatLabZ team is actively monitoring these campaigns to ensure coverage for Zscaler customers.
+We recommend that users take extra care in the sites they visit and, in particular, use caution when clicking links or opening email messages from untrusted sources.
+Here are a few official voting sites you can visit, as well as tips for safe internet searching.
+* Visit <https://www.usa.gov/how-to-vote> for information on how you can vote.
++ Visit <https://www.usa.gov/election-office> for more information about your state’s election office if you have questions.
+* Verify the authenticity of a URL or website before accessing it.
+Be wary of links with typos.
+* Check for HTTPS/secure connections when visiting official websites.
+All legitimate candidates and donation portals use HTTPS connections for their transactions.
+* Don't click links or open documents from unknown parties.
+* Avoid visiting URL-shortened links.
+* Ensure that your operating system and web browser are up to date and have the latest security patches installed.
+* Avoid using public or unsecured Wi-Fi connections if any voting registration information is to be exchanged online.
+* Don’t trust e-mails asking for voter registration details.
+The election office will always mail ballot information to your address.
+It will contain instructions to receive information electronically if available.
+* Never provide personally identifying information to any SMS, e-mail, or website asking for voter information.
+* If you have questions about specific issues that will be on your county ballot, you can visit <https://www.vote411.org/> and get a Voter Guide.
+* Monitor US-Cert for information about ongoing attempts to fraud voters: <https://us-cert.cisa.gov/ncas/current-activity/2020/09/10/cisa-insights-email-based-attacks-elections-related-entities>
+* [Report](https://www.ftccomplaintassistant.gov/#crnt&panel1-4) incidents to the FTC.

@@ -1,0 +1,87 @@
+Highlights from the CyberRisk Alliance Business Intelligence Report: Addressing the Cybersecurity Perils of Work from Home
+November 18, 2020
+We know that the world has changed in the wake of the COVID-19 pandemic and those changes have fundamentally [altered work for many people](https://www.proofpoint.com/us/blog/cybersecurity-essentials/proofpoint-security-tools-remote-teams-help-protect-your-people-during).
+These changes also present new concerns and priorities for IT leaders.
+Proofpoint recently underwrote a report by the CyberRisk Alliance (CRA), [“The Paradigm Shifts: Addressing the Cybersecurity Perils of Work from Home,”](https://www.proofpoint.com/us/resources/white-papers/securing-remote-work) to better understand the cybersecurity risks and priorities of the remote working world.
+This report is based on the results of a custom online survey done in August 2020 by CyberRisk Alliance Business Intelligence.
+There were 433 IT, cybersecurity, and business professionals who responded with 200 in the U.S., 78 in the U.K., 77 in France, and 78 in Germany.
+This study helps make concrete what many have suspected or known anecdotally.
+Most importantly, it provides one of the first concrete pictures of what lies ahead for cybersecurity in a post-pandemic world.
+This information is key to enabling IT leaders to make more effective planning decisions as we gear up for 2021 and beyond.
+### **How the Pandemic Has Changed Work**
+Around March 2020, the pandemic and responses to it brought a huge, sudden shift in work around the world as companies were faced with a stark decision: shift to remote work or close entirely.
+This necessary response meant that collectively the world launched the largest, most spontaneous work at home pilot program in history.
+How radical a change has this been.
+[The report shows](https://www.proofpoint.com/us/resources/white-papers/securing-remote-work) that before the pandemic, 80% of respondents said that 20% or less of their employees worked from home with 14% of respondents saying that 0% worked from home.
+After the pandemic, 92% of respondents said that 21% or more of their employees worked from home, with 23% saying that 80%-100% worked from home.
+Also notable is that 0% said that 0% worked from home.
+In other words, the world of remote work flipped on its head—from the notable exception to the norm.
+This report also gives a hint of what a post-pandemic world might look like.
+54% of those surveyed said they expect to have a permanent work from home workforce six months from now.
+Ten percent said they already made some of those arrangements permanent.
+While the current remote working environment likely won’t last once this pandemic is passed, it would be a mistake to assume that the post-pandemic world will be simply a return to the pre-pandemic world.
+This report gives a concrete sign of that direction: IT leaders should plan for a permanent work from home shift.
+### **IT Leaders’ Changed Focus in the Pandemic**
+As work environments shifted so too did IT leaders’ priorities.
+The vast majority, 88%, of respondents said that they were very or extremely focused on the [security for work from home employees](https://www.proofpoint.com/us/solutions/remote-working-and-business-continuity-solutions).
+Driving that focus is the fact that, nearly the same number, 87% of respondents, said that work from home is a moderate, or high/very high risk to their organization.
+In addition, 76% see increased risk exposure to their organization due to work from home.
+These statistics tell us that IT leaders view this new, changed work from home world as one that has opened up moderate or high risks that are commanding their attention and changing their focus.
+### **Understanding the Components of Increased Risk**
+The report also provides a view into what IT leaders attribute these increased risks.
+Respondents were asked to rank their top three threats.
+In both the United States and Europe, [malware](https://www.proofpoint.com/us/threat-reference/malware) and [insecure employee-owned home infrastructure devices](https://www.proofpoint.com/us/blog/cybersecurity-essentials/proofpoint-joins-forces-protect-it-workers-home) were the top two big concerns.
+Interestingly, respondents in Europe and the United States diverged in their third top threat.
+In the United States, respondents said they saw [phishing](https://www.proofpoint.com/us/threat-reference/phishing) while in Europe they saw [Insecure employees’ personal clouds](https://www.proofpoint.com/us/corporate-blog/post/cybersecurity-education-series-is-the-cloud-secure) as the third top threat while each saw the other as the fourth top threat.
+This is potentially attributable to a greater focus on data privacy in Europe, particularly in light of the penalties around data loss and misuse in the European Union’s [General Data Protection Regulation (GDPR)](https://www.proofpoint.com/us/glossary/gdpr).
+### **IT Leaders’ Priorities to Meet Increased Risk**
+The report goes on to ask IT leader respondents about their top priorities.
+This is where IT leaders translate their more abstract concerns into practical execution and here we can see that while security is top of mind for IT Leaders, it still has to compete with other concerns.
+One thing that’s interesting is that a very different picture emerges from respondents in the United States and Europe.
+For IT leaders in the United States, their top priorities were:
+1. Preventing phishing attempts and malware intrusions.
+2. (Tie) Providing access to an organization’s applications and Providing VPN/network access.
+3. Monitoring suspicious end-user behavior
+4. (Tie) Educating employees about IT security and Providing data access.
+In Europe, however, their top priories were:
+1. Providing data access.
+2. Preventing phishing attempts and malware intrusions.
+3. Providing data access.
+4. Providing access to an organization’s applications.
+5. Educating employees about IT security.
+In Europe, monitoring suspicious end-user behavior is the next to last priority likely reflecting the different perspectives in Europe around data privacy and protection.
+### **IT Leaders’ Top Challenges**
+IT Leaders were asked to rank how challenging actions are to enable or support the new work from home reality.
+In both the United States and Europe IT Leaders said that monitoring or enforcing risky end-user behavior was their top challenge with respondents in Europe citing [isolating web traffic to prevent malware infection](https://www.proofpoint.com/us/products/advanced-threat-protection/browser-isolation) and in the United States citing securing cloud application data as their second greatest challenge.
+These top challenges show that IT leaders feel that applying countermeasures to some of their most significant risks are also their greatest challenges.
+### **Most Widely Implemented Steps**
+Next respondents were asked what steps they’ve taken in the past five months to meet these challenges.
+This serves as a measure of the actual actions already taken by IT leaders and can reflect not only their perceived risks and priorities but also what they felt they could successfully accomplish most quickly.
+To that end it’s most notable that user education is by far the top response in both the United States and Europe, outpacing the second top response in both regions by fifteen percent or more.
+The second top implemented step in both regions reflects steps taken to secure network, application and data access, with respondents in the United States focusing on setting up multifactor authentication (MFA) while their European counterparts focused on setting up a VPN for employees.
+Interestingly, while setting up a VPN was the third top priority for respondents in the United States, MFA actually ranked fifth in Europe, coming after banning employees from using specific applications and transitioning critical applications to the cloud.
+### **Looking Forward: Six Month Planning and Top Objectives**
+After looking at what respondents have accomplished, they were next asked what their plans for the next six months are and their top objectives relating to the shift to work from home.
+Digital transformation and business continuity programs tied for the most likely programs, with 93% of respondents saying they were likely in some way to pursue these programs.
+Overall digital transformation was the most likely with 25% saying they’ve already implemented it and over half saying it was very or extremely likely.
+Business continuity programs have already been implemented by 22% of respondents and 47% said it was very or extremely likely.
+After these programs, implementing a zero trust framework was the next most likely to be implemented with 13% saying they’ve already implemented it and 43% saying it was very or extremely likely.
+Permanently implementing work from home is something that only 19% said was not likely, 10% have already implemented, and the remaining 71% saying it was likely.
+In light of these plans it makes sense that the top four objectives for respondents include business continuity and providing work from home employees with the same level of security and access as onsite employees.
+### **Looking Ahead for Your Own Planning**
+The benefit of this comprehensive report is that it gives a real-world view of what’s actually happened in response to the pandemic and how IT leaders have adjusted and what some of their future planning looks like.
+In closing, this report makes extrapolations that can be used to guide your own future planning.
+First, consider that work from home in some fashion is here to stay.
+We’ve seen how work from home became the new norm and that respondents are already expecting and adapting to the reality that it’s going to be around even once the pandemic has passed.
+Second, look to solutions that can mitigate the top threats of phishing and malware, including ransomware.
+These were clearly identified as top risks by respondents and we can see how respondents are taking steps to mitigate these threats.
+Third, implement isolation technologies for those working from home.
+This can help speak to the risk that respondents identified around insecure home network infrastructure.
+Fourth, look at remote access solutions that are not just secure but usable and provide scalability for future situations.
+Fifth, educate employees on risky behavior.
+As we’ve seen, this is the top step respondents have already taken.
+Finally, take steps to focus on network resiliency so that when bad things do happen, the impact is mitigated.
+This cyber resiliency action is one of the top four objectives of respondents’ outlines.
+### **Learn More**
+To dig deeper into these themes and data, [get your copy of the report here](https://www.proofpoint.com/us/resources/white-papers/securing-remote-work).
+And to find out how Proofpoint is helping protect companies from remote working risks like these, [visit us here](https://www.proofpoint.com/us/solutions/remote-working-and-business-continuity-solutions).
