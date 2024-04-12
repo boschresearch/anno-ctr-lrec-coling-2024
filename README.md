@@ -12,7 +12,7 @@ This repository contains the companion material for the following publication:
 
 Please cite this paper if using the dataset or the code, and direct any questions to [Lukas Lange](mailto:lukas.lange@de.bosch.com).
 The paper can be found at the [ACL Anthology (tbd.)](https://www.aclweb.org/anthology/TODO/) or at
-[ArXiv (tbd.)](https://arxiv.org/abs/TODO).
+[ArXiv](https://arxiv.org/abs/2404.07765).
 
 
 ## Purpose of this Software 
